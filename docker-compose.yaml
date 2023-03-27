@@ -1,14 +1,19 @@
-# volumes:
+volumes:  # newly added
+  scrumptious-mongo-data:
+    external: true
+
 services:
   fastapi:
     build:
-      context: sample_service
+      context: scrumptious_service
       dockerfile: Dockerfile.dev
     ports:
       - 8000:8000
     volumes:
-      - ./sample_service:/app
-      
+      - ./scrumptious_service:/app
+    environment:  # newly added
+      MONGO_URL: mongodb://admin_user:admin_password@mongo
+
   ghi:
     image: node:lts-bullseye
     command: /bin/bash run.sh
@@ -22,5 +27,28 @@ services:
       NODE_ENV: development
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
-      REACT_APP_SAMPLE_SERVICE_API_HOST: http://localhost:8000
-            
+      REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST: http://localhost:8000
+
+  mongo:  # newly added
+    image: mongo:6
+    volumes:
+      - scrumptious-mongo-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin_user
+      MONGO_INITDB_ROOT_PASSWORD: admin_password
+
+  mongo-express:  # newly added
+    build:
+      context: setup/mongo-express
+      dockerfile: Dockerfile.dev
+    depends_on:
+      - mongo
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin_user
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin_password
+      WAIT_HOSTS: mongo:27017
+      WAIT_BEFORE: 5
+      WAIT_TIMEOUT: 60
