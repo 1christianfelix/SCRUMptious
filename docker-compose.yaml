@@ -13,6 +13,8 @@ services:
       - ./scrumptious_service:/app
     environment:  # newly added
       MONGO_URL: mongodb://admin_user:admin_password@mongo
+      DATABASE_NAME: scrumptious-mongo-data
+      WAIT_HOSTS: mongo:27017
 
   ghi:
     image: node:lts-bullseye
