@@ -53,3 +53,5 @@ class UserQueries:
             return True
         else:
             return False
+
+#if result.deletecount > 1
