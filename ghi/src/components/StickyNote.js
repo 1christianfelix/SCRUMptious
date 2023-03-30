@@ -5,10 +5,14 @@ import expand_icon from "../images/icons/expand_icon.svg";
 const StickyNote = (props) => {
   //mimicking API response with props for display
   let category = props.category;
+  let priority = null;
+  let subject = null;
+  let start = null;
+  let deadline = null;
+  let content = props.content;
+
   let headerColor = null;
   let bodyColor = null;
-
-  let content = props.content;
 
   switch (category) {
     case "Backlog":

@@ -8,6 +8,10 @@ const StickyBoardCard = (props) => {
   let content = props.content;
   let priority = props.priority;
   let gradient = null;
+  let boardName = null;
+  let start = null;
+  let deadline = null;
+  let members = 0;
   // color switches based on priority
   switch (priority) {
     case "Low":
