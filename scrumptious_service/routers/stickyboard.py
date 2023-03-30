@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from queries.stickyboard import StickyBoard, StickyBoardQueries
-from queries.pool import db
+
 
 router = APIRouter()
 

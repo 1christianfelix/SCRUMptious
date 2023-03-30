@@ -15,21 +15,8 @@ class Sticky(BaseModel):
     status: str
     startDate: datetime
     deadline: datetime
-    user: str
     stickyBoard: str
-
-
-class StickyUpdate(BaseModel):
-    subject: Optional[str]
-    content: Optional[str]
-    priority: Optional[int]
-    status: Optional[str]
-    startDate: Optional[datetime]
-    deadline: Optional[datetime]
-    user: Optional[str]
-    stickyboard: Optional[str]
-
-
+    user: list[str] 
 
 
 class StickyQueries:

@@ -1,12 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
-from routers import sticky, stickyboard  # newly added
+from routers import sticky, stickyboard, user  # newly added
 
 
 app = FastAPI()
 app.include_router(sticky.router)  # newly added
 app.include_router(stickyboard.router)  # newly added
+app.include_router(user.router)  # newly added
 
 
 app.add_middleware(

@@ -13,15 +13,8 @@ class StickyBoard(BaseModel):
     priority: int
     startDate: datetime
     deadline: datetime
-    user: Optional[str]
+    user: list[str] 
 
-
-class StickyBoardUpdate(BaseModel):
-    boardName: Optional[str]
-    priority: Optional[int]
-    startDate: Optional[datetime]
-    deadline: Optional[datetime]
-    user: Optional[str]
 
 
 class StickyBoardQueries:
