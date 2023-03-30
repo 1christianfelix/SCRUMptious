@@ -11,14 +11,20 @@ const StickyNote = () => {
           <div className="bg-white h-[22px] w-[86px] flex items-center justify-center drop-shadow-sticky">
             <span>Priority</span>
           </div>
-          <div className="flex flex-col">
-            <span>Date</span>
-            <span>Date</span>
+          <div className="flex flex-col ">
+            <div className="flex justify-between">
+              <span className="mr-1">Start:</span>
+              <span>DATE</span>
+            </div>
+            <div>
+              <span>Deadline:</span>
+              <span>DATE</span>
+            </div>
           </div>
         </div>
         <div className="STICKY_BODY w-[15.7275rem] h-[12.785625rem] rounded-b-[19px] bg-sticky_red flex flex-col">
           <span className="inline-block m-[1rem] text-3xl">Subject</span>
-          <div className="text-center text-lg w-auto flex-grow overflow-hidden">
+          <div className="text-center text-lg w-auto flex-grow overflow-y-scroll">
             {/* Need to figure out how much text is being displayed */}
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, Lorem
