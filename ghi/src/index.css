@@ -22,7 +22,7 @@
   }
 
   .scrollbar-card {
-    @apply scrollbar scrollbar-thumb-gray-900 scrollbar-track-transparent scrollbar-w-[.5rem] scrollbar-thumb-rounded-lg;
+    @apply scrollbar scrollbar-thumb-gray-900 scrollbar-track-transparent scrollbar-w-[.3rem] scrollbar-thumb-rounded-lg;
   }
 }
 

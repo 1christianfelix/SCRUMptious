@@ -3,9 +3,12 @@ import expand_icon from "../images/icons/expand_icon.svg";
 
 // need to figure out easier widths and heights
 const StickyNote = (props) => {
+  //mimicking API response with props for display
   let category = props.category;
   let headerColor = null;
   let bodyColor = null;
+
+  let content = props.content;
 
   switch (category) {
     case "Backlog":
@@ -58,12 +61,7 @@ const StickyNote = (props) => {
         >
           <span className="inline-block m-[1rem] mx-5 text-3xl">Subject</span>
           <div className="flex-grow flex flex-col text-sm overflow-auto mx-5 scrollbar-card">
-            <p className="">
-              Description TEST TEST TES TEST ETST ETST EST ESTEST EST EST
-              Description TEST TEST TES TEST ETST ETST EST ESTEST EST EST
-              Description TEST TEST TES TEST ETST ETST EST ESTEST EST EST
-              Description TEST TEST TES TEST ETST ETST EST ESTEST EST EST
-            </p>
+            <p className="">{content}</p>
           </div>
           <img src={expand_icon} className="m-[.7rem] self-end expand-button" />
         </div>
