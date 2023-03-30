@@ -20,6 +20,10 @@
   .expand-button {
     @apply transition-all duration-200 ease-in-out hover:scale-[115%] hover:cursor-pointer;
   }
+
+  .scrollbar-card {
+    @apply scrollbar scrollbar-thumb-gray-900 scrollbar-track-transparent scrollbar-w-[.5rem] scrollbar-thumb-rounded-lg;
+  }
 }
 
 body {

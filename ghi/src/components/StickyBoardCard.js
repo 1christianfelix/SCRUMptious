@@ -8,7 +8,10 @@ const StickyBoardCard = () => {
         <div className="PRIORITY_BOX bg-white h-[22px] w-[86px] flex items-center justify-center drop-shadow-sticky">
           <span>Priority</span>
         </div>
-        <div className="MEMBERS_COUNT">Members:</div>
+        <div className="MEMBERS_COUNT flex">
+          <span className="mr-2">Members:</span>
+          <span className="flex-grow">###</span>
+        </div>
       </div>
       <div className="BODY h-[75%] mx-5 flex flex-col">
         <span className="inline-block text-xl font-semibold">
@@ -24,8 +27,11 @@ const StickyBoardCard = () => {
             <span>DATE</span>
           </div>
         </div>
-        <div className="flex-grow flex flex-col text-sm overflow-auto px-2">
+        <div className="flex-grow flex flex-col text-sm overflow-auto px-2 scrollbar-card">
           <p className="">
+            Description TEST TEST TES TEST ETST ETST EST ESTEST EST EST
+            Description TEST TEST TES TEST ETST ETST EST ESTEST EST EST
+            Description TEST TEST TES TEST ETST ETST EST ESTEST EST EST
             Description TEST TEST TES TEST ETST ETST EST ESTEST EST EST
           </p>
         </div>

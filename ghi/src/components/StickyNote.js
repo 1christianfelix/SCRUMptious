@@ -6,8 +6,8 @@ import expand_icon from "../images/icons/expand_icon.svg";
 const StickyNote = () => {
   return (
     <div className="relative">
-      <div className="STICKY overflow-hidden drop-shadow-sticky">
-        <div className="STICKY_HEADER w-[15.7275rem] h-[3.75625rem] bg-sticky_red_header rounded-t-[19px] flex justify-between items-center p-5">
+      <div className="STICKY w-[15.7275rem] h-[16.53625rem] overflow-hidden drop-shadow-sticky">
+        <div className="STICKY_HEADER  h-[22%] bg-sticky_red_header rounded-t-[19px] flex justify-between items-center px-5">
           <div className="bg-white h-[22px] w-[86px] flex items-center justify-center drop-shadow-sticky">
             <span>Priority</span>
           </div>
@@ -22,11 +22,15 @@ const StickyNote = () => {
             </div>
           </div>
         </div>
-        <div className="STICKY_BODY w-[15.7275rem] h-[12.785625rem] rounded-b-[19px] bg-sticky_red flex flex-col text-dark_mode_text_white">
-          <span className="inline-block m-[1rem] text-3xl">Subject</span>
-          <div className="text-sm flex-grow px-2 overflow-auto">
-            {/* Need to figure out how much text is being displayed */}
-            <p>Description TEST TEST TES TEST ETST ETST EST ESTEST EST EST</p>
+        <div className="STICKY_BODY  h-[78%] rounded-b-[19px] bg-sticky_red flex flex-col text-dark_mode_text_white">
+          <span className="inline-block m-[1rem] mx-5 text-3xl">Subject</span>
+          <div className="flex-grow flex flex-col text-sm overflow-auto mx-5 scrollbar-card">
+            <p className="">
+              Description TEST TEST TES TEST ETST ETST EST ESTEST EST EST
+              Description TEST TEST TES TEST ETST ETST EST ESTEST EST EST
+              Description TEST TEST TES TEST ETST ETST EST ESTEST EST EST
+              Description TEST TEST TES TEST ETST ETST EST ESTEST EST EST
+            </p>
           </div>
           <img src={expand_icon} className="m-[.7rem] self-end expand-button" />
         </div>
