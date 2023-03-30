@@ -1,11 +1,9 @@
 from fastapi import APIRouter, Depends
 from queries.sticky import Sticky, StickyQueries
-from queries.pool import db
 
 
 
 router = APIRouter()
-
 
 
 @router.post("/sticky")

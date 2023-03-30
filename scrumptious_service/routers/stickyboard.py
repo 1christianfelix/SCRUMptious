@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from queries.stickyboard import StickyBoard, StickyBoardQueries
-from queries.pool import db
+
 
 router = APIRouter()
 
@@ -35,6 +35,7 @@ def udpate_stickyboard(
 
 @router.delete("/stickyboard/{stickyboard_id}")
 def delete_stickyboard(
-    stickyboard_id: str, queries: StickyBoardQueries = Depends()
+    stickyboard_id: str,
+    queries: StickyBoardQueries = Depends()
 ):
     return queries.delete_stickyboard(stickyboard_id)

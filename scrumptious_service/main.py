@@ -9,6 +9,7 @@ app.include_router(sticky.router)  # newly added
 app.include_router(stickyboard.router)  # newly added
 
 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
