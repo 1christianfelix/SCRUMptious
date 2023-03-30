@@ -1,4 +1,5 @@
 import React from "react";
+import garbage from "../images/icons/garbage.svg";
 
 const StickyBoardCard = () => {
   return (
@@ -23,17 +24,16 @@ const StickyBoardCard = () => {
             <span>DATE</span>
           </div>
         </div>
-        <div className="flex-grow flex flex-col text-sm overflow-y-scroll px-2">
+        <div className="flex-grow flex flex-col text-sm overflow-auto px-2">
           <p className="">
-            Description TEST TEST TES TEST ETST ETST EST ESTEST EST EST
-            Description TEST TEST TES TEST ETST ETST EST ESTEST EST
-            ESTDescription TEST TEST TES TEST ETST ETST EST ESTEST EST EST
             Description TEST TEST TES TEST ETST ETST EST ESTEST EST EST
           </p>
         </div>
         <div className="BUTTONS flex justify-between py-3">
-          <span>Delete</span>
-          <span>Edit</span>
+          <img src={garbage} className="self-end expand-button" />
+          <button className="button-hover-white-filled px-[.7rem] py-[.1rem] bg-white rounded-[19px]">
+            <span>Edit Board</span>
+          </button>
         </div>
       </div>
     </div>

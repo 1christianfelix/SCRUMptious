@@ -7,7 +7,7 @@ const Dashboard = () => {
   return (
     <section className="flex-grow bg-dark_mode_medium">
       <StickyBoardCard></StickyBoardCard>
-      {/* <StickyNote></StickyNote> */}
+      <StickyNote></StickyNote>
       <DashboardInitial></DashboardInitial>
     </section>
   );

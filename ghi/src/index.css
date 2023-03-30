@@ -8,8 +8,11 @@
 }
 
 @layer components {
-  .button-hover {
-    @apply p-3 border-solid border-button border-dark_mode_text_white rounded-button transition-all duration-200 ease-in-out hover:bg-dark_mode_button_hover;
+  .button-hover-white-outline {
+    @apply border-dark_mode_text_white transition-all duration-200 ease-in-out hover:bg-dark_mode_button_hover;
+  }
+  .button-hover-white-filled {
+    @apply border-dark_mode_text_white transition-all duration-200 ease-in-out hover:bg-dark_mode_button_hover;
   }
   .nav-button {
     @apply w-[100%] flex gap-2 pl-[10%] hover:text-white drop-shadow-xl transition-all duration-200 ease-in-out hover:bg-dark_mode_button_hover;

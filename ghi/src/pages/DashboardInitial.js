@@ -9,11 +9,13 @@ const DashboardInitial = () => {
         <p className="hidden">You are not addigned to any Sticky Boards</p>
       </div>
       <div className="flex gap-5">
-        <button className="button-hover">
+        <button className="p-3 border-solid border-button rounded-button button-hover-white-outline">
           <span className="">Start a Sticky Board</span>
         </button>
         {/* Joining a board is Streth Goals */}
-        <button className="button-hover">Join a Sticky Board</button>
+        <button className="p-3 border-solid border-button rounded-button button-hover-white-outline">
+          Join a Sticky Board
+        </button>
       </div>
     </div>
   );

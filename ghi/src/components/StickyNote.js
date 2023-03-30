@@ -22,14 +22,11 @@ const StickyNote = () => {
             </div>
           </div>
         </div>
-        <div className="STICKY_BODY w-[15.7275rem] h-[12.785625rem] rounded-b-[19px] bg-sticky_red flex flex-col">
+        <div className="STICKY_BODY w-[15.7275rem] h-[12.785625rem] rounded-b-[19px] bg-sticky_red flex flex-col text-dark_mode_text_white">
           <span className="inline-block m-[1rem] text-3xl">Subject</span>
-          <div className="text-center text-lg w-auto flex-grow overflow-y-scroll">
+          <div className="text-sm flex-grow px-2 overflow-auto">
             {/* Need to figure out how much text is being displayed */}
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum
-            </p>
+            <p>Description TEST TEST TES TEST ETST ETST EST ESTEST EST EST</p>
           </div>
           <img src={expand_icon} className="m-[.7rem] self-end expand-button" />
         </div>
