@@ -1,4 +1,4 @@
-volumes:  # newly added
+volumes:  
   scrumptious-mongo-data:
     external: true
 
@@ -11,7 +11,7 @@ services:
       - 8000:8000
     volumes:
       - ./scrumptious_service:/app
-    environment:  # newly added
+    environment:
       MONGO_URL: mongodb://admin_user:admin_password@mongo
       DATABASE_NAME: scrumptious-mongo-data
       WAIT_HOSTS: mongo:27017
@@ -31,7 +31,7 @@ services:
       PUBLIC_URL: http://localhost:3000
       REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST: http://localhost:8000
 
-  mongo:  # newly added
+  mongo:
     image: mongo:6
     volumes:
       - scrumptious-mongo-data:/data/db
@@ -39,7 +39,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: admin_user
       MONGO_INITDB_ROOT_PASSWORD: admin_password
 
-  mongo-express:  # newly added
+  mongo-express:
     build:
       context: setup/mongo-express
       dockerfile: Dockerfile.dev
