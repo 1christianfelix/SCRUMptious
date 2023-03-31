@@ -1,7 +1,7 @@
 from typing import Optional
 from pydantic import BaseModel
 from datetime import datetime
-
+from queries.pool import db
 
 collection = db["StickyBoard"]
 
@@ -44,7 +44,7 @@ class StickyBoardQueries:
             return results
 
     def get_stickyboard_stickies(self, stickyboard_id):
-        results = list(db["Sticky"].find({"stickyboard": stickyboard_id}))
+        results = list(collection.find({"stickyboard": stickyboard_id}))
         for result in results:
             result["id"] = str(result["_id"])
             del result["_id"]
