@@ -31,8 +31,8 @@ def update_user(user_id: str, user: User):
     updated_user = user_queries.update_user(user_id, user)
     if updated_user:
         return updated_user
-    else:
-        raise HTTPException(status_code=404, detail="User not found")
+    # else:
+    #     raise HTTPException(status_code=404, detail="User not found")
 
 #delete fools
 # @router.delete("/user/{user_id}")
