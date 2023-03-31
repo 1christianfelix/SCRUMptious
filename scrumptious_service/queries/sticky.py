@@ -2,6 +2,7 @@ from typing import Optional
 from pydantic import BaseModel
 from datetime import datetime
 from queries.pool import db
+from bson import ObjectId
 
 
 collection = db["Sticky"]
@@ -14,26 +15,13 @@ class Sticky(BaseModel):
     status: str
     startDate: datetime
     deadline: datetime
-    user: str
     stickyBoard: str
-
-
-class StickyUpdate(BaseModel):
-    subject: Optional[str]
-    content: Optional[str]
-    priority: Optional[int]
-    status: Optional[str]
-    startDate: Optional[datetime]
-    deadline: Optional[datetime]
-    user: Optional[str]
-    stickyboard: Optional[str]
-
-
+    user: list[str] 
 
 
 class StickyQueries:
     def get_sticky_by_id(self, sticky_id):
-        result = collection.find_one({"_id": sticky_id})
+        result = collection.find_one({"_id": ObjectId(sticky_id)})
         if result:
             result["id"] = str(result["_id"])
             del result["_id"]
