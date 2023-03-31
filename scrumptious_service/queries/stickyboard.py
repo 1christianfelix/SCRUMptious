@@ -13,7 +13,7 @@ class StickyBoard(BaseModel):
     priority: int
     startDate: datetime
     deadline: datetime
-    user: list[str] 
+    user: list[str]
 
 
 
