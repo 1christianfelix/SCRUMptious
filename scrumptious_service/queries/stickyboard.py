@@ -1,4 +1,3 @@
-from typing import Optional
 from pydantic import BaseModel
 from datetime import datetime
 from queries.pool import db
@@ -14,7 +13,7 @@ class StickyBoard(BaseModel):
     priority: int
     startDate: datetime
     deadline: datetime
-    user: Optional[str]
+    user: list[str]
 
 
 
