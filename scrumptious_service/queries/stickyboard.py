@@ -5,6 +5,7 @@ from queries.pool import db
 from bson import ObjectId
 
 
+
 collection = db["StickyBoard"]
 
 
