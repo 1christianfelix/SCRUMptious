@@ -3,8 +3,7 @@ from pydantic import BaseModel
 from datetime import datetime
 from queries.pool import db
 from bson import ObjectId
-from queries.pool import db
-from bson import ObjectId
+
 
 
 collection = db["StickyBoard"]
@@ -15,7 +14,7 @@ class StickyBoard(BaseModel):
     priority: int
     startDate: datetime
     deadline: datetime
-    user: Optional[str]
+    user: list[str]
 
 
 
