@@ -2,42 +2,42 @@ import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-function StickyBoardCreateForm({getAppointmentsData, technicians}) {
-  const [customerName, setCustomerName] = useState('');
-  const [vin, setVIN] = useState('');
-  const [reason, setReason] = useState('');
-  const [datetime, setDatetime] = useState('');
-  const [technician, setTechnician] = useState('');
-  const handleCustomerNameChange = (event) => {
+function StickyBoardCreateForm() {
+  const [boardName, setBoardName] = useState('');
+  const [priority, setPriority] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [deadline, setDeadline] = useState('');
+  const [user, setUser] = useState([]);
+  const handleBoardNameChange = (event) => {
     const value = event.target.value;
-    setCustomerName(value);
+    setBoardName(value);
   }
-  const handleVINChange = (event) => {
+  const handlePriorityChange = (event) => {
     const value = event.target.value;
-    setVIN(value);
+    setPriority(value);
   }
-  const handleReasonChange = (event) => {
+  const handleStartDateChange = (event) => {
     const value = event.target.value;
-    setReason(value);
+    setStartDate(value);
   }
-  const handleDatetimeChange = (event) => {
+  const handleDeadlineChange = (event) => {
     const value = event.target.value;
-    setDatetime(value);
+    setDeadline(value);
   }
-  const handleTechnicianChange = (event) => {
+  const handleUserChange = (event) => {
     const value = event.target.value;
-    setTechnician(value);
+    setUser(value);
   }
   const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = {};
-    data.customer_name = customerName;
-    data.vin = vin;
-    data.reason = reason;
-    data.datetime = datetime;
-    data.technician = technician;
-    const url = "http://localhost:8080/api/appointments/";
+    data.boardName = boardName;
+    data.priority = priority;
+    data.startDate = startDate;
+    data.deadline = deadline;
+    data.user = user;
+    const url = "http://localhost:8080/api/stickyboard/";
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),
