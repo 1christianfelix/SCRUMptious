@@ -3,6 +3,8 @@ from pydantic import BaseModel
 from datetime import datetime
 from queries.pool import db
 from bson import ObjectId
+from queries.pool import db
+from bson import ObjectId
 
 
 collection = db["StickyBoard"]
@@ -13,7 +15,7 @@ class StickyBoard(BaseModel):
     priority: int
     startDate: datetime
     deadline: datetime
-    user: list[str] 
+    user: Optional[str]
 
 
 
@@ -50,6 +52,6 @@ class StickyBoardQueries:
         pass
 
     def delete_stickyboard(self, stickyboard_id):
-        result = collection.delete_one({"_id": ObjectId(stickyboard_id)})
+        result = collection.delete_one({"_id": stickyboard_id})
         if result:
             return True
