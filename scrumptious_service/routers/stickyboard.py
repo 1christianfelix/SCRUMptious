@@ -25,7 +25,7 @@ def get_stickyboard_stickies(
 
 
 @router.put("/stickyboard/{stickyboard_id}")
-def udpate_stickyboard(
+def update_stickyboard(
     stickyboard_id: str,
     stickyboard: StickyBoard,
     queries: StickyBoardQueries = Depends(),
