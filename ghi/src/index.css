@@ -1,13 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Sudo-Var";
+  src: url("../public/fonts/SudoVariable.ttf");
+}
+
+@layer components {
+  .button-hover-white-outline {
+    @apply border-dark_mode_text_white transition-all duration-200 ease-in-out hover:bg-dark_mode_button_hover;
+  }
+  .button-hover-white-filled {
+    @apply border-dark_mode_text_white transition-all duration-200 ease-in-out hover:bg-dark_mode_button_hover hover:text-dark_mode_text_white;
+  }
+  .nav-button {
+    @apply w-[100%] flex gap-2 pl-[10%] hover:text-white drop-shadow-xl transition-all duration-200 ease-in-out hover:bg-dark_mode_button_hover;
+  }
+  .expand-button {
+    @apply transition-all duration-200 ease-in-out hover:scale-[115%] hover:cursor-pointer;
+  }
+
+  .scrollbar-card {
+    @apply scrollbar scrollbar-thumb-gray-900 scrollbar-track-transparent scrollbar-w-[.3rem] scrollbar-thumb-rounded-lg;
+  }
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
