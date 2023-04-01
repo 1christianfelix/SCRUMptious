@@ -1,8 +1,6 @@
 from fastapi import APIRouter, Depends
 from queries.sticky import Sticky, StickyQueries
 
-
-
 router = APIRouter()
 
 
