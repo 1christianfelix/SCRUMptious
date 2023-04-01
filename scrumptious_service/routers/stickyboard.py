@@ -16,6 +16,10 @@ def create_stickyboard(
 def get_stickyboards(queries: StickyBoardQueries = Depends()):
     return queries.get_stickyboards()
 
+@router.get("/stickyboard/{stickyboard_id}")
+def get_stickyboard_by_id(stickyboard_id: str, queries: StickyBoardQueries = Depends()):
+    return queries.get_stickyboard_by_id(stickyboard_id)
+
 
 @router.get("/stickyboard/{stickyboard_id}/sticky")
 def get_stickyboard_stickies(
