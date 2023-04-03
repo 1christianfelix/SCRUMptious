@@ -13,7 +13,7 @@ class StickyBoard(BaseModel):
     priority: int
     startDate: datetime
     deadline: datetime
-    user: list[str] 
+    user: list[str]
 
 
 
@@ -47,7 +47,11 @@ class StickyBoardQueries:
             return results
 
     def update_stickyboard(self, stickyboard_id, stickyboard):
-        pass
+        update_result = collection.update_one(
+            {"_id": ObjectId(stickyboard_id)}, {"$set": stickyboard.dict(exclude_unset=True)}
+        )
+        if update_result.modified_count > 0:
+            return self.get_sticky_by_id(stickyboard_id)
 
     def delete_stickyboard(self, stickyboard_id):
         result = collection.delete_one({"_id": ObjectId(stickyboard_id)})
