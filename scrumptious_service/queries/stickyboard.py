@@ -1,11 +1,11 @@
 from typing import Optional
 from pydantic import BaseModel
 from datetime import datetime
-from queries.pool import db
+from queries.pool import client
 from bson import ObjectId
 
 
-collection = db["StickyBoard"]
+collection = client["StickyBoard"]
 
 
 class StickyBoard(BaseModel):
