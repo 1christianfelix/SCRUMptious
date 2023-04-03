@@ -15,7 +15,7 @@ class Sticky(BaseModel):
     status: str
     start_date: datetime
     deadline: datetime
-    stickyboard: str
+    stickyBoard: str
     user: list[str]
 
 
@@ -41,7 +41,13 @@ class StickyQueries:
             return results
 
     def update_sticky(self, sticky_id, sticky):
-        pass
+        sticky_id = ObjectId(sticky_id)
+        result = collection.update_one(
+            {"_id": sticky_id},
+            {"$set": sticky.dict(exclude_unset=True)}
+        )
+        if result.modified_count:
+            return self.get_sticky_by_id(sticky_id)
 
     def delete_sticky(self, sticky_id):
         pass
