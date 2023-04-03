@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from queries.user import User, UserQueries
-from queries.pool import db
+
 
 router = APIRouter()
 
@@ -16,12 +16,21 @@ def create_user(user: User):
         raise HTTPException(status_code=500, detail="Could not create user")
 
 
-#get fools
+#get fool
 @router.get("/user/{user_id}")
 def get_user_by_id(user_id: str):
     user = user_queries.get_user_by_id(user_id)
     if user:
         return user
+    else:
+        raise HTTPException(status_code=404, detail="User not found")
+
+
+@router.get("/user")
+def get_all_users():
+    users = user_queries.get_all_users()
+    if users:
+        return users
     else:
         raise HTTPException(status_code=404, detail="User not found")
 
@@ -49,10 +58,3 @@ def delete_user(user_id: str):
         return deleted_user
     else:
         raise HTTPException(status_code=404, detail="User not found")
-
-
-
-
-# get user + Sticky
-# get user + stickyboard
-# get user + sticky + StickyBoard

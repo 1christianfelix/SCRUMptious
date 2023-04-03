@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+
 
 
 function StickyBoardCreateForm() {
@@ -28,7 +28,6 @@ function StickyBoardCreateForm() {
     const value = event.target.value;
     setUser(value);
   }
-  const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = {};
@@ -47,8 +46,7 @@ function StickyBoardCreateForm() {
     };
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      getAppointmentsData()
-      navigate('/appointments');
+      console.log("ok")
     }
   }
   return(
@@ -56,33 +54,25 @@ function StickyBoardCreateForm() {
         <div className="offset-3 col-6">
           <div className="shadow p-4 mt-4">
             <h1>Add a Service Appointment</h1>
-            <form onSubmit={handleSubmit} id="create-vehiclemodels-form">
+            <form onSubmit={handleSubmit} id="create-form">
               <div className="form-floating mb-3">
-                <input onChange={handleVINChange} value={vin} placeholder="vin" required type="text" maxLength="17" name="vin" id="vin" className="form-control" />
+                <input onChange={handleBoardNameChange} value={boardName} placeholder="vin" required type="text" maxLength="17" name="vin" id="vin" className="form-control" />
                 <label htmlFor="vin">VIN</label>
               </div>
               <div className="form-floating mb-3">
-                <input onChange={handleCustomerNameChange} value={customerName} placeholder="customerName" required type="text" name="text" id="customerName" className="form-control align-middle" />
+                <input onChange={handlePriorityChange} value={priority} placeholder="customerName" required type="text" name="text" id="customerName" className="form-control align-middle" />
                 <label htmlFor="Customer Name">Customer Name</label>
               </div>
               <div className="form-floating mb-3">
-                <input onChange={handleDatetimeChange} value={datetime} placeholder="datetime" required type="datetime-local" name="datatime" id="datatime" className="form-control align-middle" />
-                <label htmlFor="datetime">Date & Time</label>
-              </div>
-              <div className="mb-3">
-                <select onChange={handleTechnicianChange} value={technician} required id="technician" name="technician" className="form-select">
-                  <option value="">Choose a technician</option>
-                  {technicians.map((technician) => {
-                          return (
-                            <option value={technician.id} key={technician.id}>
-                              {technician.name}
-                            </option>
-                          );
-                        })}
-                </select>
+                <input onChange={handleStartDateChange} value={startDate} placeholder="datetime" required type="datetime-local" name="datatime" id="datatime" className="form-control align-middle" />
+                <label htmlFor="startdate">Date & Time</label>
               </div>
               <div className="form-floating mb-3">
-                <input onChange={handleReasonChange} value={reason} placeholder="reason" required type="text" name="text" id="reason" className="form-control align-middle" />
+                <input onChange={handleDeadlineChange} value={deadline} placeholder="datetime" required type="datetime-local" name="datatime" id="datatime" className="form-control align-middle" />
+                <label htmlFor="deadline">Date & Time</label>
+              </div>
+              <div className="form-floating mb-3">
+                <input onChange={handleUserChange} value={user} placeholder="reason" required type="text" name="text" id="reason" className="form-control align-middle" />
                 <label htmlFor="reason">Reason</label>
               </div>
               <button className="btn btn-primary">Add</button>
