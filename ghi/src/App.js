@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import StickyBoardCreateForm from "./components/StickyBoardCreateForm";
 import Signup from "./pages/Signup";
+import Signin from "./pages/Signin";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -25,6 +26,7 @@ function App() {
   return (
     <BrowserRouter>
       <Signup></Signup>
+      {/* <Signin></Signin> */}
       {false && (
         <div className="flex font-Sudo_Var">
           {/* The sidebar takes up x amount of the space */}
