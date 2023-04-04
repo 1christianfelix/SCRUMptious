@@ -51,7 +51,7 @@ async def get_token(
         }
 
 
-@router.post("/api/accounts", response_model=AccountToken | HttpError)
+@router.post("/accounts", response_model=AccountToken | HttpError)
 async def create_account(
     info: AccountIn,
     request: Request,
@@ -69,3 +69,13 @@ async def create_account(
     form = AccountForm(username=info.email, password=info.password)
     token = await authenticator.login(response, request, form, accounts)
     return AccountToken(account=account, **token.dict())
+
+
+@router.get("/accounts")
+def get_all_accounts(queries: AccountQueries = Depends()):
+    return queries.get_all_accounts()
+
+
+@router.delete("/accounts/{account_id}")
+def delete_account(account_id: str, queries: AccountQueries = Depends()):
+    return queries.delete_account(account_id)
