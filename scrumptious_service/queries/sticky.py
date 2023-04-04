@@ -1,10 +1,10 @@
 from typing import Optional
 from pydantic import BaseModel
 from datetime import datetime
-from queries.pool import db
+from queries.pool import client
 from bson import ObjectId
 
-
+db = client["Scrumptious"]
 collection = db["Sticky"]
 
 
@@ -13,10 +13,10 @@ class Sticky(BaseModel):
     content: Optional[str]
     priority: int
     status: str
-    startDate: datetime
+    start_date: datetime
     deadline: datetime
     stickyBoard: str
-    user: list[str]
+    account: list[str]
 
 
 class StickyQueries:
