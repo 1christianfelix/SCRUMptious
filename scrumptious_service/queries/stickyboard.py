@@ -1,19 +1,19 @@
-from typing import Optional
 from pydantic import BaseModel
 from datetime import datetime
 from queries.pool import client
 from bson import ObjectId
 
 
-collection = client["StickyBoard"]
+db = client["Scrumptious"]
+collection = db["StickyBoard"]
 
 
 class StickyBoard(BaseModel):
-    boardName: str
+    board_name: str
     priority: int
-    startDate: datetime
+    start_date: datetime
     deadline: datetime
-    user: list[str]
+    account: list[str]
 
 
 
@@ -39,7 +39,7 @@ class StickyBoardQueries:
             return results
 
     def get_stickyboard_stickies(self, stickyboard_id):
-        results = list(db["Sticky"].find({"stickyBoard": stickyboard_id}))
+        results = list(client["Scrumptious"]["Sticky"].find({"stickyBoard": stickyboard_id}))
         for result in results:
             result["id"] = str(result["_id"])
             del result["_id"]
@@ -55,5 +55,7 @@ class StickyBoardQueries:
 
     def delete_stickyboard(self, stickyboard_id):
         result = collection.delete_one({"_id": ObjectId(stickyboard_id)})
-        if result:
-            return True
+        if result.deleted_count:
+            return "The stickyboard is deleted."
+        else:
+            return "The stickyboard does not exist."

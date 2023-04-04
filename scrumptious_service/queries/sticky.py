@@ -13,10 +13,10 @@ class Sticky(BaseModel):
     content: Optional[str]
     priority: int
     status: str
-    startDate: datetime
+    start_date: datetime
     deadline: datetime
     stickyBoard: str
-    user: list[str]
+    account: list[str]
 
 
 class StickyQueries:
