@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 
 
-function StickyBoardCreateForm() {
+function StickyBoardCreateForm({account}) {
   const [boardName, setBoardName] = useState('');
   const [priority, setPriority] = useState('');
   const [startDate, setStartDate] = useState('');

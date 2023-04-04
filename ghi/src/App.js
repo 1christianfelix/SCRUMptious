@@ -9,17 +9,16 @@ import StickyBoardCreateForm from './components/StickyBoardCreateForm';
 
 function App() {
 
-  const[users, setUsers] = useState([])
-  const getUserData = async () => {
-  const userUrl = 'http://localhost:8000/user/';
-  const userResponse = await fetch(userUrl);
-  if (userResponse.ok) {
-    const data = await userResponse.json();
-    console.log(data)
-    setUsers(data.users)
+  const[accounts, setAccounts] = useState([])
+  const getAccountsData = async () => {
+  const accountUrl = 'http://localhost:8000/accounts';
+  const accountResponse = await fetch(accountUrl);
+  if (accountResponse.ok) {
+    const data = await accountResponse.json();
+    setAccounts(data)
   }
 }
-useEffect(() => {getUserData()}, []);
+useEffect(() => {getAccountsData()}, []);
 
 
   return (
@@ -36,7 +35,7 @@ useEffect(() => {getUserData()}, []);
 
         <Routes>
           <Route path="stickyboard">
-            <Route path="new" element={<StickyBoardCreateForm users={users} />} />
+            <Route path="new" element={<StickyBoardCreateForm accounts={accounts} />} />
           </Route>
         </Routes>
       </div>
