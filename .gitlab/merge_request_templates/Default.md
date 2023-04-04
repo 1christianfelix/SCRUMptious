@@ -18,6 +18,11 @@
 - [ ] The documentation has been updated, if necessary
 - [ ] All acceptance criteria have been met
 
+## How to Test
+
+- [] Click on 'code' and "Check out branch" for steps
+- [] Steps needed to test...
+
 ## Reviewer Checklist
 
 - [ ] The changes make sense and align with the project goals

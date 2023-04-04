@@ -25,8 +25,8 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Signup></Signup>
-      {/* <Signin></Signin> */}
+      {/* <Signup></Signup> */}
+      <Signin></Signin>
       {false && (
         <div className="flex font-Sudo_Var">
           {/* The sidebar takes up x amount of the space */}
