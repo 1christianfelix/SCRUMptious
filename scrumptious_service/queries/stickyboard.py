@@ -13,7 +13,7 @@ class StickyBoard(BaseModel):
     priority: int
     start_date: datetime
     deadline: datetime
-    user: list[str]
+    account: list[str]
 
 
 
@@ -54,7 +54,7 @@ class StickyBoardQueries:
             return self.get_sticky_by_id(stickyboard_id)
 
     def delete_stickyboard(self, stickyboard_id):
-        result = collection.delete_one({"_id": stickyboard_id})
+        result = collection.delete_one({"_id": ObjectId(stickyboard_id)})
         if result.deleted_count:
             return "The stickyboard is deleted."
         else:
