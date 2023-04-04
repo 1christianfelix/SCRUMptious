@@ -10,6 +10,11 @@
 
 [Include any relevant screenshots or images to help reviewers understand the changes made.]
 
+## How to Test
+
+- [] Click on 'code' and "Check out branch" for steps
+- [] Steps needed to test...
+
 ## Checklist
 
 - [ ] The code builds without errors
