@@ -57,7 +57,7 @@ function StickyBoardCreateForm() {
             <form onSubmit={handleSubmit} id="create-form">
               <div className="form-floating mb-3">
                 <input onChange={handleBoardNameChange} value={boardName} placeholder="vin" required type="text" maxLength="17" name="vin" id="vin" className="form-control" />
-                <label htmlFor="vin">VIN</label>
+                <label htmlFor="BoardName">BoardName</label>
               </div>
               <div className="form-floating mb-3">
                 <input onChange={handlePriorityChange} value={priority} placeholder="customerName" required type="text" name="text" id="customerName" className="form-control align-middle" />

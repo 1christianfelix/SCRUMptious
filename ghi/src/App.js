@@ -3,7 +3,7 @@ import Sidebar from "./components/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import StickyNote from "./components/StickyNote";
 import React, {useEffect, useState} from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import StickyBoardCreateForm from './components/StickyBoardCreateForm';
 
 
@@ -23,20 +23,24 @@ useEffect(() => {getUserData()}, []);
 
 
   return (
-    <div className="flex font-Sudo_Var">
-      {/* The sidebar takes up x amount of the space */}
-      <Sidebar>
+    <BrowserRouter>
+      <div className="flex font-Sudo_Var">
+        {/* The sidebar takes up x amount of the space */}
+        <Sidebar>
+
+        </Sidebar>
+        {/* The dashboard represents everything else to the right of the sidebar */}
+        <Dashboard>
+
+        </Dashboard>
+
         <Routes>
           <Route path="stickyboard">
             <Route path="new" element={<StickyBoardCreateForm users={users} />} />
           </Route>
         </Routes>
-      </Sidebar>
-      {/* The dashboard represents everything else to the right of the sidebar */}
-      <Dashboard>
-
-      </Dashboard>
-    </div>
+      </div>
+    </BrowserRouter>
   );
 }
 

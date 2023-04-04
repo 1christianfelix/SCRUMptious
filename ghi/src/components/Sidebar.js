@@ -6,6 +6,7 @@ import calendar from "../images/icons/calendar.svg";
 import sticky from "../images/icons/Sticky.svg";
 import chart from "../images/icons/chart.svg";
 import user_group from "../images/icons/user_group.svg";
+import { NavLink } from 'react-router-dom';
 
 const sidebar = () => {
   return (
