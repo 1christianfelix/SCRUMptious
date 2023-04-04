@@ -10,6 +10,11 @@
 
 [Include any relevant screenshots or images to help reviewers understand the changes made.]
 
+## How to Test
+
+- [] Click on 'code' and "Check out branch" for steps
+- [] Steps needed to test...
+
 ## Checklist
 
 - [ ] The code builds without errors
@@ -17,11 +22,6 @@
 - [ ] The code has been tested thoroughly
 - [ ] The documentation has been updated, if necessary
 - [ ] All acceptance criteria have been met
-
-## How to Test
-
-- [] Click on 'code' and "Check out branch" for steps
-- [] Steps needed to test...
 
 ## Reviewer Checklist
 
