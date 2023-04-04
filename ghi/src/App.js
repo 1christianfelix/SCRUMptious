@@ -5,6 +5,8 @@ import StickyNote from "./components/StickyNote";
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import StickyBoardCreateForm from "./components/StickyBoardCreateForm";
+import Signin from "./pages/Signin";
+import Signup from "./pages/Signup";
 
 function App() {
   const [users, setUsers] = useState([]);
