@@ -3,9 +3,14 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      screens: {
+        1440: "2560px",
+        1080: "1920px",
+      },
       colors: {
         dark_mode_dark: "#272727",
         dark_mode_medium: "#333333",
+        dark_mode_font: "#3a3a3a",
         dark_mode_button_hover: "#4d4d4d",
         dark_mode_light: "#404040",
         dark_mode_text_white: "#FDFDFD",

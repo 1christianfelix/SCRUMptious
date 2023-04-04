@@ -65,3 +65,13 @@
 - Create Route for GET by ID for a sticky board
 - Designed the logic for generating Sticky Notes in the front end
   ![alt](./christian_felix_images/3-31-Implementing-%20Frontend-sticky-note-logic.gif)
+
+# 4-01-23
+
+- New color palettes planned
+
+# 4-03-23
+
+- Worked and completed the Account Auth as a team
+- Created the Sign up page. Did UX/UI work on it (form not submittable)
+  ![alt](./christian_felix_images/4-03-SignUp%20page%20UIUX.gif)
