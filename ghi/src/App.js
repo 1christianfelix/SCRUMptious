@@ -9,9 +9,9 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 
 function App() {
-  const [users, setUsers] = useState([]);
-  const getUserData = async () => {
-    const userUrl = "http://localhost:8000/user/";
+  const [accounts, setUsers] = useState([]);
+  const getAccountsData = async () => {
+    const userUrl = "http://localhost:8000/accounts/";
     const userResponse = await fetch(userUrl);
     if (userResponse.ok) {
       const data = await userResponse.json();
@@ -20,24 +20,31 @@ function App() {
     }
   };
   useEffect(() => {
-    getUserData();
+    getAccountsData ();
   }, []);
 
-  const [accounts, setAccounts] = useState([]);
-  const getAccountsData = async () => {
-    const accountUrl = "http://localhost:8000/accounts";
-    const accountResponse = await fetch(accountUrl);
-    if (accountResponse.ok) {
-      const data = await accountResponse.json();
-      setAccounts(data);
-    }
-  };
-  useEffect(() => {
-    getAccountsData();
-  }, []);
+  // const [accounts, setAccounts] = useState([]);
+  // const getAccountsData = async () => {
+  //   const accountUrl = "http://localhost:8000/accounts";
+  //   const accountResponse = await fetch(accountUrl);
+  //   if (accountResponse.ok) {
+  //     const data = await accountResponse.json();
+  //     setAccounts(data);
+  //   }
+  // };
+  // useEffect(() => {
+  //   getAccountsData();
+  // }, []);
 
   return (
     <BrowserRouter>
+      <Routes>
+        <Route
+          path="/signup"
+          element={<Signup accounts={accounts} getAccountsData={getAccountsData} />}
+        />
+        <Route path="/Signin" element={<Signin />} />
+      </Routes>
       <div className="flex font-Sudo_Var">
         {/* The sidebar takes up x amount of the space */}
         <Sidebar></Sidebar>
@@ -51,6 +58,8 @@ function App() {
               element={<StickyBoardCreateForm accounts={accounts} />}
             />
           </Route>
+          <Route path="/signup" element={<Signup accounts={accounts} />} />
+          <Route path="/Signin" element={<Signin />} />
         </Routes>
       </div>
     </BrowserRouter>
