@@ -22,7 +22,11 @@
   }
 
   .scrollbar-card {
-    @apply scrollbar scrollbar-thumb-gray-900 scrollbar-track-transparent scrollbar-w-[.3rem] scrollbar-thumb-rounded-lg;
+    @apply scrollbar scrollbar-thumb-gray-800 hover:scrollbar-thumb-black scrollbar-track-transparent scrollbar-w-[.3rem] scrollbar-thumb-rounded-lg;
+  }
+
+  .scrollbar-members-list {
+    @apply scrollbar scrollbar-thumb-gray-800 hover:scrollbar-thumb-black scrollbar-track-transparent scrollbar-w-[.5rem] scrollbar-thumb-rounded-lg;
   }
 
   .signup-signin {
