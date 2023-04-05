@@ -3,7 +3,7 @@ import StickyBoardInputForm from "./StickyBoardInputForm";
 
 const StickyBoardForm = () => {
   return (
-    <div>
+    <div className="h-screen w-[100%] flex items-center justify-center absolute z-10">
       <StickyBoardInputForm></StickyBoardInputForm>
     </div>
   );

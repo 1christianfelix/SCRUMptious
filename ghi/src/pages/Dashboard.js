@@ -9,10 +9,10 @@ import StickyBoardForm from "../components/StickyBoardForm";
 
 const Dashboard = () => {
   return (
-    <section className="flex-grow bg-dark_mode_medium">
+    <section className="bg-dark_mode_medium h-screen flex-grow relative">
       {/* <TestingBoardGeneration></TestingBoardGeneration> */}
-      <TestDash></TestDash>
-      <StickyBoardForm></StickyBoardForm>
+      <StickyBoardInputForm></StickyBoardInputForm>
+      {/* <TestDash></TestDash> */}
       {/* <DashboardInitial></DashboardInitial> */}
     </section>
   );
