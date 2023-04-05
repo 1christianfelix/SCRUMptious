@@ -1,5 +1,6 @@
 import React from "react";
 import signup_signin_bg from "../images/signup-signin-bg.png";
+import { Link } from "react-router-dom";
 
 const Signin = () => {
   return (
@@ -26,12 +27,27 @@ const Signin = () => {
             className="w-[100%] pl-5 text-2xl bg-transparent transition-colors focus:outline-[#c1c1c1] focus:rounded-[19px] placeholder:text-dark_mode_font placeholder:text-2xl hover:bg-[#fff] hover:bg-opacity-[.15] rounded-[19px]"
           />
         </div>
-        <button className="mt-[1rem] text-[2.5rem] w-[20rem] bg-[#008193] rounded-[19px] transition-colors text-dark_mode_text_white hover:bg-[#039CB0]">
-          Sign Up
-        </button>
+        <div className="flex">
+          <div className="w-1/2" />
+          <div className="container flex justify-between mx-auto">
+            <Link to="/signup">
+              <button className="mt-[1rem] text-[2.5rem] w-[15rem] bg-[#008193] rounded-[19px] transition-colors text-dark_mode_text_white hover:bg-[#039CB0] mx-2">
+                Sign Up
+              </button>
+            </Link>
+            <div className="w-1/2">
+              <Link to="/dashboard">
+              <button className="mt-[1rem] text-[2.5rem] w-[15rem] bg-[#008193] rounded-[19px] transition-colors text-dark_mode_text_white hover:bg-[#039CB0] mx-2">
+                Sign In
+              </button>
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
+
 
 export default Signin;

@@ -8,6 +8,7 @@ import StickyBoardCreateForm from "./components/StickyBoardCreateForm";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 
+
 function App() {
   const [accounts, setUsers] = useState([]);
   const getAccountsData = async () => {
@@ -43,7 +44,7 @@ function App() {
           path="/signup"
           element={<Signup accounts={accounts} getAccountsData={getAccountsData} />}
         />
-        <Route path="/Signin" element={<Signin />} />
+        <Route path="/signin" element={<Signin />} />
       </Routes>
       <div className="flex font-Sudo_Var">
         {/* The sidebar takes up x amount of the space */}

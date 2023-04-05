@@ -4,8 +4,6 @@ import signup_signin_bg from "../images/signup-signin-bg.png";
 import { useNavigate } from "react-router-dom";
 
 function Signup(props) {
-
-  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -13,11 +11,11 @@ function Signup(props) {
     const value = event.target.value;
     setEmail(value);
   };
-  const [userName, setUserName] = useState("");
-  const handleUserNameChange = (event) => {
-    const value = event.target.value;
-    setUserName(value);
-  };
+  // const [userName, setUserName] = useState("");
+  // const handleUserNameChange = (event) => {
+  //   const value = event.target.value;
+  //   setUserName(value);
+  // };
   const [firstName, setFirstName] = useState("");
   const handleFirstNameChange = (event) => {
     const value = event.target.value;
@@ -41,50 +39,43 @@ function Signup(props) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
+    if (
+      firstName === "" ||
+      lastName === "" ||
+      email === "" ||
+      password === "" ||
+      confirmPassword === ""
+    ) {
+      alert("Please fill out all required fields!");
+      return;
+    }
+    if (password !== confirmPassword) {
+      alert("Your passwords must match!");
+      return;
+    }
     const data = {
       email: email,
-      // userName: userName,
       first_name: firstName,
       last_name: lastName,
       password: password,
-      // confirmPassword: confirmPassword,
     };
 
     const accountUrl = "http://localhost:8000/accounts";
-    // const token = localStorage.getItem("token");
-
     const fetchConfig = {
       method: "post",
       headers: {
         "Content-Type": "application/json",
-        // "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     };
 
-    // try {
     const response = await fetch(accountUrl, fetchConfig);
     if (response.ok) {
-      navigate("/Signin");
-      // const newAccount = await response.json();
-      // if (props.accounts) {
-      //   setEmail("");
-      //   // setUserName("");
-      //   setFirstName("");
-      //   setLastName("");
-      //   setPassword("");
-      //   await props.getAccountsData();
-      //   setSuccess(true);
-
-      // }
+      navigate("/signin");
     }
   };
 
-
-
   return (
-
     <div className="relative h-screen w-screen flex items-center justify-center font-Sudo_Var text-black">
       <img
         src={signup_signin_bg}
@@ -102,6 +93,7 @@ function Signup(props) {
             value={email}
             onChange={handleEmailChange}
             className="w-[100%] pl-5 text-2xl bg-transparent transition-colors focus:outline-[#c1c1c1] focus:rounded-[19px] placeholder:text-dark_mode_font placeholder:text-2xl hover:bg-[#fff] hover:bg-opacity-[.15] rounded-[19px]"
+            required
           />
         </div>
         {/* <div className="UserName-FIELD w-[468px] h-[67px] bg-[#c0c0c0] bg-opacity-[.3] border-solid border-dark_mode_medium border-[1px] rounded-[19px] flex">
@@ -140,7 +132,7 @@ function Signup(props) {
             className="w-[100%] pl-5 text-2xl bg-transparent transition-colors focus:outline-[#c1c1c1] focus:rounded-[19px] placeholder:text-dark_mode_font placeholder:text-2xl hover:bg-[#fff] hover:bg-opacity-[.15] rounded-[19px]"
           />
         </div>
-        {/* <div className="ConfirmPassword-FIELD w-[468px] h-[67px] bg-[#c0c0c0] bg-opacity-[.3] border-solid border-dark_mode_medium border-[1px] rounded-[19px] flex">
+        <div className="ConfirmPassword-FIELD w-[468px] h-[67px] bg-[#c0c0c0] bg-opacity-[.3] border-solid border-dark_mode_medium border-[1px] rounded-[19px] flex">
           <input
             type="password"
             placeholder="Confirm Password"
@@ -148,18 +140,16 @@ function Signup(props) {
             onChange={handleConfirmPassword}
             className="w-[100%] pl-5 text-2xl bg-transparent transition-colors focus:outline-[#c1c1c1] focus:rounded-[19px] placeholder:text-dark_mode_font placeholder:text-2xl hover:bg-[#fff] hover:bg-opacity-[.15] rounded-[19px]"
           />
-        </div> */}
+        </div>
         <button
           className="mt-[1rem] text-[2.5rem] w-[20rem] bg-[#008193] rounded-[19px] transition-colors text-dark_mode_text_white hover:bg-[#039CB0]"
           onClick={handleFormSubmit}
-
-
         >
           Sign Up
         </button>
       </div>
     </div>
   );
-};
+}
 
 export default Signup;
