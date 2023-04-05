@@ -12,7 +12,7 @@ class Sticky(BaseModel):
     subject: str
     content: Optional[str]
     priority: int
-    status: str
+    category: str
     start_date: datetime
     deadline: datetime
     stickyBoard: str
