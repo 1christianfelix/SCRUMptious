@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 
 
@@ -8,7 +8,7 @@ function StickyBoardCreateForm({accounts}) {
   const [start, setStart] = useState('');
   const [deadline, setDeadline] = useState('');
   const [members, setMembers] = useState([]);
-
+  const [searchTerm, setSearchTerm] = useState('');
 
   const switchPriority = [{"priority": "High", "number": 3}, {"priority": "Medium", "number": 2}, {"priority": "Low", "number": 1}]
 
@@ -32,8 +32,17 @@ function StickyBoardCreateForm({accounts}) {
   const handleMemberChange = (event) => {
     const value = event.target.value;
     setMembers(value);
-    console.log(members)
   }
+  const handleSearchTermChange = (event) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+  }
+
+  const filteredAccounts = accounts.filter((account) =>
+  account.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  account.first_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = {};
@@ -95,16 +104,28 @@ function StickyBoardCreateForm({accounts}) {
 
     <div className="d-flex">
 
-      {/* <input className="form-control me-2" onChange={searchAccount} value={searchedAccount} type="search" placeholder="Search VIN" aria-label="Search" />
-      <button className="btn btn-outline-success me-2" type="button" onClick={handleSearch} >Search VIN</button> */}
+      <input onChange={handleSearchTermChange} value={searchTerm} type="text" placeholder="Search Member" />
 
 <br />
 <hr />
 
     <ul>
-      {accounts.map((account) => {
+      {filteredAccounts.map((filteredAccount) => {
         return (
-        <li key = {account.id}> { account.last_name }, {account.first_name} - {account.email} </li>
+        <li key={filteredAccount.id}>
+          <input
+            type="checkbox"
+            checked={members.includes(filteredAccount.id)}
+            onChange={(event) => {
+              if (event.target.checked) {
+                setMembers([...members, filteredAccount.id]);
+              } else {
+                setMembers(members.filter((id) => id !== filteredAccount.id));
+              }
+            }}
+          />
+          { filteredAccount.last_name }, {filteredAccount.first_name} - {filteredAccount.email}
+        </li>
         );
       })}
     </ul>
