@@ -42,13 +42,13 @@ const StickyBoardInputForm = (props) => {
                   Select Priority
                 </option>
                 <option type="number" value="3">
-                  Hard
+                  High
                 </option>
                 <option type="number" value="2">
                   Medium
                 </option>
                 <option type="number" value="1">
-                  Easy
+                  Low
                 </option>
               </select>
             </div>

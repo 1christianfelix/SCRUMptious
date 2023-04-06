@@ -5,6 +5,8 @@ import filter_icon from "../images/icons/filter_icon.svg";
 import trash from "../images/icons/trash.svg";
 import pen from "../images/icons/pen.svg";
 
+//  NEEED TO ADD THE X IN THE TOP RIGHT CORNER!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 const StickyNoteInputForm = (props) => {
   const [category, setCategory] = useState("Default");
   const [priority, setPriority] = useState(null);
@@ -91,20 +93,20 @@ const StickyNoteInputForm = (props) => {
               <select
                 name=""
                 id=""
-                className={`w-[12.8125rem] h-[3.25rem] text-center text-[1.5rem] drop-shadow-sticky ${priorityColor}`}
+                className={`w-[12.8125rem] h-[3.25rem] text-center text-[1.5rem] drop-shadow-sticky ${priorityColor} focus:outline-none`}
                 required
                 value={priority}
                 onChange={handlePriorityColor}
               >
                 <option value="">Select Priority</option>
                 <option type="number" value="3">
-                  Hard
+                  High
                 </option>
                 <option type="number" value="2">
                   Medium
                 </option>
                 <option type="number" value="1">
-                  Easy
+                  Low
                 </option>
               </select>
               <div className="text-[1.2rem]">
@@ -141,7 +143,7 @@ const StickyNoteInputForm = (props) => {
               <select
                 name=""
                 id=""
-                className="CATEGORY-SELECTION inline-block h-[2rem] w-[8.5rem] drop-shadow-sticky text-center"
+                className="CATEGORY-SELECTION inline-block h-[2rem] w-[8.5rem] drop-shadow-sticky text-center focus:outline-none"
                 required
                 value={category}
                 onChange={handleColorChange}
