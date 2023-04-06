@@ -9,6 +9,7 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 
 
+
 function App() {
   const [accounts, setUsers] = useState([]);
   const getAccountsData = async () => {
@@ -41,29 +42,49 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
-          path="/signup"
-          element={<Signup accounts={accounts} getAccountsData={getAccountsData} />}
+          path="/Signup"
+          element={
+            <Signup accounts={accounts} getAccountsData={getAccountsData} />
+          }
         />
         <Route path="/signin" element={<Signin />} />
+        <Route
+          path="*"
+          element={
+            <div className="flex font-Sudo_Var">
+              <Sidebar></Sidebar>
+              <Dashboard></Dashboard>
+              <Routes>
+                <Route path="stickyboard">
+                  <Route
+                    path="new"
+                    element={<StickyBoardCreateForm accounts={accounts} />}
+                  />
+                </Route>
+              </Routes>
+            </div>
+          }
+        />
       </Routes>
-      <div className="flex font-Sudo_Var">
-        {/* The sidebar takes up x amount of the space */}
-        <Sidebar></Sidebar>
-        {/* The dashboard represents everything else to the right of the sidebar */}
-        <Dashboard></Dashboard>
-
-        <Routes>
-          <Route path="stickyboard">
-            <Route
-              path="new"
-              element={<StickyBoardCreateForm accounts={accounts} />}
-            />
-          </Route>
-          <Route path="/signup" element={<Signup accounts={accounts} />} />
-          <Route path="/Signin" element={<Signin />} />
-        </Routes>
-      </div>
     </BrowserRouter>
+
+    // <BrowserRouter>
+    //   <Routes>
+    //     <Route path="/signup" element={ <Signup accounts={accounts} getAccountsData={getAccountsData} /> } />
+    //     <Route path="/signin" element={<Signin />} />
+    //   </Routes>
+    //   <div className="flex font-Sudo_Var">
+    //     {/* The sidebar takes up x amount of the space */}
+    //     <Sidebar></Sidebar>
+    //     {/* The dashboard represents everything else to the right of the sidebar */}
+    //     <Dashboard></Dashboard>
+    //     <Routes>
+    //       <Route path="stickyboard"> <Route path="new" element={<StickyBoardCreateForm accounts={accounts} />} /></Route>
+    //       <Route path="/signup" element={ <Signup accounts={accounts} getAccountsData={getAccountsData} /> } />
+    //       <Route path="/signin" element={<Signin />} />
+    //     </Routes>
+    //   </div>
+    // </BrowserRouter>
   );
 }
 
