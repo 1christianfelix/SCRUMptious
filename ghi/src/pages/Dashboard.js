@@ -5,14 +5,15 @@ import StickyBoardCard from "../components/StickyBoardCard";
 import TestDash from "./TestDash";
 import TestingBoardGeneration from "./TestingBoardGeneration";
 import StickyBoardInputForm from "../components/StickyBoardInputForm";
-import StickyBoardForm from "../components/StickyBoardForm";
+import StickyNoteInputForm from "../components/StickyNoteInputForm";
 
 const Dashboard = () => {
   return (
     <section className="bg-dark_mode_medium h-screen flex-grow relative">
       {/* <TestingBoardGeneration></TestingBoardGeneration> */}
-      <StickyBoardInputForm></StickyBoardInputForm>
-      {/* <TestDash></TestDash> */}
+      {/* <StickyBoardInputForm></StickyBoardInputForm> */}
+      <StickyNoteInputForm></StickyNoteInputForm>
+      <TestDash></TestDash>
       {/* <DashboardInitial></DashboardInitial> */}
     </section>
   );

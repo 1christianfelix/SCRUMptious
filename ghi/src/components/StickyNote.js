@@ -36,8 +36,8 @@ const StickyNote = (props) => {
       bodyColor = "bg-sticky_green";
       break;
     default:
-      headerColor = "bg-gray";
-      bodyColor = "bg-black";
+      headerColor("bg-white");
+      bodyColor("bg-slate-100");
   }
 
   return (
