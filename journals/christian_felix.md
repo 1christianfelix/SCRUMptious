@@ -75,3 +75,14 @@
 - Worked and completed the Account Auth as a team
 - Created the Sign up page. Did UX/UI work on it (form not submittable)
   ![alt](./christian_felix_images/4-03-SignUp%20page%20UIUX.gif)
+
+# 4-04-23
+
+- Created the Sign in page UI/UX and form layout (not submittable)
+- Created the Form layout UI/UX for creating/updating stickyboards
+  ![alt](./christian_felix_images/4-04-StickyBoard%20Form%20UIUX.gif)
+
+# 4-05-23
+
+- Created the Form layout UI/UX for creating/updating stickynotes
+  ![alt](./christian_felix_images/4-05-StickyNote%20Form%20UIUX.gif)
