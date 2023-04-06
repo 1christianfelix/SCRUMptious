@@ -7,10 +7,37 @@ import pen from "../images/icons/pen.svg";
 
 const StickyNoteInputForm = (props) => {
   const [category, setCategory] = useState("Default");
+  const [priority, setPriority] = useState(null);
+  const [priorityColor, setPriorityColor] = useState("null");
   const [headerColor, setHeaderColor] = useState("");
   const [bodyColor, setBodyColor] = useState("");
 
   let type = props.type || "Create/Update -> pass in type as prop to set";
+
+  const handlePriorityColor = (event) => {
+    console.log(priority);
+    setPriority(event.target.value);
+  };
+
+  useEffect(() => {
+    switch (priority) {
+      case "1":
+        console.log("1");
+        setPriorityColor("bg-gradient-to-l from-[#EFFFF2] to-[#B8FFC3] ");
+        break;
+      case "2":
+        console.log("2");
+        setPriorityColor("bg-gradient-to-l from-[#F5FDFF] to-[#94ECFF]");
+        break;
+      case "3":
+        console.log("3");
+        setPriorityColor("bg-gradient-to-l from-[#FFECEC] to-[#FFCACA]");
+        break;
+      default:
+        console.log("default");
+        setPriorityColor("bg-white");
+    }
+  }, [priority]);
 
   const handleColorChange = (event) => {
     setCategory(event.target.value);
@@ -64,13 +91,21 @@ const StickyNoteInputForm = (props) => {
               <select
                 name=""
                 id=""
-                className="w-[12.8125rem] h-[3.25rem] text-center text-[1.5rem] drop-shadow-sticky"
+                className={`w-[12.8125rem] h-[3.25rem] text-center text-[1.5rem] drop-shadow-sticky ${priorityColor}`}
                 required
+                value={priority}
+                onChange={handlePriorityColor}
               >
                 <option value="">Select Priority</option>
-                <option value="">Hard</option>
-                <option value="">Medium</option>
-                <option value="">Easy</option>
+                <option type="number" value="3">
+                  Hard
+                </option>
+                <option type="number" value="2">
+                  Medium
+                </option>
+                <option type="number" value="1">
+                  Easy
+                </option>
               </select>
               <div className="text-[1.2rem]">
                 <div className="grid grid-cols-calendar items-center">
@@ -98,7 +133,7 @@ const StickyNoteInputForm = (props) => {
                 <div className="text-[2rem] flex">
                   <input
                     placeholder="Subject"
-                    className="p-0 m-0 leading-none bg-transparent w-[16rem] placeholder:text-dark_mode_text_white focus:outline-none"
+                    className="p-0 m-0 leading-none bg-transparent w-[16rem] placeholder:text-slate-700 focus:outline-none"
                   />
                   <img src={pen} className="ml-[.5rem]" />
                 </div>
@@ -119,7 +154,7 @@ const StickyNoteInputForm = (props) => {
                 <option value="Done">Done</option>
               </select>
             </div>
-            <textarea className="CONTENT-BOX flex-grow overflow-auto scrollbar-card scrollbar-w-3 text-dark_mode_text_white focus:outline-none bg-transparent border-solid border-[1px] border-text-dark_mode_text_white resize-none mx-[3.2rem] text-[1.5rem] p-5"></textarea>
+            <textarea className="CONTENT-BOX flex-grow overflow-auto scrollbar-card scrollbar-w-3 text-dark_mode_font focus:outline-none bg-transparent border-solid border-[1px] border-text-dark_mode_text_white resize-none mx-[3.2rem] text-[1.5rem] p-5"></textarea>
             <div className="BUTTONS flex justify-between m-5 pt-10">
               <img src={trash} alt="" className="expand-button" />
               <button className="button-hover-white-filled bg-white px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky">
