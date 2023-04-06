@@ -65,10 +65,11 @@ async def create_account(
 
 
 @router.get("/accounts")
-def get_all_accounts(queries: AccountQueries = Depends()):
+def get_all_accounts(queries: AccountQueries = Depends(), account: AccountOut = Depends(authenticator.try_get_current_account_data)):
     return queries.get_all_accounts()
 
 
+# Fix later: Make sure account owner can only delete account
 @router.delete("/accounts/{account_id}")
-def delete_account(account_id: str, queries: AccountQueries = Depends()):
+def delete_account(account_id: str, queries: AccountQueries = Depends(), account: AccountOut = Depends(authenticator.try_get_current_account_data)):
     return queries.delete_account(account_id)
