@@ -50,4 +50,9 @@ class StickyQueries:
             return self.get_sticky_by_id(sticky_id)
 
     def delete_sticky(self, sticky_id):
-        pass
+        sticky_id = ObjectId(sticky_id)
+        result = collection.delete_one({"_id": sticky_id})
+        if result.deleted_count:
+            return {"message": "Sticky deleted successfully"}
+        else:
+            return {"message": "Sticky not found"}

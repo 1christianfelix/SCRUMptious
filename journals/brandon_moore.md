@@ -67,3 +67,13 @@ Today:
     Work on Front End Auth
 Blockers:
     None
+
+Date:
+4/6/23
+
+Yesterday:
+    Finished up and pushed PUT sticky on front end
+Today:
+    More auth
+Blockers:
+    None
