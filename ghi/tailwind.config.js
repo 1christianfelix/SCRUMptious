@@ -3,6 +3,13 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        // Simple 16 column grid
+        calendar: ".75fr 1fr",
+
+        // Complex site-specific column configuration
+        footer: "200px minmax(900px, 1fr) 100px",
+      },
       screens: {
         1440: "2560px",
         1080: "1920px",
@@ -14,10 +21,10 @@ module.exports = {
         dark_mode_button_hover: "#4d4d4d",
         dark_mode_light: "#404040",
         dark_mode_text_white: "#FDFDFD",
-        sticky_red: "#9C2C2C",
-        sticky_red_header: "#AB3535",
-        sticky_blue: "#273D8B",
-        sticky_blue_header: "#304AA7",
+        sticky_red: "#B63C3C",
+        sticky_red_header: "#DF4747",
+        sticky_blue: "#6577BA",
+        sticky_blue_header: "#758BD9",
         sticky_yellow: "#BABE00",
         sticky_yellow_header: "#D3D716",
         sticky_teal: "#00A3A3",
