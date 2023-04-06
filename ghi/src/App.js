@@ -12,26 +12,25 @@ import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 
 
 function App() {
-  const [accounts, setUsers] = useState([]);
+  const [accounts, setAccounts] = useState([]);
   const getAccountsData = async () => {
-    const userUrl = "http://localhost:8000/accounts/";
-    const userResponse = await fetch(userUrl);
-    if (userResponse.ok) {
-      const data = await userResponse.json();
-      console.log(data);
-      setUsers(data.users);
+    const accountUrl = "http://localhost:8000/accounts";
+    const accountResponse = await fetch(accountUrl);
+    if (accountResponse.ok) {
+      const data = await accountResponse.json();
+      setAccounts(data);
     }
   };
   useEffect(() => {
-    getAccountsData ();
+    getAccountsData();
   }, []);
-
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
+
 
         <Route
           path="*"
