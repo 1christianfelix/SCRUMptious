@@ -53,13 +53,13 @@ const StickyNoteInputForm = (props) => {
     }
   }, [category]);
   return (
-    <form>
+    <form className="h-screen w-[100%] flex items-center justify-center absolute z-10">
       <div className="flex gap-5">
         <div className="STICKYNOTE w-[37.5rem] h-[39.375rem] ">
           <div
             className={`HEADER h-[22%] ${headerColor} rounded-t-[19px] flex flex-col`}
           >
-            <span className="text-sm p-3 px-4">{type}</span>
+            <span className="text-lg p-3 px-4">{type}</span>
             <div className="flex items-center justify-center gap-20">
               <select
                 name=""
@@ -119,8 +119,8 @@ const StickyNoteInputForm = (props) => {
                 <option value="Done">Done</option>
               </select>
             </div>
-            <textarea className="CONTENT-BOX flex-grow overflow-auto scrollbar-card text-dark_mode_text_white focus:outline-none bg-transparent border-solid border-2 border-text-dark_mode_text_white resize-none mx-[3.2rem] text-[1.5rem]"></textarea>
-            <div className="BUTTONS flex justify-between m-5">
+            <textarea className="CONTENT-BOX flex-grow overflow-auto scrollbar-card scrollbar-w-3 text-dark_mode_text_white focus:outline-none bg-transparent border-solid border-[1px] border-text-dark_mode_text_white resize-none mx-[3.2rem] text-[1.5rem] p-5"></textarea>
+            <div className="BUTTONS flex justify-between m-5 pt-10">
               <img src={trash} alt="" className="expand-button" />
               <button className="button-hover-white-filled bg-white px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky">
                 Update
@@ -128,7 +128,7 @@ const StickyNoteInputForm = (props) => {
             </div>
           </div>
         </div>
-        <div className="MEMBER-LIST w-[20.5625rem] h-[39.375rem] bg-[#CCCCCC] bg-opacity-60 rounded-[19px] flex flex-col text-dark_mode_font">
+        <div className="MEMBER-LIST w-[20.5625rem] h-[39.375rem] bg-[#CCCCCC] bg-opacity-60 backdrop-blur-[9.3px] rounded-[19px] flex flex-col text-dark_mode_font ">
           <div className="flex items-center gap-[.5rem] m-5">
             <div className="SEARCH BAR w-[13.4375rem] h-[2.125rem] bg-white rounded-[19px] flex items-center justify-between px-3 ">
               <input

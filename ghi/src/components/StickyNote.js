@@ -37,7 +37,7 @@ const StickyNote = (props) => {
       break;
     default:
       headerColor("bg-white");
-      bodyColor("bg-slate-100");
+      bodyColor("bg-slate-400");
   }
 
   return (

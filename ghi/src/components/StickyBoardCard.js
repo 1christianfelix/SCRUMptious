@@ -16,15 +16,15 @@ const StickyBoardCard = (props) => {
   switch (priority) {
     case "Low":
       gradient =
-        "bg-gradient-to-tl from-[#E5FFEA] from-20% to-[#e7e7e7] to-80%";
+        "bg-gradient-to-tl from-[#B8FFC3] from-20% to-[#EFFFF2] to-80%";
       break;
     case "Medium":
       gradient =
-        "bg-gradient-to-tl from-[#D7F8FF] from-20% to-[#e7e7e7] to-80%";
+        "bg-gradient-to-tl from-[#94ECFF] from-20% to-[#F5FDFF] to-80%";
       break;
     case "High":
       gradient =
-        "bg-gradient-to-tl from-[#FFDDDD] from-20% to-[#e7e7e7] to-80%";
+        "bg-gradient-to-tl from-[#FFCACA] from-20% to-[#FFECEC] to-80%";
       break;
     default:
       gradient = "bg-white";
