@@ -29,10 +29,6 @@ function StickyBoardCreateForm({accounts}) {
     const value = event.target.value;
     setDeadline(value);
   }
-  const handleMemberChange = (event) => {
-    const value = event.target.value;
-    setMembers(value);
-  }
   const handleSearchTermChange = (event) => {
     const value = event.target.value;
     setSearchTerm(value);
@@ -74,7 +70,8 @@ function StickyBoardCreateForm({accounts}) {
               </div>
               <div className="form-floating mb-3">
                 <label htmlFor="Priority">Priority</label>
-                <select onChange={handlePriorityChange} value={priority} required id="Priority" name="Priority" className="form-select">
+                <select onChange={handlePriorityChange} value={priority} required placeholder="Select Priority" id="Priority" name="Priority" className="form-select">
+                  <option value="">Select Priority</option>
                   {switchPriority.map((priorities) => {
                           return (
                             <option value={priorities.number} key={priorities.number}>
@@ -124,15 +121,12 @@ function StickyBoardCreateForm({accounts}) {
               }
             }}
           />
-          { filteredAccount.last_name }, {filteredAccount.first_name} - {filteredAccount.email}
+          { filteredAccount.last_name }, {filteredAccount.first_name} <br />
+          { filteredAccount.email } <br />
         </li>
         );
       })}
     </ul>
-
-
-    {/* <input onChange={handleMemberChange} value={members} placeholder="Members" type="text" name="text" id="reason" className="form-control align-middle" /> */}
-
 </div>
 
 
