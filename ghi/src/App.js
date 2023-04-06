@@ -28,38 +28,32 @@ function App() {
 
 
   return (
-
     <BrowserRouter>
+      <Routes>
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/signin" element={<Signin />} />
+
+        <Route
+          path="*"
+          element={
+            <div className="flex font-Sudo_Var">
+              <Sidebar />
+              <Dashboard />
+              <Routes>
+                <Route path="stickyboard">
+                  <Route
+                    path="new"
+                    element={<StickyBoardCreateForm accounts={accounts} />}
+                  />
+                </Route>
+              </Routes>
+            </div>
+          }
+        />
+      </Routes>
       <AuthProvider
         tokenUrl={`${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/token`}
-      >
-        <Routes>
-          <Route
-            path="/Signup"
-            element={
-              <Signup accounts={accounts} getAccountsData={getAccountsData} />
-            }
-          />
-          <Route path="/signin" element={<Signin />} />
-          <Route
-            path="*"
-            element={
-              <div className="flex font-Sudo_Var">
-                <Sidebar />
-                <Dashboard />
-                <Routes>
-                  <Route path="stickyboard">
-                    <Route
-                      path="new"
-                      element={<StickyBoardCreateForm accounts={accounts} />}
-                    />
-                  </Route>
-                </Routes>
-              </div>
-            }
-          />
-        </Routes>
-      </AuthProvider>
+      ></AuthProvider>
     </BrowserRouter>
   );
 }

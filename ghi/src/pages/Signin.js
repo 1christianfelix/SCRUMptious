@@ -1,51 +1,52 @@
 import React, { useState, useContext } from "react";
 import signup_signin_bg from "../images/signup-signin-bg.png";
-import { Link, useLocation, useToken } from "react-router-dom";
+import { useNavigate, Link, useToken } from "react-router-dom";
 import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const location = useLocation();
+  const navigate = useNavigate();
   const { token } = useContext(AuthContext);
   console.log(token)
 
 
-  // const = isSignIn = location.pathname.includes("signin");
 
-  const handleSignin = async (e) => {
-    e.preventDefault();
+const handleSignin = async (e) => {
+  e.preventDefault();
 
-    const signinUrl = "http://localhost:8000/token";
-    const response = await fetch(signinUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: `Bearer ${token}`
-      },
-      body: new URLSearchParams({
-        // grant_type: "password",
-        username: email,
-        password: password,
-        // scope: "",
-        // client_id: "",
-        // client_secret: "",
-      }),
-    });
+  const signinUrl = "http://localhost:8000/token";
+  const response = await fetch(signinUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Bearer ${token}`,
+    },
+    body: new URLSearchParams({
+      username: email,
+      password: password,
+    }),
+  });
 
-    if (response.ok) {
-      const data = await response.json();
-      if (data && data.access_token) {
-        console.log(data);
-        localStorage.setItem("access_token", data.access_token);
-      } else {
-        console.log("Invalid response from server");
-      }
+  if (response.ok) {
+    const data = await response.json();
+    if (data && data.access_token) {
+      console.log(data);
+      localStorage.setItem("access_token", data.access_token);
+      navigate("/dashboard");
+    } else {
+      console.log("Invalid response from server");
+    }
+  } else {
+    // const errorData = await response.json();
+    if (response.status === 401) {
+      alert("Invalid email or password");
     } else {
       console.log("Signin failed");
     }
-  };
+  }
+};
 
   return (
     <div className="relative h-screen w-screen flex items-center justify-center font-Sudo_Var text-black">
@@ -88,14 +89,14 @@ const Signin = () => {
                 </button>
               </Link>
               <div className="w-1/2">
-                <Link to="/dashboard">
+                {/* <Link to="/dashboard"> */}
                   <button
                     onClick={handleSignin}
                     className="mt-[1rem] text-[2.5rem] w-[15rem] bg-[#008193] rounded-[19px] transition-colors text-dark_mode_text_white hover:bg-[#039CB0] mx-2"
                   >
                     Sign In
                   </button>
-                </Link>
+                {/* </Link> */}
               </div>
             </div>
           </div>
@@ -106,170 +107,3 @@ const Signin = () => {
 };
 
 export default Signin;
-
-
-
-// import  from "@galvanize-inc/jwtdown-for-react";
-// import { useState } from "react";
-// import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
-
-// const Signin = () => {
-//   const [email, setUsername] = useState("");
-//   const [password, setPassword] = useState("");
-//   // const { login } = useToken();
-//   const { token } = useAuthContext();
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     await login(email, password);
-//     e.target.reset();
-
-//     const url = "http://localhost:8000/accounts/";
-//     const response = await fetch(url, {
-//       headers: { Authorization: `Bearer ${token}` },
-//       // Other fetch options, like method and body, if applicable
-//     });
-//     if (response.ok) {
-//       const data = await response.json();
-//       console.log(data);
-//     }
-//   };
-
-//   return (
-//     <div className="card text-bg-light mb-3">
-//       <h5 className="card-header">Login</h5>
-//       <div className="card-body">
-//         <form onSubmit={(e) => handleSubmit(e)}>
-//           <div className="mb-3">
-//             <label className="form-label">Username:</label>
-//             <input
-//               name="username"
-//               type="text"
-//               className="form-control"
-//               onChange={(e) => setUsername(e.target.value)}
-//             />
-//           </div>
-//           <div className="mb-3">
-//             <label className="form-label">Password:</label>
-//             <input
-//               name="password"
-//               type="password"
-//               className="form-control"
-//               onChange={(e) => setPassword(e.target.value)}
-//             />
-//           </div>
-//           <div>
-//             <input className="btn btn-primary" type="submit" value="Login" />
-//           </div>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Signin;
-
-
-
-// import useToken from "@galvanize-inc/jwtdown-for-react";
-// import { useState, useContext } from "react";
-// import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
-
-// const Signin = () => {
-//   const { token } = useContext(AuthContext);
-//   const [email, setUsername] = useState("");
-//   const [password, setPassword] = useState("");
-//   const { login } = useToken();
-
-// const handleSubmit = (e) => {
-//   e.preventDefault();
-//   console.log(`email: ${email} password: ${password}`);
-//   login(email, password, {
-//     headers: { Authorization: `Bearer ${token}` },
-//   });
-//   e.target.reset();
-// };
-//   return (
-//     <div className="card text-bg-light mb-3">
-//       <h5 className="card-header">Login</h5>
-//       <div className="card-body">
-//         <form onSubmit={(e) => handleSubmit(e)}>
-//           <div className="mb-3">
-//             <label className="form-label">Username:</label>
-//             <input
-//               name="email"
-//               type="text"
-//               className="form-control"
-//               onChange={(e) => setUsername(e.target.value)}
-//             />
-//           </div>
-//           <div className="mb-3">
-//             <label className="form-label">Password:</label>
-//             <input
-//               name="password"
-//               type="password"
-//               className="form-control"
-//               onChange={(e) => setPassword(e.target.value)}
-//             />
-//           </div>
-//           <div>
-//             <input className="btn btn-primary" type="submit" value="Login" />
-//           </div>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Signin;
-
-
-
-
-// import useAuth from "@galvanize-inc/jwtdown-for-react";
-// import { useState } from "react";
-
-// const Signin = () => {
-//   const [username, setUsername] = useState("");
-//   const [password, setPassword] = useState("");
-//   const { login } = useAuth();
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     login(username, password);
-//     e.target.reset();
-//   };
-
-//   return (
-//     <div className="card text-bg-light mb-3">
-//       <h5 className="card-header">Login</h5>
-//       <div className="card-body">
-//         <form onSubmit={(e) => handleSubmit(e)}>
-//           <div className="mb-3">
-//             <label className="form-label">Username:</label>
-//             <input
-//               name="username"
-//               type="text"
-//               className="form-control"
-//               onChange={(e) => setUsername(e.target.value)}
-//             />
-//           </div>
-//           <div className="mb-3">
-//             <label className="form-label">Password:</label>
-//             <input
-//               name="password"
-//               type="password"
-//               className="form-control"
-//               onChange={(e) => setPassword(e.target.value)}
-//             />
-//           </div>
-//           <div>
-//             <input className="btn btn-primary" type="submit" value="Login" />
-//           </div>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Signin;
