@@ -55,8 +55,9 @@ class AccountQueries:
             del result["_id"]
             del result["password"]
             del result["hashed_password"]
-        if results:
-            return results
+        sorted_results = sorted(results, key=lambda x: (x["last_name"], x["first_name"]))
+        if sorted_results:
+            return sorted_results
 
     def delete_account(self, account_id):
         result = collection.delete_one({"_id": ObjectId(account_id)})
