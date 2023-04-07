@@ -86,3 +86,12 @@
 
 - Created the Form layout UI/UX for creating/updating stickynotes
   ![alt](./christian_felix_images/4-05-StickyNote%20Form%20UIUX.gif)
+
+# 4-06-23
+
+- Protected CRUD endpoints
+- drag and drop logic test implementation set up
+- Stickboard dashboard view UI/UX started/planning
+- Model resturcturing planned out to support drag and drop
+
+![alt](./christian_felix_images/4-06-StickyNote%20Drag%20and%20Drop%20logic%20UIUX.gif)
