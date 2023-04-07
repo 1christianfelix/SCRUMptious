@@ -7,11 +7,25 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import StickyBoardCreateForm from "./components/StickyBoardCreateForm";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
+import StickyNoteCreateForm from "./components/StickyNoteCreateForm";
 
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 
 
+
+
+
+
 function App() {
+  const [stickyBoard, setStickyBoard] = useState([]);
+  const getStickyBoardData = async () => {
+    const stickyBoardUrl = "http://localhost:8000/stickyboard/";
+    const stickyBoardResponse = await fetch(stickyBoardUrl);
+    if (stickyBoardResponse.ok) {
+      const data = await stickyBoardResponse.json();
+      console.log(data);
+      setUsers(data.stickyBoard);
+    }
   const [accounts, setUsers] = useState([]);
   const getAccountsData = async () => {
     const userUrl = "http://localhost:8000/accounts/";
@@ -23,7 +37,8 @@ function App() {
     }
   };
   useEffect(() => {
-    getAccountsData ();
+    getAccountsData();
+    getStickyBoardData();
   }, []);
 
 
@@ -44,6 +59,12 @@ function App() {
                   <Route
                     path="new"
                     element={<StickyBoardCreateForm accounts={accounts} />}
+                  />
+                  </Route>
+                <Route path="sticky">
+                  <Route
+                    path="new"
+                    element={<StickyNoteCreateForm accounts={accounts} />}
                   />
                 </Route>
               </Routes>
