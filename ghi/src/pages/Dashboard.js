@@ -12,8 +12,8 @@ import DashboardStickyBoardList from "./DashboardStickyBoardList";
 const Dashboard = () => {
   return (
     <section className="bg-dark_mode_medium h-screen flex-grow relative">
-      <DashboardStickyBoardList></DashboardStickyBoardList>
-      {/* <DashboardStickyBoard></DashboardStickyBoard> */}
+      {/* <DashboardStickyBoardList></DashboardStickyBoardList> */}
+      <DashboardStickyBoard></DashboardStickyBoard>
       {/* <TestingBoardGeneration></TestingBoardGeneration> */}
       {/* <StickyBoardInputForm></StickyBoardInputForm> */}
       {/* <StickyNoteInputForm></StickyNoteInputForm> */}
