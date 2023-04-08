@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from datetime import datetime
 from queries.pool import client
 from bson import ObjectId
+from typing import Optional
 
 
 db = client["Scrumptious"]
@@ -14,8 +15,24 @@ class StickyBoard(BaseModel):
     start_date: datetime
     deadline: datetime
     account: list[str]
+    backlog: list[str]
+    todo: list[str]
+    doing: list[str]
+    review: list[str]
+    done: list[str]
 
 
+class StickyBoardUpdate(BaseModel):
+    board_name: Optional[str]
+    priority: Optional[int]
+    start_date: Optional[datetime]
+    deadline: Optional[datetime]
+    account: Optional[list[str]]
+    backlog: Optional[list[str]]
+    todo: Optional[list[str]]
+    doing: Optional[list[str]]
+    review: Optional[list[str]]
+    done: Optional[list[str]]
 
 
 class StickyBoardQueries:
@@ -52,7 +69,7 @@ class StickyBoardQueries:
             {"_id": ObjectId(stickyboard_id)}, {"$set": stickyboard.dict(exclude_unset=True)}
         )
         if update_result.modified_count > 0:
-            return self.get_sticky_by_id(stickyboard_id)
+            return self.get_stickyboard_by_id(stickyboard_id)
 
     def delete_stickyboard(self, stickyboard_id):
         result = collection.delete_one({"_id": ObjectId(stickyboard_id)})

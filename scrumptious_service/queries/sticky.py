@@ -12,11 +12,11 @@ class Sticky(BaseModel):
     subject: str
     content: Optional[str]
     priority: int
-    category: str
     start_date: datetime
     deadline: datetime
     stickyBoard: str
     account: list[str]
+    initial_category: str
 
 
 class StickyQueries:

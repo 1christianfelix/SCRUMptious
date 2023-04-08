@@ -10,9 +10,7 @@ import filter_icon from "../images/icons/filter_icon.svg";
 
 // The prop being passed in will determine if it's a Create or Update
 const StickyBoardCreateForm = (props) => {
-  let type =
-    props.type ||
-    "Create A Sticky Board";
+  let type = "Create A Sticky Board";
 
   const [boardName, setBoardName] = useState('');
   const [priority, setPriority] = useState('');
@@ -103,7 +101,7 @@ const StickyBoardCreateForm = (props) => {
                 required
                 onChange={handlePriorityChange}
               >
-                <option value="" disabled selected hidden>
+                <option value="" disabled hidden>
                   Select Priority
                 </option>
                 <option type="number" value="3">
