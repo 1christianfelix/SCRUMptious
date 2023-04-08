@@ -400,7 +400,7 @@ function StickyNoteCreateForm({ props }) {
   const [start_date, setStartDate] = useState("");
   const [deadline, setDeadline] = useState("");
   const [stickyBoard, setStickyBoard] = useState("");
-  const [account, setAccount] = useState([""]);
+  const [members, setMembers] = useState([]);
 
   const handleSubjectChange = (event) => {
     const value = event.target.value;
@@ -436,11 +436,15 @@ function StickyNoteCreateForm({ props }) {
     const value = event.target.value;
     setStickyBoard(value);
   };
-
-  const handleAccountChange = (event) => {
+  const handleMembersChange = (event) => {
     const value = event.target.value;
-    setAccount(value);
+    setMembers(value);
   };
+
+  // const handleAccountChange = (event) => {
+  //   const value = event.target.value;
+  //   setAccount(value);
+  // };
 
   // const filteredAccounts = props.accounts.filter((account) =>
   // account.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -452,15 +456,14 @@ function StickyNoteCreateForm({ props }) {
 const handleSubmit = async (event) => {
   event.preventDefault();
   const data = {};
-    data.subject = subject;
-    data.content = content;
-    data.priority = parseInt(priority);
-    data.category = status;
-    data.start_date = new Date(start_date + "T00:00:00.00").toISOString();
-    data.deadline = new Date(deadline + "T00:00:00.00").toISOString();
-    data.stickyBoard = stickyBoard;
-    data.account = account;
-
+  data.subject = subject;
+  data.content = content;
+  data.priority = parseInt(priority);
+  data.category = status;
+  data.start_date = new Date(start_date + "T00:00:00");
+  data.deadline = new Date(deadline + "T00:00:00");
+  data.stickyBoard = stickyBoard;
+  data.account = members;
 
   console.log(data);
 
@@ -476,6 +479,17 @@ const handleSubmit = async (event) => {
   const response = await fetch(url, fetchConfig);
   if (response.ok) {
     console.log("ok");
+
+    setSubject("");
+    setContent("");
+    setPriority("");
+    setStatus("");
+    setStartDate("");
+    setDeadline("");
+    setStickyBoard("");
+    setAccount("");
+  } else {
+    console.error("Error:", response.status, await response.text());
   }
 };
 
