@@ -4,9 +4,22 @@ import os
 from routers import sticky, stickyboard, accounts
 from authenticator import authenticator
 
+tags_metadata = [
+    {
+        "name": "Stickyboard",
+        "description": "Stickyboard endpoints",
+    },
+    {
+        "name": "Sticky",
+        "description": "Sticky endpoints",
+    },
+    {
+        "name": "Account",
+        "description": "Account endpoints",
+    },
+]
 
-
-app = FastAPI()
+app = FastAPI(openapi_tags=tags_metadata)
 app.include_router(sticky.router)
 app.include_router(stickyboard.router)
 app.include_router(authenticator.router)

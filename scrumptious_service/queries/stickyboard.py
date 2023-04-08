@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from datetime import datetime
 from queries.pool import client
 from bson import ObjectId
+from queries.sticky import Sticky
 
 
 db = client["Scrumptious"]
@@ -14,6 +15,11 @@ class StickyBoard(BaseModel):
     start_date: datetime
     deadline: datetime
     account: list[str]
+    backlog: list[str]
+    todo: list[str]
+    doing: list[str]
+    review: list[str]
+    done: list[str]
 
 
 
@@ -60,3 +66,19 @@ class StickyBoardQueries:
             return "The stickyboard is deleted."
         else:
             return "The stickyboard does not exist."
+
+    def create_sticky(self, stickyboard_id, sticky) -> Sticky:
+        # Adding to the sticky database
+        db = client["Scrumptious"]
+        collection = db["Sticky"]
+        props = sticky.dict()
+        props['stickyboard'] = stickyboard_id
+        collection.insert_one(props)
+        ################################
+        #
+        # logic to append to proper status category in the sticky board
+        # props = result
+        #
+        ################################
+        print(props)
+        return(Sticky(**props))
