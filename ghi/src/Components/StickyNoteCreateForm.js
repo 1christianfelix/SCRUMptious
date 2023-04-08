@@ -399,7 +399,8 @@ function StickyNoteCreateForm({ props }) {
   const [status, setStatus] = useState("");
   const [start_date, setStartDate] = useState("");
   const [deadline, setDeadline] = useState("");
-  const [account, setAccount] = useState([]);
+  const [stickyBoard, setStickyBoard] = useState("");
+  const [account, setAccount] = useState([""]);
 
   const handleSubjectChange = (event) => {
     const value = event.target.value;
@@ -431,40 +432,53 @@ function StickyNoteCreateForm({ props }) {
     setDeadline(value);
   };
 
+  const handleStickyBoardChange = (event) => {
+    const value = event.target.value;
+    setStickyBoard(value);
+  };
+
   const handleAccountChange = (event) => {
     const value = event.target.value;
     setAccount(value);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  // const filteredAccounts = props.accounts.filter((account) =>
+  // account.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  // account.first_name.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
 
-    const data = {};
+
+
+const handleSubmit = async (event) => {
+  event.preventDefault();
+  const data = {};
     data.subject = subject;
     data.content = content;
-    data.priority = priority;
-    data.status = status;
-    data.start_date = start_date;
-    data.deadline = deadline;
-    // data.stickyBoard = props.stickyBoard.boardName;
+    data.priority = parseInt(priority);
+    data.category = status;
+    data.start_date = new Date(start_date + "T00:00:00.00").toISOString();
+    data.deadline = new Date(deadline + "T00:00:00.00").toISOString();
+    data.stickyBoard = stickyBoard;
     data.account = account;
-    // console.log(props.stickyBoard);
-    console.log(data);
 
-    const url = "http://localhost:8000/sticky";
-    const fetchConfig = {
-      method: "post",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
 
-    const response = await fetch(url, fetchConfig);
-    if (response.ok) {
-      console.log("ok");
-    }
+  console.log(data);
+
+  const url = "http://localhost:8000/sticky";
+  const fetchConfig = {
+    method: "post",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
   };
+
+  const response = await fetch(url, fetchConfig);
+  if (response.ok) {
+    console.log("ok");
+  }
+};
+
 
   return (
     <div className="row">
@@ -530,29 +544,29 @@ function StickyNoteCreateForm({ props }) {
               <input
                 onChange={handleStartDateChange}
                 value={start_date}
-                placeholder="datetime"
+                placeholder="date"
                 required
-                type="datetime-local"
-                name="datatime"
-                id="datatime"
+                type="date"
+                name="date"
+                id="date"
                 className="form-control align-middle"
               />
-              <label htmlFor="startdate">Date & Time</label>
+              <label htmlFor="startdate">Date</label>
             </div>
             <div className="form-floating mb-3">
               <input
                 onChange={handleDeadlineChange}
                 value={deadline}
-                placeholder="datetime"
+                placeholder="date"
                 required
-                type="datetime-local"
-                name="datatime"
-                id="datatime"
+                type="date"
+                name="date"
+                id="date"
                 className="form-control align-middle"
               />
-              <label htmlFor="deadline">Date & Time</label>
+              <label htmlFor="deadline">Date</label>
             </div>
-            {/* <div className="form-floating mb-3">
+            <div className="form-floating mb-3">
               <input
                 onChange={handleStickyBoardChange}
                 value={stickyBoard}
@@ -564,7 +578,7 @@ function StickyNoteCreateForm({ props }) {
                 className="form-control align-middle"
               />
               <label htmlFor="StickyBoard">StickyBoard</label>
-            </div> */}
+            </div>
             <div className="form-floating mb-3">
               <input
                 onChange={handleAccountChange}
