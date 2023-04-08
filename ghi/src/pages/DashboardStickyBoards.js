@@ -25,7 +25,7 @@ const DashboardStickyBoards = () => {
           <div className="flex gap-2 items-center">
             <img src={filter_icon_white} alt="" className="w-[1rem] h-[1rem]" />
 
-            <label for="priority" className="text-dark_mode_text_white">
+            <label htmlFor="priority" className="text-dark_mode_text_white">
               Filter Priority:
             </label>
           </div>
@@ -34,11 +34,11 @@ const DashboardStickyBoards = () => {
             className="text-dark_mode_text_white flex self-center gap-2"
           >
             <input type="radio" id="high" name="priority" value="high" />
-            <label for="high">High</label>
+            <label htmlFor="high">High</label>
             <input type="radio" id="medium" name="priority" value="medium" />
-            <label for="medium">Medium</label>
+            <label htmlFor="medium">Medium</label>
             <input type="radio" id="low" name="priority" value="low" />
-            <label for="low">Low</label>
+            <label htmlFor="low">Low</label>
           </div>
         </div>
       </div>

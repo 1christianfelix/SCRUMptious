@@ -17,6 +17,7 @@ class StickyBoard(BaseModel):
 
 
 
+
 class StickyBoardQueries:
     def get_stickyboard_by_id(self, stickyboard_id):
         result = collection.find_one({"_id": ObjectId(stickyboard_id)})
