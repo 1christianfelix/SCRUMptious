@@ -101,7 +101,7 @@ const StickyBoardCreateForm = (props) => {
                 required
                 onChange={handlePriorityChange}
               >
-                <option value="" disabled hidden>
+                <option value="" disabled selected hidden>
                   Select Priority
                 </option>
                 <option type="number" value="3">
