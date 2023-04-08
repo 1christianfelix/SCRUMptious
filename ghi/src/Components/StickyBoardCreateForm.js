@@ -10,7 +10,9 @@ import filter_icon from "../images/icons/filter_icon.svg";
 
 // The prop being passed in will determine if it's a Create or Update
 const StickyBoardCreateForm = (props) => {
-  let type = "Create A Sticky Board";
+  let type =
+    props.type ||
+    "Create A Sticky Board";
 
   const [boardName, setBoardName] = useState('');
   const [priority, setPriority] = useState('');
