@@ -42,7 +42,7 @@ const DashboardStickyBoards = () => {
           </div>
         </div>
       </div>
-      <div className="flex-grow overflow-auto scrollbar-card">
+      <div className="flex-grow overflow-auto scrollbar-card hover:scrollbar-thumb-white scrollbar-w-2 scrollbar-thumb-slate-200">
         <div className="place-items-center grid grid-cols-4 gap-y-10 last:mb-10">
           {/* Everything below is for example purposes. Map function would go below here  */}
           <StickyBoardCard
