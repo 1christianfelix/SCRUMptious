@@ -64,7 +64,7 @@ const StickyNote = (props) => {
           className={`STICKY_BODY h-[78%] flex flex-col text-dark_mode_text_white ${bodyColor} rounded-b-[19px]`}
         >
           <span className="inline-block m-[1rem] mx-5 text-3xl">Subject</span>
-          <div className="flex-grow flex flex-col text-sm overflow-auto mx-5 scrollbar-card">
+          <div className="flex-grow flex flex-col text-sm overflow-auto mx-5 scrollbar-card scrollbar-thumb-h-1">
             <p className="">{content}</p>
           </div>
           <img src={expand_icon} className="m-[.7rem] self-end expand-button" />
