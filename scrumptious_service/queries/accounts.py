@@ -8,6 +8,7 @@ from bson import ObjectId
 db = client["Accounts"]
 collection = db["accounts"]
 
+collection.create_index("email", unique=True)
 
 class DuplicateAccountError(ValueError):
     pass

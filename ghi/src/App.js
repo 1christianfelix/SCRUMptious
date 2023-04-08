@@ -2,7 +2,7 @@ import "./App.css";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import StickyNote from "./components/StickyNote";
-import React, { useEffect, useState, useContext } from "react";
+
 import React, { useEffect, useState, useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import StickyBoardCreateForm from "./components/StickyBoardCreateForm";
@@ -25,8 +25,9 @@ function App() {
     if (stickyBoardResponse.ok) {
       const data = await stickyBoardResponse.json();
       console.log(data);
-      setUsers(data.stickyBoard);
+      setStickyBoard(data.stickyBoard);
     }
+  }
   const [accounts, setUsers] = useState([]);
   const getAccountsData = async () => {
     const userUrl = "http://localhost:8000/accounts/";
@@ -61,11 +62,16 @@ function App() {
                     path="new"
                     element={<StickyBoardCreateForm accounts={accounts} />}
                   />
-                  </Route>
+                </Route>
                 <Route path="sticky">
                   <Route
                     path="new"
-                    element={<StickyNoteCreateForm accounts={accounts} />}
+                    element={
+                      <StickyNoteCreateForm
+                        accounts={accounts}
+                        stickyBoard={stickyBoard}
+                      />
+                    }
                   />
                 </Route>
               </Routes>
