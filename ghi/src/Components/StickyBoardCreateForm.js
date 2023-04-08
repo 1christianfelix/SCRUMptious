@@ -198,6 +198,41 @@ const StickyBoardCreateForm = (props) => {
               );
             })}
           </div>
+
+    <div className="d-flex">
+
+      <input onChange={handleSearchTermChange} value={searchTerm} type="text" placeholder="Search Member" />
+
+<br />
+<hr />
+
+    <ul>
+      {filteredAccounts.map((filteredAccount) => {
+        return (
+        <li key={filteredAccount.id}>
+          <input
+            type="checkbox"
+            checked={members.includes(filteredAccount.id)}
+            onChange={(event) => {
+              if (event.target.checked) {
+                setMembers([...members, filteredAccount.id]);
+              } else {
+                setMembers(members.filter((id) => id !== filteredAccount.id));
+              }
+            }}
+          />
+          { filteredAccount.last_name }, {filteredAccount.first_name} <br />
+          { filteredAccount.email } <br />
+        </li>
+        );
+      })}
+    </ul>
+</div>
+
+
+
+
+
         </div>
       </div>
     </form>
