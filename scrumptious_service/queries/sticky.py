@@ -16,7 +16,7 @@ class Sticky(BaseModel):
     deadline: datetime
     stickyboard: str
     account: list[str]
-    initial_category = str
+    initial_category = Optional[str]
 
 class CreateSticky(BaseModel):
     subject: str
