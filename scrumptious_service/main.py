@@ -5,10 +5,10 @@ from routers import sticky, stickyboard, accounts
 from authenticator import authenticator
 
 
+
 app = FastAPI()
 app.include_router(sticky.router)
 app.include_router(stickyboard.router)
-# app.include_router(user.router)
 app.include_router(authenticator.router)
 app.include_router(accounts.router)
 
