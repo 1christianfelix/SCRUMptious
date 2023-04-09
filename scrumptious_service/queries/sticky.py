@@ -4,6 +4,7 @@ from datetime import datetime
 from queries.pool import client
 from bson import ObjectId
 
+
 db = client["Scrumptious"]
 collection = db["Sticky"]
 
@@ -14,9 +15,9 @@ class Sticky(BaseModel):
     priority: int
     start_date: datetime
     deadline: datetime
-    stickyBoard: str
+    stickyboard: str
     account: list[str]
-    initial_category: Optional[str]
+    initial_category: str
 
 
 class StickyQueries:
