@@ -35,7 +35,7 @@ const StickyBoardCard = (props) => {
       //   backgroundColor: "#e7e7e7",
       //   backgroundImage: "linear-gradient(132deg, #e7e7e7 20%, #C2FFCC 100%)",
       // }}
-      className={`h-[238px] w-[289px] rounded-[8px] drop-shadow-sticky flex flex-col ${gradient}`}
+      className={`h-[238px] w-[289px] 1440:h-[calc(238px*1.333)] 1440:w-[calc(289px*1.333)] rounded-[8px] drop-shadow-sticky flex flex-col ${gradient}`}
     >
       <div className=" HEADER h-[20%] flex justify-between p-5 pt-2">
         <div className="PRIORITY_BOX bg-white h-[22px] w-[86px] flex items-center justify-center drop-shadow-sticky">
