@@ -5,8 +5,8 @@ import expand_icon from "../images/icons/expand_icon.svg";
 const StickyNote = (props) => {
   //mimicking API response with props for display
   let category = props.category;
-  let priority = null;
-  let subject = null;
+  let priority = props.priority;
+  let subject = props.subject;
   let start = null;
   let deadline = null;
   let content = props.content;
@@ -46,8 +46,8 @@ const StickyNote = (props) => {
         <div
           className={`STICKY_HEADER h-[22%] flex justify-between items-center px-5 ${headerColor} rounded-t-[19px]`}
         >
-          <div className="bg-white h-[22px] w-[86px] flex items-center justify-center drop-shadow-sticky">
-            <span>Priority</span>
+          <div className="bg-white h-[22px] w-[86px] flex items-center justify-center drop-shadow-sticky text-dark_mode_font">
+            <span>{priority}</span>
           </div>
           <div className="flex flex-col ">
             <div className="flex justify-between">
@@ -63,8 +63,10 @@ const StickyNote = (props) => {
         <div
           className={`STICKY_BODY h-[78%] flex flex-col text-dark_mode_text_white ${bodyColor} rounded-b-[19px]`}
         >
-          <span className="inline-block m-[1rem] mx-5 text-3xl">Subject</span>
-          <div className="flex-grow flex flex-col text-sm overflow-auto mx-5 scrollbar-card">
+          <span className="inline-block m-[1rem] mx-5 text-lg 1440:text-2xl ">
+            {subject}
+          </span>
+          <div className="flex-grow flex flex-col text-sm overflow-auto mx-5 scrollbar-card scrollbar-w-[.6rem]">
             <p className="">{content}</p>
           </div>
           <img src={expand_icon} className="m-[.7rem] self-end expand-button" />

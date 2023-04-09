@@ -7,11 +7,13 @@ import TestingBoardGeneration from "./TestingBoardGeneration";
 import StickyBoardInputForm from "../components/StickyBoardInputForm";
 import StickyNoteInputForm from "../components/StickyNoteInputForm";
 import DashboardStickyBoards from "./DashboardStickyBoards";
+import DashboardStickyBoard from "./DashboardStickyBoard";
 
 const Dashboard = () => {
   return (
     <section className="bg-dark_mode_medium h-screen flex-grow relative">
-      <DashboardStickyBoards></DashboardStickyBoards>
+      <DashboardStickyBoard></DashboardStickyBoard>
+      {/* <DashboardStickyBoards></DashboardStickyBoards> */}
       {/* <TestingBoardGeneration></TestingBoardGeneration> */}
       {/* <StickyBoardInputForm></StickyBoardInputForm> */}
       {/* <StickyNoteInputForm></StickyNoteInputForm>

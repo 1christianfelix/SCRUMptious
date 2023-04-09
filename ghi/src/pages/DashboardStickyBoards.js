@@ -7,7 +7,7 @@ import filter_icon_white from "../images/icons/filter_icon_white.svg";
 const DashboardStickyBoards = () => {
   return (
     <div className="px-20 pt-20 flex flex-col gap-10 h-screen">
-      <div className="flex gap-10">
+      <div className="flex gap-10 items-center">
         <div className="flex items-center justify-between bg-white rounded-[100px] w-[25rem] h-[4.75rem] px-10 text-2xl ">
           <input
             type="text"
