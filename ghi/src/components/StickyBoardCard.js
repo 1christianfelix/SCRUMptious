@@ -37,7 +37,7 @@ const StickyBoardCard = (props) => {
       // }}
       className={`h-[238px] w-[289px] 1440:h-[calc(238px*1.333)] 1440:w-[calc(289px*1.333)] rounded-[8px] drop-shadow-sticky flex flex-col ${gradient}`}
     >
-      <div className=" HEADER h-[20%] flex justify-between p-5 pt-2">
+      <div className=" HEADER h-[20%] flex justify-between p-5 pt-3 1440:py-4">
         <div className="PRIORITY_BOX bg-white h-[22px] w-[86px] flex items-center justify-center drop-shadow-sticky">
           <span>Priority</span>
         </div>
@@ -47,23 +47,23 @@ const StickyBoardCard = (props) => {
         </div>
       </div>
       <div className="BODY h-[80%] mx-5 flex flex-col">
-        <span className="inline-block text-xl font-semibold">
+        <span className="inline-block text-xl 1440:text-2xl font-semibold">
           Sticky Board Name
         </span>
-        <div className="DATE_ROW flex justify-between">
+        <div className="DATE_ROW flex justify-between text-sm 1440:text-base my-1 1440:my-2">
           <div>
             <span className="mr-2">Start:</span>
             <span>DATE</span>
           </div>
           <div>
-            <span>Deadline:</span>
+            <span className="mr-2">Deadline:</span>
             <span>DATE</span>
           </div>
         </div>
-        <div className="flex-grow flex flex-col text-sm overflow-auto px-2 py-2 scrollbar-card">
+        <div className="flex-grow flex flex-col text-sm 1440:text-base overflow-auto px-2 scrollbar-card">
           <p className="">{content}</p>
         </div>
-        <div className="BUTTONS flex justify-between py-3">
+        <div className="BUTTONS flex justify-between py-3 1440:py-4">
           <img src={garbage} className="self-end expand-button" />
           <button className="button-hover-white-filled px-[.7rem] py-[.1rem] bg-white rounded-[19px]">
             <span>Edit Board</span>
