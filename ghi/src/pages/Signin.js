@@ -54,7 +54,7 @@ const Signin = () => {
         src={signup_signin_bg_scaled}
         className="absolute -z-10 w-screen h-screen"
       />
-      <div className="SIGNUP z-10 h-[553px] w-[652px] backdrop-blur-[9.3px] bg-[#c1c1c1]/50 flex flex-col items-center gap-10 1080:scale-75 1440:scale-105">
+      <div className="SIGNIN z-10 h-[553px] w-[652px] backdrop-blur-[9.3px] bg-[#c1c1c1]/60 flex flex-col items-center gap-10 1080:scale-75 1440:scale-105">
         <p className="p-[.5rem] pl-[1rem] mb-[1rem] text-[4rem] leading-none self-start text-dark_mode_dark">
           Sign In
         </p>
@@ -93,7 +93,7 @@ const Signin = () => {
               <span> Don't have an account? </span>
               <Link
                 to="/signup"
-                className="text-white self-center inline-block underline hover:text-[#c1c1c1]"
+                className="text-white self-center inline-block underline hover:text-slate-700"
               >
                 Sign up here!
               </Link>
