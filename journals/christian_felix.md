@@ -8,6 +8,7 @@
 
 - Wireframing pages
 - First Figma Mockup created
+  ![alt](./christian_felix_images/3-21%20mockup.png)
 
 # 3-22-23
 
@@ -29,7 +30,7 @@
 
 # 3-26-23
 
-- Mockup v2 completed
+- Mockup v2 completed (https://www.figma.com/proto/htMVuimTHiSIxo3SgaHR9n/Untitled?node-id=0%3A1)
   ![alt](./christian_felix_images/3-26%20Sidebar-Sticky-initDash-UX.gif)
   - Created Sidebar and Sticky note component using tailwind and react components
   - Started Tailwind styling guide
@@ -86,3 +87,33 @@
 
 - Created the Form layout UI/UX for creating/updating stickynotes
   ![alt](./christian_felix_images/4-05-StickyNote%20Form%20UIUX.gif)
+
+# 4-06-23
+
+- Protected endpoints
+- Implemented drag and drop functionality
+- Partially worked on Stickyboards page
+  ![alt](./christian_felix_images/4-06-StickyNote%20Drag%20and%20Drop%20logic%20UIUX.gif)
+
+# 4-07-23
+
+- Finished Stickyboards page UI/UX
+- Team discussion on remodelling our database to support drag and drop
+  ![alt](./christian_felix_images/4-07-StickyBoards%20list%20page%20UIUX.gif)
+
+# 4-08-23
+
+- Implemented Restful top-level/dependent relationship for creating a sticky note on a specific stickyboarc
+- Working to finish Stickyboard page UI/UX and refactor drag and drop logic for future handling function implementations
+- Managed to setup logic for sticky note components to represent draggable items while changing colors upon being dropped into new locations
+- New discussion regarding a color field or finding way to update the category field for sticky notes
+  ![alt](./christian_felix_images/4-08-Creating%20sticky%20and%20stickyboard%20top-level%20relationship%20endpoint.gif)
+  ![alt](./christian_felix_images/4-08%20Drag%20and%20Drop%20logic%20for%20stickynote%20and%20recoloring.gif)
+
+# 4-09-23
+
+- Refactored frontend auth logic for app.js and index.js by adding an alias environment in the docker-compose.yaml to represent the url found in the login function from jwtdown-for-react
+- Used jwtdown-for-react to refactor current login handling function
+- app.js set up to only show the login if there is no session token active
+- logout button added to sidebar and will take user back to signin page upon logging out
+  ![alt](./christian_felix_images/4-09%20Frontend%20auth%20set%20up%20for%20login%20and%20logout.gif)
