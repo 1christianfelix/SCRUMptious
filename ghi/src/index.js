@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter basename="/">
     <AuthProvider
-      tokenUrl={`${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/token`}
+      tokenUrl={`${process.env.REACT_APP_USER_SERVICE_API_HOST}/token`}
     >
       <App />
     </AuthProvider>

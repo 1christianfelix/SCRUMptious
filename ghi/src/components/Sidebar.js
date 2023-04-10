@@ -7,11 +7,18 @@ import sticky from "../images/icons/Sticky.svg";
 import chart from "../images/icons/chart.svg";
 import user_group from "../images/icons/user_group.svg";
 import signout_icon from "../images/icons/signout_icon.svg";
-import { NavLink, Navigate } from "react-router-dom";
+import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
-const sidebar = () => {
-  const { logout } = useToken;
+const Sidebar = () => {
+  const { logout } = useToken();
+  const navigate = useNavigate();
+
+  const handleLogout = (e) => {
+    logout();
+    navigate("/signin");
+  };
+
   return (
     <nav className="flex flex-col w-[14.75rem] h-screen bg-dark_mode_dark flex-none">
       <section className="LOGO-SECTION flex h-[12%] border-b-solid border-b-[1px] border-b-dark_mode_text_white">
@@ -73,15 +80,16 @@ const sidebar = () => {
             <span className="self-center">First Last</span>
           </a>
         </section>
-        <section className="Sign-out flex gap-5  mb-[6%] text-dark_mode_text_white">
-          <a href="#" className="nav-button">
-            <img src={signout_icon} className="h-10 w-auto" />
-            <span className="self-center">Sign Out</span>
-          </a>
+        <section
+          className="nav-button Sign-out mb-[6%] text-dark_mode_text_white hover:cursor-pointer"
+          onClick={handleLogout}
+        >
+          <img src={signout_icon} className=" h-10 w-auto" />
+          <span className="self-center">Sign Out</span>
         </section>
       </section>
     </nav>
   );
 };
 
-export default sidebar;
+export default Sidebar;

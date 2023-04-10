@@ -2,9 +2,11 @@ import React from "react";
 import { useState, useEffect } from "react";
 import signup_signin_bg from "../images/signup-signin-bg.png";
 import { useNavigate, Link } from "react-router-dom";
+import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function Signup(props) {
   const navigate = useNavigate();
+  const { token, register, login } = useToken();
 
   const [email, setEmail] = useState("");
   const handleEmailChange = (event) => {
@@ -60,19 +62,25 @@ function Signup(props) {
       password: password,
     };
 
-    const accountUrl = "http://localhost:8000/accounts";
-    const fetchConfig = {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
+    // const accountUrl = "http://localhost:8000/accounts";
+    // const fetchConfig = {
+    //   method: "post",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(data),
+    // };
 
-    const response = await fetch(accountUrl, fetchConfig);
-    if (response.ok) {
-      navigate("/signin");
-    }
+    // const response = await fetch(accountUrl, fetchConfig);
+    // if (response.ok) {
+    //   navigate("/signin");
+    // }
+    console.log("hello");
+    register(
+      data,
+      `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/accounts`
+    );
+    console.log("token", token);
   };
 
   return (
