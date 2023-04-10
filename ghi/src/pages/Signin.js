@@ -58,8 +58,8 @@ const Signin = () => {
         <p className="p-[.5rem] pl-[1rem] mb-[1rem] text-[4rem] leading-none self-start text-dark_mode_dark">
           Sign In
         </p>
-        <form onSubmit={handleSignin} className="flex flex-col">
-          <div className="EMAIL-FIELD w-[468px] h-[67px] bg-[#c0c0c0] bg-opacity-[.3] border-solid border-dark_mode_medium border-[1px] rounded-[19px] flex mb-4">
+        <form onSubmit={handleSignin} className="flex flex-col gap-8">
+          <div className="EMAIL-FIELD w-[468px] h-[67px] bg-[#c0c0c0] bg-opacity-[.3] border-solid border-dark_mode_medium border-[1px] rounded-[19px] flex ">
             <input
               type="text"
               placeholder="Email"
@@ -69,7 +69,7 @@ const Signin = () => {
               required
             />
           </div>
-          <div className="w-[468px] h-[67px] bg-[#c0c0c0] bg-opacity-[.3] border-solid border-dark_mode_medium border-[1px] rounded-[19px] flex mt-7">
+          <div className="w-[468px] h-[67px] bg-[#c0c0c0] bg-opacity-[.3] border-solid border-dark_mode_medium border-[1px] rounded-[19px] flex">
             <input
               type="password"
               placeholder="Password"
@@ -83,12 +83,12 @@ const Signin = () => {
           {/* <Link to="/dashboard"> */}
           <button
             onClick={handleSignin}
-            className="self-center justify-center mt-[2.5rem] text-[2.5rem] w-[20rem] bg-[#008193] rounded-[19px] transition-colors text-dark_mode_text_white hover:bg-[#039CB0]"
+            className="self-center justify-center mt-[.5rem] text-[2.5rem] w-[20rem] bg-[#008193] rounded-[19px] transition-colors text-dark_mode_text_white hover:bg-[#039CB0]"
           >
             Sign In
           </button>
           {/* </Link> */}
-          <div className="text-2xl mt-6 inline">
+          <div className="text-2xl inline">
             <div className="flex items-center justify-center gap-2 text-dark_mode_text_dark">
               <span> Don't have an account? </span>
               <Link
