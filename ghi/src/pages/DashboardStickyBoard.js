@@ -166,7 +166,7 @@ const DashboardStickyBoard = () => {
       // Grabbing the previous data from the arrays
       prev = { ...prev };
       console.log(prev, category);
-      prev[category.toLowerCas()].stickies.unshift(sticky);
+      prev[category.toLowerCase()].stickies.unshift(sticky);
       // console.log("add first");
       return prev;
     });
@@ -182,7 +182,7 @@ const DashboardStickyBoard = () => {
             {_.map(state, (data, key) => {
               return (
                 <div key={key} className="flex flex-col">
-                  <div className="w-[15.7275rem] flex items-center justify-between">
+                  <div className="w-[15.7275rem] flex items-center justify-between my-3">
                     <span className=" text-[2rem]">{data.title}</span>
                     <img
                       src={add_icon}
