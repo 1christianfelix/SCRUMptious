@@ -6,6 +6,7 @@ const StickyNote = (props) => {
   //mimicking API response with props for display
   let category = props.category;
   let priority = props.priority;
+  let priorityColor = "bg-white";
   let subject = props.subject;
   let start = null;
   let deadline = null;
@@ -13,6 +14,27 @@ const StickyNote = (props) => {
 
   let headerColor = null;
   let bodyColor = null;
+
+  switch (priority) {
+    case "1":
+      console.log("1");
+      priorityColor = "bg-gradient-to-l from-[#EFFFF2] to-[#a6e6b0] ";
+      priority = "Low";
+      break;
+    case "2":
+      console.log("2");
+      priorityColor = "bg-gradient-to-l from-[#F5FDFF] to-[#85d4e6]";
+      priority = "Medium";
+      break;
+    case "3":
+      console.log("3");
+      priorityColor = "bg-gradient-to-l from-[#FFECEC] to-[#e6b6b6]";
+      priority = "High";
+      break;
+    default:
+      console.log("default");
+      priorityColor = "bg-white";
+  }
 
   switch (category) {
     case "Backlog":
@@ -46,7 +68,9 @@ const StickyNote = (props) => {
         <div
           className={`STICKY_HEADER h-[22%] flex justify-between items-center px-5 ${headerColor} rounded-t-[19px]`}
         >
-          <div className="bg-white h-[22px] w-[86px] flex items-center justify-center drop-shadow-sticky text-dark_mode_font">
+          <div
+            className={`${priorityColor} h-[22px] w-[86px] flex items-center justify-center drop-shadow-sticky text-dark_mode_font`}
+          >
             <span>{priority}</span>
           </div>
           <div className="flex flex-col ">

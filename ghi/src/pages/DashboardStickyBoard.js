@@ -9,7 +9,7 @@ function generateRandomNumber() {
 }
 
 function generateRandomPriority() {
-  const priorities = ["High", "Medium", "Low"];
+  const priorities = [3, 2, 1];
   const randomIndex = Math.floor(Math.random() * priorities.length);
   return priorities[randomIndex];
 }
@@ -156,6 +156,7 @@ const DashboardStickyBoard = () => {
   return (
     <div className="text-dark_mode_text_white flex flex-col h-screen overflow-auto scrollbar-card scrollbar-thumb-white scrollbar-w-3">
       <div>Header</div>
+
       <DragDropContext onDragEnd={handleDrag} className="">
         <div className="grid grid-cols-5 ">
           {_.map(state, (data, key) => {
@@ -188,7 +189,7 @@ const DashboardStickyBoard = () => {
                                   >
                                     <StickyNote
                                       category={el.category}
-                                      priority={el.priority}
+                                      priority={el.priority.toString()}
                                       content={el.content}
                                       subject={el.subject}
                                     ></StickyNote>
