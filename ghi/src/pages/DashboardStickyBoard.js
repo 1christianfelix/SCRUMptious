@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import StickyNote from "../components/StickyNote";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import add_icon from "../images/icons/add_icon.svg";
 import _ from "lodash";
 
 // Testing functions to simulate sticky content
@@ -153,63 +154,90 @@ const DashboardStickyBoard = () => {
     });
   };
 
-  return (
-    <div className="text-dark_mode_text_white flex flex-col h-screen overflow-auto scrollbar-card scrollbar-thumb-white scrollbar-w-3">
-      <div>Header</div>
+  const addFirst = (category) => {
+    setState((prev) => {
+      const sticky = {
+        id: Math.random().toString(),
+        subject: `Test Sticky ${generateRandomNumber()}`,
+        priority: generateRandomPriority(),
+        content: generateRandomLoremIpsumSentence(),
+        category: category,
+      };
+      // Grabbing the previous data from the arrays
+      prev = { ...prev };
+      console.log(prev, category);
+      prev[category.toLowerCas()].stickies.unshift(sticky);
+      // console.log("add first");
+      return prev;
+    });
+  };
 
-      <DragDropContext onDragEnd={handleDrag} className="">
-        <div className="grid grid-cols-5 ">
-          {_.map(state, (data, key) => {
-            return (
-              <div key={key} className="">
-                <span className="mb-2">{data.title}</span>
-                <Droppable droppableId={key}>
-                  {(provided, snapshot) => {
-                    return (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}
-                        className="h-[100%]"
-                      >
-                        {data.stickies.map((el, index) => {
-                          return (
-                            <Draggable
-                              key={el.id}
-                              index={index}
-                              draggableId={el.id}
-                            >
-                              {(provided) => {
-                                return (
-                                  // Side note: You will have to move the expand button outside of the StickyNote component and attach it here. Or make a clickable element on top of it
-                                  <div
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    className="mb-5"
-                                  >
-                                    <StickyNote
-                                      category={el.category}
-                                      priority={el.priority.toString()}
-                                      content={el.content}
-                                      subject={el.subject}
-                                    ></StickyNote>
-                                    {provided.placeholder}
-                                  </div>
-                                );
-                              }}
-                            </Draggable>
-                          );
-                        })}
-                        {provided.placeholder}
-                      </div>
-                    );
-                  }}
-                </Droppable>
-              </div>
-            );
-          })}
-        </div>
-      </DragDropContext>
+  return (
+    <div className="text-dark_mode_text_white flex flex-col h-screen overflow-hidden">
+      <div className="w-[100%] h-[8.37500rem] bg-dark_mode_light">Header</div>
+
+      <div className="lg:h-[1rem] w-[90%] mx-auto">
+        <DragDropContext onDragEnd={handleDrag} className="">
+          <div className="grid grid-cols-5">
+            {_.map(state, (data, key) => {
+              return (
+                <div key={key} className="flex flex-col">
+                  <div className="w-[15.7275rem] flex items-center justify-between">
+                    <span className=" text-[2rem]">{data.title}</span>
+                    <img
+                      src={add_icon}
+                      className="h-[42px] w-auto hover:cursor-pointer transition-all expand-button"
+                      onClick={() => addFirst(data.title)}
+                    />
+                  </div>
+                  <Droppable droppableId={key}>
+                    {(provided, snapshot) => {
+                      return (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.droppableProps}
+                          className="h-[100%] overflow-auto overflow-x-hidden scrollbar-card scrollbar-thumb-white scrollbar-w-1 max-h-[calc(100vh-8.37500rem)] pr-5 place-self-start" // Add overflow-y-auto here
+                        >
+                          {data.stickies.map((el, index) => {
+                            return (
+                              <Draggable
+                                key={el.id}
+                                index={index}
+                                draggableId={el.id}
+                              >
+                                {(provided) => {
+                                  return (
+                                    // Side note: You will have to move the expand button outside of the StickyNote component and attach it here. Or make a clickable element on top of it
+                                    <div
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                      className="mb-5"
+                                    >
+                                      <StickyNote
+                                        category={el.category}
+                                        priority={el.priority.toString()}
+                                        content={el.content}
+                                        subject={el.subject}
+                                      ></StickyNote>
+                                      {provided.placeholder}
+                                    </div>
+                                  );
+                                }}
+                              </Draggable>
+                            );
+                          })}
+                          {provided.placeholder}
+                        </div>
+                      );
+                    }}
+                  </Droppable>
+                </div>
+              );
+            })}
+          </div>
+        </DragDropContext>
+      </div>
     </div>
   );
 };

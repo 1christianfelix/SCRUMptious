@@ -6,12 +6,12 @@ import calendar from "../images/icons/calendar.svg";
 import sticky from "../images/icons/Sticky.svg";
 import chart from "../images/icons/chart.svg";
 import user_group from "../images/icons/user_group.svg";
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 const sidebar = () => {
   return (
     <nav className="flex flex-col w-[14.75rem] h-screen bg-dark_mode_dark flex-none">
-      <section className="LOGO-SECTION flex h-[12%] border-b-solid border-b-[1px] border-b-dark_mode_text_white">
+      <section className="LOGO-SECTION flex h-[8.37500rem] border-b-solid border-b-[1px] border-b-dark_mode_text_white">
         <span className="Scrumptious m-[2.5%] text-dark_mode_text_white font-Sudo_Var">
           SCRUMPTIOUS
         </span>

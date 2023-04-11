@@ -10,7 +10,6 @@ import Signup from "./pages/Signup";
 
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 
-
 function App() {
   const [accounts, setAccounts] = useState([]);
   const getAccountsData = async () => {
@@ -30,7 +29,6 @@ function App() {
       <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
-
 
         <Route
           path="*"
