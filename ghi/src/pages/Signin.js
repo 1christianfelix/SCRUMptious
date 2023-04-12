@@ -9,7 +9,7 @@ const Signin = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { token } = useContext(AuthContext);
-  console.log(token)
+  // console.log(token)
 
 
 
@@ -32,7 +32,7 @@ const handleSignin = async (e) => {
   if (response.ok) {
     const data = await response.json();
     if (data && data.access_token) {
-      console.log(data);
+      // console.log(data);
       localStorage.setItem("access_token", data.access_token);
       navigate("/dashboard");
     } else {

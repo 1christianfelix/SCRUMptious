@@ -28,21 +28,21 @@ function App() {
       setStickyBoard(data.stickyBoard);
     }
   }
-  const [accounts, setUsers] = useState([]);
+  const [accounts, setAccounts] = useState([]);
   const getAccountsData = async () => {
     const userUrl = "http://localhost:8000/accounts/";
     const userResponse = await fetch(userUrl);
     if (userResponse.ok) {
       const data = await userResponse.json();
+      console.log("HELLO WORLD", data.users);
       console.log(data);
-      setUsers(data.users);
+      setAccounts(data);
     }
   };
   useEffect(() => {
     getAccountsData();
     getStickyBoardData();
   }, []);
-
 
   return (
     <BrowserRouter>
@@ -65,7 +65,7 @@ function App() {
                 </Route>
                 <Route path="sticky">
                   <Route
-                    path="new"
+                    path="/sticky/new"
                     element={
                       <StickyNoteCreateForm
                         accounts={accounts}
@@ -87,3 +87,4 @@ function App() {
 }
 
 export default App;
+
