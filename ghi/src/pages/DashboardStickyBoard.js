@@ -3,6 +3,7 @@ import StickyNote from "../components/StickyNote";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import add_icon from "../images/icons/add_icon.svg";
 import _ from "lodash";
+import StickyNoteInputForm from "../components/StickyNoteInputForm";
 
 // Testing functions to simulate sticky content
 function generateRandomNumber() {
@@ -100,6 +101,14 @@ const DashboardStickyBoard = () => {
     done: { title: "Done", stickies: generateRandomStickyArray("Done") },
   });
   const [creationMode, setCreationMode] = useState("false");
+  const [modalStatus, setModalStatus] = useState(false);
+  const handleOpenModal = () => {
+    setModalStatus(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalStatus(false);
+  };
 
   const handleDrag = ({ destination, source }) => {
     console.log("source", source);
@@ -179,70 +188,77 @@ const DashboardStickyBoard = () => {
   };
 
   return (
-    <div className="text-dark_mode_text_white flex flex-col h-screen overflow-hidden">
-      <div className="w-[100%] h-[8.37500rem] bg-dark_mode_light">Header</div>
-
-      <div className="lg:h-[1rem] w-[90%] mx-auto">
-        <DragDropContext onDragEnd={handleDrag} className="">
-          <div className="grid grid-cols-5">
-            {_.map(state, (data, key) => {
-              return (
-                <div key={key} className="flex flex-col">
-                  <div className="w-[15.7275rem] flex items-center justify-between my-3">
-                    <span className=" text-[2rem]">{data.title}</span>
-                    <img
-                      src={add_icon}
-                      className="h-[42px] w-auto hover:cursor-pointer transition-all expand-button"
-                      onClick={() => addFirst(data.title)}
-                    />
+    <div className="flex flex-col h-screen overflow-hidden">
+      <StickyNoteInputForm
+        open={modalStatus}
+        close={handleCloseModal}
+        type={"Create"}
+      ></StickyNoteInputForm>
+      <div className="flex flex-col text-dark_mode_text_white">
+        <div className="w-[100%] h-[8.37500rem] bg-dark_mode_light">Header</div>
+        <div className="lg:h-[1rem] w-[90%] mx-auto">
+          <DragDropContext onDragEnd={handleDrag} className="">
+            <div className="grid grid-cols-5">
+              {_.map(state, (data, key) => {
+                return (
+                  <div key={key} className="flex flex-col">
+                    <div className="w-[15.7275rem] flex items-center justify-between my-3">
+                      <span className=" text-[2rem]">{data.title}</span>
+                      <img
+                        src={add_icon}
+                        className="h-[42px] w-auto hover:cursor-pointer transition-all expand-button"
+                        // onClick={() => addFirst(data.title)}
+                        onClick={handleOpenModal}
+                      />
+                    </div>
+                    <Droppable droppableId={key}>
+                      {(provided, snapshot) => {
+                        return (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
+                            className="h-[100%] overflow-auto overflow-x-hidden scrollbar-card scrollbar-thumb-white scrollbar-w-1 max-h-[calc(100vh-12.75rem)] pr-5 place-self-start" // Add overflow-y-auto here
+                          >
+                            {data.stickies.map((el, index) => {
+                              return (
+                                <Draggable
+                                  key={el.id}
+                                  index={index}
+                                  draggableId={el.id}
+                                >
+                                  {(provided) => {
+                                    return (
+                                      // Side note: You will have to move the expand button outside of the StickyNote component and attach it here. Or make a clickable element on top of it
+                                      <div
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        className="mb-5"
+                                      >
+                                        <StickyNote
+                                          category={el.category}
+                                          priority={el.priority.toString()}
+                                          content={el.content}
+                                          subject={el.subject}
+                                        ></StickyNote>
+                                        {provided.placeholder}
+                                      </div>
+                                    );
+                                  }}
+                                </Draggable>
+                              );
+                            })}
+                            {provided.placeholder}
+                          </div>
+                        );
+                      }}
+                    </Droppable>
                   </div>
-                  <Droppable droppableId={key}>
-                    {(provided, snapshot) => {
-                      return (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.droppableProps}
-                          className="h-[100%] overflow-auto overflow-x-hidden scrollbar-card scrollbar-thumb-white scrollbar-w-1 max-h-[calc(100vh-12.75rem)] pr-5 place-self-start" // Add overflow-y-auto here
-                        >
-                          {data.stickies.map((el, index) => {
-                            return (
-                              <Draggable
-                                key={el.id}
-                                index={index}
-                                draggableId={el.id}
-                              >
-                                {(provided) => {
-                                  return (
-                                    // Side note: You will have to move the expand button outside of the StickyNote component and attach it here. Or make a clickable element on top of it
-                                    <div
-                                      ref={provided.innerRef}
-                                      {...provided.draggableProps}
-                                      {...provided.dragHandleProps}
-                                      className="mb-5"
-                                    >
-                                      <StickyNote
-                                        category={el.category}
-                                        priority={el.priority.toString()}
-                                        content={el.content}
-                                        subject={el.subject}
-                                      ></StickyNote>
-                                      {provided.placeholder}
-                                    </div>
-                                  );
-                                }}
-                              </Draggable>
-                            );
-                          })}
-                          {provided.placeholder}
-                        </div>
-                      );
-                    }}
-                  </Droppable>
-                </div>
-              );
-            })}
-          </div>
-        </DragDropContext>
+                );
+              })}
+            </div>
+          </DragDropContext>
+        </div>
       </div>
     </div>
   );
