@@ -141,5 +141,7 @@
   - Moving the button to the dashboard page as a sibiling to the sticky note and using absolute positioning solved the issue
 - Added another sticky note generation button to the bottom of the columns for more accessability options.
 - Completed the header UI/UX components
-  - Drop down for member's stickyboard and a filtering section for priority
-    ![alt](./christian_felix_images/4-12%20Stickyboard%20page%20UIUX%20frontend%20functioning.gif)
+
+  - Drop down for member's stickyboard and a filtering section for priority!
+
+  ![alt](./christian_felix_images/4-12%20Stickyboard%20page%20UIUX%20frontend%20functioning.gif)
