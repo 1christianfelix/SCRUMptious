@@ -89,6 +89,9 @@ const StickyNoteInputForm = (props) => {
             className={`HEADER h-[22%] ${headerColor} rounded-t-[19px] flex flex-col`}
           >
             <span className="text-lg p-3 px-4">{type}</span>
+            {/* Above missed */}
+
+
             <div className="flex items-center justify-center gap-20">
               <select
                 name=""
@@ -127,6 +130,8 @@ const StickyNoteInputForm = (props) => {
               </div>
             </div>
           </div>
+
+
           <div
             className={`BODY h-[78%] ${bodyColor} rounded-b-[19px] flex flex-col`}
           >
@@ -187,6 +192,8 @@ const StickyNoteInputForm = (props) => {
               <span className="text-[.8rem]">Sort</span>
             </div>
           </div>
+
+
           <div className="mx-10 h-[75%] flex flex-col text-lg overflow-auto scrollbar-members-list">
             {/* Use this as the template to create multiple checkbox fields using the maps function */}
             <div className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2">
