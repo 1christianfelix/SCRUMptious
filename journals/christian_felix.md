@@ -117,3 +117,8 @@
 - app.js set up to only show the login if there is no session token active
 - logout button added to sidebar and will take user back to signin page upon logging out
   ![alt](./christian_felix_images/4-09%20Frontend%20auth%20set%20up%20for%20login%20and%20logout.gif)
+
+# 4-10-23
+
+- Refactored the drag and drop logic on stickyboard to now use our Sticky Note component
+- Created generation functions to mimic the database inorder to test sticky note movements
