@@ -89,7 +89,10 @@ const StickyNote = (props) => {
           <div className="flex-grow flex flex-col text-sm overflow-auto mx-5 scrollbar-card scrollbar-w-[.4rem] 1440:scrollbar-w-[.6rem] 1440:text-lg pr-[.5rem]">
             <p className="">{content}</p>
           </div>
-          <img src={expand_icon} className="m-[.7rem] self-end expand-button" />
+          <img
+            src={expand_icon}
+            className="m-[.7rem] self-end expand-button invisible"
+          />
         </div>
       </div>
     </div>

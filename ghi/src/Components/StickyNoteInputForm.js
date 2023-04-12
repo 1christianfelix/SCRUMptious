@@ -92,7 +92,7 @@ const StickyNoteInputForm = (props) => {
 
   return (
     <div
-      className="h-screen w-[100%] flex items-center justify-center absolute z-10 backdrop-blur-xl"
+      className="h-screen w-[100%] flex items-center justify-center absolute z-10 backdrop-blur-md"
       onClick={props.close}
     >
       <form onClick={(e) => e.stopPropagation()}>

@@ -4,6 +4,8 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import add_icon from "../images/icons/add_icon.svg";
 import _ from "lodash";
 import StickyNoteInputForm from "../components/StickyNoteInputForm";
+import filter_icon_white from "../images/icons/filter_icon_white.svg";
+import expand_icon from "../images/icons/expand_icon.svg";
 
 // Testing functions to simulate sticky content
 function generateRandomNumber() {
@@ -102,19 +104,19 @@ const DashboardStickyBoard = () => {
     review: { title: "Review", stickies: generateRandomStickyArray("Review") },
     done: { title: "Done", stickies: generateRandomStickyArray("Done") },
   });
-  const [creationMode, setCreationMode] = useState("false");
   const [modalStatus, setModalStatus] = useState(false);
+
   const handleOpenModal = () => {
     setModalStatus(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalStatus(false);
   };
 
   const handleAddSticky = () => {
     setAddStickyVisible(false);
     setAddStickyStyle("hidden");
-  };
-
-  const handleCloseModal = () => {
-    setModalStatus(false);
   };
 
   const handleDrag = ({ destination, source }) => {
@@ -203,8 +205,46 @@ const DashboardStickyBoard = () => {
         type={"Create"}
       ></StickyNoteInputForm>
       <div className="flex flex-col text-dark_mode_text_white">
-        <div className="w-[100%] h-[8.37500rem] bg-dark_mode_light">Header</div>
-        <div className="lg:h-[1rem] w-[90%] mx-auto">
+        <div className="w-[100%] h-[8.37500rem] bg-dark_mode_light flex items-center">
+          <select className="bg-transparent focus:outline-none transition-all duration-150 hover:cursor-pointer text-3xl ml-6">
+            <option value="" className="text-xl bg-slate-500">
+              Sticky Board Name Goes Here
+            </option>
+            <option value="" className="text-xl bg-slate-500">
+              Member's other boards
+            </option>
+            <option value="" className="text-xl bg-slate-500">
+              link to other board
+            </option>
+          </select>
+
+          <div className=" flex gap-5 self-end ml-auto mr-[3rem] 1440:mr-[calc(3rem*1.333)] 1440:text-xl">
+            <div className="flex gap-2 items-center">
+              <img
+                src={filter_icon_white}
+                alt=""
+                className="w-[1rem] h-[1rem]"
+              />
+
+              <label htmlFor="priority" className="text-dark_mode_text_white">
+                Filter Priority:
+              </label>
+            </div>
+            <div
+              id="priority"
+              className="text-dark_mode_text_white flex self-center gap-2"
+            >
+              <input type="radio" id="high" name="priority" value="high" />
+              <label htmlFor="high">High</label>
+              <input type="radio" id="medium" name="priority" value="medium" />
+              <label htmlFor="medium">Medium</label>
+              <input type="radio" id="low" name="priority" value="low" />
+              <label htmlFor="low">Low</label>
+            </div>
+          </div>
+        </div>
+
+        <div className="lg:h-[1rem] w-[90%] ml-[7.5%]">
           <DragDropContext
             onDragEnd={handleDrag}
             onBeforeDragStart={handleAddSticky}
@@ -214,7 +254,7 @@ const DashboardStickyBoard = () => {
               {_.map(state, (data, key) => {
                 return (
                   <div key={key} className="flex flex-col">
-                    <div className="w-[15.7275rem] flex items-center justify-between my-3">
+                    <div className="w-[15.7275rem] 1440:w-[calc(15.7275rem*1.333)] flex items-center justify-between my-3">
                       <span className=" text-[2rem]">{data.title}</span>
                       <img
                         src={add_icon}
@@ -246,7 +286,7 @@ const DashboardStickyBoard = () => {
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
-                                        className="mb-5"
+                                        className="mb-5 relative"
                                       >
                                         <StickyNote
                                           category={el.category}
@@ -254,32 +294,40 @@ const DashboardStickyBoard = () => {
                                           content={el.content}
                                           subject={el.subject}
                                         ></StickyNote>
+                                        <img
+                                          src={expand_icon}
+                                          className="absolute bottom-3 right-3 self-end expand-button"
+                                          // This on click needs to trigger an update form instead of a create form
+                                          onClick={handleOpenModal}
+                                        />
                                         {index === data.stickies.length - 1 && (
                                           <div
-                                            className={`flex items-center pl-4 pt-1 hover:cursor-pointer transition-colors duration-200 text-slate-500 hover:text-white ${addStickyStyle}`}
+                                            className={`flex items-center pl-4  ${addStickyStyle}`}
                                             onClick={handleOpenModal}
                                           >
-                                            <div className="h-[1rem] pr-2 text-current ">
-                                              <svg
-                                                className="h-full stroke-current"
-                                                viewBox="0 0 42 42"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                              >
-                                                <path
-                                                  d="M21 10.5L21 31.5"
-                                                  strokeWidth="2"
-                                                  strokeLinecap="round"
-                                                />
-                                                <path
-                                                  d="M31.5 21L10.5 21"
-                                                  strokeWidth="2"
-                                                  strokeLinecap="round"
-                                                />
-                                              </svg>
+                                            <div className="flex absolute -bottom-6 1440:-bottom-7 items-center hover:cursor-pointer transition-colors duration-200 text-slate-500 hover:text-white">
+                                              <div className="h-[1rem] 1440:h-[1.2rem] pr-2 text-current ">
+                                                <svg
+                                                  className="h-full stroke-current"
+                                                  viewBox="0 0 42 42"
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                  <path
+                                                    d="M21 10.5L21 31.5"
+                                                    strokeWidth="2"
+                                                    strokeLinecap="round"
+                                                  />
+                                                  <path
+                                                    d="M31.5 21L10.5 21"
+                                                    strokeWidth="2"
+                                                    strokeLinecap="round"
+                                                  />
+                                                </svg>
+                                              </div>
+                                              <span className="text-base 1440:text-lg">
+                                                Add Sticky
+                                              </span>
                                             </div>
-                                            <span className="text-base">
-                                              Add Sticky
-                                            </span>
                                           </div>
                                         )}
                                         {provided.placeholder}
