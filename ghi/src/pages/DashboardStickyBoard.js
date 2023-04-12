@@ -302,7 +302,7 @@ const DashboardStickyBoard = () => {
                                         />
                                         {index === data.stickies.length - 1 && (
                                           <div
-                                            className={`flex items-center pl-4  ${addStickyStyle}`}
+                                            className={`flex items-center pl-4 mb-10 ${addStickyStyle}`}
                                             onClick={handleOpenModal}
                                           >
                                             <div className="flex absolute -bottom-6 1440:-bottom-7 items-center hover:cursor-pointer transition-colors duration-200 text-slate-500 hover:text-white">
