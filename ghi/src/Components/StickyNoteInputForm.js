@@ -107,7 +107,7 @@ const StickyNoteInputForm = (props) => {
                   src={close_out}
                   alt=""
                   onClick={props.close}
-                  className="hover:cursor-pointer"
+                  className="hover:cursor-pointer expand-button"
                 />
               </div>
               <div className="flex items-center justify-center gap-20">
@@ -119,7 +119,9 @@ const StickyNoteInputForm = (props) => {
                   value={priority}
                   onChange={handlePriorityColor}
                 >
-                  <option value="">Select Priority</option>
+                  <option value="" disabled>
+                    Select Priority
+                  </option>
                   <option type="number" value="3">
                     High
                   </option>
@@ -169,7 +171,9 @@ const StickyNoteInputForm = (props) => {
                   value={category}
                   onChange={handleColorChange}
                 >
-                  <option value="Default">Select Category</option>
+                  <option value="" disabled>
+                    Select Category
+                  </option>
                   <option value="Backlog">Backlog</option>
                   <option value="Todo">Todo</option>
                   <option value="Doing">Doing</option>

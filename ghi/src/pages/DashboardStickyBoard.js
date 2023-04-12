@@ -90,6 +90,8 @@ function generateRandomStickyArray(categoryName) {
 }
 
 const DashboardStickyBoard = () => {
+  const [addStickyVisible, setAddStickyVisible] = useState(true);
+  const [addStickyStyle, setAddStickyStyle] = useState("");
   const [state, setState] = useState({
     backlog: {
       title: "Backlog",
@@ -104,6 +106,11 @@ const DashboardStickyBoard = () => {
   const [modalStatus, setModalStatus] = useState(false);
   const handleOpenModal = () => {
     setModalStatus(true);
+  };
+
+  const handleAddSticky = () => {
+    setAddStickyVisible(false);
+    setAddStickyStyle("hidden");
   };
 
   const handleCloseModal = () => {
@@ -159,7 +166,7 @@ const DashboardStickyBoard = () => {
         0,
         itemCopy
       );
-
+      setAddStickyStyle("");
       return prev;
     });
   };
@@ -183,6 +190,7 @@ const DashboardStickyBoard = () => {
       console.log(prev, category);
       prev[category.toLowerCase()].stickies.unshift(sticky);
       // console.log("add first");
+
       return prev;
     });
   };
@@ -197,7 +205,11 @@ const DashboardStickyBoard = () => {
       <div className="flex flex-col text-dark_mode_text_white">
         <div className="w-[100%] h-[8.37500rem] bg-dark_mode_light">Header</div>
         <div className="lg:h-[1rem] w-[90%] mx-auto">
-          <DragDropContext onDragEnd={handleDrag} className="">
+          <DragDropContext
+            onDragEnd={handleDrag}
+            onBeforeDragStart={handleAddSticky}
+            className=""
+          >
             <div className="grid grid-cols-5">
               {_.map(state, (data, key) => {
                 return (
@@ -225,6 +237,7 @@ const DashboardStickyBoard = () => {
                                   key={el.id}
                                   index={index}
                                   draggableId={el.id}
+                                  className=""
                                 >
                                   {(provided) => {
                                     return (
@@ -241,6 +254,34 @@ const DashboardStickyBoard = () => {
                                           content={el.content}
                                           subject={el.subject}
                                         ></StickyNote>
+                                        {index === data.stickies.length - 1 && (
+                                          <div
+                                            className={`flex items-center pl-4 pt-1 hover:cursor-pointer transition-colors duration-200 text-slate-500 hover:text-white ${addStickyStyle}`}
+                                            onClick={handleOpenModal}
+                                          >
+                                            <div className="h-[1rem] pr-2 text-current ">
+                                              <svg
+                                                className="h-full stroke-current"
+                                                viewBox="0 0 42 42"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                              >
+                                                <path
+                                                  d="M21 10.5L21 31.5"
+                                                  strokeWidth="2"
+                                                  strokeLinecap="round"
+                                                />
+                                                <path
+                                                  d="M31.5 21L10.5 21"
+                                                  strokeWidth="2"
+                                                  strokeLinecap="round"
+                                                />
+                                              </svg>
+                                            </div>
+                                            <span className="text-base">
+                                              Add Sticky
+                                            </span>
+                                          </div>
+                                        )}
                                         {provided.placeholder}
                                       </div>
                                     );
