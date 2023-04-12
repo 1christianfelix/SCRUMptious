@@ -122,3 +122,24 @@
 
 - Refactored the drag and drop logic on stickyboard to now use our Sticky Note component
 - Created generation functions to mimic the database inorder to test sticky note movements
+- Continued to stylize the UI/UX
+  ![alt](./christian_felix_images/4-10%20Drag%20and%20Drop%20logic%20for%20stickynote%20and%20recoloring.gif)
+
+# 4-11-23
+
+- Added buttons for generating sticky notes to the top of columns for testing purposes
+- implemented a scrollbar in each column to prevent page overflow when the amount of stickies in a column exceeds the page height
+- Refactored the generation button to bring up a sticky note form instead
+- The sticky note form now acts like a modal upon clicking the generation button
+- The background becomes unfocus during the modal pop up. clicking create/X/background exits the modal
+- Spent time figuring out how to center the grid representing the droppable columns considering the scroll bar taking up space.
+
+# 4-12-23
+
+- Had to remove the expand button functionality from the sticky note and apply it to the sticky note on the actual sticky dashboard instead
+  - Initially trying to call the sticky note form caused visual issues at the modal did not render in the center of the dashboard
+  - Moving the button to the dashboard page as a sibiling to the sticky note and using absolute positioning solved the issue
+- Added another sticky note generation button to the bottom of the columns for more accessability options.
+- Completed the header UI/UX components
+  - Drop down for member's stickyboard and a filtering section for priority
+    ![alt](./christian_felix_images/4-12%20Stickyboard%20page%20UIUX%20frontend%20functioning.gif)
