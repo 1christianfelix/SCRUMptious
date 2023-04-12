@@ -99,6 +99,7 @@ const DashboardStickyBoard = () => {
     review: { title: "Review", stickies: generateRandomStickyArray("Review") },
     done: { title: "Done", stickies: generateRandomStickyArray("Done") },
   });
+  const [creationMode, setCreationMode] = useState("false");
 
   const handleDrag = ({ destination, source }) => {
     console.log("source", source);
@@ -155,6 +156,11 @@ const DashboardStickyBoard = () => {
   };
 
   const addFirst = (category) => {
+    // Creation form should pop up first
+    // After submitting form, we fetch the data base for the new array
+    // *stretch goal: addFirst should call an endpoint that will place sticky at index 0
+    // fetch new data
+    // use data
     setState((prev) => {
       const sticky = {
         id: Math.random().toString(),
@@ -196,7 +202,7 @@ const DashboardStickyBoard = () => {
                         <div
                           ref={provided.innerRef}
                           {...provided.droppableProps}
-                          className="h-[100%] overflow-auto overflow-x-hidden scrollbar-card scrollbar-thumb-white scrollbar-w-1 max-h-[calc(100vh-8.37500rem)] pr-5 place-self-start" // Add overflow-y-auto here
+                          className="h-[100%] overflow-auto overflow-x-hidden scrollbar-card scrollbar-thumb-white scrollbar-w-1 max-h-[calc(100vh-12.75rem)] pr-5 place-self-start" // Add overflow-y-auto here
                         >
                           {data.stickies.map((el, index) => {
                             return (
