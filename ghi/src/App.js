@@ -9,6 +9,7 @@ import StickyBoardCreateForm from "./components/StickyBoardCreateForm";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import StickyNoteCreateForm from "./components/StickyNoteCreateForm";
+import ResetPassword from "./pages/ResetPassword";
 
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 
@@ -25,7 +26,7 @@ function App() {
     if (stickyBoardResponse.ok) {
       const data = await stickyBoardResponse.json();
       console.log(data);
-      setStickyBoard(data.stickyBoard);
+      setStickyBoard(data);
     }
   }
   const [accounts, setAccounts] = useState([]);
@@ -34,7 +35,7 @@ function App() {
     const userResponse = await fetch(userUrl);
     if (userResponse.ok) {
       const data = await userResponse.json();
-      console.log("HELLO WORLD", data.users);
+      console.log("HELLO WORLD", data);
       console.log(data);
       setAccounts(data);
     }
@@ -49,6 +50,7 @@ function App() {
       <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
+        <Route path="/ResetPassword" element={<ResetPassword />} />
 
         <Route
           path="*"
@@ -87,4 +89,3 @@ function App() {
 }
 
 export default App;
-
