@@ -16,7 +16,7 @@ class Sticky(BaseModel):
     deadline: datetime
     stickyboard: str
     account: list[str]
-    initial_category = Optional[str]
+    initial_category: Optional[str]
 
 class CreateSticky(BaseModel):
     subject: str
@@ -26,7 +26,7 @@ class CreateSticky(BaseModel):
     start_date: datetime
     deadline: datetime
     account: list[str]
-    initial_category = str
+    initial_category: str
 
 
 
@@ -47,6 +47,7 @@ class StickyQueries:
 
     def get_stickies(self):
         results = list(collection.find())
+        print("results: ", results)
         for result in results:
             result["id"] = str(result["_id"])
             del result["_id"]
