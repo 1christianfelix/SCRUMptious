@@ -12,7 +12,7 @@ function StickyNoteCreateForm({ accounts, stickyBoard }) {
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
   const [priority, setPriority] = useState(0);
-  const [priorityColor, setPriorityColor] = useState("null");
+  const [priorityColor, setPriorityColor] = useState("");
   const [bodyColor, setBodyColor] = useState("");
   const [status, setStatus] = useState("");
   const [start_date, setStartDate] = useState("");
@@ -95,9 +95,10 @@ function StickyNoteCreateForm({ accounts, stickyBoard }) {
         console.log("3");
         setPriorityColor("bg-gradient-to-l from-[#FFECEC] to-[#FFCACA]");
         break;
-      default:
-        console.log("default");
+      case "0":
+        console.log("0");
         setPriorityColor("bg-white");
+        break;
     }
   }, [priority]);
 
@@ -204,7 +205,9 @@ function StickyNoteCreateForm({ accounts, stickyBoard }) {
                     value={priority}
                     onChange={handlePriorityChange}
                   >
-                    <option value="">Select Priority</option>
+                    <option type="number" value="0">
+                      Select Priority
+                    </option>
                     <option type="number" value="3">
                       High
                     </option>
