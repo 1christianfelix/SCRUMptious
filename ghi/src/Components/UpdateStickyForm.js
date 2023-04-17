@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function UpdateStickyForm() {
   const { id } = useParams();
-  const history = useHistory();
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
   const [priority, setPriority] = useState("");
@@ -24,11 +23,10 @@ function UpdateStickyForm() {
         setDeadline(sticky.deadline);
       } else {
         alert("Error fetching sticky. Please try again.");
-        history.push("/stickies");
       }
     }
     fetchSticky();
-  }, [id, history]);
+  }, [id]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -46,7 +44,6 @@ function UpdateStickyForm() {
     });
     if (response.ok) {
       alert("Sticky updated successfully!");
-      history.push("/stickies");
     } else {
       alert("Error updating sticky. Please try again.");
     }
