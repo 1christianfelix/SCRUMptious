@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import StickyBoardCard from "../components/StickyBoardCard";
 import Search_light from "../images/icons/Search_light.svg";
+import StickyBoardInputForm from "../components/StickyBoardInputForm";
 
 import filter_icon_white from "../images/icons/filter_icon_white.svg";
 
 const DashboardStickyBoards = () => {
+  const [boardVisible, setAddBoardVisible] = useState(true);
+  const [modalStatus, setModalStatus] = useState(false);
+  const handleOpenModal = () => {
+    setModalStatus(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalStatus(false);
+  };
+
+  const handleAddBoard = () => {
+    setAddBoardVisible(false);
+  };
+
   return (
     <div className="px-20 pt-20 flex flex-col gap-10 h-screen">
+      <StickyBoardInputForm
+        open={modalStatus}
+        close={handleCloseModal}
+        type="Update"
+      />
       <div className="flex gap-10">
         <div className="flex items-center justify-between bg-white rounded-[100px] w-[25rem] h-[4.75rem] px-10 text-2xl ">
           <input
@@ -16,10 +36,11 @@ const DashboardStickyBoards = () => {
           />
           <img src={Search_light} alt="" className="h-[2rem] w-[2rem]" />
         </div>
-        <button className="border-solid border-button rounded-[19px] w-[16rem] h-[4rem] button-hover-white-outline">
-          <span className="text-dark_mode_text_white">
-            Start a Sticky Board
-          </span>
+        <button
+          className="text-white border-solid border-button rounded-[19px] w-[16rem] h-[4rem] button-hover-white-outline"
+          onClick={handleOpenModal}
+        >
+          Start a Sticky Board
         </button>
         <div className=" flex gap-5 justify-end">
           <div className="flex gap-2 items-center">
