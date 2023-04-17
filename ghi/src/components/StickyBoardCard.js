@@ -40,7 +40,7 @@ const StickyBoardCard = (props) => {
       // }}
       className={`h-[238px] w-[289px] rounded-[8px] drop-shadow-sticky flex flex-col ${gradient}`}
     >
-      <div className=" HEADER h-[20%] flex justify-between p-5 pt-2">
+      <div className=" HEADER h-[20%] flex justify-between p-5 pt-3">
         <div className="PRIORITY_BOX bg-white h-[22px] w-[86px] flex items-center justify-center drop-shadow-sticky">
           <span>{priority}</span>
         </div>
