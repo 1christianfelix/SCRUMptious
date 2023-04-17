@@ -59,7 +59,7 @@ const Signin = () => {
           Sign In
         </p>
         <form onSubmit={handleSignin} className="flex flex-col gap-8">
-          <div className="EMAIL-FIELD w-[468px] h-[67px] bg-[#c0c0c0] bg-opacity-[.3] border-solid border-dark_mode_medium border-[1px] rounded-[19px] flex ">
+          <div className="EMAIL-FIELD w-[468px] h-[67px] bg-[#c0c0c0] bg-opacity-[.3] border-solid border-dark_mode_medium border-[1px] rounded-[19px] flex">
             <input
               type="text"
               placeholder="Email"
