@@ -116,10 +116,10 @@ const StickyNoteInputForm = (props) => {
                   id=""
                   className={`w-[12.8125rem] h-[3.25rem] text-center text-[1.5rem] drop-shadow-sticky ${priorityColor} focus:outline-none`}
                   required
-                  value={priority}
+                  defaultValue="Select Priority"
                   onChange={handlePriorityColor}
                 >
-                  <option value="" disabled>
+                  <option value="Select Priority" disabled hidden>
                     Select Priority
                   </option>
                   <option type="number" value="3">
@@ -168,10 +168,10 @@ const StickyNoteInputForm = (props) => {
                   id=""
                   className="CATEGORY-SELECTION inline-block h-[2rem] w-[8.5rem] drop-shadow-sticky text-center focus:outline-none"
                   required
-                  value={category}
+                  defaultValue="Select Category"
                   onChange={handleColorChange}
                 >
-                  <option value="" disabled>
+                  <option value="Select Category" disabled hidden>
                     Select Category
                   </option>
                   <option value="Backlog">Backlog</option>

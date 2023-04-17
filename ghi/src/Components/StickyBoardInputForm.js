@@ -61,10 +61,11 @@ const StickyBoardInputForm = (props) => {
                 name=""
                 id=""
                 className="bg-[#fff] w-[8.4rem] h-[2.2rem] focus:outline-none text-[1.5rem] text-center drop-shadow-sticky self-center hover:cursor-pointer"
+                defaultValue="Select Priority"
                 required
               >
-                <option value="" disabled selected hidden>
-                  Select Priority
+                <option value="Select Priority" disabled hidden>
+                  Select
                 </option>
                 <option type="number" value="3">
                   High
