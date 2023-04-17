@@ -2,8 +2,27 @@ import React, { useState } from "react";
 import StickyBoardCard from "../components/StickyBoardCard";
 import Search_light from "../images/icons/Search_light.svg";
 import StickyBoardInputForm from "../components/StickyBoardInputForm";
+import garbage from "../images/icons/garbage.svg";
 
 import filter_icon_white from "../images/icons/filter_icon_white.svg";
+
+let board = {
+  priority: "",
+  members: (3).toString(),
+  content:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar elementum integer enim neque volutpat ac. Tincidunt nunc pulvinar sapien et. Ultricies mi quis hendrerit dolor magna eget. Etiam dignissim diam quis enim. Viverra ipsum nunc aliquet bibendum enim",
+};
+
+const boardsGenerate = () => {
+  let arr = [];
+  for (let i = 0; i < 11; i++) {
+    board["priority"] = Math.random() < 0.33 ? 1 : Math.random() < 0.67 ? 2 : 3;
+    arr.push(board);
+  }
+  return arr;
+};
+
+let boards = boardsGenerate();
 
 const DashboardStickyBoards = () => {
   const [boardVisible, setAddBoardVisible] = useState(true);
@@ -65,96 +84,30 @@ const DashboardStickyBoards = () => {
       </div>
       <div className="flex-grow overflow-auto scrollbar-card hover:scrollbar-thumb-slate-300 scrollbar-thumb-white scrollbar-w-2">
         <div className="place-items-center grid grid-cols-4 gap-y-10 last:mb-10">
-          {/* Everything below is for example purposes. Map function would go below here  */}
-          <StickyBoardCard
-            priority="High"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar elementum integer enim neque volutpat ac. Tincidunt nunc pulvinar sapien et. Ultricies mi quis hendrerit dolor magna eget. Etiam dignissim diam quis enim. Viverra ipsum nunc aliquet bibendum enim"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="High"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar elementum integer enim neque volutpat ac. Tincidunt nunc pulvinar sapien et. Ultricies mi quis hendrerit dolor magna eget. Etiam dignissim diam quis enim. Viverra ipsum nunc aliquet bibendum enim"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="High"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar elementum integer enim neque volutpat ac. Tincidunt nunc pulvinar sapien et. Ultricies mi quis hendrerit dolor magna eget. Etiam dignissim diam quis enim. Viverra ipsum nunc aliquet bibendum enim"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="High"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar elementum integer enim neque volutpat ac. Tincidunt nunc pulvinar sapien et. Ultricies mi quis hendrerit dolor magna eget. Etiam dignissim diam quis enim. Viverra ipsum nunc aliquet bibendum enim"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="Medium"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="Low"
-            content="Lorem ipsum dolor sit amet,"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="High"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar elementum integer enim neque volutpat ac. Tincidunt nunc pulvinar sapien et. Ultricies mi quis hendrerit dolor magna eget. Etiam dignissim diam quis enim. Viverra ipsum nunc aliquet bibendum enim"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="Medium"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="Low"
-            content="Lorem ipsum dolor sit amet,"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="High"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar elementum integer enim neque volutpat ac. Tincidunt nunc pulvinar sapien et. Ultricies mi quis hendrerit dolor magna eget. Etiam dignissim diam quis enim. Viverra ipsum nunc aliquet bibendum enim"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="Medium"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="High"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar elementum integer enim neque volutpat ac. Tincidunt nunc pulvinar sapien et. Ultricies mi quis hendrerit dolor magna eget. Etiam dignissim diam quis enim. Viverra ipsum nunc aliquet bibendum enim"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="High"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar elementum integer enim neque volutpat ac. Tincidunt nunc pulvinar sapien et. Ultricies mi quis hendrerit dolor magna eget. Etiam dignissim diam quis enim. Viverra ipsum nunc aliquet bibendum enim"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="High"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar elementum integer enim neque volutpat ac. Tincidunt nunc pulvinar sapien et. Ultricies mi quis hendrerit dolor magna eget. Etiam dignissim diam quis enim. Viverra ipsum nunc aliquet bibendum enim"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="High"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar elementum integer enim neque volutpat ac. Tincidunt nunc pulvinar sapien et. Ultricies mi quis hendrerit dolor magna eget. Etiam dignissim diam quis enim. Viverra ipsum nunc aliquet bibendum enim"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="Medium"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="Low"
-            content="Lorem ipsum dolor sit amet,"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="High"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar elementum integer enim neque volutpat ac. Tincidunt nunc pulvinar sapien et. Ultricies mi quis hendrerit dolor magna eget. Etiam dignissim diam quis enim. Viverra ipsum nunc aliquet bibendum enim"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="Medium"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="Low"
-            content="Lorem ipsum dolor sit amet,"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="High"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar elementum integer enim neque volutpat ac. Tincidunt nunc pulvinar sapien et. Ultricies mi quis hendrerit dolor magna eget. Etiam dignissim diam quis enim. Viverra ipsum nunc aliquet bibendum enim"
-          ></StickyBoardCard>
-          <StickyBoardCard
-            priority="Medium"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-          ></StickyBoardCard>
-          {/* Everything above is for example purposes. Map function would go above here */}
+          {boards.map((board, index) => {
+            return (
+              <div className="relative">
+                <StickyBoardCard
+                  priority={board.priority.toString()}
+                  content={board.content}
+                  members={board.members}
+                  name={"Board Name prop"}
+                />
+                <div className="BUTTONS flex flex-col justify-between py-3">
+                  <img
+                    src={garbage}
+                    className="expand-button absolute bottom-9 left-5"
+                  />
+                  <button
+                    className="button-hover-white-filled px-[.7rem] py-[.1rem] bg-white rounded-[19px] absolute bottom-9 right-5"
+                    onClick={handleOpenModal}
+                  >
+                    <span>Edit Board</span>
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
