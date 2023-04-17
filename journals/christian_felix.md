@@ -145,3 +145,10 @@
   - Drop down for member's stickyboard and a filtering section for priority!
 
   ![alt](./christian_felix_images/4-12%20Stickyboard%20page%20UIUX%20frontend%20functioning.gif)
+
+# 4-16-23
+
+- Added modal form pop ups for sticky board creation and edit buttons.
+  - Creating modals in tailwind requires you to pass down states from the parent component to the modal that indicates wheter to render null or render JSX
+- Devised a plan to maintain a category field on sticky notes in order to reflect color changes on the frontend when dragging stickies between columns
+  - Beautiful-dnd allows us to give ID's to each column. We will use those ID's to to designate the value for the proposed category field.
