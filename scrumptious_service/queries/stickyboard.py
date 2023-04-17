@@ -51,7 +51,6 @@ class StickyBoardQueries:
 
     def get_stickyboards(self):
         results = list(collection.find())
-        print("results: ", results)
         for result in results:
             result["id"] = str(result["_id"])
             del result["_id"]
