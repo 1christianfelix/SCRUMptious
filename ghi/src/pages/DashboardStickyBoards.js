@@ -46,8 +46,8 @@ const DashboardStickyBoards = () => {
         close={handleCloseModal}
         type="Update"
       />
-      <div className="flex gap-10">
-        <div className="flex items-center justify-between bg-white rounded-[100px] w-[25rem] h-[4.75rem] px-10 text-2xl ">
+      <div className="flex gap-10 items-center">
+        <div className="flex items-center justify-between bg-white rounded-[100px] w-[25rem] h-[4.75rem] px-10 text-2xl">
           <input
             type="text"
             placeholder="Search Sticky Boards"
