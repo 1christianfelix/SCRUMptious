@@ -14,8 +14,8 @@ const Dashboard = () => {
     <section className="bg-dark_mode_medium h-screen flex-grow relative">
       {/* <StickyNoteInputForm open={true}></StickyNoteInputForm> */}
 
-      {/* <DashboardStickyBoard></DashboardStickyBoard> */}
-      <DashboardStickyBoards></DashboardStickyBoards>
+      <DashboardStickyBoard></DashboardStickyBoard>
+      {/* <DashboardStickyBoards></DashboardStickyBoards> */}
       {/* <TestingBoardGeneration></TestingBoardGeneration> */}
       {/* <StickyBoardInputForm></StickyBoardInputForm> */}
       {/* <TestDash></TestDash> */}
