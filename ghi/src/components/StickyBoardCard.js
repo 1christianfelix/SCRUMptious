@@ -8,23 +8,26 @@ const StickyBoardCard = (props) => {
   let content = props.content;
   let priority = props.priority;
   let gradient = null;
-  let boardName = null;
+  let boardName = props.name;
   let start = null;
   let deadline = null;
-  let members = 0;
+  let members = props.members;
   // color switches based on priority
   switch (priority) {
-    case "Low":
+    case "1":
       gradient =
         "bg-gradient-to-tl from-[#B8FFC3] from-20% to-[#EFFFF2] to-80%";
+      priority = "Low";
       break;
-    case "Medium":
+    case "2":
       gradient =
         "bg-gradient-to-tl from-[#94ECFF] from-20% to-[#F5FDFF] to-80%";
+      priority = "Medium";
       break;
-    case "High":
+    case "3":
       gradient =
         "bg-gradient-to-tl from-[#FFCACA] from-20% to-[#FFECEC] to-80%";
+      priority = "High";
       break;
     default:
       gradient = "bg-white";
@@ -39,16 +42,16 @@ const StickyBoardCard = (props) => {
     >
       <div className=" HEADER h-[20%] flex justify-between p-5 pt-3 1440:py-4">
         <div className="PRIORITY_BOX bg-white h-[22px] w-[86px] flex items-center justify-center drop-shadow-sticky">
-          <span>Priority</span>
+          <span>{priority}</span>
         </div>
         <div className="MEMBERS_COUNT flex">
           <span className="mr-2">Members:</span>
-          <span className="flex-grow">###</span>
+          <span className="flex-grow">{members}</span>
         </div>
       </div>
       <div className="BODY h-[80%] mx-5 flex flex-col">
         <span className="inline-block text-xl 1440:text-2xl font-semibold">
-          Sticky Board Name
+          {boardName}
         </span>
         <div className="DATE_ROW flex justify-between text-sm 1440:text-base my-1 1440:my-2">
           <div>
