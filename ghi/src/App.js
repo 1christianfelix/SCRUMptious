@@ -2,26 +2,27 @@ import "./App.css";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import StickyNote from "./components/StickyNote";
-import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import StickyBoardCreateForm from "./components/StickyBoardCreateForm";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 
+import useToken, { AuthContext } from "@galvanize-inc/jwtdown-for-react";
+
 function App() {
-  const [users, setUsers] = useState([]);
-  const getUserData = async () => {
-    const userUrl = "http://localhost:8000/user/";
-    const userResponse = await fetch(userUrl);
-    if (userResponse.ok) {
-      const data = await userResponse.json();
-      console.log(data);
-      setUsers(data.users);
-    }
-  };
-  useEffect(() => {
-    getUserData();
-  }, []);
+  const { token } = useContext(AuthContext);
+
+  // const user = useUser(token);
+
+  // console.log(user);
+  console.log("token: ", token);
 
   const [accounts, setAccounts] = useState([]);
   const getAccountsData = async () => {
@@ -37,23 +38,31 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <div className="flex font-Sudo_Var">
-        {/* The sidebar takes up x amount of the space */}
-        <Sidebar></Sidebar>
-        {/* The dashboard represents everything else to the right of the sidebar */}
-        <Dashboard></Dashboard>
-
+    <div>
+      {false ? (
         <Routes>
-          <Route path="stickyboard">
-            <Route
-              path="new"
-              element={<StickyBoardCreateForm accounts={accounts} />}
-            />
-          </Route>
+          <Route path="/" element={<Navigate to="/signin" />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="*" element={<Navigate to="/signin" />} />
         </Routes>
-      </div>
-    </BrowserRouter>
+      ) : (
+        <div className="flex font-Sudo_Var">
+          {console.log("token success")}
+          <Sidebar />
+          <Routes>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="stickyboard">
+              <Route
+                path="new"
+                element={<StickyBoardCreateForm accounts={accounts} />}
+              />
+            </Route>
+            <Route path="*" element={<Navigate to="/dashboard" />} />
+          </Routes>
+        </div>
+      )}
+    </div>
   );
 }
 

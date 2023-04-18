@@ -75,3 +75,32 @@
 - Worked and completed the Account Auth as a team
 - Created the Sign up page. Did UX/UI work on it (form not submittable)
   ![alt](./christian_felix_images/4-03-SignUp%20page%20UIUX.gif)
+
+# 4-04-23
+
+- Created the Sign in page UI/UX and form layout (not submittable)
+- Created the Form layout UI/UX for creating/updating stickyboards
+  ![alt](./christian_felix_images/4-04-StickyBoard%20Form%20UIUX.gif)
+
+# 4-05-23
+
+- Created the Form layout UI/UX for creating/updating stickynotes
+  ![alt](./christian_felix_images/4-05-StickyNote%20Form%20UIUX.gif)
+
+# 4-06-23
+
+- Protected endpoints
+- Implemented drag and drop functionality
+- Partially worked on Stickyboards page
+  ![alt](./christian_felix_images/4-06-StickyNote%20Drag%20and%20Drop%20logic%20UIUX.gif)
+
+# 4-07-23
+
+- Finished Stickyboards page UI/UX
+- Team discussion on remodelling our database to support drag and drop
+  ![alt](./christian_felix_images/4-07-StickyBoards%20list%20page%20UIUX.gif)
+
+# 4-08-23
+
+- Implemented Restful top-level/dependent relationship for creating a sticky note on a specific stickyboarc
+- Working to finish Stickyboard page UI/UX and refactor drag and drop logic for future handling function implementations
