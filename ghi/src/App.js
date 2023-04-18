@@ -15,6 +15,7 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 
 import useToken, { AuthContext } from "@galvanize-inc/jwtdown-for-react";
+import StickyBoard from "./pages/StickyBoard";
 
 function App() {
   const { token } = useContext(AuthContext);
@@ -50,16 +51,20 @@ function App() {
         <div className="flex font-Sudo_Var">
           {console.log("token success")}
           <Sidebar />
-          <Routes>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="stickyboard">
-              <Route
-                path="new"
-                element={<StickyBoardCreateForm accounts={accounts} />}
-              />
-            </Route>
-            <Route path="*" element={<Navigate to="/dashboard" />} />
-          </Routes>
+          <section className="bg-dark_mode_medium h-screen flex-grow relative">
+            <Routes>
+              <Route path="/dashboard">
+                <Route path=":stickyboard_id" element={<StickyBoard />} />
+              </Route>
+              <Route path="stickyboard">
+                <Route
+                  path="new"
+                  element={<StickyBoardCreateForm accounts={accounts} />}
+                />
+              </Route>
+              <Route path="*" element={<Navigate to="/dashboard" />} />
+            </Routes>
+          </section>
         </div>
       )}
     </div>
