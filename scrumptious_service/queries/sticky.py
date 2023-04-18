@@ -12,11 +12,13 @@ class Sticky(BaseModel):
     subject: str
     content: Optional[str]
     priority: int
+    category: str
     start_date: datetime
     deadline: datetime
-    stickyboard: str
     account: list[str]
-    initial_category: Optional[str]
+    stickyboard: str
+
+
 
 class CreateSticky(BaseModel):
     subject: str
@@ -26,7 +28,7 @@ class CreateSticky(BaseModel):
     start_date: datetime
     deadline: datetime
     account: list[str]
-    initial_category: str
+
 
 
 
@@ -57,11 +59,16 @@ class StickyQueries:
 
     def update_sticky(self, sticky_id, sticky):
         sticky_id = ObjectId(sticky_id)
+        original_sticky = collection.find_one({"_id": ObjectId(sticky_id)})
+        print("original_sticky:", original_sticky)
+
         result = collection.update_one(
             {"_id": sticky_id},
             {"$set": sticky.dict(exclude_unset=True)}
         )
         if result.modified_count:
+
+            
             return self.get_sticky_by_id(sticky_id)
 
     def delete_sticky(self, sticky_id):
