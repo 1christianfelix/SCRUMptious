@@ -7,7 +7,9 @@ router = APIRouter()
 
 
 @router.post("/{stickyboard_id}/sticky", tags=["Sticky"])
-def create_sticky(sticky: CreateSticky, stickyboard_id: str = Path(..., title="The ID of the sticky board"), queries: StickyBoardQueries = Depends(), account_data: dict = Depends(authenticator.get_current_account_data)):
+def create_sticky(sticky: CreateSticky, stickyboard_id: str = Path(..., title="The ID of the sticky board"), queries: StickyBoardQueries = Depends(),
+                #   account_data: dict = Depends(authenticator.get_current_account_data)
+                  ):
     return queries.create_sticky(stickyboard_id, sticky)
 
 

@@ -5,7 +5,7 @@ const StickyBoardCard = (props) => {
   // this priority variable should take on the priority property of the sticky board. This can be done through fetching the api.
   // for demonstration purposes, we're mimicking an API resonsee by using "props". The prop is being sent through the Dashboard.js
   // once api endpoints are configured, we will refactor the priority variable to grab the priority property from the API response instead
-  let content = props.content;
+  let content = props.stickyboard.board_name;
   let priority = props.priority;
   let gradient = null;
   let boardName = props.name;

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useEffect, useState, useContext } from "react";
 import StickyBoardCard from "./StickyBoardCard";
 import pen from "../images/icons/pen.svg";
 import calendar_dark from "../images/icons/calendar_dark.svg";
@@ -6,6 +6,7 @@ import Search_light from "../images/icons/Search_light.svg";
 import sort_icon from "../images/icons/sort_icon.svg";
 import filter_icon from "../images/icons/filter_icon.svg";
 // import { useNavigate } from 'react-router-dom';
+import useToken from "@galvanize-inc/jwtdown-for-react"
 
 
 // The prop being passed in will determine if it's a Create or Update
@@ -13,8 +14,9 @@ const StickyBoardCreateForm = (props) => {
   let type =
     props.type ||
     "Create A Sticky Board";
-
+  const { token } = useToken();
   const [boardName, setBoardName] = useState('');
+  const [description, setDescription] = useState('');
   const [priority, setPriority] = useState('');
   const [start, setStart] = useState('');
   const [deadline, setDeadline] = useState('');
@@ -25,6 +27,11 @@ const StickyBoardCreateForm = (props) => {
     const value = event.target.value;
     setBoardName(value);
   }
+  const handleDescriptionChange = (event) => {
+    const value = event.target.value;
+    setDescription(value);
+  }
+  console.log("description:", description, typeof(description))
   const handlePriorityChange = (event) => {
     const value = event.target.value;
     setPriority(value);
@@ -54,6 +61,7 @@ const StickyBoardCreateForm = (props) => {
     event.preventDefault();
     const data = {};
     data.board_name = boardName;
+    data.description = description;
     data.priority = parseFloat(priority);
     data.start_date = new Date(start + "T00:00:00");
     data.deadline = new Date(deadline + "T00:00:00");
@@ -64,6 +72,7 @@ const StickyBoardCreateForm = (props) => {
       body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
       },
     };
     const response = await fetch(url, fetchConfig);
@@ -144,6 +153,17 @@ const StickyBoardCreateForm = (props) => {
               <span>{members.length}</span>
             </div>
           </div>
+          <div className="START grid grid-cols-2">
+              <div>Description</div>
+              <div className="">
+                <input
+                  type="text"
+                  className="bg-transparent w-[85%] focus:outline-none hover:cursor-text"
+                  onChange={handleDescriptionChange}
+                  value={description}
+                />
+              </div>
+            </div>
           <button className="button-hover-white-filled bg-white mt-16 mx-8 px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky">
             Create
           </button>
@@ -198,41 +218,6 @@ const StickyBoardCreateForm = (props) => {
               );
             })}
           </div>
-
-    <div className="d-flex">
-
-      <input onChange={handleSearchTermChange} value={searchTerm} type="text" placeholder="Search Member" />
-
-<br />
-<hr />
-
-    <ul>
-      {filteredAccounts.map((filteredAccount) => {
-        return (
-        <li key={filteredAccount.id}>
-          <input
-            type="checkbox"
-            checked={members.includes(filteredAccount.id)}
-            onChange={(event) => {
-              if (event.target.checked) {
-                setMembers([...members, filteredAccount.id]);
-              } else {
-                setMembers(members.filter((id) => id !== filteredAccount.id));
-              }
-            }}
-          />
-          { filteredAccount.last_name }, {filteredAccount.first_name} <br />
-          { filteredAccount.email } <br />
-        </li>
-        );
-      })}
-    </ul>
-</div>
-
-
-
-
-
         </div>
       </div>
     </form>

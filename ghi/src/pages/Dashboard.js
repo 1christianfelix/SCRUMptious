@@ -8,18 +8,22 @@ import StickyBoardInputForm from "../components/StickyBoardInputForm";
 import StickyNoteInputForm from "../components/StickyNoteInputForm";
 import DashboardStickyBoards from "./DashboardStickyBoards";
 import DashboardStickyBoard from "./DashboardStickyBoard";
+import StickyBoardListView from "./StickyBoardListView"
+
 
 const Dashboard = () => {
   return (
     <section className="bg-dark_mode_medium h-screen flex-grow relative">
       {/* <StickyNoteInputForm open={true}></StickyNoteInputForm> */}
 
-      <DashboardStickyBoard></DashboardStickyBoard>
+      {/* <DashboardStickyBoard></DashboardStickyBoard> */}
       {/* <DashboardStickyBoards></DashboardStickyBoards> */}
       {/* <TestingBoardGeneration></TestingBoardGeneration> */}
       {/* <StickyBoardInputForm></StickyBoardInputForm> */}
       {/* <TestDash></TestDash> */}
       {/* <DashboardInitial></DashboardInitial> */}
+
+      <StickyBoardListView></StickyBoardListView>
     </section>
   );
 };

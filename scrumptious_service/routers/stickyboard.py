@@ -20,7 +20,9 @@ def create_stickyboard(
 
 
 @router.get("/stickyboard", tags=["Stickyboard"])
-def get_stickyboards(queries: StickyBoardQueries = Depends(), account_data: dict = Depends(authenticator.get_current_account_data)):
+def get_stickyboards(queries: StickyBoardQueries = Depends(),
+                    #  account_data: dict = Depends(authenticator.get_current_account_data)
+                     ):
     return queries.get_stickyboards()
 
 
