@@ -78,7 +78,8 @@ function Signup(props) {
     console.log("hello");
     register(
       data,
-      `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/accounts`
+      `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/accounts`,
+      "POST"
     );
     console.log("token", token);
   };

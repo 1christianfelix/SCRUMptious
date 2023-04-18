@@ -30,6 +30,7 @@ class AccountOutWithPassword(AccountOut):
 
 
 
+
 class AccountQueries:
     def get(self, email: str) -> AccountOutWithPassword:
         props = collection.find_one({"email": email})
