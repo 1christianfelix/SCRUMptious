@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import signup_signin_bg from "../images/signup-signin-bg.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Signup(props) {
   const navigate = useNavigate();
@@ -93,7 +93,7 @@ const handleFormSubmit = async (event) => {
         className="absolute -z-10 w-screen h-screen "
       />
       {/* Form Box */}
-      <div className="SIGNUP z-10 h-[866px] w-[652px] backdrop-blur-[9.3px] bg-[#c1c1c1]/50 flex flex-col items-center gap-8 1080:scale-75 1440:scale-105">
+      <div className="SIGNUP z-10 h-[866px] w-[652px] backdrop-blur-[9.3px] bg-[#c1c1c1]/50 flex flex-col items-center gap-8 rounded-[19px] 1080:scale-75 1440:scale-105">
         <p className="p-[.5rem] pl-[1rem] mb-[1rem] text-[4rem] leading-none self-start text-dark_mode_dark">
           Sign Up
         </p>
@@ -158,6 +158,17 @@ const handleFormSubmit = async (event) => {
         >
           Sign Up
         </button>
+        <div className="text-2xl inline">
+          <div className="flex items-center justify-center gap-2 text-dark_mode_text_dark">
+            <span> Already have an account? </span>
+            <Link
+              to="/signin"
+              className="text-white self-center inline-block underline hover:text-slate-700"
+            >
+              Sign in here!
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -2,89 +2,69 @@ import "./App.css";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import StickyNote from "./components/StickyNote";
-
 import React, { useEffect, useState, useContext } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import StickyBoardCreateForm from "./components/StickyBoardCreateForm";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
-import StickyNoteCreateForm from "./components/StickyNoteCreateForm";
 import ResetPassword from "./pages/ResetPassword";
 
-import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
-
-
-
-
-
+import useToken, { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 
 function App() {
-  const [stickyBoard, setStickyBoard] = useState([]);
-  const getStickyBoardData = async () => {
-    const stickyBoardUrl = "http://localhost:8000/stickyboard/";
-    const stickyBoardResponse = await fetch(stickyBoardUrl);
-    if (stickyBoardResponse.ok) {
-      const data = await stickyBoardResponse.json();
-      console.log(data);
-      setStickyBoard(data);
-    }
-  }
+  const { token } = useContext(AuthContext);
+
+  // const user = useUser(token);
+
+  // console.log(user);
+  console.log("token: ", token);
+
   const [accounts, setAccounts] = useState([]);
   const getAccountsData = async () => {
-    const userUrl = "http://localhost:8000/accounts/";
-    const userResponse = await fetch(userUrl);
-    if (userResponse.ok) {
-      const data = await userResponse.json();
-      console.log("HELLO WORLD", data);
-      console.log(data);
+    const accountUrl = "http://localhost:8000/accounts";
+    const accountResponse = await fetch(accountUrl);
+    if (accountResponse.ok) {
+      const data = await accountResponse.json();
       setAccounts(data);
     }
   };
   useEffect(() => {
     getAccountsData();
-    getStickyBoardData();
   }, []);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/ResetPassword" element={<ResetPassword />} />
-
-        <Route
-          path="*"
-          element={
-            <div className="flex font-Sudo_Var">
-              <Sidebar />
-              <Dashboard />
-              <Routes>
-                <Route path="stickyboard">
-                  <Route
-                    path="new"
-                    element={<StickyBoardCreateForm accounts={accounts} />}
-                  />
-                </Route>
-                <Route path="sticky">
-                  <Route
-                    path="/sticky/new"
-                    element={
-                      <StickyNoteCreateForm
-                        accounts={accounts}
-                        stickyBoard={stickyBoard}
-                      />
-                    }
-                  />
-                </Route>
-              </Routes>
-            </div>
-          }
-        />
-      </Routes>
-      <AuthProvider
-        tokenUrl={`${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/token`}
-      ></AuthProvider>
-    </BrowserRouter>
+    <div>
+      {!token ? (
+        <Routes>
+          <Route path="/" element={<Navigate to="/signin" />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/resetpassword" element={<ResetPassword/>} />
+          <Route path="*" element={<Navigate to="/signin" />} />
+        </Routes>
+      ) : (
+        <div className="flex font-Sudo_Var">
+          {console.log("token success")}
+          <Sidebar />
+          <Routes>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="stickyboard">
+              <Route
+                path="new"
+                element={<StickyBoardCreateForm accounts={accounts} />}
+              />
+            </Route>
+            <Route path="*" element={<Navigate to="/dashboard" />} />
+          </Routes>
+        </div>
+      )}
+    </div>
   );
 }
 
