@@ -85,11 +85,11 @@ class StickyBoardQueries:
         props['stickyboard'] = stickyboard_id
         db["Sticky"].insert_one(props)
         stickyboard = collection.find_one({"_id": ObjectId(props["stickyboard"])})
-        category_list = stickyboard[props["initial_category"]]
+        category_list = stickyboard[props["category"]]
         category_list.append(str(props["_id"]))
         collection.update_one(
             {"_id": ObjectId(props["stickyboard"])},
-            {"$set": {props["initial_category"]: category_list}}
+            {"$set": {props["category"]: category_list}}
         )
         return(Sticky(**props))
 

@@ -12,11 +12,12 @@ class Sticky(BaseModel):
     subject: str
     content: Optional[str]
     priority: int
+    category: str
     start_date: datetime
     deadline: datetime
-    stickyboard: str
     account: list[str]
-    initial_category: Optional[str]
+    stickyboard: str
+
 
 class CreateSticky(BaseModel):
     subject: str
@@ -26,7 +27,7 @@ class CreateSticky(BaseModel):
     start_date: datetime
     deadline: datetime
     account: list[str]
-    initial_category: str
+
 
 
 
@@ -57,12 +58,35 @@ class StickyQueries:
 
     def update_sticky(self, sticky_id, sticky):
         sticky_id = ObjectId(sticky_id)
+
+        original_sticky = collection.find_one({"_id": ObjectId(sticky_id)})
+        print(original_sticky)
+
         result = collection.update_one(
             {"_id": sticky_id},
             {"$set": sticky.dict(exclude_unset=True)}
         )
         if result.modified_count:
+            updated_sticky = collection.find_one({"_id": ObjectId(sticky_id)})
+            if updated_sticky["category"] != original_sticky["category"]:
+                print("Update sticky:", updated_sticky["stickyboard"])
+                # props = sticky.dict()
+                # props['stickyboard'] = stickyboard_id
+                # db["Sticky"].insert_one(props)
+                stickyboard = db["StickyBoard"].find_one({"_id": ObjectId(updated_sticky["stickyboard"])})
+                # category_list = stickyboard[props["category"]]
+                # category_list.append(str(props["_id"]))
+                category_list_for_removal = stickyboard[original_sticky["category"]]
+                removed_list = category_list_for_removal.remove(str(updated_sticky["_id"]))
+                category_list_for_append = stickyboard[updated_sticky["category"]]
+                appended_list = category_list_for_append.append(str(updated_sticky["_id"]))
+                db["StickyBoard"].update_one(
+                    {"_id": ObjectId(updated_sticky["stickyboard"])},
+                    {"$set": {updated_sticky["category"]: appended_list}},
+                    {"$set": {original_sticky["category"]: removed_list}}
+                )
             return self.get_sticky_by_id(sticky_id)
+
 
     def delete_sticky(self, sticky_id):
         sticky_id = ObjectId(sticky_id)
