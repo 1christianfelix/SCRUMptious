@@ -12,11 +12,22 @@ class Sticky(BaseModel):
     subject: str
     content: Optional[str]
     priority: int
+    start_date: datetime
+    deadline: datetime
+    stickyboard: str
+    account: list[str]
+    initial_category: Optional[str]
+
+class CreateSticky(BaseModel):
+    subject: str
+    content: Optional[str]
+    priority: int
     category: str
     start_date: datetime
     deadline: datetime
-    stickyBoard: Optional[str]
     account: list[str]
+    initial_category: str
+
 
 
 class StickyQueries:
@@ -27,18 +38,22 @@ class StickyQueries:
             del result["_id"]
             return result
 
-    def create_sticky(self, sticky):
-        result = collection.insert_one(sticky.dict())
-        if result.inserted_id:
-            return self.get_sticky_by_id(result.inserted_id)
+    # Creating sticky moved to queries.stickyboard
+
+    # def create_sticky(self, sticky):
+    #     result = collection.insert_one(sticky.dict())
+    #     if result.inserted_id:
+    #         return self.get_sticky_by_id(result.inserted_id)
 
     def get_stickies(self):
         results = list(collection.find())
+        print("results: ", results)
         for result in results:
             result["id"] = str(result["_id"])
             del result["_id"]
         if results:
             return results
+
 
     def update_sticky(self, sticky_id, sticky):
         sticky_id = ObjectId(sticky_id)

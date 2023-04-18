@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import signup_signin_bg from "../images/signup-signin-bg.png";
 import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Signup(props) {
   const navigate = useNavigate();
@@ -158,6 +159,17 @@ const handleFormSubmit = async (event) => {
         >
           Sign Up
         </button>
+        <div className="text-2xl inline">
+          <div className="flex items-center justify-center gap-2 text-dark_mode_text_dark">
+            <span> Already have an account? </span>
+            <Link
+              to="/signin"
+              className="text-white self-center inline-block underline hover:text-slate-700"
+            >
+              Sign in here!
+            </Link>
+          </div>
+        </div>
         <div className="text-2xl inline">
           <div className="flex items-center justify-center gap-2 text-dark_mode_text_dark">
             <span> Already have an account? </span>

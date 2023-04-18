@@ -42,6 +42,7 @@ const Signin = () => {
             />
           </div>
           <div className="w-[468px] h-[67px] bg-[#c0c0c0] bg-opacity-[.3] border-solid border-dark_mode_medium border-[1px] rounded-[19px] flex">
+          <div className="w-[468px] h-[67px] bg-[#c0c0c0] bg-opacity-[.3] border-solid border-dark_mode_medium border-[1px] rounded-[19px] flex">
             <input
               type="password"
               placeholder="Password"
@@ -52,6 +53,23 @@ const Signin = () => {
             />
           </div>
 
+          {/* <Link to="/dashboard"> */}
+          <button
+            onClick={handleSignin}
+            className="self-center justify-center mt-[.5rem] text-[2.5rem] w-[20rem] bg-[#008193] rounded-[19px] transition-colors text-dark_mode_text_white hover:bg-[#039CB0]"
+          >
+            Sign In
+          </button>
+          {/* </Link> */}
+          <div className="text-2xl inline">
+            <div className="flex items-center justify-center gap-2 text-dark_mode_text_dark">
+              <span> Don't have an account? </span>
+              <Link
+                to="/signup"
+                className="text-white self-center inline-block underline hover:text-slate-700"
+              >
+                Sign up here!
+              </Link>
           {/* <Link to="/dashboard"> */}
           <button
             onClick={handleSignin}

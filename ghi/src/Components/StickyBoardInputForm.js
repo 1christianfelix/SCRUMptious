@@ -5,20 +5,45 @@ import calendar_dark from "../images/icons/calendar_dark.svg";
 import Search_light from "../images/icons/Search_light.svg";
 import sort_icon from "../images/icons/sort_icon.svg";
 import filter_icon from "../images/icons/filter_icon.svg";
+import close_out from "../images/icons/close_out_icon.svg";
 
 // The prop being passed in will determine if it's a Create or Update
 const StickyBoardInputForm = (props) => {
   let type =
     props.type ||
     "Please pass in either Create or Update a value for prop 'type'";
+
+  if (!props.open) {
+    return null;
+  }
+
+  const handleSubmit = () => {
+    props.close();
+  };
+
   return (
-    <form className="h-screen w-[100%] flex items-center justify-center absolute z-10">
-      <div className="flex gap-5">
+    <div
+      className="h-screen w-[100%] flex items-center justify-center absolute  z-10 backdrop-blur-md "
+      onClick={props.close}
+    >
+      <form
+        onClick={(e) => e.stopPropagation()}
+        className="flex gap-5 backdrop-blur-[9.3px]"
+      >
         {/* Input Section */}
         <div className="INPUT-FORM w-[46.3125rem] h-[34.625rem] bg-[#CCCCCC] bg-opacity-60 rounded-[19px] flex flex-col items-center">
-          <p className="text-2xl p-5 self-start text-dark_mode_text_white">
-            {type}
-          </p>
+          <div className="w-[100%] pt-2 px-4 flex items-center justify-between">
+            <span className="text-4xl p-5 self-start text-dark_mode_text_white ">
+              {type}
+            </span>
+            <img
+              src={close_out}
+              alt=""
+              onClick={props.close}
+              className="hover:cursor-pointer expand-button"
+            />
+          </div>
+
           <div className="flex flex-col gap-6 text-dark_mode_font text-[2rem]">
             <div className="BOARD-NAME border-solid border-b-black border-b-2 mb-[2rem]">
               <div className="text-[3rem] flex w-[100%] justify-between gap-0">
@@ -36,10 +61,11 @@ const StickyBoardInputForm = (props) => {
                 name=""
                 id=""
                 className="bg-[#fff] w-[8.4rem] h-[2.2rem] focus:outline-none text-[1.5rem] text-center drop-shadow-sticky self-center hover:cursor-pointer"
+                defaultValue="Select Priority"
                 required
               >
-                <option value="" disabled selected hidden>
-                  Select Priority
+                <option value="Select Priority" disabled hidden>
+                  Select
                 </option>
                 <option type="number" value="3">
                   High
@@ -75,7 +101,10 @@ const StickyBoardInputForm = (props) => {
               <span>Count</span>
             </div>
           </div>
-          <button className="button-hover-white-filled bg-white mt-16 mx-8 px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky">
+          <button
+            className="button-hover-white-filled bg-white mt-8 mx-12 px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky"
+            onClick={handleSubmit}
+          >
             Update
           </button>
         </div>
@@ -218,8 +247,8 @@ const StickyBoardInputForm = (props) => {
             {/* Everything from here to the previous comment is a generation example for the scroll bar. You may delete */}
           </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 };
 

@@ -31,14 +31,7 @@ class HttpError(BaseModel):
 router = APIRouter()
 
 
-@router.get("/api/protected", response_model=bool)
-async def get_protected(
-    account_data: dict = Depends(authenticator.get_current_account_data),
-):
-    return True
-
-
-@router.get("/token", response_model=AccountToken | None)
+@router.get("/token", tags=["Account"], response_model=AccountToken | None)
 async def get_token(
     request: Request,
     account: AccountOut = Depends(authenticator.try_get_current_account_data)
@@ -51,7 +44,7 @@ async def get_token(
         }
 
 
-@router.post("/accounts", response_model=AccountToken | HttpError)
+@router.post("/accounts", tags=["Account"], response_model=AccountToken | HttpError)
 async def create_account(
     info: AccountIn,
     request: Request,
@@ -71,11 +64,12 @@ async def create_account(
     return AccountToken(account=account, **token.dict())
 
 
-@router.get("/accounts")
-def get_all_accounts(queries: AccountQueries = Depends()):
+@router.get("/accounts", tags=["Account"])
+def get_all_accounts(queries: AccountQueries = Depends(), account: AccountOut = Depends(authenticator.try_get_current_account_data)):
     return queries.get_all_accounts()
 
 
-@router.delete("/accounts/{account_id}")
-def delete_account(account_id: str, queries: AccountQueries = Depends()):
+# Fix later: Make sure account owner can only delete account
+@router.delete("/accounts/{account_id}", tags=["Account"])
+def delete_account(account_id: str, queries: AccountQueries = Depends(), account: AccountOut = Depends(authenticator.try_get_current_account_data)):
     return queries.delete_account(account_id)

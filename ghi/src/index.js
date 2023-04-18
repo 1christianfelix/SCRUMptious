@@ -16,6 +16,15 @@ root.render(
     </AuthProvider>
   </BrowserRouter>
 );
+root.render(
+  <BrowserRouter basename="/">
+    <AuthProvider
+      tokenUrl={`${process.env.REACT_APP_USER_SERVICE_API_HOST}/token`}
+    >
+      <App />
+    </AuthProvider>
+  </BrowserRouter>
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

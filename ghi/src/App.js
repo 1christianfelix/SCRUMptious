@@ -10,14 +10,29 @@ import {
   Navigate,
   useNavigate,
 } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import StickyBoardCreateForm from "./components/StickyBoardCreateForm";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import ResetPassword from "./pages/ResetPassword";
 
 import useToken, { AuthContext } from "@galvanize-inc/jwtdown-for-react";
+import useToken, { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 
 function App() {
+  const { token } = useContext(AuthContext);
+
+  // const user = useUser(token);
+
+  // console.log(user);
+  console.log("token: ", token);
+
   const { token } = useContext(AuthContext);
 
   // const user = useUser(token);
