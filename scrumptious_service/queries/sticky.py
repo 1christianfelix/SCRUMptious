@@ -60,7 +60,7 @@ class StickyQueries:
         sticky_id = ObjectId(sticky_id)
 
         original_sticky = collection.find_one({"_id": ObjectId(sticky_id)})
-        print(original_sticky)
+
 
         result = collection.update_one(
             {"_id": sticky_id},
@@ -69,21 +69,27 @@ class StickyQueries:
         if result.modified_count:
             updated_sticky = collection.find_one({"_id": ObjectId(sticky_id)})
             if updated_sticky["category"] != original_sticky["category"]:
-                print("Update sticky:", updated_sticky["stickyboard"])
+                print("original sticky:", original_sticky)
+                print("Update sticky:", updated_sticky)
                 # props = sticky.dict()
                 # props['stickyboard'] = stickyboard_id
                 # db["Sticky"].insert_one(props)
                 stickyboard = db["StickyBoard"].find_one({"_id": ObjectId(updated_sticky["stickyboard"])})
                 # category_list = stickyboard[props["category"]]
                 # category_list.append(str(props["_id"]))
+                print("original_sticky category:", original_sticky["category"])
+                print("sticky id", updated_sticky["_id"])
                 category_list_for_removal = stickyboard[original_sticky["category"]]
-                removed_list = category_list_for_removal.remove(str(updated_sticky["_id"]))
-                category_list_for_append = stickyboard[updated_sticky["category"]]
-                appended_list = category_list_for_append.append(str(updated_sticky["_id"]))
+                print("category_list_for_removal: ", category_list_for_removal)
+                category_list_for_removal.remove(str(updated_sticky["_id"]))
+                print("category_list_for_removal:", category_list_for_removal)
+                category_list_for_appending = stickyboard[updated_sticky["category"]]
+                category_list_for_appending.append(str(updated_sticky["_id"]))
+                print("category_list_for_appending-->", category_list_for_appending)
                 db["StickyBoard"].update_one(
                     {"_id": ObjectId(updated_sticky["stickyboard"])},
-                    {"$set": {updated_sticky["category"]: appended_list}},
-                    {"$set": {original_sticky["category"]: removed_list}}
+                    {"$set": {updated_sticky["category"]: category_list_for_appending,
+                              original_sticky["category"]: category_list_for_removal}}
                 )
             return self.get_sticky_by_id(sticky_id)
 
