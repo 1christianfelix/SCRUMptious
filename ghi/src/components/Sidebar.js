@@ -21,7 +21,7 @@ const Sidebar = () => {
 
   return (
     <nav className="flex flex-col w-[14.75rem] h-screen bg-dark_mode_dark flex-none">
-      <section className="LOGO-SECTION flex h-[12%] border-b-solid border-b-[1px] border-b-dark_mode_text_white">
+      <section className="LOGO-SECTION flex h-[8.37500rem] border-b-solid border-b-[1px] border-b-dark_mode_text_white">
         <span className="Scrumptious m-[2.5%] text-dark_mode_text_white font-Sudo_Var">
           SCRUMPTIOUS
         </span>

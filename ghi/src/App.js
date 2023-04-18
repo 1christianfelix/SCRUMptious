@@ -39,7 +39,7 @@ function App() {
 
   return (
     <div>
-      {!token ? (
+      {false ? (
         <Routes>
           <Route path="/" element={<Navigate to="/signin" />} />
           <Route path="/signup" element={<Signup />} />
