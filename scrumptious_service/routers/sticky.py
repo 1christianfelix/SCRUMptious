@@ -17,6 +17,10 @@ def create_sticky(sticky: CreateSticky, stickyboard_id: str = Path(..., title="T
 def get_stickies(queries: StickyQueries = Depends(), account_data: dict = Depends(authenticator.get_current_account_data)):
     return queries.get_stickies()
 
+@router.get("/{stickyboard_id}/stickies", tags=["Stickyboard"])
+def get_stickies_data(stickyboard_id: str = Path(..., title="The ID of the sticky board"), queries: StickyBoardQueries = Depends(), account_data: dict = Depends(authenticator.get_current_account_data)):
+    return queries.get_stickies_data(stickyboard_id)
+
 
 @router.put("/sticky/{sticky_id}", tags=["Sticky"])
 def update_sticky(

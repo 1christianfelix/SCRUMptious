@@ -93,3 +93,18 @@ class StickyBoardQueries:
             {"$set": {props["category"]: category_list}}
         )
         return(Sticky(**props))
+
+    def get_sticky_by_id(self, sticky_id):
+        result = db["Sticky"].find_one({"_id": ObjectId(sticky_id)})
+        if result:
+            result["id"] = str(result["_id"])
+            del result["_id"]
+            return result
+
+    def get_stickies_data(self, stickyboard_id):
+        stickyboard = self.get_stickyboard_by_id(stickyboard_id)
+        stickyboard_category_data = {}
+        category_names = ["backlog", 'todo', 'review', 'doing', 'done']
+        for category in category_names:
+            stickyboard_category_data[f"{category}"] = list(map(self.get_sticky_by_id, stickyboard[f"{category}"]))
+        return stickyboard_category_data
