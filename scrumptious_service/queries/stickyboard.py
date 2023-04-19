@@ -85,10 +85,25 @@ class StickyBoardQueries:
         props['stickyboard'] = stickyboard_id
         db["Sticky"].insert_one(props)
         stickyboard = collection.find_one({"_id": ObjectId(props["stickyboard"])})
-        category_list = stickyboard[props["initial_category"]]
+        category_list = stickyboard[props["category"]]
         category_list.append(str(props["_id"]))
         collection.update_one(
             {"_id": ObjectId(props["stickyboard"])},
-            {"$set": {props["initial_category"]: category_list}}
+            {"$set": {props["category"]: category_list}}
         )
         return(Sticky(**props))
+
+    def get_sticky_by_id(self, sticky_id):
+        result = db["Sticky"].find_one({"_id": ObjectId(sticky_id)})
+        if result:
+            result["id"] = str(result["_id"])
+            del result["_id"]
+            return result
+
+    def get_stickies_data(self, stickyboard_id):
+        stickyboard = self.get_stickyboard_by_id(stickyboard_id)
+        stickyboard_category_data = {}
+        category_names = ["backlog", 'todo', 'review', 'doing', 'done']
+        for category in category_names:
+            stickyboard_category_data[f"{category}"] = list(map(self.get_sticky_by_id, stickyboard[f"{category}"]))
+        return stickyboard_category_data
