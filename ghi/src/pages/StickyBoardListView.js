@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import StickyBoardCard from "../components/StickyBoardCard";
 import Search_light from "../images/icons/Search_light.svg";
 import StickyBoardInputForm from "../components/StickyBoardInputForm";
 import garbage from "../images/icons/garbage.svg";
 
 import filter_icon_white from "../images/icons/filter_icon_white.svg";
-import useToken from "@galvanize-inc/jwtdown-for-react";
+import useToken, { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 import StickyBoardCreateForm from "../components/StickyBoardCreateForm";
 
 let board = {
@@ -26,13 +26,18 @@ const boardsGenerate = () => {
 
 let boards = boardsGenerate();
 
-const StickyBoardListView = (props) => {
-  const { token } = useToken();
+const StickyBoardListView = () => {
+  // const { token } = useToken();
+  const { token } = useContext(AuthContext);
   const [stickyboards, setStickyboards] = useState([]);
   const getStickyboardsData = async () => {
   const stickyboardsUrl = "http://localhost:8000/stickyboard";
   const stickyboardsResponse = await fetch(stickyboardsUrl, {
-      headers: { Authorization: `Bearer ${props.token}` },
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
     });
     if (stickyboardsResponse.ok) {
       const data = await stickyboardsResponse.json();
@@ -72,22 +77,22 @@ const StickyBoardListView = (props) => {
     const value = event.target.value;
     setPriority(value);
   }
-  console.log(stickyboards)
-  const filteredStickyboards = stickyboards.filter((stickyboard) =>
-  (stickyboard.board_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  stickyboard.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
-  (!searchPriority || stickyboard.priority === parseInt(searchPriority))
-  );
-  console.log(filteredStickyboards)
 
-
+  const filteredStickyboards = searchPriority || searchTerm
+  ? stickyboards.filter((stickyboard) =>
+      (stickyboard.board_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      stickyboard.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
+      (!searchPriority || stickyboard.priority === parseInt(searchPriority))
+    )
+  : stickyboards;
 
 
   return (
     <div className=" h-screen overflow-hidden">
-      <StickyBoardInputForm
+      <StickyBoardCreateForm
         open={modalStatus}
         close={handleCloseModal}
+        getStickyboardsData={getStickyboardsData}
         type="Create"
       />
       <div className="px-20 pt-20 flex flex-col gap-10 overflow-hidden h-[100%]">
@@ -135,17 +140,18 @@ const StickyBoardListView = (props) => {
         </div>
         <div className="flex-grow overflow-auto scrollbar-card hover:scrollbar-thumb-slate-300 scrollbar-thumb-white scrollbar-w-2">
           <div className="place-items-center grid grid-cols-4 gap-y-10 last:mb-10">
-            {filteredStickyboards.map((stickyboard) => {
+            {filteredStickyboards !== null && filteredStickyboards.map((stickyboard) => {
               return (
                 <div className="relative" key={stickyboard.id}>
                   <StickyBoardCard
                     stickyboard={stickyboard}
+                    getStickyboardsData={getStickyboardsData}
                     // priority={stickyboard.priority.toString()}
                     // content={board.description}
                     // members={board.accounts}
                     // name={stickyboard.board_name}
                   />
-                  <div className="BUTTONS flex flex-col justify-between py-3">
+                  {/* <div className="BUTTONS flex flex-col justify-between py-3">
                     <img
                       src={garbage}
                       className="expand-button absolute bottom-9 left-5"
@@ -156,7 +162,7 @@ const StickyBoardListView = (props) => {
                     >
                       <span>Edit Board</span>
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               );
             })}
