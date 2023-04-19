@@ -15,7 +15,7 @@ export const AccountProvider = ({ children }) => {
   useEffect(() => {
     getAccountsData();
   }, []);
-  console.log(accounts);
+  console.log("From AccountContext.js:", accounts);
   return (
     <AccountContext.Provider value={{ accounts, setAccounts }}>
       {children}

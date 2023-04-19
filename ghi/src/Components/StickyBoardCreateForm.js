@@ -11,7 +11,7 @@ import AccountContext from "../context/AccountContext";
 // The prop being passed in will determine if it's a Create or Update
 const StickyBoardCreateForm = (props) => {
   const { accounts, setAccounts } = useContext(AccountContext);
-  console.log(accounts);
+  console.log("from: This file:", accounts);
   let type = props.type || "Create A Sticky Board";
 
   const [boardName, setBoardName] = useState("");
@@ -51,6 +51,7 @@ const StickyBoardCreateForm = (props) => {
           account.first_name.toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
+    console.log("Filtered acc:", filteredAccounts);
   }, []);
 
   // const navigate = useNavigate();
