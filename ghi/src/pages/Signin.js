@@ -1,65 +1,37 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import signup_signin_bg from "../images/signup-signin-bg.png";
-import signup_signin_bg_scaled from "../images/signup-signin-bg-scaled.png";
-import bg_scaled from "../images/bg-scaled.png";
+// import signup_signin_bg_scaled from "../images/signup-signin-bg-scaled.png";
+// import bg_scaled from "../images/bg-scaled.png";
 
-import { useNavigate, Link, useToken } from "react-router-dom";
-import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
+import { useNavigate, Link } from "react-router-dom";
+import useToken from "@galvanize-inc/jwtdown-for-react";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { token } = useContext(AuthContext);
-  console.log(token);
-
-  const handleSignin = async (e) => {
+  const { token, login } = useToken();
+  // console.log(login);
+  // console.log(token);
+  // console.log("test", token);
+  const handleSignin = (e) => {
     e.preventDefault();
 
-    const signinUrl = "http://localhost:8000/token";
-    const response = await fetch(signinUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: `Bearer ${token}`,
-      },
-      body: new URLSearchParams({
-        username: email,
-        password: password,
-      }),
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      if (data && data.access_token) {
-        console.log(data);
-        localStorage.setItem("access_token", data.access_token);
-        navigate("/dashboard");
-      } else {
-        console.log("Invalid response from server");
-      }
-    } else {
-      // const errorData = await response.json();
-      if (response.status === 401) {
-        alert("Invalid email or password");
-      } else {
-        console.log("Signin failed");
-      }
-    }
+    login(email, password);
   };
 
   return (
     <div className="relative h-screen w-screen flex items-center justify-center font-Sudo_Var text-black">
       <img
-        src={signup_signin_bg_scaled}
+        src={signup_signin_bg}
         className="absolute -z-10 w-screen h-screen"
       />
-      <div className="SIGNIN z-10 h-[553px] w-[652px] backdrop-blur-[9.3px] bg-[#c1c1c1]/60 flex flex-col items-center gap-10 1080:scale-75 1440:scale-105">
+      <div className="SIGNIN z-10 h-[553px] w-[652px] backdrop-blur-[9.3px] bg-[#c1c1c1]/60 flex flex-col items-center gap-10 rounded-[19px] 1080:scale-75 1440:scale-105">
         <p className="p-[.5rem] pl-[1rem] mb-[1rem] text-[4rem] leading-none self-start text-dark_mode_dark">
           Sign In
         </p>
         <form onSubmit={handleSignin} className="flex flex-col gap-8">
-          <div className="EMAIL-FIELD w-[468px] h-[67px] bg-[#c0c0c0] bg-opacity-[.3] border-solid border-dark_mode_medium border-[1px] rounded-[19px] flex">
+          <div className="EMAIL-FIELD w-[468px] h-[67px] bg-[#c0c0c0] bg-opacity-[.3] border-solid border-dark_mode_medium border-[1px] rounded-[19px] flex ">
             <input
               type="text"
               placeholder="Email"
@@ -104,5 +76,6 @@ const Signin = () => {
     </div>
   );
 };
+
 
 export default Signin;

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import signup_signin_bg from "../images/signup-signin-bg.png";
 import { useNavigate, Link } from "react-router-dom";
 
+
 function Signup(props) {
   const navigate = useNavigate();
 
@@ -37,43 +38,54 @@ function Signup(props) {
     setConfirmPassword(value);
   };
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    if (
-      firstName === "" ||
-      lastName === "" ||
-      email === "" ||
-      password === "" ||
-      confirmPassword === ""
-    ) {
-      alert("Please fill out all required fields!");
-      return;
-    }
-    if (password !== confirmPassword) {
-      alert("Your passwords must match!");
-      return;
-    }
-    const data = {
-      email: email,
-      first_name: firstName,
-      last_name: lastName,
-      password: password,
-    };
+const handleFormSubmit = async (event) => {
+  event.preventDefault();
 
-    const accountUrl = "http://localhost:8000/accounts";
-    const fetchConfig = {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
+  const response = await fetch("http://localhost:8000/accounts");
+  const data = await response.json();
+  const emails = data.map((user) => user.email);
 
-    const response = await fetch(accountUrl, fetchConfig);
-    if (response.ok) {
-      navigate("/signin");
-    }
+  if (
+    firstName === "" ||
+    lastName === "" ||
+    email === "" ||
+    password === "" ||
+    confirmPassword === ""
+  ) {
+    alert("Please fill out all required fields!");
+    return;
+  }
+  if (password !== confirmPassword) {
+    alert("Your passwords must match!");
+    return;
+  }
+  if (emails.includes(email)) {
+    alert("This email already exists. Please use a different email address.");
+    return;
+  }
+
+  const formData = {
+    email: email,
+    first_name: firstName,
+    last_name: lastName,
+    password: password,
   };
+
+  const accountUrl = "http://localhost:8000/accounts";
+  const fetchConfig = {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  };
+
+  const postResponse = await fetch(accountUrl, fetchConfig);
+  if (postResponse.ok) {
+    navigate("/signin");
+  }
+};
+
 
   return (
     <div className="relative h-screen w-screen flex items-center justify-center font-Sudo_Var text-black">
@@ -82,7 +94,7 @@ function Signup(props) {
         className="absolute -z-10 w-screen h-screen "
       />
       {/* Form Box */}
-      <div className="SIGNUP z-10 h-[866px] w-[652px] backdrop-blur-[9.3px] bg-[#c1c1c1]/60 flex flex-col items-center gap-8 1080:scale-75 1440:scale-105">
+      <div className="SIGNUP z-10 h-[866px] w-[652px] backdrop-blur-[9.3px] bg-[#c1c1c1]/50 flex flex-col items-center gap-8 rounded-[19px] 1080:scale-75 1440:scale-105">
         <p className="p-[.5rem] pl-[1rem] mb-[1rem] text-[4rem] leading-none self-start text-dark_mode_dark">
           Sign Up
         </p>
