@@ -78,13 +78,13 @@ const StickyBoard = (props) => {
 
   const updateLists = () => {
     console.log("category List:", stickyIDArrays);
-    const stickyTemplate = {
-      id: "",
-      subject: "",
-      priority: "",
-      content: "",
-      category: "",
-    };
+    // stickyTemplate = {
+    //   id: "",
+    //   subject: "",
+    //   priority: int,
+    //   content: "",
+    //   category: "",
+    // };
 
     setStickyIDArrays((prev) => {
       prev = { ...prev };
@@ -298,7 +298,7 @@ const StickyBoard = (props) => {
                                       >
                                         <StickyNote
                                           category={el.category}
-                                          priority={el.priority.toString()}
+                                          priority={el.priority}
                                           content={el.content}
                                           subject={el.subject}
                                         ></StickyNote>
