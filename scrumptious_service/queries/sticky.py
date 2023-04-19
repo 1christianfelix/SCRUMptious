@@ -12,11 +12,12 @@ class Sticky(BaseModel):
     subject: str
     content: Optional[str]
     priority: int
+    category: str
     start_date: datetime
     deadline: datetime
-    stickyboard: str
     account: list[str]
-    initial_category: Optional[str]
+    stickyboard: str
+
 
 class CreateSticky(BaseModel):
     subject: str
@@ -26,7 +27,7 @@ class CreateSticky(BaseModel):
     start_date: datetime
     deadline: datetime
     account: list[str]
-    initial_category: str
+
 
 
 
@@ -57,12 +58,38 @@ class StickyQueries:
 
     def update_sticky(self, sticky_id, sticky):
         sticky_id = ObjectId(sticky_id)
+        original_sticky = collection.find_one({"_id": ObjectId(sticky_id)})
         result = collection.update_one(
             {"_id": sticky_id},
             {"$set": sticky.dict(exclude_unset=True)}
         )
         if result.modified_count:
+            updated_sticky = collection.find_one({"_id": ObjectId(sticky_id)})
+            if updated_sticky["category"] != original_sticky["category"]:
+                stickyboard = db["StickyBoard"].find_one({"_id": ObjectId(updated_sticky["stickyboard"])})
+                category_list_for_removal = stickyboard[original_sticky["category"]]
+                category_list_for_removal.remove(str(updated_sticky["_id"]))
+                category_list_for_appending = stickyboard[updated_sticky["category"]]
+                category_list_for_appending.append(str(updated_sticky["_id"]))
+                db["StickyBoard"].update_one(
+                    {"_id": ObjectId(updated_sticky["stickyboard"])},
+                    {"$set": {updated_sticky["category"]: category_list_for_appending,
+                              original_sticky["category"]: category_list_for_removal}}
+                )
             return self.get_sticky_by_id(sticky_id)
 
+
     def delete_sticky(self, sticky_id):
-        pass
+        sticky_id = ObjectId(sticky_id)
+        sticky = collection.find_one({"_id": ObjectId(sticky_id)})
+        result = collection.delete_one({"_id": sticky_id})
+        if result.deleted_count:
+            stickyboard = db["StickyBoard"].find_one({"_id": ObjectId(sticky["stickyboard"])})
+            category_list_for_removal = stickyboard[sticky["category"]]
+            category_list_for_removal.remove(str(sticky["_id"]))
+            db["StickyBoard"].update_one(
+                {"_id": ObjectId(sticky["stickyboard"])},
+                {"$set": {sticky["category"]: category_list_for_removal}})
+            return {"message": "Sticky deleted successfully"}
+        else:
+            return {"message": "Sticky not found"}
