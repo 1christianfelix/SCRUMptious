@@ -17,11 +17,11 @@ class StickyBoard(BaseModel):
     start_date: datetime
     deadline: datetime
     account: list[str]
-    backlog: Optional[list[str]]
-    todo: Optional[list[str]]
-    doing: Optional[list[str]]
-    review: Optional[list[str]]
-    done: Optional[list[str]]
+    backlog: list[str]
+    todo: list[str]
+    doing: list[str]
+    review: list[str]
+    done: list[str]
 
 
 class StickyBoardUpdate(BaseModel):

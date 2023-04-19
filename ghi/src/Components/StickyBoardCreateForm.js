@@ -65,6 +65,11 @@ const StickyBoardCreateForm = (props) => {
     data.start_date = new Date(start + "T00:00:00");
     data.deadline = new Date(deadline + "T00:00:00");
     data.account = members;
+    data.backlog = [];
+    data.todo = [];
+    data.doing = [];
+    data.review = [];
+    data.done = [];
     const url = "http://localhost:8000/stickyboard";
     const fetchConfig = {
       method: "post",
