@@ -22,17 +22,12 @@ const StickyBoard = (props) => {
     review: [],
     done: [],
   });
-  const [backlog, setBacklog] = useState([]);
-  const [todo, setTodo] = useState([]);
-  const [doing, setDoing] = useState([]);
-  const [review, setReview] = useState([]);
-  const [done, setDone] = useState([]);
   const [stickyIDArrays, setStickyIDArrays] = useState({
-    backlog: [],
-    todo: [],
-    doing: [],
-    review: [],
-    done: [],
+    backlog: ["empty"],
+    todo: ["empty"],
+    doing: ["empty"],
+    review: ["empty"],
+    done: ["empty"],
   });
   const [state, setState] = useState({
     backlog: {
@@ -54,24 +49,24 @@ const StickyBoard = (props) => {
     });
     if (response.ok) {
       const data = await response.json();
-      setStickyIDArrays(data);
+      setStickyboard(data);
     }
   };
 
-  const fetchCategoryLists = async () => {
+  const fetchCategoryStickyData = async () => {
     const url = `http://localhost:8000/${stickyboard_id}/stickies`;
     const response = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (response.ok) {
       const data = await response.json();
-      setStickyboard(data);
+      setCategoriesLists(data);
     }
   };
 
   useEffect(() => {
     fetchBoard();
-    fetchCategoryLists();
+    fetchCategoryStickyData();
   }, [token]);
 
   // Deal with stickies
@@ -90,27 +85,27 @@ const StickyBoard = (props) => {
       content: "",
       category: "",
     };
-    let backlog = stickyIDArrays["backlog"];
-    let todo = stickyIDArrays["todo"];
-    let doing = stickyIDArrays["doing"];
-    let review = stickyIDArrays["review"];
-    let done = stickyIDArrays["done"];
+    let backlog = stickyboard["backlog"];
+    let todo = stickyboard["todo"];
+    let doing = stickyboard["doing"];
+    let review = stickyboard["review"];
+    let done = stickyboard["done"];
 
-    setState((prev) => {
+    setStickyIDArrays((prev) => {
       prev = { ...prev };
-      prev["backlog"].stickies = backlog;
-      prev["todo"].stickies = todo;
-      prev["doing"].stickies = doing;
-      prev["review"].stickies = review;
-      prev["done"].stickies = done;
-      console.log("prev", prev);
+      prev["backlog"] = backlog;
+      prev["todo"] = backlog;
+      prev["doing"] = backlog;
+      prev["review"] = backlog;
+      prev["done"] = backlog;
+
       return prev;
     });
   };
 
   useEffect(() => {
     updateIdLists();
-  }, [stickyIDArrays]);
+  }, [stickyboard]);
 
   const handleOpenModal = () => {
     setModalStatus(true);
