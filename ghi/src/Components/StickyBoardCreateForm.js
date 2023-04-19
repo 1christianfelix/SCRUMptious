@@ -6,7 +6,7 @@ import Search_light from "../images/icons/Search_light.svg";
 import sort_icon from "../images/icons/sort_icon.svg";
 import filter_icon from "../images/icons/filter_icon.svg";
 // import { useNavigate } from 'react-router-dom';
-import useToken from "@galvanize-inc/jwtdown-for-react"
+import useToken from "@galvanize-inc/jwtdown-for-react";
 
 
 // The prop being passed in will determine if it's a Create or Update
@@ -31,7 +31,6 @@ const StickyBoardCreateForm = (props) => {
     const value = event.target.value;
     setDescription(value);
   }
-  console.log("description:", description, typeof(description))
   const handlePriorityChange = (event) => {
     const value = event.target.value;
     setPriority(value);

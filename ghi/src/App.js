@@ -11,6 +11,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import StickyBoardCreateForm from "./components/StickyBoardCreateForm";
+import StickyBoardUpdateForm from "./components/StickyBoardUpdateForm";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 
@@ -56,6 +57,10 @@ function App() {
               <Route
                 path="new"
                 element={<StickyBoardCreateForm accounts={accounts} />}
+              />
+              <Route
+                path="update"
+                // element={<StickyBoardUpdateForm accounts={accounts} />}
               />
             </Route>
             <Route path="*" element={<Navigate to="/dashboard" />} />

@@ -5,6 +5,8 @@ import StickyBoardInputForm from "../components/StickyBoardInputForm";
 import garbage from "../images/icons/garbage.svg";
 
 import filter_icon_white from "../images/icons/filter_icon_white.svg";
+import useToken from "@galvanize-inc/jwtdown-for-react";
+import StickyBoardCreateForm from "../components/StickyBoardCreateForm";
 
 let board = {
   priority: "",
@@ -25,7 +27,7 @@ const boardsGenerate = () => {
 let boards = boardsGenerate();
 
 const StickyBoardListView = (props) => {
-
+  const { token } = useToken();
   const [stickyboards, setStickyboards] = useState([]);
   const getStickyboardsData = async () => {
   const stickyboardsUrl = "http://localhost:8000/stickyboard";
@@ -71,11 +73,12 @@ const StickyBoardListView = (props) => {
     setPriority(value);
   }
   console.log(stickyboards)
-  // const filteredStickyboards = stickyboards.filter((stickyboard) =>
-  // stickyboard.board_name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-  // (!searchPriority || stickyboard.priority === parseInt(searchPriority))
-  // );
-  // console.log(filteredStickyboards)
+  const filteredStickyboards = stickyboards.filter((stickyboard) =>
+  (stickyboard.board_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  stickyboard.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
+  (!searchPriority || stickyboard.priority === parseInt(searchPriority))
+  );
+  console.log(filteredStickyboards)
 
 
 
@@ -85,7 +88,7 @@ const StickyBoardListView = (props) => {
       <StickyBoardInputForm
         open={modalStatus}
         close={handleCloseModal}
-        type="Update"
+        type="Create"
       />
       <div className="px-20 pt-20 flex flex-col gap-10 overflow-hidden h-[100%]">
         <div className="flex gap-10 items-center">
@@ -94,6 +97,8 @@ const StickyBoardListView = (props) => {
               type="text"
               placeholder="Search Sticky Boards"
               className="focus:outline-none w-[100%]"
+              onChange={handleSearchTermChange}
+              value={searchTerm}
             />
             <img src={Search_light} alt="" className="h-[2rem] w-[2rem]" />
           </div>
@@ -119,21 +124,22 @@ const StickyBoardListView = (props) => {
               id="priority"
               className="text-dark_mode_text_white flex self-center gap-2"
             >
-              <input type="radio" id="high" name="priority" value="3" />
+              <input type="radio" id="high" name="priority" value="3" onChange={handleSearchPriorityChange} />
               <label htmlFor="high">High</label>
-              <input type="radio" id="medium" name="priority" value="2" />
+              <input type="radio" id="medium" name="priority" value="2" onChange={handleSearchPriorityChange} />
               <label htmlFor="medium">Medium</label>
-              <input type="radio" id="low" name="priority" value="1" />
+              <input type="radio" id="low" name="priority" value="1" onChange={handleSearchPriorityChange} />
               <label htmlFor="low">Low</label>
             </div>
           </div>
         </div>
         <div className="flex-grow overflow-auto scrollbar-card hover:scrollbar-thumb-slate-300 scrollbar-thumb-white scrollbar-w-2">
           <div className="place-items-center grid grid-cols-4 gap-y-10 last:mb-10">
-            {stickyboards.map((stickyboard) => {
+            {filteredStickyboards.map((stickyboard) => {
               return (
                 <div className="relative" key={stickyboard.id}>
                   <StickyBoardCard
+                    stickyboard={stickyboard}
                     // priority={stickyboard.priority.toString()}
                     // content={board.description}
                     // members={board.accounts}

@@ -2,6 +2,7 @@ from fastapi.testclient import TestClient
 from main import app
 from queries.stickyboard import StickyBoardQueries
 import pytest
+from authenticator import authenticator
 
 client = TestClient(app)
 
