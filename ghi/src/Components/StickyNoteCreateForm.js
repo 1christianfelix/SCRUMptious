@@ -5,9 +5,11 @@ import filter_icon from "../images/icons/filter_icon.svg";
 import trash from "../images/icons/trash.svg";
 import pen from "../images/icons/pen.svg";
 import "../App.css";
+import useToken from "@galvanize-inc/jwtdown-for-react";
 
-function StickyNoteCreateForm({ accounts, stickyBoard }) {
+function StickyNoteCreateForm({ accounts }) {
   // console.log(accounts);
+  const { token } = useToken();
   const [category, setCategory] = useState("Default");
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
@@ -22,7 +24,6 @@ function StickyNoteCreateForm({ accounts, stickyBoard }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedStickyBoard, setSelectedStickyBoard] = useState("");
   const [members, setMembers] = useState([]);
-
   let type = accounts.type || "Create/Update -> pass in type as prop to set";
 
   const handleColorChange = (event) => {
@@ -106,6 +107,7 @@ function StickyNoteCreateForm({ accounts, stickyBoard }) {
   //   const value = event.target.value;
   //   setStatus(value);
   // };
+  // const { token } = useToken();
 
   const handleStartDateChange = (event) => {
     const value = event.target.value;
@@ -145,22 +147,23 @@ function StickyNoteCreateForm({ accounts, stickyBoard }) {
     data.subject = subject;
     data.content = content;
     data.priority = parseInt(priority);
-    data.category = status;
+    data.category = category.toLowerCase();
     data.start_date = new Date(start_date + "T00:00:00");
     data.deadline = new Date(deadline + "T00:00:00");
-    data.stickyBoard = selectedStickyBoard;
-      // data.stickyBoard = JSON.stringify(stickyBoard);
-      // data.stickyBoard = stickyBoardAsString;
+    // data.stickyBoard = selectedStickyBoard;
+    // data.stickyBoard = JSON.stringify(stickyBoard);
+    // data.stickyBoard = stickyBoardAsString;
     data.account = members;
-
+    console.log("Category value:", category);
     console.log(data);
-
-    const url = "http://localhost:8000/sticky";
+    // !!!!! http://localhost:8000/643f2c12359383c67fba0c6b/sticky USE THIS FOR TESTING
+    const url = `http://localhost:8000/stickyboard_id/sticky`;
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     };
 
@@ -269,7 +272,7 @@ function StickyNoteCreateForm({ accounts, stickyBoard }) {
                       <img src={pen} className="ml-[.5rem]" />
                     </div>
                   </div>
-                  <div>
+                  {/* <div>
                     <select
                       value={selectedStickyBoard}
                       onChange={handleStickyBoardChange}
@@ -282,7 +285,7 @@ function StickyNoteCreateForm({ accounts, stickyBoard }) {
                         </option>
                       ))}
                     </select>
-                  </div>
+                  </div> */}
                   <select
                     name=""
                     id=""

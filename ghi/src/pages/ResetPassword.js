@@ -10,7 +10,7 @@ const ResetPassword = () => {
   const handleResetPassword = async (e) => {
     e.preventDefault();
 
-    const resetPasswordUrl = "http://localhost:8000/reset-password"; // Replace this with the actual reset password endpoint
+    const resetPasswordUrl = "http://localhost:3000/resetpassword";
     const response = await fetch(resetPasswordUrl, {
       method: "POST",
       headers: {
