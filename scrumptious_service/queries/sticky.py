@@ -37,6 +37,7 @@ class UpdateSticky(BaseModel):
     start_date: Optional[datetime]
     deadline: Optional[datetime]
     account: Optional[list[str]]
+    stickyboard: Optional[str]
 
 
 

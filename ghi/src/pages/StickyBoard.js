@@ -141,6 +141,7 @@ const StickyBoard = (props) => {
       return;
     }
     console.log("drop:", destination, source);
+
     const itemCopy = { ...state[source.droppableId].stickies[source.index] };
     switch (destination.droppableId) {
       case "backlog":
@@ -180,6 +181,30 @@ const StickyBoard = (props) => {
       setAddStickyStyle("");
       return prev;
     });
+
+    // update the Sticky's category
+    const updateStickyCategoryDND = async (id, category) => {
+      let done = "doing";
+      console.log(category, done, stickyboard_id);
+      let body = {
+        category: category,
+        stickyboard: `${stickyboard_id}`,
+      };
+      const url = `http://localhost:8000/sticky/${id}`;
+      const response = await fetch(url, {
+        method: "put",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log("success update, now updating stickyBoard");
+        updateStickyBoard();
+      }
+    };
 
     // rearrange the categories' IDs in the frontend database
     const updateStickyBoard = async () => {
@@ -223,10 +248,9 @@ const StickyBoard = (props) => {
       if (response.ok) {
         const data = await response.json();
         console.log("success update");
-        // fetchBoard();
       }
     };
-    updateStickyBoard();
+    updateStickyCategoryDND(itemCopy.id, destination.droppableId);
   };
 
   const addFirst = (category) => {
