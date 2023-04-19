@@ -77,7 +77,7 @@ const StickyBoard = (props) => {
   };
 
   const updateLists = () => {
-    console.log("category List:", stickyIDArrays);
+    // console.log("category List:", stickyIDArrays);
     // stickyTemplate = {
     //   id: "",
     //   subject: "",
@@ -93,7 +93,7 @@ const StickyBoard = (props) => {
       prev["doing"] = stickyboard["doing"];
       prev["review"] = stickyboard["review"];
       prev["done"] = stickyboard["done"];
-
+      console.log("stickyID update:", prev);
       return prev;
     });
 
@@ -104,7 +104,7 @@ const StickyBoard = (props) => {
       prev["doing"].stickies = categoriesLists["doing"];
       prev["review"].stickies = categoriesLists["review"];
       prev["done"].stickies = categoriesLists["done"];
-      console.log("prev", prev);
+      // console.log("prev", prev);
 
       return prev;
     });
@@ -112,7 +112,7 @@ const StickyBoard = (props) => {
 
   useEffect(() => {
     updateLists();
-  }, [stickyboard]);
+  }, [categoriesLists]);
 
   const handleOpenModal = () => {
     setModalStatus(true);
@@ -128,7 +128,7 @@ const StickyBoard = (props) => {
   };
 
   const handleDrag = async ({ destination, source }) => {
-    console.log("source", source);
+    // console.log("source", source);
     if (!destination) {
       console.log("test09");
       return;
@@ -137,7 +137,7 @@ const StickyBoard = (props) => {
       destination.index === source.index &&
       destination.droppableId === source.droppableId
     ) {
-      console.log("test");
+      // console.log("test");
       return;
     }
     console.log("drop:", destination, source);
@@ -182,42 +182,51 @@ const StickyBoard = (props) => {
     });
 
     // rearrange the categories' IDs in the frontend database
-    setStickyIDArrays((prev) => {
-      prev = { ...prev };
-      prev[source.droppableId].splice(source.index, 1);
+    const updateStickyBoard = async () => {
+      setStickyIDArrays((prev) => {
+        // Update the stickyIDArrays state
+        const updatedState = { ...prev };
+        updatedState[source.droppableId].splice(source.index, 1);
+        updatedState[destination.droppableId].splice(
+          destination.index,
+          0,
+          itemCopy.id
+        );
 
-      prev[destination.droppableId].splice(destination.index, 0, itemCopy.id);
-      return prev;
-    });
+        // Execute the API call with the updated state
+        submitUpdatedState(updatedState);
+
+        return updatedState;
+      });
+    };
 
     // update the the stickyboard backend's categories' shape
-    let body = {
-      board_name: "testing1123",
-      // description: stickyboard.description,
-      // priority: stickyboard.priority,
-      // start_date: new Date(stickyboard.start_date).toISOString,
-      // deadline: new Date(stickyboard.deadline).toISOString,
-      // account: stickyboard.account,
-      // backlog: stickyIDArrays.backlog,
-      // todo: stickyIDArrays.todo,
-      // doing: stickyIDArrays.doing,
-      // review: stickyIDArrays.review,
-      // done: stickyIDArrays.done,
+    const submitUpdatedState = async (updatedStickyIDArrays) => {
+      let body = {
+        board_name: "testing",
+        backlog: updatedStickyIDArrays.backlog,
+        todo: updatedStickyIDArrays.todo,
+        doing: updatedStickyIDArrays.doing,
+        review: updatedStickyIDArrays.review,
+        done: updatedStickyIDArrays.done,
+      };
+      console.log("body:", body);
+      const url = `http://localhost:8000/stickyboard/${stickyboard_id}`;
+      const response = await fetch(url, {
+        method: "put",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log("success update");
+        // fetchBoard();
+      }
     };
-    console.log("body:", body);
-    const url = `http://localhost:8000/stickyboard/${stickyboard_id}`;
-    const response = await fetch(url, {
-      method: "put",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      console.log("success update");
-    }
+    updateStickyBoard();
   };
 
   const addFirst = (category) => {

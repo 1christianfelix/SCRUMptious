@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, Path
 from authenticator import authenticator
-from queries.sticky import Sticky, CreateSticky, StickyQueries
+from queries.sticky import Sticky, CreateSticky, UpdateSticky, StickyQueries
 from queries.stickyboard import StickyBoardQueries
 
 router = APIRouter()
@@ -24,7 +24,7 @@ def get_stickies_data(stickyboard_id: str = Path(..., title="The ID of the stick
 
 @router.put("/sticky/{sticky_id}", tags=["Sticky"])
 def update_sticky(
-    sticky_id: str, sticky: Sticky, queries: StickyQueries = Depends(), account_data: dict = Depends(authenticator.get_current_account_data)
+    sticky_id: str, sticky: UpdateSticky, queries: StickyQueries = Depends(), account_data: dict = Depends(authenticator.get_current_account_data)
 ):
     return queries.update_sticky(sticky_id, sticky)
 
