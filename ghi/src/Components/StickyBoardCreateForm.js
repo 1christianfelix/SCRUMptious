@@ -20,7 +20,7 @@ const StickyBoardCreateForm = (props) => {
   const [deadline, setDeadline] = useState("");
   const [members, setMembers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredAccounts, setFilteredAccounts] = useState([]);
+  // const [filteredAccounts, setFilteredAccounts] = useState([]);
 
   const handleBoardNameChange = (event) => {
     const value = event.target.value;
@@ -43,16 +43,23 @@ const StickyBoardCreateForm = (props) => {
     setSearchTerm(value);
   };
 
-  useEffect(() => {
-    setFilteredAccounts(
-      accounts.filter(
-        (account) =>
-          account.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          account.first_name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
-    console.log("Filtered acc:", filteredAccounts);
-  }, []);
+  // useEffect(() => {
+  //   setFilteredAccounts((prev) => {
+  //     prev = accounts.filter(
+  //       (account) =>
+  //         account.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //         account.first_name.toLowerCase().includes(searchTerm.toLowerCase())
+  //     )
+  //     return prev
+
+  //     console.log("Filtered acc:", filteredAccounts);
+  // }, []);
+
+  let filteredAccounts = accounts.filter(
+    (account) =>
+      account.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      account.first_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   // const navigate = useNavigate();
 
