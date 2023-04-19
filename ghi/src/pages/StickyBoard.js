@@ -11,192 +11,206 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 
 const StickyBoard = (props) => {
   const { token } = useToken();
-  const { stickyboard_id } = useParams();
-  const [addStickyVisible, setAddStickyVisible] = useState(true);
-  const [addStickyStyle, setAddStickyStyle] = useState("");
-  const [stickyboard, setStickyboard] = useState({});
-  const [categoriesLists, setCategoriesLists] = useState({
-    backlog: [],
-    todo: [],
-    doing: [],
-    review: [],
-    done: [],
-  });
-  const [stickyIDArrays, setStickyIDArrays] = useState({
-    backlog: ["empty"],
-    todo: ["empty"],
-    doing: ["empty"],
-    review: ["empty"],
-    done: ["empty"],
-  });
-  const [state, setState] = useState({
-    backlog: {
-      title: "Backlog",
-      stickies: [],
-    },
-    todo: { title: "Todo", stickies: [] },
-    doing: { title: "Doing", stickies: [] },
-    review: { title: "Review", stickies: [] },
-    done: { title: "Done", stickies: [] },
-  });
-  const [modalStatus, setModalStatus] = useState(false);
-
-  // Get Boards
-  const fetchBoard = async () => {
-    const url = `http://localhost:8000/stickyboard/${stickyboard_id}`;
-    const response = await fetch(url, {
-      headers: { Authorization: `Bearer ${token}` },
+  // const { stickyboard_id } = useParams();
+  // const [addStickyVisible, setAddStickyVisible] = useState(true);
+  // const [addStickyStyle, setAddStickyStyle] = useState("");
+  // const [stickyboard, setStickyboard] = useState({});
+  // const [categoriesLists, setCategoriesLists] = useState({
+  //   backlog: [],
+  //   todo: [],
+  //   doing: [],
+  //   review: [],
+  //   done: [],
+  // });
+  // const [stickyIDArrays, setStickyIDArrays] = useState({
+  //   backlog: ["empty"],
+  //   todo: ["empty"],
+  //   doing: ["empty"],
+  //   review: ["empty"],
+  //   done: ["empty"],
+  // });
+  // const [state, setState] = useState({
+  //   backlog: {
+  //     title: "Backlog",
+  //     stickies: [],
+  //   },
+  //   todo: { title: "Todo", stickies: [] },
+  //   doing: { title: "Doing", stickies: [] },
+  //   review: { title: "Review", stickies: [] },
+  //   done: { title: "Done", stickies: [] },
+  // });
+  // const [modalStatus, setModalStatus] = useState(false);
+  const [stickyboards, setStickyboards] = useState([]);
+  const getStickyboardsData = async () => {
+    const stickyboardsUrl = "http://localhost:8000/stickyboard";
+    const stickyboardsResponse = await fetch(stickyboardsUrl, {
+      headers: { Authorization: `Bearer ${props.token}` },
     });
-    if (response.ok) {
-      const data = await response.json();
-      setStickyboard(data);
+    if (stickyboardsResponse.ok) {
+      const data = await stickyboardsResponse.json();
+      setStickyboards(data);
     }
   };
-
-  const fetchCategoryStickyData = async () => {
-    const url = `http://localhost:8000/${stickyboard_id}/stickies`;
-    const response = await fetch(url, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    if (response.ok) {
-      const data = await response.json();
-      setCategoriesLists(data);
-    }
-  };
-
   useEffect(() => {
-    fetchBoard();
-    fetchCategoryStickyData();
+    getStickyboardsData();
   }, [token]);
 
-  // Deal with stickies
-  // Grab Sticky ID's and store into sticky ID object states
-  // Use IDs to grab sticky fields and store into sticky field object states
-  const fetchSticky = async (sticky_id) => {
-    const url = `http://localhost:8000/${stickyboard_id}/${sticky_id}`;
-  };
+  // Get Boards
+  // const fetchBoard = async () => {
+  //   const url = `http://localhost:8000/stickyboard/${stickyboard_id}`;
+  //   const response = await fetch(url, {
+  //     headers: { Authorization: `Bearer ${token}` },
+  //   });
+  //   if (response.ok) {
+  //     const data = await response.json();
+  //     setStickyboard(data);
+  //   }
+  // };
 
-  const updateIdLists = () => {
-    console.log("category List:", stickyIDArrays);
-    const stickyTemplate = {
-      id: "",
-      subject: "",
-      priority: "",
-      content: "",
-      category: "",
-    };
-    let backlog = stickyboard["backlog"];
-    let todo = stickyboard["todo"];
-    let doing = stickyboard["doing"];
-    let review = stickyboard["review"];
-    let done = stickyboard["done"];
+  // const fetchCategoryStickyData = async () => {
+  //   const url = `http://localhost:8000/${stickyboard_id}/stickies`;
+  //   const response = await fetch(url, {
+  //     headers: { Authorization: `Bearer ${token}` },
+  //   });
+  //   if (response.ok) {
+  //     const data = await response.json();
+  //     setCategoriesLists(data);
+  //   }
+  // };
 
-    setStickyIDArrays((prev) => {
-      prev = { ...prev };
-      prev["backlog"] = backlog;
-      prev["todo"] = backlog;
-      prev["doing"] = backlog;
-      prev["review"] = backlog;
-      prev["done"] = backlog;
+  // useEffect(() => {
+  //   fetchBoard();
+  //   fetchCategoryStickyData();
+  // }, []);
 
-      return prev;
-    });
-  };
+  // // Deal with stickies
+  // // Grab Sticky ID's and store into sticky ID object states
+  // // Use IDs to grab sticky fields and store into sticky field object states
+  // const fetchSticky = async (sticky_id) => {
+  //   const url = `http://localhost:8000/${stickyboard_id}/${sticky_id}`;
+  // };
 
-  useEffect(() => {
-    updateIdLists();
-  }, [stickyboard]);
+  // const updateIdLists = () => {
+  //   console.log("category List:", stickyIDArrays);
+  //   const stickyTemplate = {
+  //     id: "",
+  //     subject: "",
+  //     priority: "",
+  //     content: "",
+  //     category: "",
+  //   };
+  //   let backlog = stickyboard["backlog"];
+  //   let todo = stickyboard["todo"];
+  //   let doing = stickyboard["doing"];
+  //   let review = stickyboard["review"];
+  //   let done = stickyboard["done"];
 
-  const handleOpenModal = () => {
-    setModalStatus(true);
-  };
+  //   setStickyIDArrays((prev) => {
+  //     prev = { ...prev };
+  //     prev["backlog"] = backlog;
+  //     prev["todo"] = backlog;
+  //     prev["doing"] = backlog;
+  //     prev["review"] = backlog;
+  //     prev["done"] = backlog;
 
-  const handleCloseModal = () => {
-    setModalStatus(false);
-  };
+  //     return prev;
+  //   });
+  // };
 
-  const handleAddSticky = () => {
-    setAddStickyVisible(false);
-    setAddStickyStyle("hidden");
-  };
+  // useEffect(() => {
+  //   updateIdLists();
+  // }, [stickyboard]);
 
-  const handleDrag = ({ destination, source }) => {
-    console.log("source", source);
-    if (!destination) {
-      console.log("test09");
-      return;
-    }
-    if (
-      destination.index === source.index &&
-      destination.droppableId === source.ddroppableId
-    ) {
-      console.log("test");
-      return;
-    }
+  // const handleOpenModal = () => {
+  //   setModalStatus(true);
+  // };
 
-    const itemCopy = { ...state[source.droppableId].stickies[source.index] };
-    switch (destination.droppableId) {
-      case "backlog":
-        console.log("in 1");
-        itemCopy.category = "Backlog";
-        break;
-      case "todo":
-        console.log("in 2");
-        itemCopy.category = "Todo";
-        break;
-      case "doing":
-        console.log("in 3");
-        itemCopy.category = "Doing";
-        break;
-      case "review":
-        console.log("in 4");
-        itemCopy.category = "Review";
-        break;
-      case "done":
-        console.log("in 5");
-        itemCopy.category = "Done";
-        break;
-      default:
-        break;
-    }
-    console.log(itemCopy);
-    setState((prev) => {
-      prev = { ...prev };
-      prev[source.droppableId].stickies.splice(source.index, 1);
+  // const handleCloseModal = () => {
+  //   setModalStatus(false);
+  // };
 
-      prev[destination.droppableId].stickies.splice(
-        destination.index,
-        0,
-        itemCopy
-      );
-      setAddStickyStyle("");
-      return prev;
-    });
-  };
+  // const handleAddSticky = () => {
+  //   setAddStickyVisible(false);
+  //   setAddStickyStyle("hidden");
+  // };
 
-  const addFirst = (category) => {
-    // Creation form should pop up first
-    // After submitting form, we fetch the data base for the new array
-    // *stretch goal: addFirst should call an endpoint that will place sticky at index 0
-    // fetch new data
-    // use data
-    setState((prev) => {
-      const sticky = {
-        id: Math.random().toString(),
-        subject: `Test Sticky `,
-        priority: 1,
-        content: "ADada",
-        category: category,
-      };
-      // Grabbing the previous data from the arrays
-      prev = { ...prev };
-      console.log(prev, category);
-      prev[category.toLowerCase()].stickies.unshift(sticky);
-      // console.log("add first");
+  // const handleDrag = ({ destination, source }) => {
+  //   console.log("source", source);
+  //   if (!destination) {
+  //     console.log("test09");
+  //     return;
+  //   }
+  //   if (
+  //     destination.index === source.index &&
+  //     destination.droppableId === source.ddroppableId
+  //   ) {
+  //     console.log("test");
+  //     return;
+  //   }
 
-      return prev;
-    });
-  };
+  //   const itemCopy = { ...state[source.droppableId].stickies[source.index] };
+  //   switch (destination.droppableId) {
+  //     case "backlog":
+  //       console.log("in 1");
+  //       itemCopy.category = "Backlog";
+  //       break;
+  //     case "todo":
+  //       console.log("in 2");
+  //       itemCopy.category = "Todo";
+  //       break;
+  //     case "doing":
+  //       console.log("in 3");
+  //       itemCopy.category = "Doing";
+  //       break;
+  //     case "review":
+  //       console.log("in 4");
+  //       itemCopy.category = "Review";
+  //       break;
+  //     case "done":
+  //       console.log("in 5");
+  //       itemCopy.category = "Done";
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   console.log(itemCopy);
+  //   setState((prev) => {
+  //     prev = { ...prev };
+  //     prev[source.droppableId].stickies.splice(source.index, 1);
+
+  //     prev[destination.droppableId].stickies.splice(
+  //       destination.index,
+  //       0,
+  //       itemCopy
+  //     );
+  //     setAddStickyStyle("");
+  //     return prev;
+  //   });
+  // };
+
+  // const addFirst = (category) => {
+  //   // Creation form should pop up first
+  //   // After submitting form, we fetch the data base for the new array
+  //   // *stretch goal: addFirst should call an endpoint that will place sticky at index 0
+  //   // fetch new data
+  //   // use data
+  //   setState((prev) => {
+  //     const sticky = {
+  //       id: Math.random().toString(),
+  //       subject: `Test Sticky `,
+  //       priority: 1,
+  //       content: "ADada",
+  //       category: category,
+  //     };
+  //     // Grabbing the previous data from the arrays
+  //     prev = { ...prev };
+  //     console.log(prev, category);
+  //     prev[category.toLowerCase()].stickies.unshift(sticky);
+  //     // console.log("add first");
+
+  //     return prev;
+  //   });
+  // };
 
   return (
     // <div className="flex flex-col h-screen overflow-hidden">
