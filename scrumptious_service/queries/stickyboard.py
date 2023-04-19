@@ -12,6 +12,7 @@ collection = db["StickyBoard"]
 
 class StickyBoard(BaseModel):
     board_name: str
+    description: str
     priority: int
     start_date: datetime
     deadline: datetime
@@ -25,6 +26,7 @@ class StickyBoard(BaseModel):
 
 class StickyBoardUpdate(BaseModel):
     board_name: Optional[str]
+    description: Optional[str]
     priority: Optional[int]
     start_date: Optional[datetime]
     deadline: Optional[datetime]
@@ -51,7 +53,6 @@ class StickyBoardQueries:
 
     def get_stickyboards(self):
         results = list(collection.find())
-        print("results: ", results)
         for result in results:
             result["id"] = str(result["_id"])
             del result["_id"]
@@ -85,11 +86,11 @@ class StickyBoardQueries:
         props['stickyboard'] = stickyboard_id
         db["Sticky"].insert_one(props)
         stickyboard = collection.find_one({"_id": ObjectId(props["stickyboard"])})
-        category_list = stickyboard[props["initial_category"]]
+        category_list = stickyboard[props["category"]]
         category_list.append(str(props["_id"]))
         collection.update_one(
             {"_id": ObjectId(props["stickyboard"])},
-            {"$set": {props["initial_category"]: category_list}}
+            {"$set": {props["category"]: category_list}}
         )
         return(Sticky(**props))
 

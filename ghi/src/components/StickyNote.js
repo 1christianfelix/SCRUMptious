@@ -33,23 +33,23 @@ const StickyNote = (props) => {
   }
 
   switch (category) {
-    case "Backlog":
+    case "backlog":
       headerColor = "bg-sticky_blue_header";
       bodyColor = "bg-sticky_blue";
       break;
-    case "Todo":
+    case "todo":
       headerColor = "bg-sticky_red_header";
       bodyColor = "bg-sticky_red";
       break;
-    case "Doing":
+    case "doing":
       headerColor = "bg-sticky_yellow_header";
       bodyColor = "bg-sticky_yellow";
       break;
-    case "Review":
+    case "review":
       headerColor = "bg-sticky_teal_header";
       bodyColor = "bg-sticky_teal";
       break;
-    case "Done":
+    case "done":
       headerColor = "bg-sticky_green_header";
       bodyColor = "bg-sticky_green";
       break;

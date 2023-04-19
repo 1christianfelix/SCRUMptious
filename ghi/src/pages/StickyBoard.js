@@ -127,7 +127,7 @@ const StickyBoard = (props) => {
     setAddStickyStyle("hidden");
   };
 
-  const handleDrag = ({ destination, source }) => {
+  const handleDrag = async ({ destination, source }) => {
     console.log("source", source);
     if (!destination) {
       console.log("test09");
@@ -135,38 +135,39 @@ const StickyBoard = (props) => {
     }
     if (
       destination.index === source.index &&
-      destination.droppableId === source.ddroppableId
+      destination.droppableId === source.droppableId
     ) {
       console.log("test");
       return;
     }
-
+    console.log("drop:", destination, source);
     const itemCopy = { ...state[source.droppableId].stickies[source.index] };
     switch (destination.droppableId) {
       case "backlog":
         console.log("in 1");
-        itemCopy.category = "Backlog";
+        itemCopy.category = "backlog";
         break;
       case "todo":
         console.log("in 2");
-        itemCopy.category = "Todo";
+        itemCopy.category = "todo";
         break;
       case "doing":
         console.log("in 3");
-        itemCopy.category = "Doing";
+        itemCopy.category = "doing";
         break;
       case "review":
         console.log("in 4");
-        itemCopy.category = "Review";
+        itemCopy.category = "review";
         break;
       case "done":
         console.log("in 5");
-        itemCopy.category = "Done";
+        itemCopy.category = "done";
         break;
       default:
         break;
     }
-    console.log(itemCopy);
+    console.log("itemcopy:", itemCopy);
+    // rearrange the categories' stickies in the frontend database
     setState((prev) => {
       prev = { ...prev };
       prev[source.droppableId].stickies.splice(source.index, 1);
@@ -179,6 +180,44 @@ const StickyBoard = (props) => {
       setAddStickyStyle("");
       return prev;
     });
+
+    // rearrange the categories' IDs in the frontend database
+    setStickyIDArrays((prev) => {
+      prev = { ...prev };
+      prev[source.droppableId].splice(source.index, 1);
+
+      prev[destination.droppableId].splice(destination.index, 0, itemCopy.id);
+      return prev;
+    });
+
+    // update the the stickyboard backend's categories' shape
+    let body = {
+      board_name: "testing1123",
+      // description: stickyboard.description,
+      // priority: stickyboard.priority,
+      // start_date: new Date(stickyboard.start_date).toISOString,
+      // deadline: new Date(stickyboard.deadline).toISOString,
+      // account: stickyboard.account,
+      // backlog: stickyIDArrays.backlog,
+      // todo: stickyIDArrays.todo,
+      // doing: stickyIDArrays.doing,
+      // review: stickyIDArrays.review,
+      // done: stickyIDArrays.done,
+    };
+    console.log("body:", body);
+    const url = `http://localhost:8000/stickyboard/${stickyboard_id}`;
+    const response = await fetch(url, {
+      method: "put",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      console.log("success update");
+    }
   };
 
   const addFirst = (category) => {
@@ -216,7 +255,7 @@ const StickyBoard = (props) => {
         <div className="w-[100%] h-[8.37500rem] bg-dark_mode_light flex items-center">
           <select className="bg-transparent focus:outline-none transition-all duration-150 hover:cursor-pointer text-3xl ml-6">
             <option value="" className="text-xl bg-slate-500">
-              Sticky Board Name Goes Here
+              {stickyboard.board_name}
             </option>
             <option value="" className="text-xl bg-slate-500">
               Member's other boards
