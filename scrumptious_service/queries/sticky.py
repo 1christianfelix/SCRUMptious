@@ -81,8 +81,15 @@ class StickyQueries:
 
     def delete_sticky(self, sticky_id):
         sticky_id = ObjectId(sticky_id)
+        sticky = collection.find_one({"_id": ObjectId(sticky_id)})
         result = collection.delete_one({"_id": sticky_id})
         if result.deleted_count:
+            stickyboard = db["StickyBoard"].find_one({"_id": ObjectId(sticky["stickyboard"])})
+            category_list_for_removal = stickyboard[sticky["category"]]
+            category_list_for_removal.remove(str(sticky["_id"]))
+            db["StickyBoard"].update_one(
+                {"_id": ObjectId(sticky["stickyboard"])},
+                {"$set": {sticky["category"]: category_list_for_removal}})
             return {"message": "Sticky deleted successfully"}
         else:
             return {"message": "Sticky not found"}
