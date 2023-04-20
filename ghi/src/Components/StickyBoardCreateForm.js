@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import StickyBoardCard from "./StickyBoardCard";
 import pen from "../images/icons/pen.svg";
 import calendar_dark from "../images/icons/calendar_dark.svg";
@@ -17,7 +17,7 @@ const StickyBoardCreateForm = (props) => {
 
 
   const { token } = useToken();
-  const { accounts, setAccounts } = useContext(AccountContext);
+
   const [boardName, setBoardName] = useState('');
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState('');
@@ -52,6 +52,21 @@ const StickyBoardCreateForm = (props) => {
     setSearchTerm(value);
   };
 
+  // const { accounts, setAccounts } = useContext(AccountContext);
+  const [accounts, setAccounts] = useState([]);
+  const getAccountsData = async () => {
+    const accountUrl = "http://localhost:8000/accounts";
+    const accountResponse = await fetch(accountUrl);
+    if (accountResponse.ok) {
+      const data = await accountResponse.json();
+      setAccounts(data);
+      console.log(data)
+    }
+  };
+  useEffect(() => {
+    getAccountsData();
+  }, []);
+
   let filteredAccounts = accounts.filter(
     (account) =>
       account.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -75,6 +90,7 @@ const StickyBoardCreateForm = (props) => {
     data.doing = [];
     data.review = [];
     data.done = [];
+    console.log(data)
     const url = "http://localhost:8000/stickyboard";
     const fetchConfig = {
       method: "post",
@@ -88,6 +104,12 @@ const StickyBoardCreateForm = (props) => {
     if (response.ok) {
       props.getStickyboardsData();
       props.close();
+      setBoardName("");
+      setDescription("");
+      setPriority("");
+      setStart("");
+      setDeadline("");
+      setMembers([]);
     }
   };
 
@@ -133,7 +155,7 @@ const StickyBoardCreateForm = (props) => {
                 name=""
                 id=""
                 className="bg-[#fff] w-[8.4rem] h-[2.2rem] focus:outline-none text-[1.5rem] text-center drop-shadow-sticky self-center hover:cursor-pointer"
-                defaultValue="Select Priority"
+                defaultValue=""
                 required
                 onChange={handlePriorityChange}
               >

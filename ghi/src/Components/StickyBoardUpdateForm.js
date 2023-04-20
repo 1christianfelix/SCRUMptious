@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import StickyBoardCard from "./StickyBoardCard";
 import pen from "../images/icons/pen.svg";
 import calendar_dark from "../images/icons/calendar_dark.svg";
@@ -7,7 +7,7 @@ import sort_icon from "../images/icons/sort_icon.svg";
 import filter_icon from "../images/icons/filter_icon.svg";
 import close_out from "../images/icons/close_out_icon.svg";
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import AccountContext from "../context/AccountContext";
+// import AccountContext from "../context/AccountContext";
 
 
 // The prop being passed in will determine if it's a Create or Update
@@ -17,7 +17,7 @@ const StickyBoardUpdateForm = (props) => {
 
 
   const { token } = useToken();
-  const { accounts, setAccounts } = useContext(AccountContext);
+
   const [boardName, setBoardName] = useState(props.stickyboard.board_name);
   const [description, setDescription] = useState(props.stickyboard.description);
   const [priority, setPriority] = useState(props.stickyboard.priority);
@@ -56,6 +56,21 @@ const StickyBoardUpdateForm = (props) => {
     const value = event.target.value;
     setSearchTerm(value);
   };
+
+  // const { accounts, setAccounts } = useContext(AccountContext);
+  const [accounts, setAccounts] = useState([]);
+  const getAccountsData = async () => {
+    const accountUrl = "http://localhost:8000/accounts";
+    const accountResponse = await fetch(accountUrl);
+    if (accountResponse.ok) {
+      const data = await accountResponse.json();
+      setAccounts(data);
+      console.log(data)
+    }
+  };
+  useEffect(() => {
+    getAccountsData();
+  }, []);
 
   let filteredAccounts = accounts.filter(
     (account) =>
