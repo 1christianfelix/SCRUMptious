@@ -9,12 +9,9 @@ import close_out from "../images/icons/close_out_icon.svg";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 // import AccountContext from "../context/AccountContext";
 
-
 // The prop being passed in will determine if it's a Create or Update
 const StickyBoardUpdateForm = (props) => {
   let type = props.type || "Update the Sticky Board";
-
-
 
   const { token } = useToken();
 
@@ -22,24 +19,34 @@ const StickyBoardUpdateForm = (props) => {
   const [description, setDescription] = useState(props.stickyboard.description);
   const [priority, setPriority] = useState(props.stickyboard.priority);
   const newDateFormats = {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit"
-  }
-  const [start, setStart] = useState(new Date(props.stickyboard.start_date).toLocaleDateString("fr-CA", newDateFormats));
-  const [deadline, setDeadline] = useState(new Date(props.stickyboard.deadline).toLocaleDateString("fr-CA", newDateFormats));
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  };
+  const [start, setStart] = useState(
+    new Date(props.stickyboard.start_date).toLocaleDateString(
+      "fr-CA",
+      newDateFormats
+    )
+  );
+  const [deadline, setDeadline] = useState(
+    new Date(props.stickyboard.deadline).toLocaleDateString(
+      "fr-CA",
+      newDateFormats
+    )
+  );
   const [members, setMembers] = useState(props.stickyboard.account);
   const [searchTerm, setSearchTerm] = useState("");
-  let id = props.stickyboard.id
+  let id = props.stickyboard.id;
 
   const handleBoardNameChange = (event) => {
     const value = event.target.value;
     setBoardName(value);
-  }
+  };
   const handleDescriptionChange = (event) => {
     const value = event.target.value;
     setDescription(value);
-  }
+  };
   const handlePriorityChange = (event) => {
     const value = event.target.value;
     setPriority(value);
@@ -65,7 +72,7 @@ const StickyBoardUpdateForm = (props) => {
     if (accountResponse.ok) {
       const data = await accountResponse.json();
       setAccounts(data);
-      console.log(data)
+      console.log(data);
     }
   };
   useEffect(() => {
@@ -95,8 +102,8 @@ const StickyBoardUpdateForm = (props) => {
       method: "put",
       body: JSON.stringify(data),
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     };
     const response = await fetch(url, fetchConfig);
@@ -105,6 +112,10 @@ const StickyBoardUpdateForm = (props) => {
       props.close();
     }
   };
+
+  if (!props.open) {
+    return null;
+  }
 
   return (
     <div
@@ -150,7 +161,6 @@ const StickyBoardUpdateForm = (props) => {
                 className="bg-[#fff] w-[8.4rem] h-[2.2rem] focus:outline-none text-[1.5rem] text-center drop-shadow-sticky self-center hover:cursor-pointer"
                 defaultValue="Select Priority"
                 required
-                defaultValue={priority}
                 onChange={handlePriorityChange}
               >
                 {/* <option value="Select Priority" disabled hidden>
@@ -208,7 +218,6 @@ const StickyBoardUpdateForm = (props) => {
               <span>{members.length}</span>
             </div>
           </div>
-
 
           <button
             className="button-hover-white-filled bg-white mt-8 mx-12 px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky"

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import garbage from "../images/icons/garbage.svg";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import StickyBoardUpdateForm from "../components/StickyBoardUpdateForm";
@@ -17,7 +17,7 @@ const StickyBoardCard = (props) => {
   let start = new Date(props.stickyboard.start_date).toLocaleDateString();
   let deadline = new Date(props.stickyboard.deadline).toLocaleDateString();
   let members = props.stickyboard.account.length;
-  let id = props.stickyboard.id
+  let id = props.stickyboard.id;
   // color switches based on priority
   switch (priority) {
     case "1":
@@ -41,12 +41,12 @@ const StickyBoardCard = (props) => {
 
   const handleDeletion = (id) => {
     fetch(`http://localhost:8000/stickyboard/${id}/`, {
-      method: 'delete',
+      method: "delete",
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-    }).then(response => {
+    }).then((response) => {
       if (response.ok) {
         props.getStickyboardsData();
       }
@@ -68,16 +68,6 @@ const StickyBoardCard = (props) => {
   };
 
   return (
-    <div className=" h-screen overflow-hidden">
-      <StickyBoardUpdateForm
-        open={modalStatus}
-        close={handleCloseModal}
-        getStickyboardsData={props.getStickyboardsData}
-        stickyboard={props.stickyboard}
-        type="Update"
-      />
-
-
     <div
       // style={{
       //   backgroundColor: "#e7e7e7",
@@ -112,17 +102,13 @@ const StickyBoardCard = (props) => {
           <p className="">{description}</p>
         </div>
         <div className="BUTTONS flex justify-between py-3 1440:py-4">
-          <img src={garbage} className="self-end expand-button"
-          onClick={() => handleDeletion(id)}
-          />
-          <button className="button-hover-white-filled px-[.7rem] py-[.1rem] bg-white rounded-[19px]" onClick={handleOpenModal} >
+          <img src={garbage} className="self-end expand-button" />
+          <button className="button-hover-white-filled px-[.7rem] py-[.1rem] bg-white rounded-[19px]">
             <span>Edit Board</span>
           </button>
         </div>
       </div>
     </div>
-
-  </div>
   );
 };
 
