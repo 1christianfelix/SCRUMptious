@@ -12,7 +12,7 @@ def test_create_account():
 
 
     account_data = {
-        "email": "test1@example.com",
+        "email": "test1a3F@example.com",
         "password": "test_password",
         "first_name": "Test",
         "last_name": "User"
@@ -30,3 +30,11 @@ def test_create_account():
 
     with pytest.raises(DuplicateAccountError):
         account_queries.create(account_in, hashed_password)
+
+
+#  To pass the test please do the following in the terminal:
+#  Cd to "scrumptious_service"
+#  Input "python -m pytest tests/test_account_queries.py"
+
+#  Change the email again if you want to run it multiple times so that it passes,
+#  otherwise you will run into an error.
