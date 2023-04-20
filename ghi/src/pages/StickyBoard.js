@@ -372,7 +372,7 @@ const StickyBoard = (props) => {
                             {data.stickies.map((el, index) => {
                               return (
                                 <Draggable
-                                  key={el.id}
+                                  key={Math.random() + el.id}
                                   index={index}
                                   draggableId={el.id}
                                   className=""
@@ -381,6 +381,7 @@ const StickyBoard = (props) => {
                                     return (
                                       // Side note: You will have to move the expand button outside of the StickyNote component and attach it here. Or make a clickable element on top of it
                                       <div
+                                        key={index}
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
