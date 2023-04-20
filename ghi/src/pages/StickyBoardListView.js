@@ -46,7 +46,7 @@ const StickyBoardListView = () => {
   };
   useEffect(() => {
     getStickyboardsData();
-  }, []);
+  }, [token]);
 
 
 
