@@ -12,6 +12,7 @@ import StickyBoardCreateForm from "../components/StickyBoardCreateForm";
 import StickyNoteCreateForm from "../components/StickyNoteCreateForm";
 
 import StickyBoard from "./StickyBoard";
+import StickyBoardListView from "./StickyBoardListView";
 
 const Dashboard = () => {
   return (
@@ -20,12 +21,15 @@ const Dashboard = () => {
       {/* <StickyNoteCreateForm></StickyNoteCreateForm> */}
       {/* <StickyBoard></StickyBoard> */}
       {/* <StickyBoardCreateForm></StickyBoardCreateForm> */}
+
       {/* <DashboardStickyBoard></DashboardStickyBoard> */}
       {/* <DashboardStickyBoards></DashboardStickyBoards> */}
       {/* <TestingBoardGeneration></TestingBoardGeneration> */}
       {/* <StickyBoardInputForm></StickyBoardInputForm> */}
       {/* <TestDash></TestDash> */}
       {/* <DashboardInitial></DashboardInitial> */}
+
+      <StickyBoardListView></StickyBoardListView>
     </section>
   );
 };

@@ -3,8 +3,10 @@ import Sidebar from "./components/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import StickyNote from "./components/StickyNote";
 import React, { useEffect, useState, useContext } from "react";
+import Signin from "./pages/Signin";
+import Signup from "./pages/Signup";
+import StickyNoteCreateForm from "./components/StickyNoteCreateForm";
 import StickyBoardCreateForm from "./components/StickyBoardCreateForm";
-
 import ResetPassword from "./pages/ResetPassword";
 
 import {
@@ -14,8 +16,6 @@ import {
   Navigate,
   useNavigate,
 } from "react-router-dom";
-import Signin from "./pages/Signin";
-import Signup from "./pages/Signup";
 
 import useToken, { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 import StickyBoard from "./pages/StickyBoard";

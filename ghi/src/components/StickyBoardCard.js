@@ -1,17 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 import garbage from "../images/icons/garbage.svg";
+import useToken from "@galvanize-inc/jwtdown-for-react";
+import StickyBoardUpdateForm from "../components/StickyBoardUpdateForm";
 
 const StickyBoardCard = (props) => {
   // this priority variable should take on the priority property of the sticky board. This can be done through fetching the api.
   // for demonstration purposes, we're mimicking an API resonsee by using "props". The prop is being sent through the Dashboard.js
   // once api endpoints are configured, we will refactor the priority variable to grab the priority property from the API response instead
-  let content = props.content;
-  let priority = props.priority;
+
+  const { token } = useToken();
+  let boardName = props.stickyboard.board_name;
+  let description = props.stickyboard.description;
+  let priorityInt = props.stickyboard.priority;
+  let priority = priorityInt.toString();
   let gradient = null;
-  let boardName = props.name;
-  let start = null;
-  let deadline = null;
-  let members = props.members;
+  let start = new Date(props.stickyboard.start_date).toLocaleDateString();
+  let deadline = new Date(props.stickyboard.deadline).toLocaleDateString();
+  let members = props.stickyboard.account.length;
+  let id = props.stickyboard.id
   // color switches based on priority
   switch (priority) {
     case "1":
@@ -32,7 +38,46 @@ const StickyBoardCard = (props) => {
     default:
       gradient = "bg-white";
   }
+
+  const handleDeletion = (id) => {
+    fetch(`http://localhost:8000/stickyboard/${id}/`, {
+      method: 'delete',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+    }).then(response => {
+      if (response.ok) {
+        props.getStickyboardsData();
+      }
+    });
+  };
+
+  const [boardVisible, setAddBoardVisible] = useState(true);
+  const [modalStatus, setModalStatus] = useState(false);
+  const handleOpenModal = () => {
+    setModalStatus(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalStatus(false);
+  };
+
+  const handleAddBoard = () => {
+    setAddBoardVisible(false);
+  };
+
   return (
+    <div className=" h-screen overflow-hidden">
+      <StickyBoardUpdateForm
+        open={modalStatus}
+        close={handleCloseModal}
+        getStickyboardsData={props.getStickyboardsData}
+        stickyboard={props.stickyboard}
+        type="Update"
+      />
+
+
     <div
       // style={{
       //   backgroundColor: "#e7e7e7",
@@ -56,24 +101,28 @@ const StickyBoardCard = (props) => {
         <div className="DATE_ROW flex justify-between text-sm 1440:text-base my-1 1440:my-2">
           <div>
             <span className="mr-2">Start:</span>
-            <span>DATE</span>
+            <span>{start}</span>
           </div>
           <div>
             <span className="mr-2">Deadline:</span>
-            <span>DATE</span>
+            <span>{deadline}</span>
           </div>
         </div>
         <div className="flex-grow flex flex-col text-sm 1440:text-base overflow-auto px-2 scrollbar-card">
-          <p className="">{content}</p>
+          <p className="">{description}</p>
         </div>
         <div className="BUTTONS flex justify-between py-3 1440:py-4">
-          <img src={garbage} className="self-end expand-button" />
-          <button className="button-hover-white-filled px-[.7rem] py-[.1rem] bg-white rounded-[19px]">
+          <img src={garbage} className="self-end expand-button"
+          onClick={() => handleDeletion(id)}
+          />
+          <button className="button-hover-white-filled px-[.7rem] py-[.1rem] bg-white rounded-[19px]" onClick={handleOpenModal} >
             <span>Edit Board</span>
           </button>
         </div>
       </div>
     </div>
+
+  </div>
   );
 };
 
