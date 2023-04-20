@@ -372,7 +372,7 @@ const StickyBoard = (props) => {
                             {data.stickies.map((el, index) => {
                               return (
                                 <Draggable
-                                  key={Math.random() + el.id}
+                                  key={el.id}
                                   index={index}
                                   draggableId={el.id}
                                   className=""
