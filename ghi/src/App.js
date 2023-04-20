@@ -3,6 +3,10 @@ import Sidebar from "./components/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import StickyNote from "./components/StickyNote";
 import React, { useEffect, useState, useContext } from "react";
+import StickyBoardCreateForm from "./components/StickyBoardCreateForm";
+
+import ResetPassword from "./pages/ResetPassword";
+
 import {
   BrowserRouter,
   Routes,
@@ -10,7 +14,6 @@ import {
   Navigate,
   useNavigate,
 } from "react-router-dom";
-import StickyBoardCreateForm from "./components/StickyBoardCreateForm";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 
@@ -36,7 +39,8 @@ function App() {
   };
   useEffect(() => {
     getAccountsData();
-  }, []);
+    // getStickyBoardData();
+  }, [token]);
 
   return (
     <div>
@@ -57,10 +61,7 @@ function App() {
                 <Route path=":stickyboard_id" element={<StickyBoard />} />
               </Route>
               <Route path="stickyboard">
-                <Route
-                  path="new"
-                  element={<StickyBoardCreateForm accounts={accounts} />}
-                />
+                <Route path="new" element={<StickyBoardCreateForm />} />
               </Route>
               <Route path="*" element={<Navigate to="/dashboard" />} />
             </Routes>
