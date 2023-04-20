@@ -123,7 +123,7 @@ const StickyBoardCreateForm = (props) => {
         <div className="INPUT-FORM w-[46.3125rem] h-[34.625rem] bg-[#CCCCCC] bg-opacity-60 rounded-[19px] flex flex-col items-center">
           <div className="w-[100%] pt-2 px-4 flex items-center justify-between">
             <span className="text-4xl p-5 self-start text-dark_mode_text_white ">
-              {type}
+              Create Sticky Board
             </span>
             <img
               src={close_out}
