@@ -289,6 +289,7 @@ const StickyBoard = (props) => {
         open={modalStatus}
         close={handleCloseModal}
         type={"Create"}
+        stickyboard_id={stickyboard_id}
         refreshData={refreshData}
       ></StickyNoteCreateForm>
       <div className="flex flex-col text-dark_mode_text_white">

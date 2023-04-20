@@ -180,6 +180,7 @@ class StickyBoardQueries:
         props['stickyboard'] = stickyboard_id
         db["Sticky"].insert_one(props)
         stickyboard = collection.find_one({"_id": ObjectId(props["stickyboard"])})
+        print("fffffffffffffff", props)
         category_list = stickyboard[props["category"]]
         category_list.insert(0,str(props["_id"]))
         collection.update_one(

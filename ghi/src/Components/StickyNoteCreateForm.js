@@ -163,7 +163,7 @@ function StickyNoteCreateForm(props) {
     console.log("Category value:", category);
     console.log(data);
     // !!!!! http://localhost:8000/643f2c12359383c67fba0c6b/sticky USE THIS FOR TESTING
-    const url = `http://localhost:8000/643fb0c17e20b75f73e0c0d3/sticky`;
+    const url = `http://localhost:8000/${props.stickyboard_id}/sticky`;
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),
