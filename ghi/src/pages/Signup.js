@@ -42,14 +42,9 @@ function Signup(props) {
 
     const response = await fetch("http://localhost:8000/accounts");
     const data = await response.json();
-    const emails = data.map((user) => user.email);
 
+    const emails = data.map((user) => user.email);
     if (!data) {
-      console.error("No data returned from server.");
-      return;
-    }
-    if (!data) {
-      
     }
     if (
       firstName === "" ||
