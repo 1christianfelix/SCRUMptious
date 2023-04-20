@@ -14,7 +14,7 @@ function StickyNoteCreateForm(props) {
   const { token } = useToken();
   const { accounts, setAccounts } = useContext(AccountContext);
 
-  const [category, setCategory] = useState("Default");
+  const [category, setCategory] = useState(props.category);
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
   const [priority, setPriority] = useState("");
@@ -36,30 +36,30 @@ function StickyNoteCreateForm(props) {
   };
   useEffect(() => {
     switch (category) {
-      case "Backlog":
+      case "backlog":
         console.log("Backlog");
         setHeaderColor("bg-sticky_blue_header");
         setBodyColor("bg-sticky_blue");
         break;
-      case "Todo":
+      case "todo":
         console.log("Todo");
 
         setHeaderColor("bg-sticky_red_header");
         setBodyColor("bg-sticky_red");
         break;
-      case "Doing":
+      case "doing":
         console.log("Doing");
 
         setHeaderColor("bg-sticky_yellow_header");
         setBodyColor("bg-sticky_yellow");
         break;
-      case "Review":
+      case "review":
         console.log("Review");
 
         setHeaderColor("bg-sticky_teal_header");
         setBodyColor("bg-sticky_teal");
         break;
-      case "Done":
+      case "done":
         console.log("Done");
 
         setHeaderColor("bg-sticky_green_header");
@@ -153,9 +153,10 @@ function StickyNoteCreateForm(props) {
     data.subject = subject;
     data.content = content;
     data.priority = parseInt(priority);
-    data.category = category.toLowerCase();
+    data.category = props.category;
     data.start_date = new Date(start_date + "T00:00:00");
     data.deadline = new Date(deadline + "T00:00:00");
+    data.append = props.append;
     // data.stickyBoard = selectedStickyBoard;
     // data.stickyBoard = JSON.stringify(stickyBoard);
     // data.stickyBoard = stickyBoardAsString;
@@ -310,17 +311,19 @@ function StickyNoteCreateForm(props) {
                   id=""
                   className="CATEGORY-SELECTION inline-block h-[2rem] w-[8.5rem] drop-shadow-sticky text-center focus:outline-none"
                   required
-                  defaultValue="Select Category"
+                  defaultValue={
+                    props.category ? props.category : "Select Category"
+                  }
                   onChange={handleColorChange}
                 >
                   <option value="Select Category" disabled hidden>
                     Select Category
                   </option>
-                  <option value="Backlog">Backlog</option>
-                  <option value="Todo">Todo</option>
-                  <option value="Doing">Doing</option>
-                  <option value="Review">Review</option>
-                  <option value="Done">Done</option>
+                  <option value="backlog">Backlog</option>
+                  <option value="todo">Todo</option>
+                  <option value="doing">Doing</option>
+                  <option value="review">Review</option>
+                  <option value="done">Done</option>
                 </select>
               </div>
               <textarea

@@ -13,6 +13,8 @@ import StickyNoteCreateForm from "../components/StickyNoteCreateForm";
 const StickyBoard = (props) => {
   const { token } = useToken();
   const { stickyboard_id } = useParams();
+  const [category, setCategory] = useState("");
+  const [append, setAppend] = useState(false);
   const [addStickyVisible, setAddStickyVisible] = useState(true);
   const [addStickyStyle, setAddStickyStyle] = useState("");
   const [stickyboard, setStickyboard] = useState({});
@@ -120,6 +122,8 @@ const StickyBoard = (props) => {
   };
 
   const handleCloseModal = () => {
+    setCategory("");
+    setAppend(false);
     setModalStatus(false);
   };
 
@@ -229,7 +233,6 @@ const StickyBoard = (props) => {
     // update the the stickyboard backend's categories' shape
     const submitUpdatedState = async (updatedStickyIDArrays) => {
       let body = {
-        board_name: "testing",
         backlog: updatedStickyIDArrays.backlog,
         todo: updatedStickyIDArrays.todo,
         doing: updatedStickyIDArrays.doing,
@@ -285,13 +288,17 @@ const StickyBoard = (props) => {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      <StickyNoteCreateForm
-        open={modalStatus}
-        close={handleCloseModal}
-        type={"Create"}
-        stickyboard_id={stickyboard_id}
-        refreshData={refreshData}
-      ></StickyNoteCreateForm>
+      {category.length > 0 && (
+        <StickyNoteCreateForm
+          open={modalStatus}
+          close={handleCloseModal}
+          type={"Create"}
+          stickyboard_id={stickyboard_id}
+          refreshData={refreshData}
+          category={category}
+          append={append}
+        ></StickyNoteCreateForm>
+      )}
       <div className="flex flex-col text-dark_mode_text_white">
         <div className="w-[100%] h-[8.37500rem] bg-dark_mode_light flex items-center">
           <select className="bg-transparent focus:outline-none transition-all duration-150 hover:cursor-pointer text-3xl ml-6">
@@ -348,7 +355,10 @@ const StickyBoard = (props) => {
                         src={add_icon}
                         className="h-[42px] w-auto hover:cursor-pointer transition-all expand-button ml-auto"
                         // onClick={() => addFirst(data.title)}
-                        onClick={handleOpenModal}
+                        onClick={() => {
+                          handleOpenModal();
+                          setCategory(key);
+                        }}
                       />
                     </div>
                     <Droppable droppableId={key}>
@@ -386,12 +396,19 @@ const StickyBoard = (props) => {
                                           src={expand_icon}
                                           className="absolute bottom-3 right-3 self-end expand-button"
                                           // This on click needs to trigger an update form instead of a create form
-                                          onClick={handleOpenModal}
+                                          onClick={() => {
+                                            handleOpenModal();
+                                            setCategory(key);
+                                          }}
                                         />
                                         {index === data.stickies.length - 1 && (
                                           <div
                                             className={`flex items-center pl-4 mb-10 ${addStickyStyle}`}
-                                            onClick={handleOpenModal}
+                                            onClick={() => {
+                                              handleOpenModal();
+                                              setCategory(key);
+                                              setAppend(true);
+                                            }}
                                           >
                                             <div className="flex absolute -bottom-6 1440:-bottom-7 items-center hover:cursor-pointer transition-colors duration-200 text-slate-500 hover:text-white">
                                               <div className="h-[1rem] 1440:h-[1.2rem] pr-2 text-current ">

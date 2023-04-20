@@ -95,6 +95,7 @@ class CreateSticky(BaseModel):
     start_date: datetime
     deadline: datetime
     account: list[str]
+    append: Optional[bool] = False
 
 class UpdateSticky(BaseModel):
     subject: Optional[str]
