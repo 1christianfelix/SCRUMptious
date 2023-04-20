@@ -8,6 +8,7 @@ import filter_icon_white from "../images/icons/filter_icon_white.svg";
 import expand_icon from "../images/icons/expand_icon.svg";
 import { useParams } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
+import StickyNoteCreateForm from "../components/StickyNoteCreateForm";
 
 const StickyBoard = (props) => {
   const { token } = useToken();
