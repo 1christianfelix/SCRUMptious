@@ -173,6 +173,7 @@ const StickyBoardListView = () => {
                 id="none"
                 name="priority"
                 value=""
+                defaultChecked
                 onChange={handleSearchPriorityChange}
               />
               <label htmlFor="none">None</label>
