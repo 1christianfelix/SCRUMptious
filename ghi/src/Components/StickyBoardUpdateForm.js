@@ -238,18 +238,6 @@ const StickyBoardUpdateForm = (props) => {
               ></input>
               <img src={Search_light} alt="" className="h-[1rem] w-[1rem]" />
             </div>
-            {/* <div className="FILTER flex gap-[.2rem] items-center expand-button">
-              <img
-                src={filter_icon}
-                alt=""
-                className="h-[.6rem] w-[.56rem] expand-button"
-              />
-              <span className="text-[.8rem]">Filter</span>
-            </div>
-            <div className="SORT flex gap-[.2rem] items-center expand-button">
-              <img src={sort_icon} alt="" className="h-[.6rem] w-[.56rem]" />
-              <span className="text-[.8rem]">Sort</span>
-            </div> */}
           </div>
           <div className="mx-10 h-[75%] flex flex-col text-lg overflow-auto scrollbar-members-list">
             {/* Use this as the template to create multiple checkbox fields using the maps function */}
@@ -283,107 +271,6 @@ const StickyBoardUpdateForm = (props) => {
                 </div>
               );
             })}
-            {/* Everything from here to the next comment is a generation example for the scroll bar. You may delete */}
-            {/* <div className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2">
-              <input
-                label="test"
-                type="checkbox"
-                value="Account"
-                className="mr-2"
-              />
-              <label htmlFor="test" className="flex flex-col">
-                <span>Name</span> <span>Email</span>
-              </label>
-            </div>
-            <div className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2">
-              <input
-                label="test"
-                type="checkbox"
-                value="Account"
-                className="mr-2"
-              />
-              <label htmlFor="test" className="flex flex-col">
-                <span>Name</span> <span>Email</span>
-              </label>
-            </div>
-            <div className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2">
-              <input
-                label="test"
-                type="checkbox"
-                value="Account"
-                className="mr-2"
-              />
-              <label htmlFor="test" className="flex flex-col">
-                <span>Name</span> <span>Email</span>
-              </label>
-            </div>
-            <div className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2">
-              <input
-                label="test"
-                type="checkbox"
-                value="Account"
-                className="mr-2"
-              />
-              <label htmlFor="test" className="flex flex-col">
-                <span>Name</span> <span>Email</span>
-              </label>
-            </div>
-            <div className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2">
-              <input
-                label="test"
-                type="checkbox"
-                value="Account"
-                className="mr-2"
-              />
-              <label htmlFor="test" className="flex flex-col">
-                <span>Name</span> <span>Email</span>
-              </label>
-            </div>
-            <div className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2">
-              <input
-                label="test"
-                type="checkbox"
-                value="Account"
-                className="mr-2"
-              />
-              <label htmlFor="test" className="flex flex-col">
-                <span>Name</span> <span>Email</span>
-              </label>
-            </div>
-            <div className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2">
-              <input
-                label="test"
-                type="checkbox"
-                value="Account"
-                className="mr-2"
-              />
-              <label htmlFor="test" className="flex flex-col">
-                <span>Name</span> <span>Email</span>
-              </label>
-            </div>
-            <div className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2">
-              <input
-                label="test"
-                type="checkbox"
-                value="Account"
-                className="mr-2"
-              />
-              <label htmlFor="test" className="flex flex-col">
-                <span>Name</span> <span>Email</span>
-              </label>
-            </div>
-            <div className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2">
-              <input
-                label="test"
-                type="checkbox"
-                value="Account"
-                className="mr-2"
-              />
-              <label htmlFor="test" className="flex flex-col">
-                <span>Name</span> <span>Email</span>
-              </label>
-            </div> */}
-            {/* Everything from here to the previous comment is a generation example for the scroll bar. You may delete */}
           </div>
         </div>
       </form>

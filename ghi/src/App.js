@@ -7,6 +7,7 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import StickyNoteCreateForm from "./components/StickyNoteCreateForm";
 import StickyBoardCreateForm from "./components/StickyBoardCreateForm";
+import StickyBoardListView from "./pages/StickyBoardListView";
 import ResetPassword from "./pages/ResetPassword";
 
 import {
@@ -61,10 +62,7 @@ function App() {
               <Routes>
                 <Route path="/dashboard">
                   <Route path=":stickyboard_id" element={<StickyBoard />} />
-                  <Route index element={<Dashboard />} />
-                </Route>
-                <Route path="stickyboard">
-                  <Route path="new" element={<StickyBoardCreateForm />} />
+                  <Route index element={<StickyBoardListView />} />
                 </Route>
                 <Route path="*" element={<Navigate to="/dashboard" />} />
               </Routes>

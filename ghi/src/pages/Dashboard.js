@@ -29,7 +29,7 @@ const Dashboard = () => {
       {/* <TestDash></TestDash> */}
       {/* <DashboardInitial></DashboardInitial> */}
 
-      <StickyBoardListView></StickyBoardListView>
+      {/* <StickyBoardListView></StickyBoardListView> */}
     </section>
   );
 };
