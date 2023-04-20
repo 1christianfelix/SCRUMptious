@@ -17,7 +17,7 @@ const Dashboard = () => {
   return (
     <section className="bg-dark_mode_medium h-screen flex-grow relative">
       {/* <StickyNoteInputForm open={true}></StickyNoteInputForm> */}
-      <StickyNoteCreateForm></StickyNoteCreateForm>
+      {/* <StickyNoteCreateForm></StickyNoteCreateForm> */}
       {/* <StickyBoard></StickyBoard> */}
       {/* <StickyBoardCreateForm></StickyBoardCreateForm> */}
       {/* <DashboardStickyBoard></DashboardStickyBoard> */}

@@ -6,11 +6,13 @@ import Search_light from "../images/icons/Search_light.svg";
 import sort_icon from "../images/icons/sort_icon.svg";
 import filter_icon from "../images/icons/filter_icon.svg";
 import AccountContext from "../context/AccountContext";
+
 // import { useNavigate } from 'react-router-dom';
 
 // The prop being passed in will determine if it's a Create or Update
 const StickyBoardCreateForm = (props) => {
   const { accounts, setAccounts } = useContext(AccountContext);
+
   console.log("from: This file:", accounts);
   let type = props.type || "Create A Sticky Board";
 

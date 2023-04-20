@@ -17,7 +17,7 @@ function StickyNoteCreateForm(props) {
   const [category, setCategory] = useState("Default");
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
-  const [priority, setPriority] = useState(0);
+  const [priority, setPriority] = useState("");
   const [priorityColor, setPriorityColor] = useState("");
   const [bodyColor, setBodyColor] = useState("");
   const [status, setStatus] = useState("");
@@ -31,6 +31,7 @@ function StickyNoteCreateForm(props) {
   let type = props.type || "Create/Update -> pass in type as prop to set";
 
   const handleColorChange = (event) => {
+    console.log("colorchanging");
     setCategory(event.target.value);
   };
   useEffect(() => {
@@ -100,7 +101,7 @@ function StickyNoteCreateForm(props) {
         console.log("3");
         setPriorityColor("bg-gradient-to-l from-[#FFECEC] to-[#FFCACA]");
         break;
-      case "0":
+      default:
         console.log("0");
         setPriorityColor("bg-white");
         break;
@@ -145,6 +146,7 @@ function StickyNoteCreateForm(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    props.close();
     // setIsStickyCreated(true);
 
     const data = {};
@@ -176,22 +178,41 @@ function StickyNoteCreateForm(props) {
       console.log("ok");
 
       setSubject("");
+      setCategory("");
       setContent("");
-      setPriority("");
+      setPriority(0);
       setStatus("");
       setStartDate("");
       setDeadline("");
-      setMembers("");
+      setMembers([]);
       setSelectedStickyBoard("");
+      props.refreshData();
     } else {
       console.error("Error:", response.status, await response.text());
     }
   };
 
+  if (!props.open) {
+    return null;
+  }
+
+  const handleClose = () => {
+    setSubject("");
+    setCategory("");
+    setContent("");
+    setPriority("");
+    setStatus("");
+    setStartDate("");
+    setDeadline("");
+    setMembers([]);
+    setSelectedStickyBoard("");
+    props.close();
+  };
+
   return (
     <div
       className="h-screen w-[100%] flex items-center justify-center absolute z-10 backdrop-blur-md"
-      onClick={props.close}
+      onClick={handleClose}
     >
       <form
         onClick={(e) => e.stopPropagation()}
@@ -208,7 +229,7 @@ function StickyNoteCreateForm(props) {
                 <img
                   src={close_out}
                   alt=""
-                  onClick={props.close}
+                  onClick={handleClose}
                   className="hover:cursor-pointer expand-button"
                 />
               </div>
@@ -346,14 +367,15 @@ function StickyNoteCreateForm(props) {
                 <span className="text-[.8rem]">Sort</span>
               </div>
             </div>
-            <div className="mx-10 h-[75%] flex flex-col text-lg overflow-auto scrollbar-members-list">
+            <ul className="mx-10 h-[75%] flex flex-col text-lg overflow-auto scrollbar-members-list">
               {filteredAccounts.map((filteredAccount) => {
                 return (
-                  <div
+                  <li
                     key={filteredAccount.id}
                     className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2"
                   >
                     <input
+                      className="mr-2"
                       type="checkbox"
                       checked={members.includes(filteredAccount.id)}
                       onChange={(event) => {
@@ -365,17 +387,16 @@ function StickyNoteCreateForm(props) {
                           );
                         }
                       }}
-                      className="mr-2"
                     />
                     <div>
                       {filteredAccount.last_name}, {filteredAccount.first_name}{" "}
                       <br />
                       {filteredAccount.email} <br />
                     </div>
-                  </div>
+                  </li>
                 );
               })}
-            </div>
+            </ul>
           </div>
         </div>
       </form>

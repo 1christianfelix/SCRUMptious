@@ -278,13 +278,19 @@ const StickyBoard = (props) => {
     });
   };
 
+  const refreshData = () => {
+    fetchBoard();
+    fetchCategoryStickyData();
+  };
+
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      <StickyNoteInputForm
+      <StickyNoteCreateForm
         open={modalStatus}
         close={handleCloseModal}
         type={"Create"}
-      ></StickyNoteInputForm>
+        refreshData={refreshData}
+      ></StickyNoteCreateForm>
       <div className="flex flex-col text-dark_mode_text_white">
         <div className="w-[100%] h-[8.37500rem] bg-dark_mode_light flex items-center">
           <select className="bg-transparent focus:outline-none transition-all duration-150 hover:cursor-pointer text-3xl ml-6">
