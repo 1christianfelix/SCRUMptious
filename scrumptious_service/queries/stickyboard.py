@@ -53,7 +53,11 @@ class StickyBoardQueries:
         if result.inserted_id:
             for account_id in stickyboard_dict["account"]:
                 account = client["Accounts"]["accounts"].find_one({"_id": ObjectId(account_id)})
-                send_email(account["email"])
+                send_email(
+                    to_emails=account["email"],
+                    subject="You were added as a member of a stickyboard!",
+                    content="Please login to check."
+                    )
             return self.get_stickyboard_by_id(result.inserted_id)
 
     def get_stickyboards(self):
@@ -99,7 +103,11 @@ class StickyBoardQueries:
         )
         for account_id in props["account"]:
             account = client["Accounts"]["accounts"].find_one({"_id": ObjectId(account_id)})
-            send_email(account["email"])
+            send_email(
+                to_emails=account["email"],
+                subject="You were added as a member of a sticky!",
+                content="Please login to check."
+                )
         return(Sticky(**props))
 
     def get_sticky_by_id(self, sticky_id):
