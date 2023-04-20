@@ -1,5 +1,5 @@
 import "./App.css";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/Sidebar"
 import Dashboard from "./pages/Dashboard";
 import StickyNote from "./components/StickyNote";
 import React, { useEffect, useState, useContext } from "react";
