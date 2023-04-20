@@ -27,7 +27,9 @@ def get_stickyboards(queries: StickyBoardQueries = Depends(),
 
 
 @router.get("/stickyboard/{stickyboard_id}", tags=["Stickyboard"])
-def get_stickyboard_by_id(stickyboard_id: str, queries: StickyBoardQueries = Depends(), account_data: dict = Depends(authenticator.get_current_account_data)):
+def get_stickyboard_by_id(stickyboard_id: str, queries: StickyBoardQueries = Depends(),
+                        #   account_data: dict = Depends(authenticator.get_current_account_data)
+                          ):
     return queries.get_stickyboard_by_id(stickyboard_id)
 
 
@@ -42,7 +44,8 @@ def get_stickyboard_stickies(
 def update_stickyboard(
     stickyboard_id: str,
     stickyboard: StickyBoardUpdate,
-    queries: StickyBoardQueries = Depends(), account_data: dict = Depends(authenticator.get_current_account_data)
+    queries: StickyBoardQueries = Depends(),
+    #account_data: dict = Depends(authenticator.get_current_account_data)
 ):
     return queries.update_stickyboard(stickyboard_id, stickyboard)
 

@@ -16,15 +16,15 @@ const StickyNote = (props) => {
   let bodyColor = null;
 
   switch (priority) {
-    case "1":
+    case 1:
       priorityColor = "bg-gradient-to-l from-[#EFFFF2] to-[#a6e6b0] ";
       priority = "Low";
       break;
-    case "2":
+    case 2:
       priorityColor = "bg-gradient-to-l from-[#F5FDFF] to-[#85d4e6]";
       priority = "Medium";
       break;
-    case "3":
+    case 3:
       priorityColor = "bg-gradient-to-l from-[#FFECEC] to-[#e6b6b6]";
       priority = "High";
       break;
@@ -33,29 +33,29 @@ const StickyNote = (props) => {
   }
 
   switch (category) {
-    case "Backlog":
+    case "backlog":
       headerColor = "bg-sticky_blue_header";
       bodyColor = "bg-sticky_blue";
       break;
-    case "Todo":
+    case "todo":
       headerColor = "bg-sticky_red_header";
       bodyColor = "bg-sticky_red";
       break;
-    case "Doing":
+    case "doing":
       headerColor = "bg-sticky_yellow_header";
       bodyColor = "bg-sticky_yellow";
       break;
-    case "Review":
+    case "review":
       headerColor = "bg-sticky_teal_header";
       bodyColor = "bg-sticky_teal";
       break;
-    case "Done":
+    case "done":
       headerColor = "bg-sticky_green_header";
       bodyColor = "bg-sticky_green";
       break;
     default:
-      headerColor("bg-white");
-      bodyColor("bg-slate-400");
+      headerColor = "bg-white";
+      bodyColor = "bg-slate-400";
   }
 
   return (

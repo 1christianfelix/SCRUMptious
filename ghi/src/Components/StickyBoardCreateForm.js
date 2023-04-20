@@ -9,32 +9,28 @@ import close_out from "../images/icons/close_out_icon.svg";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import AccountContext from "../context/AccountContext";
 
-
 // The prop being passed in will determine if it's a Create or Update
 const StickyBoardCreateForm = (props) => {
   let type = props.type || "Create A Sticky Board";
 
-
-
   const { token } = useToken();
 
-  const [boardName, setBoardName] = useState('');
-  const [description, setDescription] = useState('');
-  const [priority, setPriority] = useState('');
-  const [start, setStart] = useState('');
-  const [deadline, setDeadline] = useState('');
+  const [boardName, setBoardName] = useState("");
+  const [description, setDescription] = useState("");
+  const [priority, setPriority] = useState("");
+  const [start, setStart] = useState("");
+  const [deadline, setDeadline] = useState("");
   const [members, setMembers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-
 
   const handleBoardNameChange = (event) => {
     const value = event.target.value;
     setBoardName(value);
-  }
+  };
   const handleDescriptionChange = (event) => {
     const value = event.target.value;
     setDescription(value);
-  }
+  };
   const handlePriorityChange = (event) => {
     const value = event.target.value;
     setPriority(value);
@@ -60,7 +56,7 @@ const StickyBoardCreateForm = (props) => {
     if (accountResponse.ok) {
       const data = await accountResponse.json();
       setAccounts(data);
-      console.log(data)
+      console.log(data);
     }
   };
   useEffect(() => {
@@ -78,6 +74,7 @@ const StickyBoardCreateForm = (props) => {
   }
   const handleSubmit = async (event) => {
     event.preventDefault();
+    props.close();
     const data = {};
     data.board_name = boardName;
     data.description = description;
@@ -90,20 +87,20 @@ const StickyBoardCreateForm = (props) => {
     data.doing = [];
     data.review = [];
     data.done = [];
-    console.log(data)
+    console.log(data);
     const url = "http://localhost:8000/stickyboard";
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     };
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       props.getStickyboardsData();
-      props.close();
+
       setBoardName("");
       setDescription("");
       setPriority("");
@@ -126,7 +123,7 @@ const StickyBoardCreateForm = (props) => {
         <div className="INPUT-FORM w-[46.3125rem] h-[34.625rem] bg-[#CCCCCC] bg-opacity-60 rounded-[19px] flex flex-col items-center">
           <div className="w-[100%] pt-2 px-4 flex items-center justify-between">
             <span className="text-4xl p-5 self-start text-dark_mode_text_white ">
-              {type}
+              Create Sticky Board
             </span>
             <img
               src={close_out}
@@ -213,7 +210,6 @@ const StickyBoardCreateForm = (props) => {
             </div>
           </div>
 
-
           <button
             className="button-hover-white-filled bg-white mt-8 mx-12 px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky"
             onClick={handleSubmit}
@@ -233,18 +229,6 @@ const StickyBoardCreateForm = (props) => {
               ></input>
               <img src={Search_light} alt="" className="h-[1rem] w-[1rem]" />
             </div>
-            {/* <div className="FILTER flex gap-[.2rem] items-center expand-button">
-              <img
-                src={filter_icon}
-                alt=""
-                className="h-[.6rem] w-[.56rem] expand-button"
-              />
-              <span className="text-[.8rem]">Filter</span>
-            </div>
-            <div className="SORT flex gap-[.2rem] items-center expand-button">
-              <img src={sort_icon} alt="" className="h-[.6rem] w-[.56rem]" />
-              <span className="text-[.8rem]">Sort</span>
-            </div> */}
           </div>
           <div className="mx-10 h-[75%] flex flex-col text-lg overflow-auto scrollbar-members-list">
             {/* Use this as the template to create multiple checkbox fields using the maps function */}
@@ -278,107 +262,6 @@ const StickyBoardCreateForm = (props) => {
                 </div>
               );
             })}
-            {/* Everything from here to the next comment is a generation example for the scroll bar. You may delete */}
-            {/* <div className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2">
-              <input
-                label="test"
-                type="checkbox"
-                value="Account"
-                className="mr-2"
-              />
-              <label htmlFor="test" className="flex flex-col">
-                <span>Name</span> <span>Email</span>
-              </label>
-            </div>
-            <div className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2">
-              <input
-                label="test"
-                type="checkbox"
-                value="Account"
-                className="mr-2"
-              />
-              <label htmlFor="test" className="flex flex-col">
-                <span>Name</span> <span>Email</span>
-              </label>
-            </div>
-            <div className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2">
-              <input
-                label="test"
-                type="checkbox"
-                value="Account"
-                className="mr-2"
-              />
-              <label htmlFor="test" className="flex flex-col">
-                <span>Name</span> <span>Email</span>
-              </label>
-            </div>
-            <div className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2">
-              <input
-                label="test"
-                type="checkbox"
-                value="Account"
-                className="mr-2"
-              />
-              <label htmlFor="test" className="flex flex-col">
-                <span>Name</span> <span>Email</span>
-              </label>
-            </div>
-            <div className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2">
-              <input
-                label="test"
-                type="checkbox"
-                value="Account"
-                className="mr-2"
-              />
-              <label htmlFor="test" className="flex flex-col">
-                <span>Name</span> <span>Email</span>
-              </label>
-            </div>
-            <div className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2">
-              <input
-                label="test"
-                type="checkbox"
-                value="Account"
-                className="mr-2"
-              />
-              <label htmlFor="test" className="flex flex-col">
-                <span>Name</span> <span>Email</span>
-              </label>
-            </div>
-            <div className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2">
-              <input
-                label="test"
-                type="checkbox"
-                value="Account"
-                className="mr-2"
-              />
-              <label htmlFor="test" className="flex flex-col">
-                <span>Name</span> <span>Email</span>
-              </label>
-            </div>
-            <div className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2">
-              <input
-                label="test"
-                type="checkbox"
-                value="Account"
-                className="mr-2"
-              />
-              <label htmlFor="test" className="flex flex-col">
-                <span>Name</span> <span>Email</span>
-              </label>
-            </div>
-            <div className="CHECKBOX-INPUT flex items-center p-1 border-solid border-b-[#000]/25 border-b-2">
-              <input
-                label="test"
-                type="checkbox"
-                value="Account"
-                className="mr-2"
-              />
-              <label htmlFor="test" className="flex flex-col">
-                <span>Name</span> <span>Email</span>
-              </label>
-            </div> */}
-            {/* Everything from here to the previous comment is a generation example for the scroll bar. You may delete */}
           </div>
         </div>
       </form>
