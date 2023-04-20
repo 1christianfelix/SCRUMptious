@@ -10,7 +10,6 @@ def test_create_account():
     account_queries.collection = client["Accounts"]["accounts"]
     account_queries.collection.create_index("email", unique=True)
 
-
     account_data = {
         "email": "test1a3F@example.com",
         "password": "test_password",

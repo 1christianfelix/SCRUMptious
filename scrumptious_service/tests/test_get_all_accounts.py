@@ -10,18 +10,14 @@ def test_get_all_accounts():
     account_in = AccountIn(email="test7778Dp@test.com", password="testpassword", first_name="John", last_name="Doe")
     hashed_password = "hashed_testpassword"
 
-    # Get a handle to the accounts collection
     db_name = "test_db"
     collection_name = "accounts"
     collection = client[db_name][collection_name]
 
-    # Delete all existing accounts
     collection.delete_many({})
 
-    # Create the new account
     created_account = account_queries.create(account_in, hashed_password)
 
-    # Test that the account was created successfully
     accounts = account_queries.get_all_accounts()
     assert any(account["email"] == created_account.email for account in accounts)
 
