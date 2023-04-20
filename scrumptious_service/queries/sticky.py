@@ -28,6 +28,18 @@ class CreateSticky(BaseModel):
     start_date: datetime
     deadline: datetime
     account: list[str]
+    append: Optional[bool] = False
+
+class UpdateSticky(BaseModel):
+    subject: Optional[str]
+    content: Optional[str]
+    priority: Optional[int]
+    category: Optional[str]
+    start_date: Optional[datetime]
+    deadline: Optional[datetime]
+    account: Optional[list[str]]
+    stickyboard: Optional[str]
+
 
 
 
