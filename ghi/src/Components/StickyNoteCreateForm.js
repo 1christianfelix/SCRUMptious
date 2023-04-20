@@ -153,7 +153,7 @@ function StickyNoteCreateForm(props) {
     data.subject = subject;
     data.content = content;
     data.priority = parseInt(priority);
-    data.category = props.category;
+    data.category = category;
     data.start_date = new Date(start_date + "T00:00:00");
     data.deadline = new Date(deadline + "T00:00:00");
     data.append = props.append;

@@ -51,7 +51,7 @@ function App() {
             <Route path="/" element={<Navigate to="/signin" />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/signin" element={<Signin />} />
-            <Route path="*" element={<Navigate to="/signin" />} />
+            {/* <Route path="*" element={<Navigate to="/signin" />} /> */}
           </Routes>
         ) : (
           <div className="flex font-Sudo_Var">
