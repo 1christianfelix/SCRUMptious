@@ -159,7 +159,7 @@ const StickyBoardUpdateForm = (props) => {
                 name=""
                 id=""
                 className="bg-[#fff] w-[8.4rem] h-[2.2rem] focus:outline-none text-[1.5rem] text-center drop-shadow-sticky self-center hover:cursor-pointer"
-                defaultValue="Select Priority"
+                defaultValue={priority}
                 required
                 onChange={handlePriorityChange}
               >
