@@ -95,7 +95,6 @@ const StickyBoardCreateForm = (props) => {
   }
   const handleSubmit = async (event) => {
     event.preventDefault();
-    props.close();
     const data = {};
     data.board_name = boardName;
     data.description = description;
@@ -121,7 +120,7 @@ const StickyBoardCreateForm = (props) => {
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       props.getStickyboardsData();
-
+      props.close();
       setBoardName("");
       setDescription("");
       setPriority("");
@@ -142,6 +141,7 @@ const StickyBoardCreateForm = (props) => {
       <form
         onClick={(e) => e.stopPropagation()}
         className="flex gap-5 backdrop-blur-[9.3px]"
+        onSubmit={handleSubmit}
       >
         {/* Input Section */}
         <div
@@ -166,17 +166,12 @@ const StickyBoardCreateForm = (props) => {
                 <select
                   name=""
                   id=""
-                  className="bg-[#fff] h-[2.2rem] focus:outline-none text-[1.5rem] text-center drop-shadow-sticky self-center hover:cursor-pointer"
+                  className={`w-[12.8125rem] h-[3.25rem] text-center text-[1.5rem] drop-shadow-sticky  focus:outline-none`}
                   defaultValue="Select Priority"
                   required
                   onChange={handlePriorityChange}
                 >
-                  <option
-                    value="Select Priority"
-                    className="bg-opacity-80"
-                    disabled
-                    hidden
-                  >
+                  <option value="Select Priority" disabled hidden>
                     Select Priority
                   </option>
                   <option type="number" value="3">
@@ -200,9 +195,10 @@ const StickyBoardCreateForm = (props) => {
                 <input
                   type="text"
                   placeholder="Board Name"
+                  required
                   className="leading-none bg-transparent placeholder:text-dark_mode_font focus:outline-none w-[100%]"
                   onChange={handleBoardNameChange}
-                  value={boardName}
+                  // value={boardName}
                 ></input>
                 <img src={pen} className="h-8 w-8" />
               </div>
@@ -213,9 +209,10 @@ const StickyBoardCreateForm = (props) => {
                 <div className="">
                   <input
                     type="date"
+                    required
                     className="bg-transparent  focus:outline-none hover:cursor-text"
                     onChange={handleStartChange}
-                    value={start}
+                    // value={start}
                   />
                 </div>
               </div>
@@ -224,9 +221,10 @@ const StickyBoardCreateForm = (props) => {
                 <div className="">
                   <input
                     type="date"
+                    required
                     className="bg-transparent focus:outline-none hover:cursor-text"
                     onChange={handleDeadlineChange}
-                    value={deadline}
+                    // value={deadline}
                   />
                 </div>
               </div>
@@ -234,16 +232,14 @@ const StickyBoardCreateForm = (props) => {
           </div>
           <textarea
             type="text"
+            required
             className="CONTENT-BOX w-[90%] mt-3 flex-grow overflow-auto scrollbar-card scrollbar-w-2 text-dark_mode_font focus:outline-none word-wrap bg-transparent border-solid border-[1px] border-black resize-none  text-[1.5rem] p-5 placeholder:text-black"
             onChange={handleDescriptionChange}
-            value={description}
+            // value={description}
             placeholder="Description"
           />
 
-          <button
-            className="button-hover-white-filled bg-white my-6 mx-12 px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky"
-            onClick={handleSubmit}
-          >
+          <button className="button-hover-white-filled bg-white my-6 mx-12 px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky">
             Create
           </button>
         </div>
