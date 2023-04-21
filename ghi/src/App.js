@@ -9,6 +9,12 @@ import Signup from "./pages/Signup";
 import StickyNoteCreateForm from "./components/StickyNoteCreateForm";
 import ResetPassword from "./pages/ResetPassword";
 
+
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import Pricing from "./components/Pricing";
+import PaymentForm from "./components/PaymentForm";
+
 import {
   BrowserRouter,
   Routes,
@@ -23,7 +29,9 @@ import useToken, { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 function App() {
 
   const { token } = useContext(AuthContext);
-
+  const stripeTestPromise = loadStripe(
+    "pk_test_69syY2TnwXdp6O4emapTFnKP00QCtfnSTs"
+  );
   // const user = useUser(token);
 
   // console.log(user);
@@ -68,6 +76,15 @@ return (
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route
+          path="/payment"
+          element={
+            <Elements stripe={stripeTestPromise}>
+              <PaymentForm />
+            </Elements>
+          }
+        />
         {/* <Route path="*" element={<Navigate to="/signin" />} /> */}
       </Routes>
     ) : (
