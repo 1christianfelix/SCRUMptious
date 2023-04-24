@@ -4,11 +4,11 @@ from queries.pool import client
 from bson import ObjectId
 
 
-
 db = client["Accounts"]
 collection = db["accounts"]
 
 collection.create_index("email", unique=True)
+
 
 class DuplicateAccountError(ValueError):
     pass
@@ -20,15 +20,16 @@ class AccountIn(BaseModel):
     first_name: str
     last_name: str
 
+
 class AccountOut(BaseModel):
     id: str
     email: str
     first_name: str
     last_name: str
 
+
 class AccountOutWithPassword(AccountOut):
     hashed_password: str
-
 
 
 class AccountQueries:
@@ -39,7 +40,9 @@ class AccountQueries:
         props["id"] = str(props["_id"])
         return AccountOutWithPassword(**props)
 
-    def create(self, info: AccountIn, hashed_password: str) -> AccountOutWithPassword:
+    def create(self,
+               info: AccountIn,
+               hashed_password: str) -> AccountOutWithPassword:
         props = info.dict()
         props["hashed_password"] = hashed_password
         try:
@@ -56,7 +59,10 @@ class AccountQueries:
             del result["_id"]
             del result["password"]
             del result["hashed_password"]
-        sorted_results = sorted(results, key=lambda x: (x["last_name"], x["first_name"]))
+        sorted_results = sorted(
+            results,
+            key=lambda x: (x["last_name"], x["first_name"])
+            )
         if sorted_results:
             return sorted_results
 

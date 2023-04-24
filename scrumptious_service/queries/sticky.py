@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from datetime import datetime
 from queries.pool import client
 from bson import ObjectId
-from queries.send_email import send_email
+
 
 db = client["Scrumptious"]
 collection = db["Sticky"]
@@ -30,6 +30,7 @@ class CreateSticky(BaseModel):
     account: list[str]
     append: Optional[bool] = False
 
+
 class UpdateSticky(BaseModel):
     subject: Optional[str]
     content: Optional[str]
@@ -39,9 +40,6 @@ class UpdateSticky(BaseModel):
     deadline: Optional[datetime]
     account: Optional[list[str]]
     stickyboard: Optional[str]
-
-
-
 
 
 class StickyQueries:
@@ -68,7 +66,6 @@ class StickyQueries:
         if results:
             return results
 
-
     def update_sticky(self, sticky_id, sticky):
         sticky_id = ObjectId(sticky_id)
         original_sticky = collection.find_one({"_id": ObjectId(sticky_id)})
@@ -79,25 +76,28 @@ class StickyQueries:
         if result.modified_count:
             updated_sticky = collection.find_one({"_id": ObjectId(sticky_id)})
             if updated_sticky["category"] != original_sticky["category"]:
-                stickyboard = db["StickyBoard"].find_one({"_id": ObjectId(updated_sticky["stickyboard"])})
-                category_list_for_removal = stickyboard[original_sticky["category"]]
-                category_list_for_removal.remove(str(updated_sticky["_id"]))
-                category_list_for_appending = stickyboard[updated_sticky["category"]]
-                category_list_for_appending.append(str(updated_sticky["_id"]))
+                stickyboard = db["StickyBoard"].find_one(
+                    {"_id": ObjectId(updated_sticky["stickyboard"])}
+                    )
+                list_for_removal = stickyboard[original_sticky["category"]]
+                list_for_removal.remove(str(updated_sticky["_id"]))
+                list_for_appending = stickyboard[updated_sticky["category"]]
+                list_for_appending.append(str(updated_sticky["_id"]))
                 db["StickyBoard"].update_one(
                     {"_id": ObjectId(updated_sticky["stickyboard"])},
-                    {"$set": {updated_sticky["category"]: category_list_for_appending,
-                              original_sticky["category"]: category_list_for_removal}}
+                    {"$set": {updated_sticky["category"]: list_for_appending,
+                              original_sticky["category"]: list_for_removal}}
                 )
             return self.get_sticky_by_id(sticky_id)
-
 
     def delete_sticky(self, sticky_id):
         sticky_id = ObjectId(sticky_id)
         sticky = collection.find_one({"_id": ObjectId(sticky_id)})
         result = collection.delete_one({"_id": sticky_id})
         if result.deleted_count:
-            stickyboard = db["StickyBoard"].find_one({"_id": ObjectId(sticky["stickyboard"])})
+            stickyboard = db["StickyBoard"].find_one(
+                {"_id": ObjectId(sticky["stickyboard"])}
+                )
             category_list_for_removal = stickyboard[sticky["category"]]
             category_list_for_removal.remove(str(sticky["_id"]))
             db["StickyBoard"].update_one(
