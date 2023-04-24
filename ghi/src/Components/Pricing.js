@@ -6,7 +6,7 @@ const Pricing = () => {
     {
       title: "Free",
       description: "For teams getting started",
-      price: "$0",
+      price: "$1",
       keyFeatures: [
         "Centralized task management",
         "Active task limitations apply",
@@ -28,7 +28,7 @@ const Pricing = () => {
       description: "For all teams across an organization",
       price: "$24.80",
       keyFeatures: [
-        "Customized platform for any team or use case",
+        "Customized platform for any team size",
         "5-200 users",
       ],
       buttonText: "Choose Plan",
@@ -37,15 +37,17 @@ const Pricing = () => {
     },
   ];
 
-  return (
-    <div className="container mx-auto px-4 py-16">
-      <h2 className="text-4xl font-bold text-center mb-8">Pricing Plans</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {plans.map((plan, index) => (
-          <PricingPlan key={index} {...plan} />
-        ))}
-      </div>
+// Inside your Pricing component
+return (
+  <div className="container mx-auto px-4 py-16">
+    <h2 className="text-4xl font-bold text-center mb-8">Pricing Plans</h2>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      {plans.map((plan, index) => (
+        <PricingPlan key={index} {...plan} />
+      ))}
     </div>
+  </div>
+
   );
 };
 
