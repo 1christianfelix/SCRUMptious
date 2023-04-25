@@ -152,3 +152,40 @@
   - Creating modals in tailwind requires you to pass down states from the parent component to the modal that indicates wheter to render null or render JSX
 - Devised a plan to maintain a category field on sticky notes in order to reflect color changes on the frontend when dragging stickies between columns
   - Beautiful-dnd allows us to give ID's to each column. We will use those ID's to to designate the value for the proposed category field.
+
+# 4-17-23
+
+- Refactored sticky models to now use a category field.
+  - The value of this field will determine the placement of the note object into the appropriate list fields in the stickyboard it belongs to
+- Worked on getting Bradon's branch debugged
+- Worked with Kurt to debug parts of the create form for stickies and merge main into his working branch
+
+# 4-18-23
+
+- Created new endpoint to fetch a list of stickies per stickyboard that contains the details of each sticky note
+- Implemented logic to get the stickynotes of a board through path parameters
+- Incorporated the backend data to use in the front end by pulling the stickynotes of the list categories from the stickyboard.
+- Persisted the data in the backend when dropping and dragging into other categories by submitting the shape of the array to PUT endpoint for the stickyboard
+
+# 4-19-23
+
+- Implemented the StickyNote create form into the stickyboard page
+  - Creating a StickyNote by using the '+' will place the stickynote at the front of the list
+  - Creating a stickyNote by using the "add" at the bottom will place the stickynote at the bottom of the list
+- Implemented the StickyBoard create/update forms into the stickyboards page and the delete functionality
+
+![alt](./christian_felix_images/4-19%20Sticky%20notes%20can%20be%20appened%20to%20top%20or%20bottom%20and%20category%20selected%20automatically%20becomes%20default%20choice.gif)
+
+# 4-20-23
+
+- Started Deployment with team.
+- Worked on redesigning the Update/Create forms for stickyboards to have a description field
+
+# 4-21-23
+
+- Fixed bugs with the stickyboard create form not reseting its fields upon cancelling
+- Fixed bugs with the stickyboard update form to reset priority fields.
+
+# 4-24-23
+
+- Cleaned up the JS files to comply with lint.
