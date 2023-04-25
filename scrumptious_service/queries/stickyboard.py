@@ -69,7 +69,7 @@ class StickyBoardQueries:
             return results
 
     def get_stickyboard_stickies(self, stickyboard_id):
-        results = list(db["Sticky"].find({"stickyBoard": stickyboard_id}))
+        results = list(db["Sticky"].find({"stickyboard": stickyboard_id}))
         for result in results:
             result["id"] = str(result["_id"])
             del result["_id"]
