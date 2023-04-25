@@ -5,7 +5,7 @@ import Search_light from "../images/icons/Search_light.svg";
 import garbage from "../images/icons/garbage.svg";
 
 import filter_icon_white from "../images/icons/filter_icon_white.svg";
-import useToken, { AuthContext } from "@galvanize-inc/jwtdown-for-react";
+import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 import StickyBoardCreateForm from "../components/StickyBoardCreateForm";
 import StickyBoardUpdateForm from "../components/StickyBoardUpdateForm";
 import { useNavigate } from "react-router-dom";
@@ -25,8 +25,6 @@ const boardsGenerate = () => {
   }
   return arr;
 };
-
-let boards = boardsGenerate();
 
 const StickyBoardListView = () => {
   // const { token } = useToken();
@@ -66,11 +64,10 @@ const StickyBoardListView = () => {
     });
   };
 
-  const [boardVisible, setAddBoardVisible] = useState(true);
   const [modalStatus, setModalStatus] = useState(false);
   const [form, setForm] = useState("create");
   const handleOpenModal = (type, stickyboard = null) => {
-    if (type == "create") {
+    if (type === "create") {
       setForm("create");
     } else {
       setForm("update");
@@ -82,10 +79,6 @@ const StickyBoardListView = () => {
     setForm("create");
     setStickyboard({});
     setModalStatus(false);
-  };
-
-  const handleAddBoard = () => {
-    setAddBoardVisible(false);
   };
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -117,7 +110,7 @@ const StickyBoardListView = () => {
 
   return (
     <div className=" h-screen overflow-hidden">
-      {form == "create" ? (
+      {form === "create" ? (
         <StickyBoardCreateForm
           open={modalStatus}
           close={handleCloseModal}

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import garbage from "../images/icons/garbage.svg";
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import StickyBoardUpdateForm from "../components/StickyBoardUpdateForm";
 
 const StickyBoardCard = (props) => {
   // this priority variable should take on the priority property of the sticky board. This can be done through fetching the api.
@@ -17,7 +16,6 @@ const StickyBoardCard = (props) => {
   let start = new Date(props.stickyboard.start_date).toLocaleDateString();
   let deadline = new Date(props.stickyboard.deadline).toLocaleDateString();
   let members = props.stickyboard.account.length;
-  let id = props.stickyboard.id;
   // color switches based on priority
   switch (priority) {
     case "1":
@@ -39,33 +37,33 @@ const StickyBoardCard = (props) => {
       gradient = "bg-white";
   }
 
-  const handleDeletion = (id) => {
-    fetch(`http://localhost:8000/stickyboard/${id}/`, {
-      method: "delete",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((response) => {
-      if (response.ok) {
-        props.getStickyboardsData();
-      }
-    });
-  };
+  // const handleDeletion = (id) => {
+  //   fetch(`http://localhost:8000/stickyboard/${id}/`, {
+  //     method: "delete",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   }).then((response) => {
+  //     if (response.ok) {
+  //       props.getStickyboardsData();
+  //     }
+  //   });
+  // };
 
   const [boardVisible, setAddBoardVisible] = useState(true);
   const [modalStatus, setModalStatus] = useState(false);
-  const handleOpenModal = () => {
-    setModalStatus(true);
-  };
+  // const handleOpenModal = () => {
+  //   setModalStatus(true);
+  // };
 
-  const handleCloseModal = () => {
-    setModalStatus(false);
-  };
+  // const handleCloseModal = () => {
+  //   setModalStatus(false);
+  // };
 
-  const handleAddBoard = () => {
-    setAddBoardVisible(false);
-  };
+  // const handleAddBoard = () => {
+  //   setAddBoardVisible(false);
+  // };
 
   return (
     <div

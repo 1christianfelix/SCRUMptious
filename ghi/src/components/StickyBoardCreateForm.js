@@ -1,13 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
-import StickyBoardCard from "./StickyBoardCard";
 import pen from "../images/icons/pen.svg";
-import calendar_dark from "../images/icons/calendar_dark.svg";
 import Search_light from "../images/icons/Search_light.svg";
-import sort_icon from "../images/icons/sort_icon.svg";
-import filter_icon from "../images/icons/filter_icon.svg";
 import close_out from "../images/icons/close_out_icon.svg";
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import AccountContext from "../context/AccountContext";
 
 // The prop being passed in will determine if it's a Create or Update
 const StickyBoardCreateForm = (props) => {

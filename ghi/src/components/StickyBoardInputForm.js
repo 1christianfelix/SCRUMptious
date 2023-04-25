@@ -1,6 +1,4 @@
 import React from "react";
-import StickyBoardCard from "./StickyBoardCard";
-import pen from "../images/icons/pen.svg";
 import calendar_dark from "../images/icons/calendar_dark.svg";
 import Search_light from "../images/icons/Search_light.svg";
 import sort_icon from "../images/icons/sort_icon.svg";
