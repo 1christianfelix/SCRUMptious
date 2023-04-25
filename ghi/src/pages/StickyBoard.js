@@ -201,8 +201,8 @@ const StickyBoard = (props) => {
           append={append}
         ></StickyNoteCreateForm>
       )}
-      <div className="flex flex-col text-dark_mode_text_white">
-        <div className="w-[100%] h-[8.37500rem] bg-dark_mode_light flex items-center">
+      <div className="flex flex-col text-black">
+        <div className="w-[100%] h-[5.37500rem] bg-white drop-shadow-lg bg-gradient-to-tr from-white to-blue-200 flex items-center">
           <select className="bg-transparent focus:outline-none transition-all duration-150 hover:cursor-pointer text-3xl ml-6">
             <option value="" className="text-xl bg-slate-500">
               {stickyboard.board_name}
@@ -270,7 +270,7 @@ const StickyBoard = (props) => {
                           <div
                             ref={provided.innerRef}
                             {...provided.droppableProps}
-                            className="h-[100%] overflow-auto overflow-x-hidden scrollbar-card scrollbar-thumb-white scrollbar-w-1 max-h-[calc(100vh-12.75rem)] pr-5 place-self-start" // Add overflow-y-auto here
+                            className="h-[100%] overflow-auto overflow-x-hidden scrollbar-card scrollbar-thumb-white scrollbar-w-1 max-h-[calc(100vh-9.75rem)] pr-5 place-self-start" // Add overflow-y-auto here
                           >
                             {data.stickies.map((el, index) => {
                               return (

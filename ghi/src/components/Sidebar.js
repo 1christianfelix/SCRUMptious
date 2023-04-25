@@ -20,15 +20,15 @@ const Sidebar = () => {
   };
 
   return (
-    <nav className="flex flex-col w-[14.75rem] h-screen bg-dark_mode_dark flex-none">
-      <section className="LOGO-SECTION flex h-[8.37500rem] border-b-solid border-b-[1px] border-b-dark_mode_text_white">
+    <nav className="flex flex-col w-[5rem] h-screen bg-dark_mode_dark flex-none">
+      <section className="LOGO-SECTION flex h-[8.37500rem] border-b-solid border-b-[1px] border-b-dark_mode_dark">
         <span className="Scrumptious m-[2.5%] text-dark_mode_text_white font-Sudo_Var">
           SCRUMPTIOUS
         </span>
       </section>
 
       {/* Need to replace anchor tags with link tags when we have react router ready */}
-      <section className="BTN_SECTION flex h-[48%] border-b-solid border-b-[1px] border-b-dark_mode_text_white text-dark_mode_text_white">
+      <section className="BTN_SECTION flex h-[48%] border-b-solid border-b-[1px] border-b-dark_mode_dark text-dark_mode_text_white">
         <div className="w-[100%] flex flex-col gap-3">
           {/* <a href="#" className="nav-button mt-[10%]">
             <img src={sticky} alt="" />
