@@ -177,6 +177,7 @@ function StickyNoteCreateForm(props) {
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       console.log("ok");
+      props.close();
 
       setSubject("");
       setCategory("");
