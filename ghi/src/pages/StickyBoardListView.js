@@ -8,6 +8,7 @@ import filter_icon_white from "../images/icons/filter_icon_white.svg";
 import useToken, { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 import StickyBoardCreateForm from "../components/StickyBoardCreateForm";
 import StickyBoardUpdateForm from "../components/StickyBoardUpdateForm";
+import { useNavigate } from "react-router-dom";
 
 let board = {
   priority: "",
@@ -30,6 +31,7 @@ let boards = boardsGenerate();
 const StickyBoardListView = () => {
   // const { token } = useToken();
   const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [stickyboards, setStickyboards] = useState([]);
   const [stickyboard, setStickyboard] = useState({});
   const getStickyboardsData = async () => {
@@ -209,7 +211,13 @@ const StickyBoardListView = () => {
             {filteredStickyboards !== null &&
               filteredStickyboards.map((stickyboard) => {
                 return (
-                  <div className="relative" key={stickyboard.id}>
+                  <div
+                    className="relative"
+                    key={stickyboard.id}
+                    onDoubleClick={() =>
+                      navigate(`/dashboard/${stickyboard.id}`)
+                    }
+                  >
                     <StickyBoardCard
                       stickyboard={stickyboard}
                       getStickyboardsData={getStickyboardsData}
