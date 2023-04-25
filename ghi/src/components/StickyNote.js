@@ -9,7 +9,8 @@ const StickyNote = (props) => {
   let priorityColor = "bg-white";
   let subject = props.subject;
   let content = props.content;
-
+  let start = new Date(props.start).toLocaleDateString();
+  let deadline = new Date(props.deadline).toLocaleDateString();
   let headerColor = null;
   let bodyColor = null;
   console.log(props)
@@ -70,11 +71,11 @@ const StickyNote = (props) => {
           <div className="flex flex-col ">
             <div className="flex justify-between">
               <span className="mr-1 1440:mr-2">Start:</span>
-              <span>DATE</span>
+              <span>{start}</span>
             </div>
             <div>
               <span className="mr-1 1440:mr-2">Deadline:</span>
-              <span>DATE</span>
+              <span>{deadline}</span>
             </div>
           </div>
         </div>
