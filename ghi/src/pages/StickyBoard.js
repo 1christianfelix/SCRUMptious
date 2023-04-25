@@ -295,6 +295,8 @@ const StickyBoard = (props) => {
                                           priority={el.priority}
                                           content={el.content}
                                           subject={el.subject}
+                                          start={el.start_date}
+                                          deadline={el.deadline}
                                         ></StickyNote>
                                         <img
                                           alt="expand"
