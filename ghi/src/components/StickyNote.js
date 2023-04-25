@@ -12,7 +12,7 @@ const StickyNote = (props) => {
 
   let headerColor = null;
   let bodyColor = null;
-
+  console.log(props)
   switch (priority) {
     case 1:
       priorityColor = "bg-gradient-to-l from-[#EFFFF2] to-[#a6e6b0] ";
@@ -91,6 +91,7 @@ const StickyNote = (props) => {
             alt="expand"
             src={expand_icon}
             className="m-[.7rem] self-end expand-button invisible"
+            // onClick={}
           />
         </div>
       </div>
