@@ -16,6 +16,5 @@ def send_email(to_emails, subject, content):
         sg = SendGridAPIClient(SENDGRID_API_KEY)
         response = sg.send(message)
         return response.status_code == 202
-    except Exception as e:
-        # print(str(e))
+    except Exception:
         return False

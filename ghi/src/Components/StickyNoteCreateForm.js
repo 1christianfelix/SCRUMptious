@@ -146,6 +146,7 @@ function StickyNoteCreateForm(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    props.close();
     // setIsStickyCreated(true);
 
     const data = {};

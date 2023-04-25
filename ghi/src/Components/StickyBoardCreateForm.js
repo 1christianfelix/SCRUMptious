@@ -95,6 +95,7 @@ const StickyBoardCreateForm = (props) => {
   }
   const handleSubmit = async (event) => {
     event.preventDefault();
+    props.close();
     const data = {};
     data.board_name = boardName;
     data.description = description;
@@ -120,7 +121,7 @@ const StickyBoardCreateForm = (props) => {
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       props.getStickyboardsData();
-      props.close();
+
       setBoardName("");
       setDescription("");
       setPriority("");
