@@ -11,7 +11,7 @@ const domain = /https:\/\/[^/]+/;
 const basename = process.env.PUBLIC_URL.replace(domain, "");
 
 root.render(
-  <BrowserRouter basename={"/"}>
+  <BrowserRouter basename={basename}>
     <AuthProvider
       tokenUrl={`${process.env.REACT_APP_USER_SERVICE_API_HOST}/token`}
     >
