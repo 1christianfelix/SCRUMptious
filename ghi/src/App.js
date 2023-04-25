@@ -10,15 +10,9 @@ import Signup from "./pages/Signup";
 import StickyBoardListView from "./pages/StickyBoardListView";
 // import ResetPassword from "./pages/ResetPassword";
 
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
-import useToken, { AuthContext } from "@galvanize-inc/jwtdown-for-react";
+import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 import StickyBoard from "./pages/StickyBoard";
 import { AccountProvider } from "./context/AccountContext";
 
@@ -34,19 +28,19 @@ function App() {
     getAccountsData();
     // getStickyBoardData();
   }, [token]);
-  const [accounts, setAccounts] = useState([]);
-  const getAccountsData = async () => {
-    const accountUrl = "http://localhost:8000/accounts";
-    const accountResponse = await fetch(accountUrl);
-    if (accountResponse.ok) {
-      const data = await accountResponse.json();
-      setAccounts(data);
-    }
-  };
-  useEffect(() => {
-    getAccountsData();
-    // getStickyBoardData();
-  }, [token]);
+  // const [accounts, setAccounts] = useState([]);
+  // const getAccountsData = async () => {
+  //   const accountUrl = "http://localhost:8000/accounts";
+  //   const accountResponse = await fetch(accountUrl);
+  //   if (accountResponse.ok) {
+  //     const data = await accountResponse.json();
+  //     setAccounts(data);
+  //   }
+  // };
+  // useEffect(() => {
+  //   getAccountsData();
+  //   // getStickyBoardData();
+  // }, [token]);
 
   return (
     <AccountProvider>

@@ -7,7 +7,7 @@ import sticky from "../images/icons/Sticky.svg";
 import chart from "../images/icons/chart.svg";
 import user_group from "../images/icons/user_group.svg";
 import signout_icon from "../images/icons/signout_icon.svg";
-import { NavLink, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
 const Sidebar = () => {
@@ -30,7 +30,7 @@ const Sidebar = () => {
       {/* Need to replace anchor tags with link tags when we have react router ready */}
       <section className="BTN_SECTION flex h-[48%] border-b-solid border-b-[1px] border-b-dark_mode_text_white text-dark_mode_text_white">
         <div className="w-[100%] flex flex-col gap-3">
-          <a href="#" className="nav-button mt-[10%]">
+          {/* <a href="#" className="nav-button mt-[10%]">
             <img src={sticky} alt="" />
             <span href="#" className="self-center">
               Home
@@ -65,7 +65,7 @@ const Sidebar = () => {
             <span href="#" className="self-center">
               Analytics
             </span>
-          </a>
+          </a> */}
         </div>
       </section>
       {/* This section below needs to be configured to use custom components */}
@@ -76,7 +76,7 @@ const Sidebar = () => {
 
         <section className="USER_SECTION mb-[6%] text-dark_mode_text_white">
           <a href="#" className="nav-button">
-            <img src={user_icon} className="h-10 w-auto" />
+            <img alt="user" src={user_icon} className="h-10 w-auto" />
             <span className="self-center">First Last</span>
           </a>
         </section>
@@ -84,7 +84,7 @@ const Sidebar = () => {
           className="nav-button Sign-out mb-[6%] text-dark_mode_text_white hover:cursor-pointer"
           onClick={handleLogout}
         >
-          <img src={signout_icon} className=" h-10 w-auto" />
+          <img alt="signout_icon" src={signout_icon} className=" h-10 w-auto" />
           <span className="self-center">Sign Out</span>
         </section>
       </section>

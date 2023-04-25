@@ -136,7 +136,7 @@ const StickyBoardCreateForm = (props) => {
                   onChange={handleBoardNameChange}
                   value={boardName}
                 ></input>
-                <img src={pen} className="" />
+                <img alt="pen" src={pen} className="" />
               </div>
             </div>
             <div className="PRIORITY grid grid-cols-2">
@@ -220,7 +220,11 @@ const StickyBoardCreateForm = (props) => {
                 onChange={handleSearchTermChange}
                 value={searchTerm}
               ></input>
-              <img src={Search_light} alt="" className="h-[1rem] w-[1rem]" />
+              <img
+                src={Search_light}
+                alt="search"
+                className="h-[1rem] w-[1rem]"
+              />
             </div>
           </div>
           <div className="mx-10 h-[75%] flex flex-col text-lg overflow-auto scrollbar-members-list">

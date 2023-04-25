@@ -10,13 +10,6 @@ import StickyBoardCreateForm from "../components/StickyBoardCreateForm";
 import StickyBoardUpdateForm from "../components/StickyBoardUpdateForm";
 import { useNavigate } from "react-router-dom";
 
-let board = {
-  priority: "",
-  members: (3).toString(),
-  content:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar elementum integer enim neque volutpat ac. Tincidunt nunc pulvinar sapien et. Ultricies mi quis hendrerit dolor magna eget. Etiam dignissim diam quis enim. Viverra ipsum nunc aliquet bibendum enim",
-};
-
 const StickyBoardListView = () => {
   // const { token } = useToken();
   const { token } = useContext(AuthContext);
@@ -39,7 +32,7 @@ const StickyBoardListView = () => {
   };
   useEffect(() => {
     getStickyboardsData();
-  }, [token, getStickyboardsData]);
+  }, [token]);
 
   const handleDeletion = (id) => {
     fetch(`http://localhost:8000/stickyboard/${id}/`, {
@@ -217,6 +210,7 @@ const StickyBoardListView = () => {
 
                     <div className="BUTTONS flex flex-col justify-between py-3">
                       <img
+                        alt="garbage"
                         src={garbage}
                         className="expand-button absolute bottom-9 left-5"
                         onClick={() => {
