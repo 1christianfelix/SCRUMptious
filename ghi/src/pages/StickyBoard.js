@@ -203,7 +203,7 @@ const StickyBoard = (props) => {
       )}
       <div className="flex flex-col text-black">
         <div className="w-[100%] h-[5.37500rem] bg-white drop-shadow-md bg-gradient-to-r from-white from-20% to-blue-100 via-blue-100 via-70%  flex items-center">
-          <select className="bg-transparent focus:outline-none transition-all duration-150 hover:cursor-pointer text-3xl ml-6">
+          <select className="bg-transparent focus:outline-none transition-all duration-150 hover:cursor-pointer text-3xl ml-6 self-end">
             <option value="" className="text-xl bg-slate-500">
               {stickyboard.board_name}
             </option>

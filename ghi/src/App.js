@@ -55,7 +55,7 @@ function App() {
           <div className="flex font-Sudo_Var">
             {console.log("token success")}
             <Sidebar />
-            <section className="bg-slate-50 h-screen flex-grow relative">
+            <section className="bg-slate-100 h-screen flex-grow relative">
               <Routes>
                 <Route path="/dashboard">
                   <Route path=":stickyboard_id" element={<StickyBoard />} />

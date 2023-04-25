@@ -112,9 +112,63 @@ const StickyBoardListView = () => {
           type="Update"
         />
       )}
+      <div className="w-[100%] h-[5.37500rem] bg-white drop-shadow-md bg-gradient-to-r from-white from-20% to-blue-100 via-blue-100 via-70%  flex items-center">
+        <div className="text-3xl ml-6 self-end">
+          <span>Sticky Boards</span>
+        </div>
+
+        <div className=" flex gap-5 self-end ml-auto mr-[3rem] 1440:mr-[calc(3rem*1.333)] 1440:text-xl">
+          <div className="flex gap-2 items-center">
+            <img
+              src={filter_icon_white}
+              alt="filter"
+              className="w-[1rem] h-[1rem]"
+            />
+
+            <label htmlFor="priority" className="text-black">
+              Filter Priority:
+            </label>
+          </div>
+          <div id="priority" className="text-black flex self-center gap-2">
+            <input
+              type="radio"
+              id="none"
+              name="priority"
+              value=""
+              defaultChecked
+              onChange={handleSearchPriorityChange}
+            />
+            <label htmlFor="none">None</label>
+            <input
+              type="radio"
+              id="high"
+              name="priority"
+              value="3"
+              onChange={handleSearchPriorityChange}
+            />
+            <label htmlFor="high">High</label>
+            <input
+              type="radio"
+              id="medium"
+              name="priority"
+              value="2"
+              onChange={handleSearchPriorityChange}
+            />
+            <label htmlFor="medium">Medium</label>
+            <input
+              type="radio"
+              id="low"
+              name="priority"
+              value="1"
+              onChange={handleSearchPriorityChange}
+            />
+            <label htmlFor="low">Low</label>
+          </div>
+        </div>
+      </div>
       <div className="px-20 pt-20 flex flex-col gap-10 overflow-hidden h-[100%]">
-        <div className="flex gap-10 items-center">
-          <div className="flex items-center justify-between bg-white rounded-[100px] w-[25rem] h-[4.75rem] px-10 text-2xl">
+        <div className="flex gap-10 items-center justify-center">
+          <div className="flex items-center bg-white rounded-[100px] w-[70%] h-[4.75rem] px-10 text-2xl">
             <input
               type="text"
               placeholder="Search Sticky Boards"
@@ -129,64 +183,13 @@ const StickyBoardListView = () => {
             />
           </div>
           <button
-            className="text-white border-solid border-button rounded-[19px] w-[16rem] h-[4rem] button-hover-white-outline"
+            className="text-black border-solid border-button rounded-[19px] w-[8rem] h-[2rem] button-hover-white-outline"
             onClick={() => {
               handleOpenModal("create");
             }}
           >
-            Start a Sticky Board
+            New Board
           </button>
-          <div className=" flex gap-5 justify-end">
-            <div className="flex gap-2 items-center">
-              <img
-                src={filter_icon_white}
-                alt=""
-                className="w-[1rem] h-[1rem]"
-              />
-
-              <label htmlFor="priority" className="text-dark_mode_text_white">
-                Filter Priority:
-              </label>
-            </div>
-            <div
-              id="priority"
-              className="text-dark_mode_text_white flex self-center gap-2"
-            >
-              <input
-                type="radio"
-                id="none"
-                name="priority"
-                value=""
-                defaultChecked
-                onChange={handleSearchPriorityChange}
-              />
-              <label htmlFor="none">None</label>
-              <input
-                type="radio"
-                id="high"
-                name="priority"
-                value="3"
-                onChange={handleSearchPriorityChange}
-              />
-              <label htmlFor="high">High</label>
-              <input
-                type="radio"
-                id="medium"
-                name="priority"
-                value="2"
-                onChange={handleSearchPriorityChange}
-              />
-              <label htmlFor="medium">Medium</label>
-              <input
-                type="radio"
-                id="low"
-                name="priority"
-                value="1"
-                onChange={handleSearchPriorityChange}
-              />
-              <label htmlFor="low">Low</label>
-            </div>
-          </div>
         </div>
         <div className="flex-grow overflow-auto scrollbar-card hover:scrollbar-thumb-slate-300 scrollbar-thumb-white scrollbar-w-2">
           <div className="place-items-center grid grid-cols-4 gap-y-10 last:mb-10">
