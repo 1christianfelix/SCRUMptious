@@ -21,6 +21,9 @@ const Dashboard = () => {
       {/* <StickyNoteCreateForm></StickyNoteCreateForm> */}
       {/* <StickyBoard></StickyBoard> */}
       {/* <StickyBoardCreateForm></StickyBoardCreateForm> */}
+      {/* <StickyNoteCreateForm></StickyNoteCreateForm> */}
+      {/* <StickyBoard></StickyBoard> */}
+      {/* <StickyBoardCreateForm></StickyBoardCreateForm> */}
 
       {/* <DashboardStickyBoard></DashboardStickyBoard> */}
       {/* <DashboardStickyBoards></DashboardStickyBoards> */}
@@ -29,6 +32,7 @@ const Dashboard = () => {
       {/* <TestDash></TestDash> */}
       {/* <DashboardInitial></DashboardInitial> */}
 
+      {/* <StickyBoardListView></StickyBoardListView> */}
       {/* <StickyBoardListView></StickyBoardListView> */}
     </section>
   );

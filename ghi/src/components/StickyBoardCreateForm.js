@@ -23,27 +23,6 @@ const StickyBoardCreateForm = (props) => {
   const [members, setMembers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  let gradient = null;
-  switch (priority) {
-    case "1":
-      gradient =
-        "bg-gradient-to-tl from-[#B8FFC3] from-20% to-[#EFFFF2] to-80%";
-      // priority = "Low";
-      break;
-    case "2":
-      gradient =
-        "bg-gradient-to-tl from-[#94ECFF] from-20% to-[#F5FDFF] to-80%";
-      // priority = "Medium";
-      break;
-    case "3":
-      gradient =
-        "bg-gradient-to-tl from-[#FFCACA] from-20% to-[#FFECEC] to-80%";
-      // priority = "High";
-      break;
-    default:
-      gradient = "bg-white";
-  }
-
   const handleBoardNameChange = (event) => {
     const value = event.target.value;
     setBoardName(value);
@@ -134,113 +113,107 @@ const StickyBoardCreateForm = (props) => {
   return (
     <div
       className="h-screen w-[100%] flex items-center justify-center absolute  z-10 backdrop-blur-md "
-      onClick={() => {
-        props.close();
-        setPriority("");
-      }}
+      onClick={props.close}
     >
       <form
         onClick={(e) => e.stopPropagation()}
         className="flex gap-5 backdrop-blur-[9.3px]"
-        onSubmit={handleSubmit}
       >
         {/* Input Section */}
-        <div
-          className={`INPUT-FORM w-[46.3125rem] h-[34.625rem] ${gradient} opacity-[.90] rounded-[19px] flex flex-col items-center`}
-        >
-          <div className="w-[100%] pt-2 px-6 flex items-center justify-between">
-            <span className="text-2xl">Create a Sticky</span>
+        <div className="INPUT-FORM w-[46.3125rem] h-[34.625rem] bg-[#CCCCCC] bg-opacity-60 rounded-[19px] flex flex-col items-center">
+          <div className="w-[100%] pt-2 px-4 flex items-center justify-between">
+            <span className="text-4xl p-5 self-start text-dark_mode_text_white ">
+              Create Sticky Board
+            </span>
             <img
               src={close_out}
               alt=""
-              onClick={() => {
-                props.close();
-                setPriority("");
-              }}
+              onClick={props.close}
               className="hover:cursor-pointer expand-button"
             />
           </div>
 
-          <div className="w-[90%] flex flex-col gap-4 mt-2 text-dark_mode_font text-[2rem]">
-            <div className="flex justify-between">
-              <div className="PRIORITY">
-                <select
-                  name=""
-                  id=""
-                  className={`w-[12.8125rem] h-[3.25rem] text-center text-[1.5rem] drop-shadow-sticky  focus:outline-none`}
-                  defaultValue="Select Priority"
-                  required
-                  onChange={handlePriorityChange}
-                >
-                  <option value="Select Priority" disabled hidden>
-                    Select Priority
-                  </option>
-                  <option type="number" value="3">
-                    High
-                  </option>
-                  <option type="number" value="2">
-                    Medium
-                  </option>
-                  <option type="number" value="1">
-                    Low
-                  </option>
-                </select>
-              </div>
-              <div className="MEMBERS-COUNT">
-                <span className="mr-3">Members:</span>
-                <span className="">{members.length}</span>
-              </div>
-            </div>
-            <div className="BOARD-NAME border-solid border-b-black border-b-2 ">
+          <div className="flex flex-col gap-6 text-dark_mode_font text-[2rem]">
+            <div className="BOARD-NAME border-solid border-b-black border-b-2 mb-[2rem]">
               <div className="text-[3rem] flex w-[100%] justify-between gap-0">
                 <input
                   type="text"
                   placeholder="Board Name"
-                  required
-                  className="leading-none bg-transparent placeholder:text-dark_mode_font focus:outline-none w-[100%]"
+                  className="leading-none bg-transparent placeholder:text-dark_mode_font focus:outline-none"
                   onChange={handleBoardNameChange}
-                  // value={boardName}
+                  value={boardName}
                 ></input>
-                <img src={pen} className="h-8 w-8" />
+                <img src={pen} className="" />
               </div>
             </div>
-            <div className="flex justify-between">
-              <div className="START flex gap-2 text-[1.5rem]">
-                <div>Start:</div>
-                <div className="">
-                  <input
-                    type="date"
-                    required
-                    className="bg-transparent  focus:outline-none hover:cursor-text"
-                    onChange={handleStartChange}
-                    // value={start}
-                  />
-                </div>
+            <div className="PRIORITY grid grid-cols-2">
+              <div>Priority</div>
+              <select
+                name=""
+                id=""
+                className="bg-[#fff] w-[8.4rem] h-[2.2rem] focus:outline-none text-[1.5rem] text-center drop-shadow-sticky self-center hover:cursor-pointer"
+                defaultValue=""
+                required
+                onChange={handlePriorityChange}
+              >
+                <option value="" disabled hidden>
+                  Select
+                </option>
+                <option type="number" value="3">
+                  High
+                </option>
+                <option type="number" value="2">
+                  Medium
+                </option>
+                <option type="number" value="1">
+                  Low
+                </option>
+              </select>
+            </div>
+            <div className="START grid grid-cols-2">
+              <div>Start</div>
+              <div className="">
+                <input
+                  type="date"
+                  className="bg-transparent w-[85%] focus:outline-none hover:cursor-text"
+                  onChange={handleStartChange}
+                  value={start}
+                />
               </div>
-              <div className="DEADLINE flex gap-4 text-[1.5rem] self-end">
-                <div>Deadline:</div>
-                <div className="">
-                  <input
-                    type="date"
-                    required
-                    className="bg-transparent focus:outline-none hover:cursor-text"
-                    onChange={handleDeadlineChange}
-                    // value={deadline}
-                  />
-                </div>
+            </div>
+            <div className="DEADLINE grid grid-cols-2">
+              <div>Deadline</div>
+              <div className="">
+                <input
+                  type="date"
+                  className="bg-transparent w-[85%] focus:outline-none hover:cursor-text"
+                  onChange={handleDeadlineChange}
+                  value={deadline}
+                />
               </div>
+            </div>
+            <div className="DESCRIPTION grid grid-cols-2">
+              <div>Description</div>
+              <div className="">
+                <input
+                  type="text"
+                  className="bg-transparent w-[85%] focus:outline-none hover:cursor-text"
+                  onChange={handleDescriptionChange}
+                  value={description}
+                />
+              </div>
+            </div>
+
+            <div className="MEMBERS-COUNT grid grid-cols-2">
+              <span>Members</span>
+              <span>{members.length}</span>
             </div>
           </div>
-          <textarea
-            type="text"
-            required
-            className="CONTENT-BOX w-[90%] mt-3 flex-grow overflow-auto scrollbar-card scrollbar-w-2 text-dark_mode_font focus:outline-none word-wrap bg-transparent border-solid border-[1px] border-black resize-none  text-[1.5rem] p-5 placeholder:text-black"
-            onChange={handleDescriptionChange}
-            // value={description}
-            placeholder="Description"
-          />
 
-          <button className="button-hover-white-filled bg-white my-6 mx-12 px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky">
+          <button
+            className="button-hover-white-filled bg-white mt-8 mx-12 px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky"
+            onClick={handleSubmit}
+          >
             Create
           </button>
         </div>
