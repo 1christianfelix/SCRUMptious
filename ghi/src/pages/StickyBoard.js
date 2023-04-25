@@ -8,6 +8,7 @@ import expand_icon from "../images/icons/expand_icon.svg";
 import { useParams } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import StickyNoteCreateForm from "../components/StickyNoteCreateForm";
+import StickyNoteUpdateForm from "../components/StickyNoteUpdateForm";
 
 const StickyBoard = (props) => {
   const { token } = useToken();
@@ -34,6 +35,8 @@ const StickyBoard = (props) => {
     done: { title: "Done", stickies: ["empty"] },
   });
   const [modalStatus, setModalStatus] = useState(false);
+  const [form, setForm] = useState("create");
+  const [stickyID, setStickyID] = useState("");
 
   // Get Boards
   const fetchBoard = async () => {
@@ -90,11 +93,18 @@ const StickyBoard = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoriesLists]);
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (type, stickyID) => {
+    if (type === "create") {
+      setForm("create");
+    } else {
+      setForm("update");
+      setStickyID(stickyID);
+    }
     setModalStatus(true);
   };
 
   const handleCloseModal = () => {
+    setForm("create");
     setCategory("");
     setAppend(false);
     setModalStatus(false);
@@ -190,16 +200,24 @@ const StickyBoard = (props) => {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      {category.length > 0 && (
-        <StickyNoteCreateForm
+      {form === "create" ? (
+        category.length > 0 && (
+          <StickyNoteCreateForm
+            open={modalStatus}
+            close={handleCloseModal}
+            type={"Create"}
+            stickyboard_id={stickyboard_id}
+            refreshData={refreshData}
+            category={category}
+            append={append}
+          ></StickyNoteCreateForm>
+        )
+      ) : (
+        <StickyNoteUpdateForm
           open={modalStatus}
           close={handleCloseModal}
-          type={"Create"}
-          stickyboard_id={stickyboard_id}
-          refreshData={refreshData}
-          category={category}
-          append={append}
-        ></StickyNoteCreateForm>
+          stickyID={stickyID}
+        ></StickyNoteUpdateForm>
       )}
       <div className="flex flex-col text-dark_mode_text_white">
         <div className="w-[100%] h-[8.37500rem] bg-dark_mode_light flex items-center">
@@ -259,7 +277,7 @@ const StickyBoard = (props) => {
                         className="h-[42px] w-auto hover:cursor-pointer transition-all expand-button ml-auto"
                         // onClick={() => addFirst(data.title)}
                         onClick={() => {
-                          handleOpenModal();
+                          handleOpenModal("create");
                           setCategory(key);
                         }}
                       />
@@ -302,7 +320,7 @@ const StickyBoard = (props) => {
                                           className="absolute bottom-3 right-3 self-end expand-button"
                                           // This on click needs to trigger an update form instead of a create form
                                           onClick={() => {
-                                            handleOpenModal();
+                                            handleOpenModal("update", el.id);
                                             setCategory(key);
                                           }}
                                         />
@@ -310,7 +328,7 @@ const StickyBoard = (props) => {
                                           <div
                                             className={`flex items-center pl-4 mb-10 ${addStickyStyle}`}
                                             onClick={() => {
-                                              handleOpenModal();
+                                              handleOpenModal("create");
                                               setCategory(key);
                                               setAppend(true);
                                             }}
