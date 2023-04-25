@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import garbage from "../images/icons/garbage.svg";
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import StickyBoardUpdateForm from "../components/StickyBoardUpdateForm";
+import StickyBoardUpdateForm from "./StickyBoardUpdateForm";
 
 const StickyBoardCard = (props) => {
   // this priority variable should take on the priority property of the sticky board. This can be done through fetching the api.
