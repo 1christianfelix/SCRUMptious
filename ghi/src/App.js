@@ -1,14 +1,14 @@
 import "./App.css";
 import Sidebar from "./components/Sidebar";
-import Dashboard from "./pages/Dashboard";
-import StickyNote from "./components/StickyNote";
+// import Dashboard from "./pages/Dashboard";
+// import StickyNote from "./components/StickyNote";
 import React, { useEffect, useState, useContext } from "react";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
-import StickyNoteCreateForm from "./components/StickyNoteCreateForm";
-import StickyBoardCreateForm from "./components/StickyBoardCreateForm";
+// import StickyNoteCreateForm from "./components/StickyNoteCreateForm";
+// import StickyBoardCreateForm from "./components/StickyBoardCreateForm";
 import StickyBoardListView from "./pages/StickyBoardListView";
-import ResetPassword from "./pages/ResetPassword";
+// import ResetPassword from "./pages/ResetPassword";
 
 import {
   BrowserRouter,
