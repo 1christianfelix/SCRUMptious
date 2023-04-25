@@ -20,8 +20,6 @@ import {
 
 import useToken, { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 import StickyBoard from "./pages/StickyBoard";
-import useToken, { AuthContext } from "@galvanize-inc/jwtdown-for-react";
-import StickyBoard from "./pages/StickyBoard";
 import { AccountProvider } from "./context/AccountContext";
 
 function App() {
@@ -32,15 +30,6 @@ function App() {
   // console.log(user);
   console.log("token: ", token);
 
-  const [accounts, setAccounts] = useState([]);
-  const getAccountsData = async () => {
-    const accountUrl = "http://localhost:8000/accounts";
-    const accountResponse = await fetch(accountUrl);
-    if (accountResponse.ok) {
-      const data = await accountResponse.json();
-      setAccounts(data);
-    }
-  };
   useEffect(() => {
     getAccountsData();
     // getStickyBoardData();
