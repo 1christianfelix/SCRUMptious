@@ -3,12 +3,12 @@ import StickyNote from "../components/StickyNote";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import add_icon from "../images/icons/add_icon.svg";
 import _ from "lodash";
-import StickyNoteInputForm from "../components/StickyNoteInputForm";
+// import StickyNoteInputForm from "../components/StickyNoteInputForm";
 import filter_icon_white from "../images/icons/filter_icon_white.svg";
 import expand_icon from "../images/icons/expand_icon.svg";
 import { useParams } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import StickyNoteCreateForm from "../components/StickyNoteCreateForm";
+// import StickyNoteCreateForm from "../components/StickyNoteCreateForm";
 
 const StickyBoard = (props) => {
   const { token } = useToken();
