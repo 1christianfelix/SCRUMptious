@@ -228,7 +228,7 @@ const StickyBoardListView = () => {
                         }}
                       />
                       <button
-                        className="button-hover-white-filled px-[.7rem] py-[.1rem] bg-white rounded-[19px] absolute bottom-10 right-5"
+                        className="button-hover-white-filled px-[.7rem] py-[.1rem] bg-white rounded-[19px] absolute 1440:bottom-10 bottom-9 right-5"
                         onClick={() => {
                           handleOpenModal("update", stickyboard);
                           setStickyboard(stickyboard);
