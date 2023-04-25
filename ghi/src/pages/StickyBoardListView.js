@@ -17,15 +17,6 @@ let board = {
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar elementum integer enim neque volutpat ac. Tincidunt nunc pulvinar sapien et. Ultricies mi quis hendrerit dolor magna eget. Etiam dignissim diam quis enim. Viverra ipsum nunc aliquet bibendum enim",
 };
 
-const boardsGenerate = () => {
-  let arr = [];
-  for (let i = 0; i < 11; i++) {
-    board["priority"] = Math.random() < 0.33 ? 1 : Math.random() < 0.67 ? 2 : 3;
-    arr.push(board);
-  }
-  return arr;
-};
-
 const StickyBoardListView = () => {
   // const { token } = useToken();
   const { token } = useContext(AuthContext);
@@ -48,7 +39,7 @@ const StickyBoardListView = () => {
   };
   useEffect(() => {
     getStickyboardsData();
-  }, [token]);
+  }, [token, getStickyboardsData]);
 
   const handleDeletion = (id) => {
     fetch(`http://localhost:8000/stickyboard/${id}/`, {
@@ -137,7 +128,11 @@ const StickyBoardListView = () => {
               onChange={handleSearchTermChange}
               value={searchTerm}
             />
-            <img src={Search_light} alt="" className="h-[2rem] w-[2rem]" />
+            <img
+              src={Search_light}
+              alt="Search"
+              className="h-[2rem] w-[2rem]"
+            />
           </div>
           <button
             className="text-white border-solid border-button rounded-[19px] w-[16rem] h-[4rem] button-hover-white-outline"

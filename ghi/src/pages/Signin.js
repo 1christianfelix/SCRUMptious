@@ -22,6 +22,7 @@ const Signin = () => {
   return (
     <div className="relative h-screen w-screen flex items-center justify-center font-Sudo_Var text-black">
       <img
+        alt="background"
         src={signup_signin_bg}
         className="absolute -z-10 w-screen h-screen"
       />

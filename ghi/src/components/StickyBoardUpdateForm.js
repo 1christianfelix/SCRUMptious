@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import pen from "../images/icons/pen.svg";
 import Search_light from "../images/icons/Search_light.svg";
 import close_out from "../images/icons/close_out_icon.svg";
@@ -7,8 +7,6 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 
 // The prop being passed in will determine if it's a Create or Update
 const StickyBoardUpdateForm = (props) => {
-  let type = props.type || "Update the Sticky Board";
-
   const { token } = useToken();
 
   const [boardName, setBoardName] = useState(props.stickyboard.board_name);
@@ -264,7 +262,11 @@ const StickyBoardUpdateForm = (props) => {
                 onChange={handleSearchTermChange}
                 value={searchTerm}
               ></input>
-              <img src={Search_light} alt="" className="h-[1rem] w-[1rem]" />
+              <img
+                src={Search_light}
+                alt="search"
+                className="h-[1rem] w-[1rem]"
+              />
             </div>
           </div>
           <div className="mx-10 h-[75%] flex flex-col text-lg overflow-auto scrollbar-members-list">

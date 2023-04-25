@@ -7,7 +7,6 @@ const StickyBoardCard = (props) => {
   // for demonstration purposes, we're mimicking an API resonsee by using "props". The prop is being sent through the Dashboard.js
   // once api endpoints are configured, we will refactor the priority variable to grab the priority property from the API response instead
 
-  const { token } = useToken();
   let boardName = props.stickyboard.board_name;
   let description = props.stickyboard.description;
   let priorityInt = props.stickyboard.priority;
@@ -51,8 +50,6 @@ const StickyBoardCard = (props) => {
   //   });
   // };
 
-  const [boardVisible, setAddBoardVisible] = useState(true);
-  const [modalStatus, setModalStatus] = useState(false);
   // const handleOpenModal = () => {
   //   setModalStatus(true);
   // };
@@ -100,7 +97,7 @@ const StickyBoardCard = (props) => {
           <p className="">{description}</p>
         </div>
         <div className="BUTTONS flex justify-between py-3 1440:py-4">
-          <img src={garbage} className="self-end expand-button" />
+          <img alt="Button" src={garbage} className="self-end expand-button" />
           <button className="button-hover-white-filled px-[.7rem] py-[.1rem] bg-white rounded-[19px]">
             <span>Edit Board</span>
           </button>

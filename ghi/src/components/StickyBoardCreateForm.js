@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import pen from "../images/icons/pen.svg";
 import Search_light from "../images/icons/Search_light.svg";
 import close_out from "../images/icons/close_out_icon.svg";
@@ -6,8 +6,6 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 
 // The prop being passed in will determine if it's a Create or Update
 const StickyBoardCreateForm = (props) => {
-  let type = props.type || "Create A Sticky Board";
-
   const { token } = useToken();
 
   const [boardName, setBoardName] = useState("");
@@ -122,7 +120,7 @@ const StickyBoardCreateForm = (props) => {
             </span>
             <img
               src={close_out}
-              alt=""
+              alt="Button"
               onClick={props.close}
               className="hover:cursor-pointer expand-button"
             />
