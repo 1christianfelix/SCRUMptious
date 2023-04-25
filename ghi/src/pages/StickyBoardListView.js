@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import StickyBoardCard from "../components/StickyBoardCard";
 import Search_light from "../images/icons/Search_light.svg";
-import StickyBoardInputForm from "../components/StickyBoardInputForm";
+// import StickyBoardInputForm from "../components/StickyBoardInputForm";
 import garbage from "../images/icons/garbage.svg";
 
 import filter_icon_white from "../images/icons/filter_icon_white.svg";
