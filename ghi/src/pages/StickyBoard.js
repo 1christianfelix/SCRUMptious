@@ -36,7 +36,7 @@ const StickyBoard = (props) => {
   });
   const [modalStatus, setModalStatus] = useState(false);
   const [form, setForm] = useState("create");
-  const [stickyID, setStickyID] = useState("");
+  const [sticky, setSticky] = useState("");
 
   // Get Boards
   const fetchBoard = async () => {
@@ -93,12 +93,12 @@ const StickyBoard = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoriesLists]);
 
-  const handleOpenModal = (type, stickyID) => {
+  const handleOpenModal = (type, sticky) => {
     if (type === "create") {
       setForm("create");
     } else {
       setForm("update");
-      setStickyID(stickyID);
+      setSticky(sticky);
     }
     setModalStatus(true);
   };
@@ -216,7 +216,8 @@ const StickyBoard = (props) => {
         <StickyNoteUpdateForm
           open={modalStatus}
           close={handleCloseModal}
-          stickyID={stickyID}
+          refreshData={refreshData}
+          stickyData={sticky}
         ></StickyNoteUpdateForm>
       )}
       <div className="flex flex-col text-dark_mode_text_white">
@@ -320,7 +321,7 @@ const StickyBoard = (props) => {
                                           className="absolute bottom-3 right-3 self-end expand-button"
                                           // This on click needs to trigger an update form instead of a create form
                                           onClick={() => {
-                                            handleOpenModal("update", el.id);
+                                            handleOpenModal("update", el);
                                             setCategory(key);
                                           }}
                                         />
