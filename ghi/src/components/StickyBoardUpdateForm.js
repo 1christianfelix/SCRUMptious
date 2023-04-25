@@ -1,40 +1,53 @@
-import React, { useState, useContext, useEffect } from "react";
-import StickyBoardCard from "./StickyBoardCard";
+import React, { useState, useEffect } from "react";
 import pen from "../images/icons/pen.svg";
-import calendar_dark from "../images/icons/calendar_dark.svg";
 import Search_light from "../images/icons/Search_light.svg";
-import sort_icon from "../images/icons/sort_icon.svg";
-import filter_icon from "../images/icons/filter_icon.svg";
 import close_out from "../images/icons/close_out_icon.svg";
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import AccountContext from "../context/AccountContext";
+// import AccountContext from "../context/AccountContext";
 
 // The prop being passed in will determine if it's a Create or Update
-const StickyBoardCreateForm = (props) => {
-  let type = props.type || "Create A Sticky Board";
-
+const StickyBoardUpdateForm = (props) => {
   const { token } = useToken();
 
-  const [boardName, setBoardName] = useState("");
-  const [description, setDescription] = useState("");
-  const [priority, setPriority] = useState("");
-  const [start, setStart] = useState("");
-  const [deadline, setDeadline] = useState("");
-  const [members, setMembers] = useState([]);
+  const [boardName, setBoardName] = useState(props.stickyboard.board_name);
+  const [description, setDescription] = useState(props.stickyboard.description);
+  const [priority, setPriority] = useState(props.stickyboard.priority);
+  const newDateFormats = {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  };
+  const [start, setStart] = useState(
+    new Date(props.stickyboard.start_date).toLocaleDateString(
+      "fr-CA",
+      newDateFormats
+    )
+  );
+  const [deadline, setDeadline] = useState(
+    new Date(props.stickyboard.deadline).toLocaleDateString(
+      "fr-CA",
+      newDateFormats
+    )
+  );
+  const [members, setMembers] = useState(props.stickyboard.account);
   const [searchTerm, setSearchTerm] = useState("");
+  let id = props.stickyboard.id;
 
   let gradient = null;
   switch (priority) {
+    case 1:
     case "1":
       gradient =
         "bg-gradient-to-tl from-[#B8FFC3] from-20% to-[#EFFFF2] to-80%";
       // priority = "Low";
       break;
+    case 2:
     case "2":
       gradient =
         "bg-gradient-to-tl from-[#94ECFF] from-20% to-[#F5FDFF] to-80%";
       // priority = "Medium";
       break;
+    case 3:
     case "3":
       gradient =
         "bg-gradient-to-tl from-[#FFCACA] from-20% to-[#FFECEC] to-80%";
@@ -89,10 +102,10 @@ const StickyBoardCreateForm = (props) => {
       account.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       account.first_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
   if (!props.open) {
     return null;
   }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     props.close();
@@ -103,15 +116,9 @@ const StickyBoardCreateForm = (props) => {
     data.start_date = new Date(start + "T00:00:00");
     data.deadline = new Date(deadline + "T00:00:00");
     data.account = members;
-    data.backlog = [];
-    data.todo = [];
-    data.doing = [];
-    data.review = [];
-    data.done = [];
-    console.log(data);
-    const url = "http://localhost:8000/stickyboard";
+    const url = `http://localhost:8000/stickyboard/${id}/`;
     const fetchConfig = {
-      method: "post",
+      method: "put",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
@@ -121,15 +128,13 @@ const StickyBoardCreateForm = (props) => {
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       props.getStickyboardsData();
-
-      setBoardName("");
-      setDescription("");
       setPriority("");
-      setStart("");
-      setDeadline("");
-      setMembers([]);
     }
   };
+
+  if (!props.open) {
+    return null;
+  }
 
   return (
     <div
@@ -142,17 +147,16 @@ const StickyBoardCreateForm = (props) => {
       <form
         onClick={(e) => e.stopPropagation()}
         className="flex gap-5 backdrop-blur-[9.3px]"
-        onSubmit={handleSubmit}
       >
         {/* Input Section */}
         <div
           className={`INPUT-FORM w-[46.3125rem] h-[34.625rem] ${gradient} opacity-[.90] rounded-[19px] flex flex-col items-center`}
         >
           <div className="w-[100%] pt-2 px-6 flex items-center justify-between">
-            <span className="text-2xl">Create a Sticky</span>
+            <span className="text-2xl">Update a Sticky</span>
             <img
               src={close_out}
-              alt=""
+              alt="close"
               onClick={() => {
                 props.close();
                 setPriority("");
@@ -161,18 +165,23 @@ const StickyBoardCreateForm = (props) => {
             />
           </div>
 
-          <div className="w-[90%] flex flex-col gap-4 mt-2 text-dark_mode_font text-[2rem]">
+          <div className="w-[90%] flex flex-col gap-6 text-dark_mode_font text-[2rem]">
             <div className="flex justify-between">
               <div className="PRIORITY">
                 <select
                   name=""
                   id=""
-                  className={`w-[12.8125rem] h-[3.25rem] text-center text-[1.5rem] drop-shadow-sticky  focus:outline-none`}
-                  defaultValue="Select Priority"
+                  className="bg-[#fff] h-[2.2rem] focus:outline-none text-[1.5rem] text-center drop-shadow-sticky self-center hover:cursor-pointer"
+                  defaultValue={priority}
                   required
                   onChange={handlePriorityChange}
                 >
-                  <option value="Select Priority" disabled hidden>
+                  <option
+                    value="Select Priority"
+                    className="bg-opacity-80"
+                    disabled
+                    hidden
+                  >
                     Select Priority
                   </option>
                   <option type="number" value="3">
@@ -196,12 +205,11 @@ const StickyBoardCreateForm = (props) => {
                 <input
                   type="text"
                   placeholder="Board Name"
-                  required
                   className="leading-none bg-transparent placeholder:text-dark_mode_font focus:outline-none w-[100%]"
                   onChange={handleBoardNameChange}
-                  // value={boardName}
+                  value={boardName}
                 ></input>
-                <img src={pen} className="h-8 w-8" />
+                <img alt="pen" src={pen} className="h-8 w-8" />
               </div>
             </div>
             <div className="flex justify-between">
@@ -210,10 +218,9 @@ const StickyBoardCreateForm = (props) => {
                 <div className="">
                   <input
                     type="date"
-                    required
                     className="bg-transparent  focus:outline-none hover:cursor-text"
                     onChange={handleStartChange}
-                    // value={start}
+                    defaultValue={start}
                   />
                 </div>
               </div>
@@ -222,10 +229,9 @@ const StickyBoardCreateForm = (props) => {
                 <div className="">
                   <input
                     type="date"
-                    required
                     className="bg-transparent focus:outline-none hover:cursor-text"
                     onChange={handleDeadlineChange}
-                    // value={deadline}
+                    defaultValue={deadline}
                   />
                 </div>
               </div>
@@ -233,15 +239,17 @@ const StickyBoardCreateForm = (props) => {
           </div>
           <textarea
             type="text"
-            required
             className="CONTENT-BOX w-[90%] mt-3 flex-grow overflow-auto scrollbar-card scrollbar-w-2 text-dark_mode_font focus:outline-none word-wrap bg-transparent border-solid border-[1px] border-black resize-none  text-[1.5rem] p-5 placeholder:text-black"
             onChange={handleDescriptionChange}
-            // value={description}
+            value={description}
             placeholder="Description"
           />
 
-          <button className="button-hover-white-filled bg-white my-6 mx-12 px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky">
-            Create
+          <button
+            className="button-hover-white-filled bg-white my-6 mx-12 px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky"
+            onClick={handleSubmit}
+          >
+            Update
           </button>
         </div>
         {/* Member Selection */}
@@ -254,7 +262,11 @@ const StickyBoardCreateForm = (props) => {
                 onChange={handleSearchTermChange}
                 value={searchTerm}
               ></input>
-              <img src={Search_light} alt="" className="h-[1rem] w-[1rem]" />
+              <img
+                src={Search_light}
+                alt="search"
+                className="h-[1rem] w-[1rem]"
+              />
             </div>
           </div>
           <div className="mx-10 h-[75%] flex flex-col text-lg overflow-auto scrollbar-members-list">
@@ -296,4 +308,4 @@ const StickyBoardCreateForm = (props) => {
   );
 };
 
-export default StickyBoardCreateForm;
+export default StickyBoardUpdateForm;

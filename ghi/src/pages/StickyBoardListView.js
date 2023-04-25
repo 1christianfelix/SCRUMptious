@@ -1,32 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import StickyBoardCard from "../components/StickyBoardCard";
 import Search_light from "../images/icons/Search_light.svg";
-import StickyBoardInputForm from "../components/StickyBoardInputForm";
+// import StickyBoardInputForm from "../components/StickyBoardInputForm";
 import garbage from "../images/icons/garbage.svg";
 
 import filter_icon_white from "../images/icons/filter_icon_white.svg";
-import useToken, { AuthContext } from "@galvanize-inc/jwtdown-for-react";
+import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 import StickyBoardCreateForm from "../components/StickyBoardCreateForm";
 import StickyBoardUpdateForm from "../components/StickyBoardUpdateForm";
 import { useNavigate } from "react-router-dom";
-
-let board = {
-  priority: "",
-  members: (3).toString(),
-  content:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar elementum integer enim neque volutpat ac. Tincidunt nunc pulvinar sapien et. Ultricies mi quis hendrerit dolor magna eget. Etiam dignissim diam quis enim. Viverra ipsum nunc aliquet bibendum enim",
-};
-
-const boardsGenerate = () => {
-  let arr = [];
-  for (let i = 0; i < 11; i++) {
-    board["priority"] = Math.random() < 0.33 ? 1 : Math.random() < 0.67 ? 2 : 3;
-    arr.push(board);
-  }
-  return arr;
-};
-
-let boards = boardsGenerate();
 
 const StickyBoardListView = () => {
   // const { token } = useToken();
@@ -50,6 +32,7 @@ const StickyBoardListView = () => {
   };
   useEffect(() => {
     getStickyboardsData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   const handleDeletion = (id) => {
@@ -66,11 +49,10 @@ const StickyBoardListView = () => {
     });
   };
 
-  const [boardVisible, setAddBoardVisible] = useState(true);
   const [modalStatus, setModalStatus] = useState(false);
   const [form, setForm] = useState("create");
   const handleOpenModal = (type, stickyboard = null) => {
-    if (type == "create") {
+    if (type === "create") {
       setForm("create");
     } else {
       setForm("update");
@@ -82,10 +64,6 @@ const StickyBoardListView = () => {
     setForm("create");
     setStickyboard({});
     setModalStatus(false);
-  };
-
-  const handleAddBoard = () => {
-    setAddBoardVisible(false);
   };
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -117,7 +95,7 @@ const StickyBoardListView = () => {
 
   return (
     <div className=" h-screen overflow-hidden">
-      {form == "create" ? (
+      {form === "create" ? (
         <StickyBoardCreateForm
           open={modalStatus}
           close={handleCloseModal}
@@ -144,7 +122,11 @@ const StickyBoardListView = () => {
               onChange={handleSearchTermChange}
               value={searchTerm}
             />
-            <img src={Search_light} alt="" className="h-[2rem] w-[2rem]" />
+            <img
+              src={Search_light}
+              alt="Search"
+              className="h-[2rem] w-[2rem]"
+            />
           </div>
           <button
             className="text-white border-solid border-button rounded-[19px] w-[16rem] h-[4rem] button-hover-white-outline"
@@ -229,6 +211,7 @@ const StickyBoardListView = () => {
 
                     <div className="BUTTONS flex flex-col justify-between py-3">
                       <img
+                        alt="garbage"
                         src={garbage}
                         className="expand-button absolute bottom-9 left-5"
                         onClick={() => {

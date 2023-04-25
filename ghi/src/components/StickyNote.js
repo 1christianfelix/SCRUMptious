@@ -8,8 +8,6 @@ const StickyNote = (props) => {
   let priority = props.priority;
   let priorityColor = "bg-white";
   let subject = props.subject;
-  let start = null;
-  let deadline = null;
   let content = props.content;
 
   let headerColor = null;
@@ -90,6 +88,7 @@ const StickyNote = (props) => {
             <p className="">{content}</p>
           </div>
           <img
+            alt="expand"
             src={expand_icon}
             className="m-[.7rem] self-end expand-button invisible"
           />

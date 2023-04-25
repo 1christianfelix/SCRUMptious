@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import garbage from "../images/icons/garbage.svg";
-import useToken from "@galvanize-inc/jwtdown-for-react";
-import StickyBoardUpdateForm from "../components/StickyBoardUpdateForm";
 
 const StickyBoardCard = (props) => {
   // this priority variable should take on the priority property of the sticky board. This can be done through fetching the api.
   // for demonstration purposes, we're mimicking an API resonsee by using "props". The prop is being sent through the Dashboard.js
   // once api endpoints are configured, we will refactor the priority variable to grab the priority property from the API response instead
 
-  const { token } = useToken();
   let boardName = props.stickyboard.board_name;
   let description = props.stickyboard.description;
   let priorityInt = props.stickyboard.priority;
@@ -17,7 +14,6 @@ const StickyBoardCard = (props) => {
   let start = new Date(props.stickyboard.start_date).toLocaleDateString();
   let deadline = new Date(props.stickyboard.deadline).toLocaleDateString();
   let members = props.stickyboard.account.length;
-  let id = props.stickyboard.id;
   // color switches based on priority
   switch (priority) {
     case "1":
@@ -39,33 +35,31 @@ const StickyBoardCard = (props) => {
       gradient = "bg-white";
   }
 
-  const handleDeletion = (id) => {
-    fetch(`http://localhost:8000/stickyboard/${id}/`, {
-      method: "delete",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((response) => {
-      if (response.ok) {
-        props.getStickyboardsData();
-      }
-    });
-  };
+  // const handleDeletion = (id) => {
+  //   fetch(`http://localhost:8000/stickyboard/${id}/`, {
+  //     method: "delete",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   }).then((response) => {
+  //     if (response.ok) {
+  //       props.getStickyboardsData();
+  //     }
+  //   });
+  // };
 
-  const [boardVisible, setAddBoardVisible] = useState(true);
-  const [modalStatus, setModalStatus] = useState(false);
-  const handleOpenModal = () => {
-    setModalStatus(true);
-  };
+  // const handleOpenModal = () => {
+  //   setModalStatus(true);
+  // };
 
-  const handleCloseModal = () => {
-    setModalStatus(false);
-  };
+  // const handleCloseModal = () => {
+  //   setModalStatus(false);
+  // };
 
-  const handleAddBoard = () => {
-    setAddBoardVisible(false);
-  };
+  // const handleAddBoard = () => {
+  //   setAddBoardVisible(false);
+  // };
 
   return (
     <div
@@ -102,7 +96,7 @@ const StickyBoardCard = (props) => {
           <p className="">{description}</p>
         </div>
         <div className="BUTTONS flex justify-between py-3 1440:py-4">
-          <img src={garbage} className="self-end expand-button" />
+          <img alt="Button" src={garbage} className="self-end expand-button" />
           <button className="button-hover-white-filled px-[.7rem] py-[.1rem] bg-white rounded-[19px]">
             <span>Edit Board</span>
           </button>

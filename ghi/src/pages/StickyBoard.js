@@ -3,7 +3,6 @@ import StickyNote from "../components/StickyNote";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import add_icon from "../images/icons/add_icon.svg";
 import _ from "lodash";
-import StickyNoteInputForm from "../components/StickyNoteInputForm";
 import filter_icon_white from "../images/icons/filter_icon_white.svg";
 import expand_icon from "../images/icons/expand_icon.svg";
 import { useParams } from "react-router-dom";
@@ -15,7 +14,6 @@ const StickyBoard = (props) => {
   const { stickyboard_id } = useParams();
   const [category, setCategory] = useState("");
   const [append, setAppend] = useState(false);
-  const [addStickyVisible, setAddStickyVisible] = useState(true);
   const [addStickyStyle, setAddStickyStyle] = useState("");
   const [stickyboard, setStickyboard] = useState({});
   const [categoriesLists, setCategoriesLists] = useState({
@@ -24,13 +22,6 @@ const StickyBoard = (props) => {
     doing: [],
     review: [],
     done: [],
-  });
-  const [stickyIDArrays, setStickyIDArrays] = useState({
-    backlog: ["empty"],
-    todo: ["empty"],
-    doing: ["empty"],
-    review: ["empty"],
-    done: ["empty"],
   });
   const [state, setState] = useState({
     backlog: {
@@ -66,40 +57,21 @@ const StickyBoard = (props) => {
       setCategoriesLists(data);
     }
   };
-
+  const refreshData = () => {
+    fetchBoard();
+    fetchCategoryStickyData();
+  };
   useEffect(() => {
     fetchBoard();
     fetchCategoryStickyData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // // Deal with stickies
   // // Grab Sticky ID's and store into sticky ID object states
   // // Use IDs to grab sticky fields and store into sticky field object states
-  const fetchSticky = async (sticky_id) => {
-    const url = `http://localhost:8000/${stickyboard_id}/${sticky_id}`;
-  };
 
   const updateLists = () => {
-    // console.log("category List:", stickyIDArrays);
-    // stickyTemplate = {
-    //   id: "",
-    //   subject: "",
-    //   priority: int,
-    //   content: "",
-    //   category: "",
-    // };
-
-    setStickyIDArrays((prev) => {
-      prev = { ...prev };
-      prev["backlog"] = stickyboard["backlog"];
-      prev["todo"] = stickyboard["todo"];
-      prev["doing"] = stickyboard["doing"];
-      prev["review"] = stickyboard["review"];
-      prev["done"] = stickyboard["done"];
-      console.log("stickyID update:", prev);
-      return prev;
-    });
-
     setState((prev) => {
       prev = { ...prev };
       prev["backlog"].stickies = categoriesLists["backlog"];
@@ -115,6 +87,7 @@ const StickyBoard = (props) => {
 
   useEffect(() => {
     updateLists();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoriesLists]);
 
   const handleOpenModal = () => {
@@ -128,7 +101,6 @@ const StickyBoard = (props) => {
   };
 
   const handleAddSticky = () => {
-    setAddStickyVisible(false);
     setAddStickyStyle("hidden");
   };
 
@@ -205,85 +177,15 @@ const StickyBoard = (props) => {
         body: JSON.stringify(body),
       });
       if (response.ok) {
-        const data = await response.json();
         console.log("success update, now updating stickyBoard");
-        updateStickyBoard();
       }
     };
 
     // rearrange the categories' IDs in the frontend database
-    const updateStickyBoard = async () => {
-      setStickyIDArrays((prev) => {
-        // Update the stickyIDArrays state
-        const updatedState = { ...prev };
-        updatedState[source.droppableId].splice(source.index, 1);
-        updatedState[destination.droppableId].splice(
-          destination.index,
-          0,
-          itemCopy.id
-        );
-
-        // Execute the API call with the updated state
-        submitUpdatedState(updatedState);
-
-        return updatedState;
-      });
-    };
 
     // update the the stickyboard backend's categories' shape
-    const submitUpdatedState = async (updatedStickyIDArrays) => {
-      let body = {
-        backlog: updatedStickyIDArrays.backlog,
-        todo: updatedStickyIDArrays.todo,
-        doing: updatedStickyIDArrays.doing,
-        review: updatedStickyIDArrays.review,
-        done: updatedStickyIDArrays.done,
-      };
-      console.log("body:", body);
-      const url = `http://localhost:8000/stickyboard/${stickyboard_id}`;
-      const response = await fetch(url, {
-        method: "put",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-      if (response.ok) {
-        const data = await response.json();
-        console.log("success update");
-      }
-    };
+
     updateStickyCategoryDND(itemCopy.id, destination.droppableId);
-  };
-
-  const addFirst = (category) => {
-    // Creation form should pop up first
-    // After submitting form, we fetch the data base for the new array
-    // *stretch goal: addFirst should call an endpoint that will place sticky at index 0
-    // fetch new data
-    // use data
-    setState((prev) => {
-      const sticky = {
-        id: Math.random().toString(),
-        subject: `Test Sticky `,
-        priority: 1,
-        content: "ADada",
-        category: category,
-      };
-      // Grabbing the previous data from the arrays
-      prev = { ...prev };
-      console.log(prev, category);
-      prev[category.toLowerCase()].stickies.unshift(sticky);
-      // console.log("add first");
-
-      return prev;
-    });
-  };
-
-  const refreshData = () => {
-    fetchBoard();
-    fetchCategoryStickyData();
   };
 
   return (
@@ -317,7 +219,7 @@ const StickyBoard = (props) => {
             <div className="flex gap-2 items-center">
               <img
                 src={filter_icon_white}
-                alt=""
+                alt="filter"
                 className="w-[1rem] h-[1rem]"
               />
 
@@ -352,6 +254,7 @@ const StickyBoard = (props) => {
                     <div className="w-[16.0rem] 1440:w-[calc(16rem*1.333)] flex items-center justify-between my-3">
                       <span className=" text-[2rem]">{data.title}</span>
                       <img
+                        alt="add"
                         src={add_icon}
                         className="h-[42px] w-auto hover:cursor-pointer transition-all expand-button ml-auto"
                         // onClick={() => addFirst(data.title)}
@@ -394,6 +297,7 @@ const StickyBoard = (props) => {
                                           subject={el.subject}
                                         ></StickyNote>
                                         <img
+                                          alt="expand"
                                           src={expand_icon}
                                           className="absolute bottom-3 right-3 self-end expand-button"
                                           // This on click needs to trigger an update form instead of a create form
