@@ -181,6 +181,8 @@
 - Started Deployment with team.
 - Worked on redesigning the Update/Create forms for stickyboards to have a description field
 
+![alt](./christian_felix_images/4-20%20stickyboard%20form%20UIUX%20updates.jpg)
+
 # 4-21-23
 
 - Fixed bugs with the stickyboard create form not reseting its fields upon cancelling
