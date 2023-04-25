@@ -202,7 +202,7 @@ const StickyBoard = (props) => {
         ></StickyNoteCreateForm>
       )}
       <div className="flex flex-col text-black">
-        <div className="w-[100%] h-[5.37500rem] bg-white drop-shadow-lg bg-gradient-to-tr from-white to-blue-200 flex items-center">
+        <div className="w-[100%] h-[5.37500rem] bg-white drop-shadow-md bg-gradient-to-r from-white from-20% to-blue-100 via-blue-100 via-70%  flex items-center">
           <select className="bg-transparent focus:outline-none transition-all duration-150 hover:cursor-pointer text-3xl ml-6">
             <option value="" className="text-xl bg-slate-500">
               {stickyboard.board_name}
@@ -223,14 +223,11 @@ const StickyBoard = (props) => {
                 className="w-[1rem] h-[1rem]"
               />
 
-              <label htmlFor="priority" className="text-dark_mode_text_white">
+              <label htmlFor="priority" className="text-black">
                 Filter Priority:
               </label>
             </div>
-            <div
-              id="priority"
-              className="text-dark_mode_text_white flex self-center gap-2"
-            >
+            <div id="priority" className="text-black flex self-center gap-2">
               <input type="radio" id="high" name="priority" value="high" />
               <label htmlFor="high">High</label>
               <input type="radio" id="medium" name="priority" value="medium" />

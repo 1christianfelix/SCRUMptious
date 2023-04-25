@@ -20,9 +20,9 @@ const Sidebar = () => {
   };
 
   return (
-    <nav className="flex flex-col w-[5rem] h-screen bg-dark_mode_dark flex-none">
-      <section className="LOGO-SECTION flex h-[8.37500rem] border-b-solid border-b-[1px] border-b-dark_mode_dark">
-        <span className="Scrumptious m-[2.5%] text-dark_mode_text_white font-Sudo_Var">
+    <nav className="flex flex-col w-[6.5rem] h-screen bg-[#3a3a3a] flex-none">
+      <section className="LOGO-SECTION bg-white bg-gradient-to-l from-white to-[#FAFFBB] flex h-[5.37500rem] drop-shadow-md">
+        <span className="Scrumptious m-[2.5%] text-black font-Sudo_Var">
           SCRUMPTIOUS
         </span>
       </section>
