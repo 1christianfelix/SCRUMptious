@@ -2,7 +2,7 @@ import "./App.css";
 import Sidebar from "./components/Sidebar";
 // import Dashboard from "./pages/Dashboard";
 // import StickyNote from "./components/StickyNote";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext } from "react";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 // import StickyNoteCreateForm from "./components/StickyNoteCreateForm";
@@ -24,10 +24,9 @@ function App() {
   // console.log(user);
   console.log("token: ", token);
 
-  useEffect(() => {
-    getAccountsData();
-    // getStickyBoardData();
-  }, [token]);
+  // useEffect(() => {
+  //   getAccountsData();
+  // }, [token]);
   // const [accounts, setAccounts] = useState([]);
   // const getAccountsData = async () => {
   //   const accountUrl = "http://localhost:8000/accounts";
@@ -39,7 +38,7 @@ function App() {
   // };
   // useEffect(() => {
   //   getAccountsData();
-  //   // getStickyBoardData();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [token]);
 
   return (

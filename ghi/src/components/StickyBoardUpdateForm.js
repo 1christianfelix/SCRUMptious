@@ -156,7 +156,7 @@ const StickyBoardUpdateForm = (props) => {
             <span className="text-2xl">Update a Sticky</span>
             <img
               src={close_out}
-              alt=""
+              alt="close"
               onClick={() => {
                 props.close();
                 setPriority("");
@@ -209,7 +209,7 @@ const StickyBoardUpdateForm = (props) => {
                   onChange={handleBoardNameChange}
                   value={boardName}
                 ></input>
-                <img src={pen} className="h-8 w-8" />
+                <img alt="pen" src={pen} className="h-8 w-8" />
               </div>
             </div>
             <div className="flex justify-between">

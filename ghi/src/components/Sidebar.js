@@ -1,11 +1,11 @@
 import React from "react";
-import user_icon from "../images/icons/user_icon.svg";
-import boards from "../images/icons/boards.svg";
-import book from "../images/icons/book.svg";
-import calendar from "../images/icons/calendar.svg";
-import sticky from "../images/icons/Sticky.svg";
-import chart from "../images/icons/chart.svg";
-import user_group from "../images/icons/user_group.svg";
+// import user_icon from "../images/icons/user_icon.svg";
+// import boards from "../images/icons/boards.svg";
+// import book from "../images/icons/book.svg";
+// import calendar from "../images/icons/calendar.svg";
+// import sticky from "../images/icons/Sticky.svg";
+// import chart from "../images/icons/chart.svg";
+// import user_group from "../images/icons/user_group.svg";
 import signout_icon from "../images/icons/signout_icon.svg";
 import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
@@ -75,10 +75,10 @@ const Sidebar = () => {
         </section>
 
         <section className="USER_SECTION mb-[6%] text-dark_mode_text_white">
-          <a href="#" className="nav-button">
+          {/* <a href="#" className="nav-button">
             <img alt="user" src={user_icon} className="h-10 w-auto" />
             <span className="self-center">First Last</span>
-          </a>
+          </a> */}
         </section>
         <section
           className="nav-button Sign-out mb-[6%] text-dark_mode_text_white hover:cursor-pointer"

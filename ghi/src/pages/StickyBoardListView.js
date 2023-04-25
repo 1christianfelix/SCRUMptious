@@ -32,6 +32,7 @@ const StickyBoardListView = () => {
   };
   useEffect(() => {
     getStickyboardsData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   const handleDeletion = (id) => {

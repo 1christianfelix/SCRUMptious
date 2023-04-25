@@ -12,7 +12,7 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 function StickyNoteCreateForm(props) {
   // console.log(accounts);
   const { token } = useToken();
-  const { accounts, setAccounts } = useContext(AccountContext);
+  const { accounts } = useContext(AccountContext);
 
   const [category, setCategory] = useState(props.category);
   const [subject, setSubject] = useState("");
@@ -20,15 +20,12 @@ function StickyNoteCreateForm(props) {
   const [priority, setPriority] = useState("");
   const [priorityColor, setPriorityColor] = useState("");
   const [bodyColor, setBodyColor] = useState("");
-  const [status, setStatus] = useState("");
   const [start_date, setStartDate] = useState("");
   const [deadline, setDeadline] = useState("");
   // const [stickyBoard, setStickyBoard] = useState("");
   const [headerColor, setHeaderColor] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedStickyBoard, setSelectedStickyBoard] = useState("");
   const [members, setMembers] = useState([]);
-  let type = props.type || "Create/Update -> pass in type as prop to set";
 
   const handleColorChange = (event) => {
     console.log("colorchanging");
@@ -124,10 +121,6 @@ function StickyNoteCreateForm(props) {
     setDeadline(value);
   };
 
-  const handleStickyBoardChange = (event) => {
-    const value = event.target.value;
-    setSelectedStickyBoard(value);
-  };
   const handleSearchTermChange = (event) => {
     const value = event.target.value;
     setSearchTerm(value);
@@ -182,11 +175,9 @@ function StickyNoteCreateForm(props) {
       setCategory("");
       setContent("");
       setPriority(0);
-      setStatus("");
       setStartDate("");
       setDeadline("");
       setMembers([]);
-      setSelectedStickyBoard("");
       props.refreshData();
     } else {
       console.error("Error:", response.status, await response.text());
@@ -202,11 +193,9 @@ function StickyNoteCreateForm(props) {
     setCategory("");
     setContent("");
     setPriority("");
-    setStatus("");
     setStartDate("");
     setDeadline("");
     setMembers([]);
-    setSelectedStickyBoard("");
     props.close();
   };
 
@@ -229,7 +218,7 @@ function StickyNoteCreateForm(props) {
                 <span className="text-2xl">Create a Sticky</span>
                 <img
                   src={close_out}
-                  alt=""
+                  alt="close"
                   onClick={handleClose}
                   className="hover:cursor-pointer expand-button"
                 />
@@ -303,7 +292,7 @@ function StickyNoteCreateForm(props) {
                       id="subject"
                       className="p-0 m-0 leading-none bg-transparent w-[16rem] placeholder:text-slate-700 focus:outline-none"
                     />
-                    <img src={pen} className="ml-[.5rem]" />
+                    <img alt="pen" src={pen} className="ml-[.5rem]" />
                   </div>
                 </div>
                 <select
@@ -337,7 +326,7 @@ function StickyNoteCreateForm(props) {
                 className="CONTENT-BOX flex-grow overflow-auto scrollbar-card scrollbar-w-3 text-dark_mode_font focus:outline-none word-wrap bg-transparent border-solid border-[1px] border-text-dark_mode_text_white resize-none mx-[3.2rem] text-[1.5rem] p-5"
               ></textarea>
               <div className="BUTTONS flex justify-between m-5 pt-10">
-                <img src={trash} alt="" className="expand-button" />
+                <img alt="trash" src={trash} className="expand-button" />
                 <button className="button-hover-white-filled bg-white px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky">
                   Create
                 </button>
