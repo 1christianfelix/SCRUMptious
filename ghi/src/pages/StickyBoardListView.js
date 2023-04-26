@@ -34,7 +34,7 @@ const StickyBoardListView = () => {
 
   const handleDeletion = (id) => {
     fetch(
-      `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/stickyboard/${id}/`,
+      `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/stickyboard/${id}`,
       {
         method: "delete",
         headers: {
