@@ -8,6 +8,7 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import StickyNoteCreateForm from "./components/StickyNoteCreateForm";
 import ResetPassword from "./pages/ResetPassword";
+import AccountsPage from "./components/AccountsPage";
 
 import {
   BrowserRouter,
@@ -62,6 +63,7 @@ const getStickyBoardData = async () => {
 
 return (
   <div>
+    <AccountsPage token={token} />
     {!token ? (
       <Routes>
         <Route path="/" element={<Navigate to="/signin" />} />
@@ -89,6 +91,7 @@ return (
               />
             }
           />
+
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       </div>
