@@ -60,7 +60,7 @@ const AccountsPage = ({ token }) => {
       <div className="bg-gray-100 border border-gray-300 p-4 rounded-md mt-10 w-full max-w-screen-xl">
         <h1 className="text-center text-2xl font-bold mb-4">Accounts List</h1>
         <div className="mb-4">
-          {/* <input
+          <input
             className="border border-gray-300 p-2 rounded-[19px] w-full"
             type="text"
             placeholder="Search Accounts"
@@ -70,8 +70,8 @@ const AccountsPage = ({ token }) => {
             src={Search_light}
             alt=""
             className="absolute"
-          /> */}
-          <div className="SEARCH BAR w-[13.4375rem] h-[2.125rem] bg-white rounded-[19px] flex items-center justify-between px-3 ">
+          />
+          {/* <div className="SEARCH BAR w-[13.4375rem] h-[2.125rem] bg-white rounded-[19px] flex items-center justify-between px-3 ">
             <input
               value={searchTerm}
               placeholder="Search Member"
@@ -79,7 +79,7 @@ const AccountsPage = ({ token }) => {
 
             ></input>
             <img src={Search_light} alt="" className="h-[1rem] w-[1rem]" />
-          </div>
+          </div> */}
         </div>
         <div className="flex justify-end mb-4">
           <button
