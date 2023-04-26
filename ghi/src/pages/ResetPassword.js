@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import signup_signin_bg from "../images/signup-signin-bg.png";
-import { useNavigate, Link, useToken } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
@@ -73,7 +73,5 @@ const ResetPassword = () => {
     </div>
   );
 };
-
-
 
 export default ResetPassword;

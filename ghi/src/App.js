@@ -1,6 +1,6 @@
 import "./App.css";
 import Sidebar from "./components/Sidebar";
-import Dashboard from "./pages/Dashboard";
+// import Dashboard from "./pages/Dashboard";
 // import StickyNote from "./components/StickyNote";
 import React, { useContext } from "react";
 import Signin from "./pages/Signin";

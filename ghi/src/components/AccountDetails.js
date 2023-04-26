@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from "react";
 import StickyDetails from "./StickyDetails";
 
-import useToken from "@galvanize-inc/jwtdown-for-react";
-
+// import useToken from "@galvanize-inc/jwtdown-for-react";
 
 const AccountDetails = ({ account, onClose }) => {
-      const { token } = useToken();
+  //   const { token } = useToken();
 
   const [stickies, setStickies] = useState([]);
   const [stickyId, setStickyId] = useState(null);
 
-useEffect(() => {
-  async function fetchStickies() {
-    const response = await fetch("http://localhost:8000/sticky");
-    const data = await response.json();
-    console.log(data);
-    setStickies(data.filter((sticky) => sticky.account.includes(account.id)));
-  }
-  fetchStickies();
-}, [account.id]);
+  useEffect(() => {
+    async function fetchStickies() {
+      const response = await fetch("http://localhost:8000/sticky");
+      const data = await response.json();
+      console.log(data);
+      setStickies(data.filter((sticky) => sticky.account.includes(account.id)));
+    }
+    fetchStickies();
+  }, [account.id]);
 
   const handleStickyClick = (stickyId) => {
     setStickyId(stickyId);
