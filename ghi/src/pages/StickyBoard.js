@@ -40,7 +40,7 @@ const StickyBoard = (props) => {
 
   // Get Boards
   const fetchBoard = async () => {
-    const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/${stickyboard_id}`;
+    const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/stickyboard/${stickyboard_id}`;
     const response = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
