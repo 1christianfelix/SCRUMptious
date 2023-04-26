@@ -1,6 +1,9 @@
 # Scrumptious
 
-Scrumptious is a web application that allows users to manage projects using a Scrum-based approach with the help of Sticky Notes and Sticky Boards. Users can create, update, and delete Sticky Notes and Sticky Boards, and manage their membership and priority.
+
+## Overview
+
+Scrumptious is a web application that allows users to manage projects using a Scrum-based approach with the help of Sticky Notes and Sticky Boards. Users can create, update, and delete Sticky Notes and Sticky Boards.
 
 ## Installation
 
@@ -11,8 +14,8 @@ Scrumptious is a web application that allows users to manage projects using a Sc
 - Assign Sticky Notes to various categories (backlog, todo, doing, review, and done).
 - Set priorities and deadlines for Sticky Notes and Sticky Boards.
 - Invite other users to collaborate on a Sticky Board.
+- Assign users to Sticky Notes
 - Email notifications when users are added to a Sticky Note or Sticky Board.
-- User registration and authentication.
 
 ## Models
 
