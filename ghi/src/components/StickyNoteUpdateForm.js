@@ -10,13 +10,15 @@ import AccountContext from "../context/AccountContext";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function StickyNoteUpdateForm(props) {
-  // console.log(accounts);
+
+
   const { token } = useToken();
   const { accounts } = useContext(AccountContext);
-  const [category, setCategory] = useState(props.category);
-  const [subject, setSubject] = useState(props.subject);
-  const [content, setContent] = useState(props.content);
-  const [priority, setPriority] = useState(props.priority);
+  console.log(accounts);
+  const [category, setCategory] = useState(props.stickyData.category);
+  const [subject, setSubject] = useState(props.stickyData.subject);
+  const [content, setContent] = useState(props.stickyData.content);
+  const [priority, setPriority] = useState(props.stickyData.priority);
   const [priorityColor, setPriorityColor] = useState(props.priorityColor);
   const [bodyColor, setBodyColor] = useState(props.bodyColor);
   const newDateFormats = {
@@ -134,16 +136,13 @@ function StickyNoteUpdateForm(props) {
     setSearchTerm(value);
   };
 
-  const handleMemberChange = (event) => {
-    const value = event.target.value;
-    setMembers(value);
-  };
 
   const filteredAccounts = accounts.filter(
     (account) =>
       account.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       account.first_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -402,4 +401,3 @@ function StickyNoteUpdateForm(props) {
   );
 }
 export default StickyNoteUpdateForm;
-
