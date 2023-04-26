@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import AccountDetails from "./AccountDetails";
 
 const AccountsPage = ({ token }) => {
   const [accounts, setAccounts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [gridView, setGridView] = useState(false);
-  const [isGridView, setIsGridView] = useState(false);  // Add state for grid view
+  const [isGridView, setIsGridView] = useState(false);
+  const [selectedAccount, setSelectedAccount] = useState(null);
 
   const getAccountsData = async () => {
     const accountUrl = "http://localhost:8000/accounts";
@@ -44,8 +46,16 @@ const AccountsPage = ({ token }) => {
     setIsGridView(!isGridView);
   };
 
+  const handleAccountDoubleClick = (account) => {
+    setSelectedAccount(account);
+  };
+
+  const closeAccountDetails = () => {
+    setSelectedAccount(null);
+  };
+
   return (
-    <div className="flex justify-center bg-gray-800">
+    <div className="flex justify-center items-center bg-gray-800 h-screen">
       <div className="bg-gray-100 border border-gray-300 p-4 rounded-md mt-10 w-full max-w-screen-xl">
         <h1 className="text-center text-2xl font-bold mb-4">Accounts List</h1>
         <div className="mb-4">
@@ -74,12 +84,13 @@ const AccountsPage = ({ token }) => {
                 <div
                   key={account.id}
                   className="border border-gray-300 p-4 rounded-md"
+                  onDoubleClick={() => handleAccountDoubleClick(account)}
                 >
                   <p className="text-lg font-bold mb-2">
                     {account.first_name} {account.last_name}
                   </p>
                   <p className="text-gray-500 mb-2"> {account.email}</p>
-                  <p className="text-gray-500 mb-2">Account ID: {account.id}</p>
+                  {/* <p className="text-gray-500 mb-2">Account ID: {account.id}</p> */}
                   <button
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-auto"
                     onClick={() => handleDeleteAccount(account.id)}
@@ -99,13 +110,14 @@ const AccountsPage = ({ token }) => {
                 <div
                   key={account.id}
                   className="border-b border-gray-300 py-2 flex items-center justify-between"
+                  onDoubleClick={() => handleAccountDoubleClick(account)}
                 >
                   <div>
                     <p className="text-lg font-medium">
                       {account.first_name} {account.last_name}
                     </p>
                     <p className="text-gray-500">{account.email}</p>
-                    <p className="text-gray-500">Account ID: {account.id}</p>
+                    {/* <p className="text-gray-500">Account ID: {account.id}</p> */}
                   </div>
                   <button
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
@@ -121,6 +133,12 @@ const AccountsPage = ({ token }) => {
           </>
         )}
       </div>
+      {selectedAccount && (
+        <AccountDetails
+          account={selectedAccount}
+          onClose={closeAccountDetails}
+        />
+      )}
     </div>
   );
 };
