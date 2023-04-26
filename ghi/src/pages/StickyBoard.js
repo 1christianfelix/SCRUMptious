@@ -67,7 +67,6 @@ const StickyBoard = (props) => {
     fetchBoard();
     fetchCategoryStickyData();
   }, []);
-  console.log("categoriesLists:", categoriesLists, typeof categoriesLists);
   const updateLists = () => {
     setState((prev) => {
       prev = { ...prev };
@@ -80,7 +79,6 @@ const StickyBoard = (props) => {
       return prev;
     });
   };
-  console.log("updateLitsts:", updateLists);
   useEffect(() => {
     updateLists();
   }, [categoriesLists]);
@@ -193,14 +191,14 @@ const StickyBoard = (props) => {
     const value = event.target.value;
     setPriority(value);
   };
-  const filteredStickies =
-    searchPriority
-      ? data.stickies.filter(
-          (stickyboard) =>
-            (!searchPriority ||
-              stickyboard.priority === parseInt(searchPriority))
-        )
-      : data.stickies;
+  // const filteredStickies =
+  //   searchPriority
+  //     ? data.stickies.filter(
+  //         (stickyboard) =>
+  //           (!searchPriority ||
+  //             stickyboard.priority === parseInt(searchPriority))
+  //       )
+  //     : data.stickies;
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
@@ -227,8 +225,12 @@ const StickyBoard = (props) => {
       <div className="flex flex-col text-dark_mode_text_white">
         <div className="w-[100%] h-[8.37500rem] bg-dark_mode_light flex items-center">
           <select className="bg-transparent focus:outline-none transition-all duration-150 hover:cursor-pointer text-3xl ml-6">
-            <option value="" className="text-xl bg-slate-500">
-              {stickyboard.board_name}
+            <option
+              value={stickyboard.id}
+              key={stickyboard.id}
+              className="text-xl bg-slate-500"
+            >
+              {stickyboard.board_name}, {stickyboard.id}
             </option>
             <option value="" className="text-xl bg-slate-500">
               Member's other boards
@@ -267,7 +269,7 @@ const StickyBoard = (props) => {
                 type="radio"
                 id="high"
                 name="priority"
-                value="high"
+                value="3"
                 onChange={handleSearchPriorityChange}
               />
               <label htmlFor="high">High</label>
@@ -275,7 +277,7 @@ const StickyBoard = (props) => {
                 type="radio"
                 id="medium"
                 name="priority"
-                value="medium"
+                value="2"
                 onChange={handleSearchPriorityChange}
               />
               <label htmlFor="medium">Medium</label>
@@ -283,7 +285,7 @@ const StickyBoard = (props) => {
                 type="radio"
                 id="low"
                 name="priority"
-                value="low"
+                value="1"
                 onChange={handleSearchPriorityChange}
               />
               <label htmlFor="low">Low</label>
@@ -327,8 +329,13 @@ const StickyBoard = (props) => {
                                 : "",
                             }}
                           >
-                            {filteredStickies !== null &&
-                              filteredStickies.map((el, index) => {
+                            {data.stickies
+                              .filter(
+                                (sticky) =>
+                                  searchPriority === "" ||
+                                  sticky.priority === parseInt(searchPriority)
+                              )
+                              .map((el, index) => {
                                 return (
                                   <Draggable
                                     key={el.id}
