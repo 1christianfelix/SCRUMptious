@@ -50,13 +50,6 @@ class StickyQueries:
             del result["_id"]
             return result
 
-    # Creating sticky moved to queries.stickyboard
-
-    # def create_sticky(self, sticky):
-    #     result = collection.insert_one(sticky.dict())
-    #     if result.inserted_id:
-    #         return self.get_sticky_by_id(result.inserted_id)
-
     def get_stickies(self):
         results = list(collection.find())
         for result in results:

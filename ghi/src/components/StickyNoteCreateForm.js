@@ -10,7 +10,6 @@ import AccountContext from "../context/AccountContext";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function StickyNoteCreateForm(props) {
-  // console.log(accounts);
   const { token } = useToken();
   const { accounts } = useContext(AccountContext);
 
@@ -22,7 +21,6 @@ function StickyNoteCreateForm(props) {
   const [bodyColor, setBodyColor] = useState("");
   const [start_date, setStartDate] = useState("");
   const [deadline, setDeadline] = useState("");
-  // const [stickyBoard, setStickyBoard] = useState("");
   const [headerColor, setHeaderColor] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [members, setMembers] = useState([]);
@@ -105,12 +103,6 @@ function StickyNoteCreateForm(props) {
     }
   }, [priority]);
 
-  // const handleStatusChange = (event) => {
-  //   const value = event.target.value;
-  //   setStatus(value);
-  // };
-  // const { token } = useToken();
-
   const handleStartDateChange = (event) => {
     const value = event.target.value;
     setStartDate(value);
@@ -126,11 +118,6 @@ function StickyNoteCreateForm(props) {
     setSearchTerm(value);
   };
 
-  // const handleMemberChange = (event) => {
-  //   const value = event.target.value;
-  //   setMembers(value);
-  // };
-
   const filteredAccounts = accounts.filter(
     (account) =>
       account.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -140,7 +127,6 @@ function StickyNoteCreateForm(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     props.close();
-    // setIsStickyCreated(true);
 
     const data = {};
     data.subject = subject;
@@ -150,14 +136,11 @@ function StickyNoteCreateForm(props) {
     data.start_date = new Date(start_date + "T00:00:00");
     data.deadline = new Date(deadline + "T00:00:00");
     data.append = props.append;
-    // data.stickyBoard = selectedStickyBoard;
-    // data.stickyBoard = JSON.stringify(stickyBoard);
-    // data.stickyBoard = stickyBoardAsString;
+
     data.account = members;
     console.log("Category value:", category);
     console.log(data);
-    // !!!!! http://localhost:8000/643f2c12359383c67fba0c6b/sticky USE THIS FOR TESTING
-    const url = `http://localhost:8000/${props.stickyboard_id}/sticky`;
+    const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/${props.stickyboard_id}/sticky`;
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),

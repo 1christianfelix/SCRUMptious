@@ -59,6 +59,8 @@ const Sidebar = () => {
         <section className="USER_SECTION mb-[6%] text-dark_mode_text_white">
           {/* <a href="#" className="nav-button">
             <img alt="user" src={user_icon} className="h-10 w-auto" />
+          {/* <a href="#" className="nav-button">
+            <img alt="user" src={user_icon} className="h-10 w-auto" />
             <span className="self-center">First Last</span>
           </a> */}
         </section>
@@ -66,6 +68,7 @@ const Sidebar = () => {
           className="nav-button Sign-out mb-[6%] text-dark_mode_text_white hover:cursor-pointer"
           onClick={handleLogout}
         >
+          <img alt="signout_icon" src={signout_icon} className=" h-10 w-auto" />
           <img alt="signout_icon" src={signout_icon} className=" h-10 w-auto" />
           <span className="self-center">Sign Out</span>
         </section>

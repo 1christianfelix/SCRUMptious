@@ -35,38 +35,8 @@ const StickyBoardCard = (props) => {
       gradient = "bg-white";
   }
 
-  // const handleDeletion = (id) => {
-  //   fetch(`http://localhost:8000/stickyboard/${id}/`, {
-  //     method: "delete",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   }).then((response) => {
-  //     if (response.ok) {
-  //       props.getStickyboardsData();
-  //     }
-  //   });
-  // };
-
-  // const handleOpenModal = () => {
-  //   setModalStatus(true);
-  // };
-
-  // const handleCloseModal = () => {
-  //   setModalStatus(false);
-  // };
-
-  // const handleAddBoard = () => {
-  //   setAddBoardVisible(false);
-  // };
-
   return (
     <div
-      // style={{
-      //   backgroundColor: "#e7e7e7",
-      //   backgroundImage: "linear-gradient(132deg, #e7e7e7 20%, #C2FFCC 100%)",
-      // }}
       className={`h-[238px] w-[289px] 1440:h-[calc(238px*1.333)] 1440:w-[calc(289px*1.333)] rounded-[8px] drop-shadow-sticky flex flex-col ${gradient}`}
     >
       <div className=" HEADER h-[20%] flex justify-between p-5 pt-3 1440:py-4">

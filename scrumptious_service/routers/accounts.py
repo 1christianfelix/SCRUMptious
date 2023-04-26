@@ -76,7 +76,6 @@ def get_all_accounts(queries: AccountQueries = Depends(),
     return queries.get_all_accounts()
 
 
-# Fix later: Make sure account owner can only delete account
 @router.delete("/accounts/{account_id}", tags=["Account"])
 def delete_account(account_id: str, queries: AccountQueries = Depends(),
                    account: AccountOut = Depends(

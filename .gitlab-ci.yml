@@ -33,9 +33,9 @@ build-front-end-job:
     # CI/CD variables, that value will override the value here.
     # You need to substitute in your real values for
     # GROUP_NAME, PROJECT_NAME, & WEBSERVICE_NAME below.
-    PUBLIC_URL: https://team-scrappy.gitlab.io/scrum-ptious/
-    REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST: https://scrumptious_service.dec-pt-5.mod3projects.com
-    REACT_APP_USER_SERVICE_API_HOST: https://scrumptious_service.dec-pt-5.mod3projects.com
+    PUBLIC_URL: https://team-scrappy.gitlab.io/scrum-ptious
+    REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST: https://scrumptious-service.dec-pt-5.mod3projects.com
+    REACT_APP_USER_SERVICE_API_HOST: https://scrumptious-service.dec-pt-5.mod3projects.com
   script:
     - cd ghi
     - npm install

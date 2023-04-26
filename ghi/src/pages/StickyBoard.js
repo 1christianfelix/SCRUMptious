@@ -8,6 +8,7 @@ import expand_icon from "../images/icons/expand_icon.svg";
 import { useParams } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import StickyNoteCreateForm from "../components/StickyNoteCreateForm";
+import StickyNoteUpdateForm from "../components/StickyNoteUpdateForm";
 
 const StickyBoard = (props) => {
   const { token } = useToken();
@@ -34,10 +35,12 @@ const StickyBoard = (props) => {
     done: { title: "Done", stickies: ["empty"] },
   });
   const [modalStatus, setModalStatus] = useState(false);
+  const [form, setForm] = useState("create");
+  const [sticky, setSticky] = useState("");
 
   // Get Boards
   const fetchBoard = async () => {
-    const url = `http://localhost:8000/stickyboard/${stickyboard_id}`;
+    const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/${stickyboard_id}`;
     const response = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -48,7 +51,7 @@ const StickyBoard = (props) => {
   };
 
   const fetchCategoryStickyData = async () => {
-    const url = `http://localhost:8000/${stickyboard_id}/stickies`;
+    const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/${stickyboard_id}/stickies`;
     const response = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -90,11 +93,18 @@ const StickyBoard = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoriesLists]);
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (type, sticky) => {
+    if (type === "create") {
+      setForm("create");
+    } else {
+      setForm("update");
+      setSticky(sticky);
+    }
     setModalStatus(true);
   };
 
   const handleCloseModal = () => {
+    setForm("create");
     setCategory("");
     setAppend(false);
     setModalStatus(false);
@@ -167,7 +177,7 @@ const StickyBoard = (props) => {
         category: category,
         stickyboard: `${stickyboard_id}`,
       };
-      const url = `http://localhost:8000/sticky/${id}`;
+      const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/sticky/${id}`;
       const response = await fetch(url, {
         method: "put",
         headers: {
@@ -188,18 +198,35 @@ const StickyBoard = (props) => {
     updateStickyCategoryDND(itemCopy.id, destination.droppableId);
   };
 
+  const onDragUpdate = (update) => {
+    if (update.destination) {
+      console.log("Destination:", update.destination.droppableId);
+    }
+
+    console.log("Source:", update.source.droppableId);
+  };
+
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      {category.length > 0 && (
-        <StickyNoteCreateForm
+      {form === "create" ? (
+        category.length > 0 && (
+          <StickyNoteCreateForm
+            open={modalStatus}
+            close={handleCloseModal}
+            type={"Create"}
+            stickyboard_id={stickyboard_id}
+            refreshData={refreshData}
+            category={category}
+            append={append}
+          ></StickyNoteCreateForm>
+        )
+      ) : (
+        <StickyNoteUpdateForm
           open={modalStatus}
           close={handleCloseModal}
-          type={"Create"}
-          stickyboard_id={stickyboard_id}
           refreshData={refreshData}
-          category={category}
-          append={append}
-        ></StickyNoteCreateForm>
+          stickyData={sticky}
+        ></StickyNoteUpdateForm>
       )}
       <div className="flex flex-col text-black">
         <div className="w-[100%] h-[5.37500rem] bg-white drop-shadow-md bg-gradient-to-r from-white from-20% to-blue-100 via-blue-100 via-70%  flex items-center">
@@ -240,6 +267,7 @@ const StickyBoard = (props) => {
 
         <div className="lg:h-[1rem] w-[90%] ml-[7.5%]">
           <DragDropContext
+            onDragUpdate={onDragUpdate}
             onDragEnd={handleDrag}
             onBeforeDragStart={handleAddSticky}
             className=""
@@ -256,7 +284,7 @@ const StickyBoard = (props) => {
                         className="h-[42px] w-auto hover:cursor-pointer transition-all expand-button ml-auto"
                         // onClick={() => addFirst(data.title)}
                         onClick={() => {
-                          handleOpenModal();
+                          handleOpenModal("create");
                           setCategory(key);
                         }}
                       />
@@ -267,7 +295,7 @@ const StickyBoard = (props) => {
                           <div
                             ref={provided.innerRef}
                             {...provided.droppableProps}
-                            className="h-[100%] overflow-auto overflow-x-hidden scrollbar-card scrollbar-thumb-white scrollbar-w-1 max-h-[calc(100vh-9.75rem)] pr-5 place-self-start" // Add overflow-y-auto here
+                            className="h-[100%] overflow-auto overflow-x-hidden scrollbar-card scrollbar-thumb-white scrollbar-w-1 max-h-[calc(100vh-12.75rem)] pr-5 place-self-start" // Add overflow-y-auto here
                           >
                             {data.stickies.map((el, index) => {
                               return (
@@ -292,6 +320,8 @@ const StickyBoard = (props) => {
                                           priority={el.priority}
                                           content={el.content}
                                           subject={el.subject}
+                                          start={el.start_date}
+                                          deadline={el.deadline}
                                         ></StickyNote>
                                         <img
                                           alt="expand"
@@ -299,7 +329,7 @@ const StickyBoard = (props) => {
                                           className="absolute bottom-3 right-3 self-end expand-button"
                                           // This on click needs to trigger an update form instead of a create form
                                           onClick={() => {
-                                            handleOpenModal();
+                                            handleOpenModal("update", el);
                                             setCategory(key);
                                           }}
                                         />
@@ -307,7 +337,7 @@ const StickyBoard = (props) => {
                                           <div
                                             className={`flex items-center pl-4 mb-10 ${addStickyStyle}`}
                                             onClick={() => {
-                                              handleOpenModal();
+                                              handleOpenModal("create");
                                               setCategory(key);
                                               setAppend(true);
                                             }}
