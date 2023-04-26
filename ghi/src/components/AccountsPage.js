@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AccountDetails from "./AccountDetails";
+import Search_light from "../images/icons/Search_light.svg";
 
 const AccountsPage = ({ token }) => {
   const [accounts, setAccounts] = useState([]);
@@ -59,12 +60,26 @@ const AccountsPage = ({ token }) => {
       <div className="bg-gray-100 border border-gray-300 p-4 rounded-md mt-10 w-full max-w-screen-xl">
         <h1 className="text-center text-2xl font-bold mb-4">Accounts List</h1>
         <div className="mb-4">
-          <input
-            className="border border-gray-300 p-2 rounded-md w-full"
+          {/* <input
+            className="border border-gray-300 p-2 rounded-[19px] w-full"
             type="text"
-            placeholder="Search accounts"
+            placeholder="Search Accounts"
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+          <img
+            src={Search_light}
+            alt=""
+            className="absolute"
+          /> */}
+          <div className="SEARCH BAR w-[13.4375rem] h-[2.125rem] bg-white rounded-[19px] flex items-center justify-between px-3 ">
+            <input
+              value={searchTerm}
+              placeholder="Search Member"
+              className="focus:outline-none w-[100%]"
+
+            ></input>
+            <img src={Search_light} alt="" className="h-[1rem] w-[1rem]" />
+          </div>
         </div>
         <div className="flex justify-end mb-4">
           <button

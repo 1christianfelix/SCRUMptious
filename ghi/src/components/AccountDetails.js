@@ -21,7 +21,6 @@ useEffect(() => {
 }, [account.id]);
 
   const handleStickyClick = (stickyId) => {
-    console.log(stickyId);
     setStickyId(stickyId);
   };
 
