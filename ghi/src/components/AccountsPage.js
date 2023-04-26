@@ -55,7 +55,7 @@ const AccountsPage = ({ token }) => {
   };
 
   return (
-    <div className="flex justify-center items-center bg-gray-800 h-screen">
+    <div className="flex justify-center items-center bg-gray-800 min-h-screen">
       <div className="bg-gray-100 border border-gray-300 p-4 rounded-md mt-10 w-full max-w-screen-xl">
         <h1 className="text-center text-2xl font-bold mb-4">Accounts List</h1>
         <div className="mb-4">
@@ -74,72 +74,78 @@ const AccountsPage = ({ token }) => {
             {gridView ? "List View" : "Grid View"}
           </button>
         </div>
-        {gridView ? (
-          <div
-            className="grid gap-4"
-            style={{ gridTemplateColumns: "repeat(4, 1fr)" }}
-          >
-            {filteredAccounts.length > 0 ? (
-              filteredAccounts.map((account) => (
-                <div
-                  key={account.id}
-                  className="border border-gray-300 p-4 rounded-md"
-                  onDoubleClick={() => handleAccountDoubleClick(account)}
-                >
-                  <p className="text-lg font-bold mb-2">
-                    {account.first_name} {account.last_name}
-                  </p>
-                  <p className="text-gray-500 mb-2"> {account.email}</p>
-                  {/* <p className="text-gray-500 mb-2">Account ID: {account.id}</p> */}
-                  <button
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-auto"
-                    onClick={() => handleDeleteAccount(account.id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              ))
+        <div className="relative">
+          <div className="account-listing h-96 overflow-y-auto">
+            {gridView ? (
+              <div
+                className="grid gap-4"
+                style={{ gridTemplateColumns: "repeat(4, 1fr)" }}
+              >
+                {filteredAccounts.length > 0 ? (
+                  filteredAccounts.map((account) => (
+                    <div
+                      key={account.id}
+                      className="border border-gray-300 p-4 rounded-md"
+                      onDoubleClick={() => handleAccountDoubleClick(account)}
+                    >
+                      <p className="text-lg font-bold mb-2">
+                        {account.first_name} {account.last_name}
+                      </p>
+                      <p className="text-gray-500 mb-2"> {account.email}</p>
+                      {/* <p className="text-gray-500 mb-2">Account ID: {account.id}</p> */}
+                      <button
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-auto"
+                        onClick={() => handleDeleteAccount(account.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <p>No accounts found.</p>
+                )}
+              </div>
             ) : (
-              <p>No accounts found.</p>
+              <>
+                {filteredAccounts.length > 0 ? (
+                  filteredAccounts.map((account) => (
+                    <div
+                      key={account.id}
+                      className="border-b border-gray-300 py-2 flex items-center justify-between"
+                      onDoubleClick={() => handleAccountDoubleClick(account)}
+                    >
+                      <div>
+                        <p className="text-lg font-medium">
+                          {account.first_name} {account.last_name}
+                        </p>
+                        <p className="text-gray-500">{account.email}</p>
+                        {/* <p className="text-gray-500">Account ID: {account.id}</p> */}
+                      </div>
+                      <button
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => handleDeleteAccount(account.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <p>No accounts found.</p>
+                )}
+              </>
             )}
           </div>
-        ) : (
-          <>
-            {filteredAccounts.length > 0 ? (
-              filteredAccounts.map((account) => (
-                <div
-                  key={account.id}
-                  className="border-b border-gray-300 py-2 flex items-center justify-between"
-                  onDoubleClick={() => handleAccountDoubleClick(account)}
-                >
-                  <div>
-                    <p className="text-lg font-medium">
-                      {account.first_name} {account.last_name}
-                    </p>
-                    <p className="text-gray-500">{account.email}</p>
-                    {/* <p className="text-gray-500">Account ID: {account.id}</p> */}
-                  </div>
-                  <button
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                    onClick={() => handleDeleteAccount(account.id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              ))
-            ) : (
-              <p>No accounts found.</p>
-            )}
-          </>
-        )}
+          {selectedAccount && (
+            <AccountDetails
+              account={selectedAccount}
+              onClose={closeAccountDetails}
+              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            />
+          )}
+        </div>
       </div>
-      {selectedAccount && (
-        <AccountDetails
-          account={selectedAccount}
-          onClose={closeAccountDetails}
-        />
-      )}
     </div>
   );
 };
+
 export default AccountsPage;

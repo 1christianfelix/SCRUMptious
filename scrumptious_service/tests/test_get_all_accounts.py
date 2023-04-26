@@ -1,13 +1,17 @@
 import mongomock
 from queries.accounts import AccountQueries, AccountIn
-from fastapi.testclient import TestClient
-from pymongo.errors import DuplicateKeyError
 
 client = mongomock.MongoClient()
 account_queries = AccountQueries()
 
+
 def test_get_all_accounts():
-    account_in = AccountIn(email="test1772D55gp@test.com", password="testpassword", first_name="John", last_name="Doe")
+    account_in = AccountIn(
+        email="test1772D501gp@test.com",
+        password="testpassword",
+        first_name="John",
+        last_name="Doe",
+    )
     hashed_password = "hashed_testpassword"
 
     db_name = "test_db"
@@ -19,16 +23,18 @@ def test_get_all_accounts():
     created_account = account_queries.create(account_in, hashed_password)
 
     accounts = account_queries.get_all_accounts()
-    assert any(account["email"] == created_account.email for account in accounts)
+    assert any(
+        account["email"] == created_account.email for account in accounts
+    )
 
 
-#  This test creates a test account, inserts it into a test collection, and checks
-#  that the get_all_accounts method returns a list containing at least one account
-#  with the same email as the created account.
+#  This test creates a test account, inserts it into a test collection,
+#  and checks that the get_all_accounts method returns a list containing
+#  at least one account with the same email as the created account.
 
 #  To pass the test please do the following in the terminal:
 #  Cd to "scrumptious_service"
-#  Input "python -m pytest tests/test_get_all_accounts.py"
+#  Copy and paste "python -m pytest tests/test_get_all_accounts.py"
 
-#  Change the email again if you want to run it multiple times so that it passes,
-#  otherwise you will run into an error.
+#  Change the email again if you want to run it multiple times so that it
+#  passes, otherwise you will run into a "DuplicateAccountError" error.

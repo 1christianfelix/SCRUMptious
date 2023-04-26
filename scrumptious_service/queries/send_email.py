@@ -2,16 +2,16 @@ import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
-SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
 
 
 def send_email(to_emails, subject, content):
     message = Mail(
-        from_email='ScrumptiousTeam@hotmail.com',
+        from_email="ScrumptiousTeam@hotmail.com",
         to_emails=to_emails,
         subject=subject,
-        html_content=content
-        )
+        html_content=content,
+    )
     try:
         sg = SendGridAPIClient(SENDGRID_API_KEY)
         response = sg.send(message)

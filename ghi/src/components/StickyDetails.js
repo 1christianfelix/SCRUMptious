@@ -6,7 +6,7 @@ const StickyDetails = ({ stickyId }) => { //may need ot pass props but I am not 
   useEffect(() => {
     const fetchSticky = async () => {
       const response = await fetch(
-        `http://localhost:8000/sticky` // correct urL? 
+        `http://localhost:8000/sticky` // correct urL?
       );
       const data = await response.json();
       setSticky(data);
