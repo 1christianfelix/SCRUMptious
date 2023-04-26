@@ -25,7 +25,7 @@ Scrumptious is a web application that allows users to manage projects using a Sc
 ### Sticky Note
 
 - subject: str
-- content: Optional[str]
+- content: str
 - priority: int
 - category: str
 - start_date: datetime
