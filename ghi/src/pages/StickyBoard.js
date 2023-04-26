@@ -38,7 +38,6 @@ const StickyBoard = (props) => {
   const [form, setForm] = useState("create");
   const [sticky, setSticky] = useState("");
 
-  // Get Boards
   const fetchBoard = async () => {
     const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/stickyboard/${stickyboard_id}`;
     const response = await fetch(url, {
@@ -67,13 +66,8 @@ const StickyBoard = (props) => {
   useEffect(() => {
     fetchBoard();
     fetchCategoryStickyData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // // Deal with stickies
-  // // Grab Sticky ID's and store into sticky ID object states
-  // // Use IDs to grab sticky fields and store into sticky field object states
-
+  console.log(categoriesLists);
   const updateLists = () => {
     setState((prev) => {
       prev = { ...prev };
@@ -82,7 +76,6 @@ const StickyBoard = (props) => {
       prev["doing"].stickies = categoriesLists["doing"];
       prev["review"].stickies = categoriesLists["review"];
       prev["done"].stickies = categoriesLists["done"];
-      // console.log("prev", prev);
 
       return prev;
     });
@@ -90,7 +83,6 @@ const StickyBoard = (props) => {
 
   useEffect(() => {
     updateLists();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoriesLists]);
 
   const handleOpenModal = (type, sticky) => {
@@ -115,7 +107,6 @@ const StickyBoard = (props) => {
   };
 
   const handleDrag = async ({ destination, source }) => {
-    // console.log("source", source);
     if (!destination) {
       console.log("test09");
       return;
@@ -124,7 +115,6 @@ const StickyBoard = (props) => {
       destination.index === source.index &&
       destination.droppableId === source.droppableId
     ) {
-      // console.log("test");
       return;
     }
     console.log("drop:", destination, source);
@@ -132,30 +122,25 @@ const StickyBoard = (props) => {
     const itemCopy = { ...state[source.droppableId].stickies[source.index] };
     switch (destination.droppableId) {
       case "backlog":
-        console.log("in 1");
         itemCopy.category = "backlog";
         break;
       case "todo":
-        console.log("in 2");
         itemCopy.category = "todo";
         break;
       case "doing":
-        console.log("in 3");
         itemCopy.category = "doing";
         break;
       case "review":
-        console.log("in 4");
         itemCopy.category = "review";
         break;
       case "done":
-        console.log("in 5");
         itemCopy.category = "done";
         break;
       default:
         break;
     }
     console.log("itemcopy:", itemCopy);
-    // rearrange the categories' stickies in the frontend database
+
     setState((prev) => {
       prev = { ...prev };
       prev[source.droppableId].stickies.splice(source.index, 1);
@@ -169,7 +154,7 @@ const StickyBoard = (props) => {
       return prev;
     });
 
-    // update the Sticky's category
+
     const updateStickyCategoryDND = async (id, category) => {
       let done = "doing";
       console.log(category, done, stickyboard_id);
@@ -191,10 +176,6 @@ const StickyBoard = (props) => {
       }
     };
 
-    // rearrange the categories' IDs in the frontend database
-
-    // update the the stickyboard backend's categories' shape
-
     updateStickyCategoryDND(itemCopy.id, destination.droppableId);
   };
 
@@ -205,6 +186,21 @@ const StickyBoard = (props) => {
 
     console.log("Source:", update.source.droppableId);
   };
+
+
+  const [searchPriority, setPriority] = useState("");
+  const handleSearchPriorityChange = (event) => {
+    const value = event.target.value;
+    setPriority(value);
+  };
+  const filteredStickyboards =
+    searchPriority
+      ? data.stickies.filter(
+          (stickyboard) =>
+            (!searchPriority ||
+              stickyboard.priority === parseInt(searchPriority))
+        )
+      : data.stickies;
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
@@ -285,7 +281,6 @@ const StickyBoard = (props) => {
                         alt="add"
                         src={add_icon}
                         className="h-[42px] w-auto hover:cursor-pointer transition-all expand-button ml-auto"
-                        // onClick={() => addFirst(data.title)}
                         onClick={() => {
                           handleOpenModal("create");
                           setCategory(key);
@@ -305,83 +300,85 @@ const StickyBoard = (props) => {
                                 : "",
                             }}
                           >
-                            {data.stickies.map((el, index) => {
-                              return (
-                                <Draggable
-                                  key={el.id}
-                                  index={index}
-                                  draggableId={el.id}
-                                  className=""
-                                >
-                                  {(provided) => {
-                                    return (
-                                      // Side note: You will have to move the expand button outside of the StickyNote component and attach it here. Or make a clickable element on top of it
-                                      <div
-                                        key={index}
-                                        ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                        className="mb-5 relative"
-                                      >
-                                        <StickyNote
-                                          category={el.category}
-                                          priority={el.priority}
-                                          content={el.content}
-                                          subject={el.subject}
-                                          start={el.start_date}
-                                          deadline={el.deadline}
-                                        ></StickyNote>
-                                        <img
-                                          alt="expand"
-                                          src={expand_icon}
-                                          className="absolute bottom-3 right-3 self-end expand-button"
-                                          // This on click needs to trigger an update form instead of a create form
-                                          onClick={() => {
-                                            handleOpenModal("update", el);
-                                            setCategory(key);
-                                          }}
-                                        />
-                                        {index === data.stickies.length - 1 && (
-                                          <div
-                                            className={`flex items-center pl-4 mb-10 ${addStickyStyle}`}
+                            {filteredStickies !== null &&
+                              filteredStickies.map((el, index) => {
+                                return (
+                                  <Draggable
+                                    key={el.id}
+                                    index={index}
+                                    draggableId={el.id}
+                                    className=""
+                                  >
+                                    {(provided) => {
+                                      return (
+
+                                        <div
+                                          key={index}
+                                          ref={provided.innerRef}
+                                          {...provided.draggableProps}
+                                          {...provided.dragHandleProps}
+                                          className="mb-5 relative"
+                                        >
+                                          <StickyNote
+                                            category={el.category}
+                                            priority={el.priority}
+                                            content={el.content}
+                                            subject={el.subject}
+                                            start={el.start_date}
+                                            deadline={el.deadline}
+                                          ></StickyNote>
+                                          <img
+                                            alt="expand"
+                                            src={expand_icon}
+                                            className="absolute bottom-3 right-3 self-end expand-button"
+
                                             onClick={() => {
-                                              handleOpenModal("create");
+                                              handleOpenModal("update", el);
                                               setCategory(key);
-                                              setAppend(true);
                                             }}
-                                          >
-                                            <div className="flex absolute -bottom-6 1440:-bottom-7 items-center hover:cursor-pointer transition-colors duration-200 text-slate-500 hover:text-white">
-                                              <div className="h-[1rem] 1440:h-[1.2rem] pr-2 text-current ">
-                                                <svg
-                                                  className="h-full stroke-current"
-                                                  viewBox="0 0 42 42"
-                                                  xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                  <path
-                                                    d="M21 10.5L21 31.5"
-                                                    strokeWidth="2"
-                                                    strokeLinecap="round"
-                                                  />
-                                                  <path
-                                                    d="M31.5 21L10.5 21"
-                                                    strokeWidth="2"
-                                                    strokeLinecap="round"
-                                                  />
-                                                </svg>
+                                          />
+                                          {index ===
+                                            data.stickies.length - 1 && (
+                                            <div
+                                              className={`flex items-center pl-4 mb-10 ${addStickyStyle}`}
+                                              onClick={() => {
+                                                handleOpenModal("create");
+                                                setCategory(key);
+                                                setAppend(true);
+                                              }}
+                                            >
+                                              <div className="flex absolute -bottom-6 1440:-bottom-7 items-center hover:cursor-pointer transition-colors duration-200 text-slate-500 hover:text-white">
+                                                <div className="h-[1rem] 1440:h-[1.2rem] pr-2 text-current ">
+                                                  <svg
+                                                    className="h-full stroke-current"
+                                                    viewBox="0 0 42 42"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                  >
+                                                    <path
+                                                      d="M21 10.5L21 31.5"
+                                                      strokeWidth="2"
+                                                      strokeLinecap="round"
+                                                    />
+                                                    <path
+                                                      d="M31.5 21L10.5 21"
+                                                      strokeWidth="2"
+                                                      strokeLinecap="round"
+                                                    />
+                                                  </svg>
+                                                </div>
+                                                <span className="text-base 1440:text-lg">
+                                                  Add Sticky
+                                                </span>
                                               </div>
-                                              <span className="text-base 1440:text-lg">
-                                                Add Sticky
-                                              </span>
                                             </div>
-                                          </div>
-                                        )}
-                                        {provided.placeholder}
-                                      </div>
-                                    );
-                                  }}
-                                </Draggable>
-                              );
-                            })}
+                                          )}
+                                          {provided.placeholder}
+                                        </div>
+                                      );
+                                    }}
+                                  </Draggable>
+                                );
+                              })}
                             {provided.placeholder}
                           </div>
                         );
@@ -395,11 +392,6 @@ const StickyBoard = (props) => {
         </div>
       </div>
     </div>
-    // <div>
-    //   {state.backlog.stickies.map(() => {
-    //     return <div>Hi</div>;
-    //   })}
-    // </div>
   );
 };
 

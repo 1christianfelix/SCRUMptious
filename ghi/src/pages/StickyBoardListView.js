@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import StickyBoardCard from "../components/StickyBoardCard";
 import Search_light from "../images/icons/Search_light.svg";
-// import StickyBoardInputForm from "../components/StickyBoardInputForm";
 import garbage from "../images/icons/garbage.svg";
 
 import filter_icon_white from "../images/icons/filter_icon_white.svg";
@@ -11,7 +10,6 @@ import StickyBoardUpdateForm from "../components/StickyBoardUpdateForm";
 import { useNavigate } from "react-router-dom";
 
 const StickyBoardListView = () => {
-  // const { token } = useToken();
   const { token } = useContext(AuthContext);
   const navigate = useNavigate();
   const [stickyboards, setStickyboards] = useState([]);
@@ -32,7 +30,6 @@ const StickyBoardListView = () => {
   };
   useEffect(() => {
     getStickyboardsData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   const handleDeletion = (id) => {
@@ -206,10 +203,6 @@ const StickyBoardListView = () => {
                     <StickyBoardCard
                       stickyboard={stickyboard}
                       getStickyboardsData={getStickyboardsData}
-                      // priority={stickyboard.priority.toString()}
-                      // content={board.description}
-                      // members={board.accounts}
-                      // name={stickyboard.board_name}
                     />
 
                     <div className="BUTTONS flex flex-col justify-between py-3">
