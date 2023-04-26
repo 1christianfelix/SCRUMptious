@@ -120,6 +120,7 @@ function StickyNoteUpdateForm(props) {
       account.first_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     props.close();
