@@ -77,3 +77,11 @@ Today:
     More auth
 Blockers:
     None
+
+4/25/23
+Yesterday:
+Auth
+Today:
+Sticky Update Delete
+Blockers:
+OS issues
