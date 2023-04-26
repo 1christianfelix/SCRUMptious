@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import Search_light from "../images/icons/Search_light.svg";
-import sort_icon from "../images/icons/sort_icon.svg";
-import filter_icon from "../images/icons/filter_icon.svg";
 import trash from "../images/icons/trash.svg";
 import pen from "../images/icons/pen.svg";
 import close_out from "../images/icons/close_out_icon.svg";
@@ -116,13 +114,11 @@ function StickyNoteUpdateForm(props) {
     setSearchTerm(value);
   };
 
-
   let filteredAccounts = accounts.filter(
     (account) =>
       account.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       account.first_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -136,7 +132,7 @@ function StickyNoteUpdateForm(props) {
     data.start_date = new Date(start_date + "T00:00:00");
     data.deadline = new Date(deadline + "T00:00:00");
     data.account = members;
-    data.stickyboard = props.stickyData.stickyboard
+    data.stickyboard = props.stickyData.stickyboard;
     const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/sticky/${props.stickyData.id}`;
     const fetchConfig = {
       method: "put",

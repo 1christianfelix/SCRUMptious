@@ -40,9 +40,9 @@ class AccountQueries:
         props["id"] = str(props["_id"])
         return AccountOutWithPassword(**props)
 
-    def create(self,
-               info: AccountIn,
-               hashed_password: str) -> AccountOutWithPassword:
+    def create(
+        self, info: AccountIn, hashed_password: str
+    ) -> AccountOutWithPassword:
         props = info.dict()
         props["hashed_password"] = hashed_password
         try:
@@ -60,9 +60,8 @@ class AccountQueries:
             del result["password"]
             del result["hashed_password"]
         sorted_results = sorted(
-            results,
-            key=lambda x: (x["last_name"], x["first_name"])
-            )
+            results, key=lambda x: (x["last_name"], x["first_name"])
+        )
         if sorted_results:
             return sorted_results
 
