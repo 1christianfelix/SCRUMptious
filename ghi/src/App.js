@@ -5,14 +5,11 @@ import Dashboard from "./pages/Dashboard";
 import React, { useContext } from "react";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
-// import StickyNoteCreateForm from "./components/StickyNoteCreateForm";
-// import StickyBoardCreateForm from "./components/StickyBoardCreateForm";
 import StickyBoardListView from "./pages/StickyBoardListView";
 import ResetPassword from "./pages/ResetPassword";
 import AccountsPage from "./components/AccountsPage";
 
 import { Routes, Route, Navigate } from "react-router-dom";
-
 import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 import StickyBoard from "./pages/StickyBoard";
 import { AccountProvider } from "./context/AccountContext";
@@ -20,27 +17,7 @@ import { AccountProvider } from "./context/AccountContext";
 function App() {
   const { token } = useContext(AuthContext);
 
-  // const user = useUser(token);
-
-  // console.log(user);
   console.log("token: ", token);
-
-  // useEffect(() => {
-  //   getAccountsData();
-  // }, [token]);
-  // const [accounts, setAccounts] = useState([]);
-  // const getAccountsData = async () => {
-  //   const accountUrl = "http://localhost:8000/accounts";
-  //   const accountResponse = await fetch(accountUrl);
-  //   if (accountResponse.ok) {
-  //     const data = await accountResponse.json();
-  //     setAccounts(data);
-  //   }
-  // };
-  // useEffect(() => {
-  //   getAccountsData();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [token]);
 
   return (
     <AccountProvider>
