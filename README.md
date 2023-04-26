@@ -58,6 +58,9 @@ Scrumptious is a web application that allows users to manage projects using a Sc
 
 ## Endpoints
 
+_**DELETE LATER (Endpoints needs RESTFUL API example documentation per endpoint)**_
+
+
 ### Accounts
 
 - POST /register: Register a new user.
