@@ -40,7 +40,7 @@ const StickyBoard = (props) => {
 
   // Get Boards
   const fetchBoard = async () => {
-    const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/${stickyboard_id}`;
+    const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/stickyboard/${stickyboard_id}`;
     const response = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -230,17 +230,9 @@ const StickyBoard = (props) => {
       )}
       <div className="flex flex-col text-black">
         <div className="w-[100%] h-[5.37500rem] bg-white drop-shadow-md bg-gradient-to-r from-white from-20% to-blue-100 via-blue-100 via-70%  flex items-center">
-          <select className="bg-transparent focus:outline-none transition-all duration-150 hover:cursor-pointer text-3xl ml-6 self-end">
-            <option value="" className="text-xl bg-slate-500">
-              {stickyboard.board_name}
-            </option>
-            <option value="" className="text-xl bg-slate-500">
-              Member's other boards
-            </option>
-            <option value="" className="text-xl bg-slate-500">
-              link to other board
-            </option>
-          </select>
+          <div className="bg-transparent focus:outline-none transition-all duration-150  text-3xl ml-6 self-end">
+            <span>{stickyboard.board_name}</span>
+          </div>
 
           <div className=" flex gap-5 self-end ml-auto mr-[3rem] 1440:mr-[calc(3rem*1.333)] 1440:text-xl">
             <div className="flex gap-2 items-center">
@@ -278,16 +270,30 @@ const StickyBoard = (props) => {
                   <div key={key} className="flex flex-col">
                     <div className="w-[16.0rem] 1440:w-[calc(16rem*1.333)] flex items-center justify-between my-3">
                       <span className=" text-[2rem]">{data.title}</span>
-                      <img
-                        alt="add"
-                        src={add_icon}
-                        className="h-[42px] w-auto hover:cursor-pointer transition-all expand-button ml-auto"
-                        // onClick={() => addFirst(data.title)}
+                      <div
+                        className="h-[2.5rem] 1440:h-[3rem] hover:cursor-pointer transition-colors duration-200 text-slate-400 hover:text-slate-950"
                         onClick={() => {
                           handleOpenModal("create");
                           setCategory(key);
                         }}
-                      />
+                      >
+                        <svg
+                          className="h-full stroke-current"
+                          viewBox="0 0 42 42"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M21 10.5L21 31.5"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                          />
+                          <path
+                            d="M31.5 21L10.5 21"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </div>
                     </div>
                     <Droppable droppableId={key}>
                       {(provided, snapshot) => {
@@ -295,7 +301,12 @@ const StickyBoard = (props) => {
                           <div
                             ref={provided.innerRef}
                             {...provided.droppableProps}
-                            className="h-[100%] overflow-auto overflow-x-hidden scrollbar-card scrollbar-thumb-white scrollbar-w-1 max-h-[calc(100vh-12.75rem)] pr-5 place-self-start" // Add overflow-y-auto here
+                            className="h-[100%] overflow-auto overflow-x-hidden scrollbar-card hover:scrollbar-thumb-slate-950 scrollbar-thumb-slate-400 scrollbar-w-1 max-h-[calc(100vh-12.75rem)] pr-5 place-self-start " // Add overflow-y-auto here
+                            style={{
+                              backgroundColor: snapshot.isDraggingOver
+                                ? "#00000015"
+                                : "",
+                            }}
                           >
                             {data.stickies.map((el, index) => {
                               return (
@@ -342,7 +353,7 @@ const StickyBoard = (props) => {
                                               setAppend(true);
                                             }}
                                           >
-                                            <div className="flex absolute -bottom-6 1440:-bottom-7 items-center hover:cursor-pointer transition-colors duration-200 text-slate-500 hover:text-white">
+                                            <div className="flex absolute -bottom-6 1440:-bottom-7 items-center hover:cursor-pointer transition-colors duration-200 text-slate-400 hover:text-slate-950">
                                               <div className="h-[1rem] 1440:h-[1.2rem] pr-2 text-current ">
                                                 <svg
                                                   className="h-full stroke-current"

@@ -169,7 +169,7 @@ const StickyBoardListView = () => {
           </div>
         </div>
       </div>
-      <div className="px-20 pt-20 flex flex-col gap-10 overflow-hidden h-[100%]">
+      <div className="px-20 1080:pt-[2rem] flex flex-col 1080:gap-[2rem] 1440:pt-20 1440:gap-20 overflow-hidden h-[100%]">
         <div className="flex gap-10 items-center justify-center">
           <div className="flex items-center bg-white rounded-[100px] w-[70%] h-[4.75rem] px-10 text-2xl">
             <input
@@ -186,15 +186,15 @@ const StickyBoardListView = () => {
             />
           </div>
           <button
-            className="text-black border-solid border-button rounded-[19px] w-[8rem] h-[2rem] button-hover-white-outline"
+            className="text-black border-solid border-slate-400 hover:border-slate-950 border-[1px] transition-all duration-200 ease-in-out rounded-[19px] w-[8rem] h-[2rem] text-lg"
             onClick={() => {
               handleOpenModal("create");
             }}
           >
-            New Board
+            + New Board
           </button>
         </div>
-        <div className="flex-grow overflow-auto scrollbar-card hover:scrollbar-thumb-slate-300 scrollbar-thumb-white scrollbar-w-2">
+        <div className="flex-grow overflow-auto scrollbar-card hover:scrollbar-thumb-slate-950 scrollbar-thumb-slate-400 scrollbar-w-2 h-[100%] pt-2 max-h-[calc(100vh-12.75rem)] 1440:max-h-[calc(100vh-18.75rem)]">
           <div className="place-items-center grid grid-cols-4 gap-y-10 last:mb-10">
             {filteredStickyboards !== null &&
               filteredStickyboards.map((stickyboard) => {

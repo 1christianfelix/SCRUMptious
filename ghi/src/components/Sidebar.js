@@ -20,7 +20,7 @@ const Sidebar = () => {
   };
 
   return (
-    <nav className="flex flex-col w-[6.5rem] h-screen bg-[#3a3a3a] flex-none">
+    <nav className="flex flex-col w-[6.5rem] h-screen bg-[#3a3a3a]">
       <section className="LOGO-SECTION bg-white bg-gradient-to-l from-white to-[#FAFFBB] flex h-[5.37500rem] drop-shadow-md">
         <span className="Scrumptious m-[2.5%] text-black font-Sudo_Var">
           SCRUMPTIOUS
@@ -51,26 +51,24 @@ const Sidebar = () => {
         </div>
       </section>
       {/* This section below needs to be configured to use custom components */}
-      <section className="USER_SECTION flex-grow flex flex-col">
-        <section className="CHAT_SECTION m-[10%] flex-grow  text-dark_mode_text_white">
-          Chat
-        </section>
-
-        <section className="USER_SECTION mb-[6%] text-dark_mode_text_white">
-          {/* <a href="#" className="nav-button">
+      <section className="USER_SECTION flex-grow flex flex-col justify-between items-center gap-3">
+        <div className="text-white">
+          <span>Chat</span>
+        </div>
+        <section className="flex flex-col gap-3">
+          <div className=" mb-[6%] text-dark_mode_text_white ">
             <img alt="user" src={user_icon} className="h-10 w-auto" />
-          {/* <a href="#" className="nav-button">
-            <img alt="user" src={user_icon} className="h-10 w-auto" />
-            <span className="self-center">First Last</span>
-          </a> */}
-        </section>
-        <section
-          className="nav-button Sign-out mb-[6%] text-dark_mode_text_white hover:cursor-pointer"
-          onClick={handleLogout}
-        >
-          <img alt="signout_icon" src={signout_icon} className=" h-10 w-auto" />
-          <img alt="signout_icon" src={signout_icon} className=" h-10 w-auto" />
-          <span className="self-center">Sign Out</span>
+          </div>
+          <div
+            className="nav-button-2 Sign-out mb-[50%] text-dark_mode_text_white hover:cursor-pointer self-center"
+            onClick={handleLogout}
+          >
+            <img
+              alt="signout_icon"
+              src={signout_icon}
+              className=" h-10 w-auto"
+            />
+          </div>
         </section>
       </section>
     </nav>
