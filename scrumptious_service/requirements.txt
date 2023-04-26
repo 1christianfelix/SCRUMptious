@@ -4,3 +4,4 @@ pytest
 pymongo[srv]==4.2.0
 jwtdown-fastapi==0.5.0
 sendgrid
+mongomock==4.1.2
