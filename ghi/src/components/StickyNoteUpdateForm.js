@@ -10,11 +10,8 @@ import AccountContext from "../context/AccountContext";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function StickyNoteUpdateForm(props) {
-
-
   const { token } = useToken();
   const { accounts } = useContext(AccountContext);
-  console.log(accounts);
   const [category, setCategory] = useState(props.stickyData.category);
   const [subject, setSubject] = useState(props.stickyData.subject);
   const [content, setContent] = useState(props.stickyData.content);
@@ -27,59 +24,46 @@ function StickyNoteUpdateForm(props) {
     day: "2-digit",
   };
   const [start_date, setStartDate] = useState(
-    new Date(props.start_date).toLocaleDateString(
+    new Date(props.stickyData.start_date).toLocaleDateString(
       "fr-CA",
       newDateFormats
     )
   );
   const [deadline, setDeadline] = useState(
-    new Date(props.start_date).toLocaleDateString(
+    new Date(props.stickyData.deadline).toLocaleDateString(
       "fr-CA",
       newDateFormats
     )
   );
-  // const [stickyBoard, setStickyBoard] = useState("");
   const [headerColor, setHeaderColor] = useState(props.headerColor);
   const [searchTerm, setSearchTerm] = useState("");
-  const [members, setMembers] = useState(props.members);
-
+  const [members, setMembers] = useState(props.stickyData.account);
   const handleColorChange = (event) => {
-    console.log("colorchanging");
     setCategory(event.target.value);
   };
   useEffect(() => {
     switch (category) {
       case "backlog":
-        console.log("Backlog");
         setHeaderColor("bg-sticky_blue_header");
         setBodyColor("bg-sticky_blue");
         break;
       case "todo":
-        console.log("Todo");
-
         setHeaderColor("bg-sticky_red_header");
         setBodyColor("bg-sticky_red");
         break;
       case "doing":
-        console.log("Doing");
-
         setHeaderColor("bg-sticky_yellow_header");
         setBodyColor("bg-sticky_yellow");
         break;
       case "review":
-        console.log("Review");
-
         setHeaderColor("bg-sticky_teal_header");
         setBodyColor("bg-sticky_teal");
         break;
       case "done":
-        console.log("Done");
-
         setHeaderColor("bg-sticky_green_header");
         setBodyColor("bg-sticky_green");
         break;
       default:
-        console.log("Default");
         setHeaderColor("bg-white");
         setBodyColor("bg-slate-100");
     }
@@ -103,19 +87,15 @@ function StickyNoteUpdateForm(props) {
   useEffect(() => {
     switch (priority) {
       case "1":
-        console.log("1");
         setPriorityColor("bg-gradient-to-l from-[#EFFFF2] to-[#B8FFC3] ");
         break;
       case "2":
-        console.log("2");
         setPriorityColor("bg-gradient-to-l from-[#F5FDFF] to-[#94ECFF]");
         break;
       case "3":
-        console.log("3");
         setPriorityColor("bg-gradient-to-l from-[#FFECEC] to-[#FFCACA]");
         break;
       default:
-        console.log("0");
         setPriorityColor("bg-white");
         break;
     }
@@ -137,7 +117,7 @@ function StickyNoteUpdateForm(props) {
   };
 
 
-  const filteredAccounts = accounts.filter(
+  let filteredAccounts = accounts.filter(
     (account) =>
       account.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       account.first_name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -155,14 +135,9 @@ function StickyNoteUpdateForm(props) {
     data.category = category;
     data.start_date = new Date(start_date + "T00:00:00");
     data.deadline = new Date(deadline + "T00:00:00");
-    //data.append = props.append;
-    // data.stickyBoard = selectedStickyBoard;
-    // data.stickyBoard = JSON.stringify(stickyBoard);
-    // data.stickyBoard = stickyBoardAsString;
     data.account = members;
-    console.log("Category value:", category);
-    console.log(data);
-    const url = `http://localhost:8000/${props.stickyboard_id}/sticky`;
+    data.stickyboard = props.stickyData.stickyboard
+    const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/sticky/${props.stickyData.id}`;
     const fetchConfig = {
       method: "put",
       body: JSON.stringify(data),
@@ -174,15 +149,6 @@ function StickyNoteUpdateForm(props) {
 
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      console.log("ok");
-
-      // setSubject("");
-      // setCategory("");
-      // setContent("");
-      // setPriority(0);
-      // setStartDate("");
-      // setDeadline("");
-      // setMembers([]);
       props.refreshData();
     } else {
       console.error("Error:", response.status, await response.text());
@@ -194,14 +160,25 @@ function StickyNoteUpdateForm(props) {
   }
 
   const handleClose = () => {
-    // setSubject("");
-    // setCategory("");
-    // setContent("");
-    // setPriority("");
-    // setStartDate("");
-    // setDeadline("");
-    // setMembers([]);
     props.close();
+  };
+
+  const handleDeletion = (id) => {
+    fetch(
+      `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/sticky/${props.stickyData.id}`,
+      {
+        method: "delete",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    ).then((response) => {
+      if (response.ok) {
+        props.close();
+        props.refreshData();
+      }
+    });
   };
 
   return (
@@ -220,7 +197,7 @@ function StickyNoteUpdateForm(props) {
               className={`HEADER h-[22%] ${headerColor} rounded-t-[19px] flex flex-col`}
             >
               <div className="pt-2 px-4 flex items-center justify-between">
-                <span className="text-2xl">Create a Sticky</span>
+                <span className="text-2xl">Update a Sticky</span>
                 <img
                   src={close_out}
                   alt="close"
@@ -234,7 +211,7 @@ function StickyNoteUpdateForm(props) {
                   id=""
                   className={`w-[12.8125rem] h-[3.25rem] text-center text-[1.5rem] drop-shadow-sticky ${priorityColor} focus:outline-none`}
                   required
-                  defaultValue="Select Priority"
+                  defaultValue={priority}
                   onChange={handlePriorityChange}
                 >
                   <option value="Select Priority" disabled hidden>
@@ -255,7 +232,7 @@ function StickyNoteUpdateForm(props) {
                     <span className="">Start</span>
                     <input
                       onChange={handleStartDateChange}
-                      value={start_date}
+                      defaultValue={start_date}
                       placeholder="date"
                       required
                       type="date"
@@ -267,8 +244,8 @@ function StickyNoteUpdateForm(props) {
                   <div className="grid grid-cols-calendar items-center">
                     <span>Deadline</span>
                     <input
+                      defaultValue={deadline}
                       onChange={handleDeadlineChange}
-                      value={deadline}
                       placeholder="date"
                       required
                       type="date"
@@ -305,9 +282,7 @@ function StickyNoteUpdateForm(props) {
                   id=""
                   className="CATEGORY-SELECTION inline-block h-[2rem] w-[8.5rem] drop-shadow-sticky text-center focus:outline-none"
                   required
-                  defaultValue={
-                    props.category ? props.category : "Select Category"
-                  }
+                  defaultValue={category}
                   onChange={handleColorChange}
                 >
                   <option value="Select Category" disabled hidden>
@@ -331,7 +306,14 @@ function StickyNoteUpdateForm(props) {
                 className="CONTENT-BOX flex-grow overflow-auto scrollbar-card scrollbar-w-3 text-dark_mode_font focus:outline-none word-wrap bg-transparent border-solid border-[1px] border-text-dark_mode_text_white resize-none mx-[3.2rem] text-[1.5rem] p-5"
               ></textarea>
               <div className="BUTTONS flex justify-between m-5 pt-10">
-                <img alt="trash" src={trash} className="expand-button" />
+                <img
+                  alt="trash"
+                  src={trash}
+                  className="expand-button"
+                  onClick={() => {
+                    handleDeletion(props.stickyData.id);
+                  }}
+                />
                 <button className="button-hover-white-filled bg-white px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky">
                   Update
                 </button>
@@ -351,7 +333,7 @@ function StickyNoteUpdateForm(props) {
                 ></input>
                 <img src={Search_light} alt="" className="h-[1rem] w-[1rem]" />
               </div>
-              <div className="FILTER flex gap-[.2rem] items-center expand-button">
+              {/* <div className="FILTER flex gap-[.2rem] items-center expand-button">
                 <img
                   src={filter_icon}
                   alt=""
@@ -362,7 +344,7 @@ function StickyNoteUpdateForm(props) {
               <div className="SORT flex gap-[.2rem] items-center expand-button">
                 <img src={sort_icon} alt="" className="h-[.6rem] w-[.56rem]" />
                 <span className="text-[.8rem]">Sort</span>
-              </div>
+              </div> */}
             </div>
             <ul className="mx-10 h-[75%] flex flex-col text-lg overflow-auto scrollbar-members-list">
               {filteredAccounts.map((filteredAccount) => {
