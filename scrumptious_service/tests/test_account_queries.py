@@ -1,5 +1,5 @@
 import pytest
-from queries.accounts import AccountQueries, AccountIn, AccountOutWithPassword, DuplicateAccountError
+from queries.accounts import AccountQueries, AccountIn, DuplicateAccountError
 from pymongo.errors import DuplicateKeyError
 import mongomock
 
@@ -11,7 +11,7 @@ def test_create_account():
     account_queries.collection.create_index("email", unique=True)
 
     account_data = {
-        "email": "test1a3F@example.com",
+        "email": "test4a3FY@example.com",
         "password": "test_password",
         "first_name": "Test",
         "last_name": "User"
@@ -31,6 +31,8 @@ def test_create_account():
         account_queries.create(account_in, hashed_password)
 
 
+
+#  The test checks if the create account method throws an error for duplicate email.
 #  To pass the test please do the following in the terminal:
 #  Cd to "scrumptious_service"
 #  Input "python -m pytest tests/test_account_queries.py"

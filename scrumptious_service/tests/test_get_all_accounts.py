@@ -1,5 +1,5 @@
 import mongomock
-from queries.accounts import AccountQueries, AccountIn, AccountOutWithPassword, DuplicateAccountError
+from queries.accounts import AccountQueries, AccountIn
 from fastapi.testclient import TestClient
 from pymongo.errors import DuplicateKeyError
 
@@ -7,7 +7,7 @@ client = mongomock.MongoClient()
 account_queries = AccountQueries()
 
 def test_get_all_accounts():
-    account_in = AccountIn(email="test7778Dp@test.com", password="testpassword", first_name="John", last_name="Doe")
+    account_in = AccountIn(email="test1772D55gp@test.com", password="testpassword", first_name="John", last_name="Doe")
     hashed_password = "hashed_testpassword"
 
     db_name = "test_db"
@@ -22,9 +22,9 @@ def test_get_all_accounts():
     assert any(account["email"] == created_account.email for account in accounts)
 
 
-
-
-
+#  This test creates a test account, inserts it into a test collection, and checks
+#  that the get_all_accounts method returns a list containing at least one account
+#  with the same email as the created account.
 
 #  To pass the test please do the following in the terminal:
 #  Cd to "scrumptious_service"
