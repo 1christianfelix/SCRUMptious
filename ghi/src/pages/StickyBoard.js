@@ -40,7 +40,7 @@ const StickyBoard = (props) => {
 
   // Get Boards
   const fetchBoard = async () => {
-    const url = `http://localhost:8000/stickyboard/${stickyboard_id}`;
+    const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/${stickyboard_id}`;
     const response = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -51,7 +51,7 @@ const StickyBoard = (props) => {
   };
 
   const fetchCategoryStickyData = async () => {
-    const url = `http://localhost:8000/${stickyboard_id}/stickies`;
+    const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/${stickyboard_id}/stickies`;
     const response = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -177,7 +177,7 @@ const StickyBoard = (props) => {
         category: category,
         stickyboard: `${stickyboard_id}`,
       };
-      const url = `http://localhost:8000/sticky/${id}`;
+      const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/sticky/${id}`;
       const response = await fetch(url, {
         method: "put",
         headers: {
@@ -196,6 +196,14 @@ const StickyBoard = (props) => {
     // update the the stickyboard backend's categories' shape
 
     updateStickyCategoryDND(itemCopy.id, destination.droppableId);
+  };
+
+  const onDragUpdate = (update) => {
+    if (update.destination) {
+      console.log("Destination:", update.destination.droppableId);
+    }
+
+    console.log("Source:", update.source.droppableId);
   };
 
   return (
@@ -262,6 +270,7 @@ const StickyBoard = (props) => {
 
         <div className="lg:h-[1rem] w-[90%] ml-[7.5%]">
           <DragDropContext
+            onDragUpdate={onDragUpdate}
             onDragEnd={handleDrag}
             onBeforeDragStart={handleAddSticky}
             className=""
@@ -290,6 +299,11 @@ const StickyBoard = (props) => {
                             ref={provided.innerRef}
                             {...provided.droppableProps}
                             className="h-[100%] overflow-auto overflow-x-hidden scrollbar-card scrollbar-thumb-white scrollbar-w-1 max-h-[calc(100vh-12.75rem)] pr-5 place-self-start" // Add overflow-y-auto here
+                            style={{
+                              backgroundColor: snapshot.isDraggingOver
+                                ? "#FFFFFF10"
+                                : "",
+                            }}
                           >
                             {data.stickies.map((el, index) => {
                               return (
