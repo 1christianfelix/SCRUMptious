@@ -8,23 +8,22 @@ const StickyNote = (props) => {
   let priority = props.priority;
   let priorityColor = "bg-white";
   let subject = props.subject;
-  let start = null;
-  let deadline = null;
   let content = props.content;
-
+  let start = new Date(props.start).toLocaleDateString();
+  let deadline = new Date(props.deadline).toLocaleDateString();
   let headerColor = null;
   let bodyColor = null;
 
   switch (priority) {
-    case "1":
+    case 1:
       priorityColor = "bg-gradient-to-l from-[#EFFFF2] to-[#a6e6b0] ";
       priority = "Low";
       break;
-    case "2":
+    case 2:
       priorityColor = "bg-gradient-to-l from-[#F5FDFF] to-[#85d4e6]";
       priority = "Medium";
       break;
-    case "3":
+    case 3:
       priorityColor = "bg-gradient-to-l from-[#FFECEC] to-[#e6b6b6]";
       priority = "High";
       break;
@@ -33,29 +32,29 @@ const StickyNote = (props) => {
   }
 
   switch (category) {
-    case "Backlog":
+    case "backlog":
       headerColor = "bg-sticky_blue_header";
       bodyColor = "bg-sticky_blue";
       break;
-    case "Todo":
+    case "todo":
       headerColor = "bg-sticky_red_header";
       bodyColor = "bg-sticky_red";
       break;
-    case "Doing":
+    case "doing":
       headerColor = "bg-sticky_yellow_header";
       bodyColor = "bg-sticky_yellow";
       break;
-    case "Review":
+    case "review":
       headerColor = "bg-sticky_teal_header";
       bodyColor = "bg-sticky_teal";
       break;
-    case "Done":
+    case "done":
       headerColor = "bg-sticky_green_header";
       bodyColor = "bg-sticky_green";
       break;
     default:
-      headerColor("bg-white");
-      bodyColor("bg-slate-400");
+      headerColor = "bg-white";
+      bodyColor = "bg-slate-400";
   }
 
   return (
@@ -72,11 +71,11 @@ const StickyNote = (props) => {
           <div className="flex flex-col ">
             <div className="flex justify-between">
               <span className="mr-1 1440:mr-2">Start:</span>
-              <span>DATE</span>
+              <span>{start}</span>
             </div>
             <div>
               <span className="mr-1 1440:mr-2">Deadline:</span>
-              <span>DATE</span>
+              <span>{deadline}</span>
             </div>
           </div>
         </div>
@@ -90,6 +89,7 @@ const StickyNote = (props) => {
             <p className="">{content}</p>
           </div>
           <img
+            alt="expand"
             src={expand_icon}
             className="m-[.7rem] self-end expand-button invisible"
           />

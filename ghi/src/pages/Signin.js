@@ -1,16 +1,15 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import signup_signin_bg from "../images/signup-signin-bg.png";
 // import signup_signin_bg_scaled from "../images/signup-signin-bg-scaled.png";
 // import bg_scaled from "../images/bg-scaled.png";
 
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-  const { token, login } = useToken();
+  const { login } = useToken();
   // console.log(login);
   // console.log(token);
   // console.log("test", token);
@@ -23,6 +22,7 @@ const Signin = () => {
   return (
     <div className="relative h-screen w-screen flex items-center justify-center font-Sudo_Var text-black">
       <img
+        alt="background"
         src={signup_signin_bg}
         className="absolute -z-10 w-screen h-screen"
       />
@@ -76,6 +76,5 @@ const Signin = () => {
     </div>
   );
 };
-
 
 export default Signin;
