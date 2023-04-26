@@ -67,7 +67,7 @@ const StickyBoard = (props) => {
     fetchBoard();
     fetchCategoryStickyData();
   }, []);
-  console.log(categoriesLists);
+  console.log("categoriesLists:", categoriesLists, typeof categoriesLists);
   const updateLists = () => {
     setState((prev) => {
       prev = { ...prev };
@@ -80,7 +80,7 @@ const StickyBoard = (props) => {
       return prev;
     });
   };
-
+  console.log("updateLitsts:", updateLists);
   useEffect(() => {
     updateLists();
   }, [categoriesLists]);
@@ -193,7 +193,7 @@ const StickyBoard = (props) => {
     const value = event.target.value;
     setPriority(value);
   };
-  const filteredStickyboards =
+  const filteredStickies =
     searchPriority
       ? data.stickies.filter(
           (stickyboard) =>
@@ -254,11 +254,38 @@ const StickyBoard = (props) => {
               id="priority"
               className="text-dark_mode_text_white flex self-center gap-2"
             >
-              <input type="radio" id="high" name="priority" value="high" />
+              <input
+                type="radio"
+                id="none"
+                name="priority"
+                value=""
+                defaultChecked
+                onChange={handleSearchPriorityChange}
+              />
+              <label htmlFor="none">None</label>
+              <input
+                type="radio"
+                id="high"
+                name="priority"
+                value="high"
+                onChange={handleSearchPriorityChange}
+              />
               <label htmlFor="high">High</label>
-              <input type="radio" id="medium" name="priority" value="medium" />
+              <input
+                type="radio"
+                id="medium"
+                name="priority"
+                value="medium"
+                onChange={handleSearchPriorityChange}
+              />
               <label htmlFor="medium">Medium</label>
-              <input type="radio" id="low" name="priority" value="low" />
+              <input
+                type="radio"
+                id="low"
+                name="priority"
+                value="low"
+                onChange={handleSearchPriorityChange}
+              />
               <label htmlFor="low">Low</label>
             </div>
           </div>
@@ -311,7 +338,6 @@ const StickyBoard = (props) => {
                                   >
                                     {(provided) => {
                                       return (
-
                                         <div
                                           key={index}
                                           ref={provided.innerRef}
@@ -331,7 +357,6 @@ const StickyBoard = (props) => {
                                             alt="expand"
                                             src={expand_icon}
                                             className="absolute bottom-3 right-3 self-end expand-button"
-
                                             onClick={() => {
                                               handleOpenModal("update", el);
                                               setCategory(key);
