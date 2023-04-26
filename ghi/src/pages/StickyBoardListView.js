@@ -17,7 +17,7 @@ const StickyBoardListView = () => {
   const [stickyboards, setStickyboards] = useState([]);
   const [stickyboard, setStickyboard] = useState({});
   const getStickyboardsData = async () => {
-    const stickyboardsUrl = "http://localhost:8000/stickyboard";
+    const stickyboardsUrl = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/stickyboard`;
     const stickyboardsResponse = await fetch(stickyboardsUrl, {
       method: "GET",
       headers: {
@@ -36,13 +36,16 @@ const StickyBoardListView = () => {
   }, [token]);
 
   const handleDeletion = (id) => {
-    fetch(`http://localhost:8000/stickyboard/${id}/`, {
-      method: "delete",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((response) => {
+    fetch(
+      `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/stickyboard/${id}/`,
+      {
+        method: "delete",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    ).then((response) => {
       if (response.ok) {
         getStickyboardsData();
       }

@@ -85,7 +85,7 @@ const StickyBoardUpdateForm = (props) => {
   // const { accounts, setAccounts } = useContext(AccountContext);
   const [accounts, setAccounts] = useState([]);
   const getAccountsData = async () => {
-    const accountUrl = "http://localhost:8000/accounts";
+    const accountUrl = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/accounts`;
     const accountResponse = await fetch(accountUrl);
     if (accountResponse.ok) {
       const data = await accountResponse.json();
@@ -116,7 +116,7 @@ const StickyBoardUpdateForm = (props) => {
     data.start_date = new Date(start + "T00:00:00");
     data.deadline = new Date(deadline + "T00:00:00");
     data.account = members;
-    const url = `http://localhost:8000/stickyboard/${id}/`;
+    const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/stickyboard/${id}`;
     const fetchConfig = {
       method: "put",
       body: JSON.stringify(data),

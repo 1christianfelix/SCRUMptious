@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import signup_signin_bg from "../images/signup-signin-bg.png";
 import { useNavigate, Link, useToken } from "react-router-dom";
-import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
@@ -10,7 +9,7 @@ const ResetPassword = () => {
   const handleResetPassword = async (e) => {
     e.preventDefault();
 
-    const resetPasswordUrl = "http://localhost:3000/resetpassword";
+    const resetPasswordUrl = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/resetpassword}`;
     const response = await fetch(resetPasswordUrl, {
       method: "POST",
       headers: {
