@@ -16,12 +16,20 @@ const Sidebar = (props) => {
   const navigate = useNavigate();
 
   const handleLogout = (e) => {
+    props.closeAcc();
     logout();
     navigate("/signin");
   };
 
+  const handleCloseModals = () => {
+    props.closeAcc();
+  };
+
   return (
-    <nav className="flex flex-col w-[6.5rem] h-screen bg-[#3a3a3a]">
+    <nav
+      className="flex flex-col w-[6.5rem] h-screen bg-[#3a3a3a]"
+      onClick={handleCloseModals}
+    >
       <section className="LOGO-SECTION bg-white bg-gradient-to-l from-white to-[#FAFFBB] flex h-[5.37500rem] drop-shadow-md">
         <span className="Scrumptious m-[2.5%] text-black font-Sudo_Var">
           SCRUMPTIOUS
@@ -36,6 +44,7 @@ const Sidebar = (props) => {
             data-tooltip-id="Stickyboards"
             onClick={() => {
               navigate("/dashboard");
+              props.closeAcc();
             }}
           >
             <img src={boards} alt="" />
@@ -43,7 +52,10 @@ const Sidebar = (props) => {
           <div
             className="nav-button-2 "
             data-tooltip-id="Users"
-            onClick={props.openAcc}
+            onClick={(e) => {
+              e.stopPropagation();
+              props.openAcc();
+            }}
           >
             <img src={user_group} alt="" />
           </div>
