@@ -9,6 +9,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import StickyNoteCreateForm from "../components/StickyNoteCreateForm";
 import StickyNoteUpdateForm from "../components/StickyNoteUpdateForm";
+import { Tooltip } from "react-tooltip";
 
 const StickyBoard = (props) => {
   const { token } = useToken();
@@ -328,6 +329,7 @@ const StickyBoard = (props) => {
                           handleOpenModal("create");
                           setCategory(key);
                         }}
+                        data-tooltip-id="append-top"
                       />
                     </div>
                     <Droppable droppableId={key}>
@@ -382,6 +384,7 @@ const StickyBoard = (props) => {
                                               handleOpenModal("update", el);
                                               setCategory(key);
                                             }}
+                                            data-tooltip-id="update"
                                           />
                                           {index ===
                                             data.stickies.length - 1 && (
@@ -393,7 +396,10 @@ const StickyBoard = (props) => {
                                                 setAppend(true);
                                               }}
                                             >
-                                              <div className="flex absolute -bottom-6 1440:-bottom-7 items-center hover:cursor-pointer transition-colors duration-200 text-slate-500 hover:text-white">
+                                              <div
+                                                className="flex absolute -bottom-6 1440:-bottom-7 items-center hover:cursor-pointer transition-colors duration-200 text-slate-500 hover:text-black"
+                                                data-tooltip-id="append-bottom"
+                                              >
                                                 <div className="h-[1rem] 1440:h-[1.2rem] pr-2 text-current ">
                                                   <svg
                                                     className="h-full stroke-current"
@@ -437,6 +443,17 @@ const StickyBoard = (props) => {
           </DragDropContext>
         </div>
       </div>
+      <Tooltip id="update" place="bottom" content="Update Sticky Note" />
+      <Tooltip
+        id="append-top"
+        palce="right"
+        content="Add new Sticky to the top"
+      />
+      <Tooltip
+        id="append-bottom"
+        palce="top"
+        content="Add new Sticky to the bottom"
+      />
     </div>
   );
 };
