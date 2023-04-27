@@ -6,7 +6,7 @@ const AccountsPage = ({ token }) => {
   const [accounts, setAccounts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [gridView, setGridView] = useState(false);
-  const [isGridView, setIsGridView] = useState(false);
+//   const [isGridView, setIsGridView] = useState(false);
   const [selectedAccount, setSelectedAccount] = useState(null);
 
   const getAccountsData = async () => {
@@ -43,9 +43,9 @@ const AccountsPage = ({ token }) => {
     }
   };
 
-  const toggleView = () => {
-    setIsGridView(!isGridView);
-  };
+//   const toggleView = () => {
+//     setIsGridView(!isGridView);
+//   };
 
   const handleAccountDoubleClick = (account) => {
     setSelectedAccount(account);
