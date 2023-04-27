@@ -1,7 +1,7 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import signup_signin_bg from "../images/signup-signin-bg.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Signup(props) {
   const navigate = useNavigate();
@@ -39,6 +39,11 @@ function Signup(props) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
+    const response = await fetch("http://localhost:8000/accounts");
+    const data = await response.json();
+    const emails = data.map((user) => user.email);
+
     if (
       firstName === "" ||
       lastName === "" ||
@@ -53,7 +58,12 @@ function Signup(props) {
       alert("Your passwords must match!");
       return;
     }
-    const data = {
+    if (emails.includes(email)) {
+      alert("This email already exists. Please use a different email address.");
+      return;
+    }
+
+    const formData = {
       email: email,
       first_name: firstName,
       last_name: lastName,
@@ -66,11 +76,11 @@ function Signup(props) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(formData),
     };
 
-    const response = await fetch(accountUrl, fetchConfig);
-    if (response.ok) {
+    const postResponse = await fetch(accountUrl, fetchConfig);
+    if (postResponse.ok) {
       navigate("/signin");
     }
   };
@@ -78,11 +88,12 @@ function Signup(props) {
   return (
     <div className="relative h-screen w-screen flex items-center justify-center font-Sudo_Var text-black">
       <img
+        alt="background"
         src={signup_signin_bg}
         className="absolute -z-10 w-screen h-screen "
       />
       {/* Form Box */}
-      <div className="SIGNUP z-10 h-[866px] w-[652px] backdrop-blur-[9.3px] bg-[#c1c1c1]/50 flex flex-col items-center gap-8 1080:scale-75 1440:scale-105">
+      <div className="SIGNUP z-10 h-[866px] w-[652px] backdrop-blur-[9.3px] bg-[#c1c1c1]/50 flex flex-col items-center gap-8 rounded-[19px] 1080:scale-75 1440:scale-105">
         <p className="p-[.5rem] pl-[1rem] mb-[1rem] text-[4rem] leading-none self-start text-dark_mode_dark">
           Sign Up
         </p>
@@ -147,6 +158,17 @@ function Signup(props) {
         >
           Sign Up
         </button>
+        <div className="text-2xl inline">
+          <div className="flex items-center justify-center gap-2 text-dark_mode_text_dark">
+            <span> Already have an account? </span>
+            <Link
+              to="/signin"
+              className="text-white self-center inline-block underline hover:text-slate-700"
+            >
+              Sign in here!
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

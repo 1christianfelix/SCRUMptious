@@ -1,59 +1,66 @@
 import "./App.css";
 import Sidebar from "./components/Sidebar";
-import Dashboard from "./pages/Dashboard";
-import StickyNote from "./components/StickyNote";
-import React, { useEffect, useState, useContext } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import StickyBoardCreateForm from "./components/StickyBoardCreateForm";
+// import Dashboard from "./pages/Dashboard";
+// import StickyNote from "./components/StickyNote";
+import React, { useContext, useState } from "react";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
+import StickyBoardListView from "./pages/StickyBoardListView";
+import ResetPassword from "./pages/ResetPassword";
+import AccountsPage from "./components/AccountsPage";
 
-import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
-
+import { Routes, Route, Navigate } from "react-router-dom";
+import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
+import StickyBoard from "./pages/StickyBoard";
+import { AccountProvider } from "./context/AccountContext";
 
 function App() {
-  const [accounts, setAccounts] = useState([]);
-  const getAccountsData = async () => {
-    const accountUrl = "http://localhost:8000/accounts";
-    const accountResponse = await fetch(accountUrl);
-    if (accountResponse.ok) {
-      const data = await accountResponse.json();
-      setAccounts(data);
-    }
+  const { token } = useContext(AuthContext);
+
+  console.log("token: ", token);
+
+  const [accModalStatus, setAccModalStatus] = useState(false);
+  const handleOpenAccModal = () => {
+    setAccModalStatus(true);
   };
-  useEffect(() => {
-    getAccountsData();
-  }, []);
+  const handleCloseAccModal = () => {
+    setAccModalStatus(false);
+  };
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/signin" element={<Signin />} />
+    <AccountProvider>
+      <div>
+        {!token ? (
+          <Routes>
+            <Route path="/" element={<Navigate to="/signin" />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/resetpassword" element={<ResetPassword />} />
 
-
-        <Route
-          path="*"
-          element={
-            <div className="flex font-Sudo_Var">
-              <Sidebar />
-              <Dashboard />
+            {/* <Route path="*" element={<Navigate to="/signin" />} /> */}
+          </Routes>
+        ) : (
+          <div className="flex font-Sudo_Var">
+            {console.log("token success")}
+            <Sidebar openAcc={handleOpenAccModal} />
+            <section className="bg-slate-100 h-screen flex-grow relative">
+              <AccountsPage
+                accModalStatus={accModalStatus}
+                closeAcc={handleCloseAccModal}
+              />
               <Routes>
-                <Route path="stickyboard">
-                  <Route
-                    path="new"
-                    element={<StickyBoardCreateForm accounts={accounts} />}
-                  />
+                <Route path="/dashboard">
+                  <Route path=":stickyboard_id" element={<StickyBoard />} />
+                  <Route index element={<StickyBoardListView />} />
                 </Route>
+                <Route path="*" element={<Navigate to="/dashboard" />} />
+                <Route path="/accountspage" element={<AccountsPage />} />
               </Routes>
-            </div>
-          }
-        />
-      </Routes>
-      <AuthProvider
-        tokenUrl={`${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/token`}
-      ></AuthProvider>
-    </BrowserRouter>
+            </section>
+          </div>
+        )}
+      </div>
+    </AccountProvider>
   );
 }
 

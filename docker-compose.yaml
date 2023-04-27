@@ -16,8 +16,9 @@ services:
       DATABASE_NAME: scrumptious-mongo-data
       WAIT_HOSTS: mongo:27017
       WAIT_BEFORE: 5
-      WAIT_TIMEOUT: 60  
+      WAIT_TIMEOUT: 60
       SIGNING_KEY: 87fe4a3fcfb60092dbaeb854a196bc3d9b190aed7930c734749e85245de698420c25f8e6899c421b4494e99459e01058de5daa9d49584cd62ec975da9aea33da
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY}
 
   ghi:
     image: node:lts-bullseye
@@ -33,6 +34,7 @@ services:
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
       REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST: http://localhost:8000
+      REACT_APP_USER_SERVICE_API_HOST: http://localhost:8000
 
   mongo:
     image: mongo:6
