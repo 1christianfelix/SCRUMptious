@@ -168,7 +168,7 @@ const StickyBoardListView = () => {
           <div className="flex items-center bg-white rounded-[100px] w-[70%] h-[4.75rem] px-10 text-2xl">
             <input
               type="text"
-              placeholder="Search Sticky Boards"
+              placeholder="Search Sticky Boards By Name or Description"
               className="focus:outline-none w-[100%]"
               onChange={handleSearchTermChange}
               value={searchTerm}
@@ -214,12 +214,14 @@ const StickyBoardListView = () => {
                             onClick={() => {
                               handleDeletion(stickyboard.id);
                             }}
+                            data-tooltip-id="delete"
                           />
                           <button
                             className="expand-button px-[.7rem] py-[.1rem]  absolute 1440:bottom-10 bottom-[2.25rem] right-[3rem]"
                             onClick={() =>
                               navigate(`/dashboard/${stickyboard.id}`)
                             }
+                            data-tooltip-id="visit"
                           >
                             <img
                               src={Back_light}
@@ -233,8 +235,7 @@ const StickyBoardListView = () => {
                               handleOpenModal("update", stickyboard);
                               setStickyboard(stickyboard);
                             }}
-                            data-tooltip-id="my-tooltip"
-                            data-tooltip-content="Update Sticky Board"
+                            data-tooltip-id="update"
                           >
                             <img alt="expand" src={expand_icon_dark} />
                           </button>
@@ -247,7 +248,9 @@ const StickyBoardListView = () => {
           </div>
         </div>
       </div>
-      <Tooltip id="my-tooltip" place="bottom" />
+      <Tooltip id="update" place="bottom" content="Update Sticky Board" />
+      <Tooltip id="visit" place="bottom" content="Visit Sticky Board" />
+      <Tooltip id="delete" place="bottom" content="Delete Sticky Board" />
     </div>
   );
 };
