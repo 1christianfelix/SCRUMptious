@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import user_icon from "../images/icons/user_icon.svg";
 import boards from "../images/icons/boards.svg";
 import book from "../images/icons/book.svg";
@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { Tooltip } from "react-tooltip";
 
-const Sidebar = () => {
+const Sidebar = (props) => {
   const { logout } = useToken();
   const navigate = useNavigate();
 
@@ -31,10 +31,20 @@ const Sidebar = () => {
       {/* Need to replace anchor tags with link tags when we have react router ready */}
       <section className="BTN_SECTION flex h-[48%] border-b-solid border-b-[1px] border-b-dark_mode_dark text-dark_mode_text_white">
         <div className="w-[100%] flex flex-col gap-3 items-center first:mt-[25%]">
-          <div className="nav-button-2 " data-tooltip-id="Stickyboards">
+          <div
+            className="nav-button-2 "
+            data-tooltip-id="Stickyboards"
+            onClick={() => {
+              navigate("/dashboard");
+            }}
+          >
             <img src={boards} alt="" />
           </div>
-          <div className="nav-button-2 " data-tooltip-id="Users">
+          <div
+            className="nav-button-2 "
+            data-tooltip-id="Users"
+            onClick={props.openAcc}
+          >
             <img src={user_group} alt="" />
           </div>
           <div className="nav-button-2 " data-tooltip-id="AssignedStickies">

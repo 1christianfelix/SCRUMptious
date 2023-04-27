@@ -173,9 +173,9 @@ const StickyBoardListView = () => {
           </div>
         </div>
       </div>
-      <div className="px-20 1080:pt-[2rem] flex flex-col 1080:gap-[2rem] 1440:pt-20 1440:gap-20 overflow-hidden h-[100%]">
-        <div className="flex gap-10 items-center justify-center">
-          <div className="flex items-center bg-white rounded-[100px] w-[70%] h-[4.75rem] px-10 text-2xl">
+      <div className="px-20 1080:pt-[2rem] flex flex-col 1080:gap-[2rem] 1440:pt-20 1440:gap-20 overflow-hidden h-[100%] ">
+        <div className="flex gap-10 items-center justify-center ">
+          <div className="flex items-center bg-white rounded-[100px] w-[70%] h-[4.75rem] px-10 text-2xl drop-shadow-md">
             <input
               type="text"
               placeholder="Search Sticky Boards By Name or Description"
@@ -227,7 +227,7 @@ const StickyBoardListView = () => {
                             <img
                               alt="garbage"
                               src={garbage}
-                              className="expand-button absolute bottom-9 left-5"
+                              className="expand-button absolute bottom-10 left-5"
                               onClick={() => {
                                 handleDeletion(stickyboard.id);
                               }}
