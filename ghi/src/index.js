@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
+import "react-tooltip/dist/react-tooltip.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const domain = /https:\/\/[^/]+/;

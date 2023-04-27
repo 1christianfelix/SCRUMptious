@@ -1,16 +1,17 @@
 import React from "react";
-// import user_icon from "../images/icons/user_icon.svg";
-// import boards from "../images/icons/boards.svg";
-// import book from "../images/icons/book.svg";
-// import calendar from "../images/icons/calendar.svg";
-// import sticky from "../images/icons/Sticky.svg";
-// import chart from "../images/icons/chart.svg";
-// import user_group from "../images/icons/user_group.svg";
+import user_icon from "../images/icons/user_icon.svg";
+import boards from "../images/icons/boards.svg";
+import book from "../images/icons/book.svg";
+import calendar from "../images/icons/calendar.svg";
+import sticky from "../images/icons/Sticky.svg";
+import chart from "../images/icons/chart.svg";
+import user_group from "../images/icons/user_group.svg";
 import signout_icon from "../images/icons/signout_icon.svg";
 import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
+import { Tooltip } from "react-tooltip";
 
-const Sidebar = () => {
+const Sidebar = (props) => {
   const { logout } = useToken();
   const navigate = useNavigate();
 
@@ -20,74 +21,135 @@ const Sidebar = () => {
   };
 
   return (
-    <nav className="flex flex-col w-[14.75rem] h-screen bg-dark_mode_dark flex-none">
-      <section className="LOGO-SECTION flex h-[8.37500rem] border-b-solid border-b-[1px] border-b-dark_mode_text_white">
-        <span className="Scrumptious m-[2.5%] text-dark_mode_text_white font-Sudo_Var">
+    <nav className="flex flex-col w-[6.5rem] h-screen bg-[#3a3a3a]">
+      <section className="LOGO-SECTION bg-white bg-gradient-to-l from-white to-[#FAFFBB] flex h-[5.37500rem] drop-shadow-md">
+        <span className="Scrumptious m-[2.5%] text-black font-Sudo_Var">
           SCRUMPTIOUS
         </span>
       </section>
 
       {/* Need to replace anchor tags with link tags when we have react router ready */}
-      <section className="BTN_SECTION flex h-[48%] border-b-solid border-b-[1px] border-b-dark_mode_text_white text-dark_mode_text_white">
-        <div className="w-[100%] flex flex-col gap-3">
-          {/* <a href="#" className="nav-button mt-[10%]">
-            <img src={sticky} alt="" />
-            <span href="#" className="self-center">
-              Home
-            </span>
-          </a>
-          <a href="#" className="nav-button">
-            <img src={user_group} alt="" />
-            <span href="#" className="self-center">
-              Members
-            </span>
-          </a>
-          <a href="#" className="nav-button">
+      <section className="BTN_SECTION flex h-[48%] border-b-solid border-b-[1px] border-b-dark_mode_dark text-dark_mode_text_white">
+        <div className="w-[100%] flex flex-col gap-3 items-center first:mt-[25%]">
+          <div
+            className="nav-button-2 "
+            data-tooltip-id="Stickyboards"
+            onClick={() => {
+              navigate("/dashboard");
+            }}
+          >
             <img src={boards} alt="" />
-            <span href="#" className="self-center">
-              Sticky Boards
-            </span>
-          </a>
-          <a href="#" className="nav-button">
+          </div>
+          <div
+            className="nav-button-2 "
+            data-tooltip-id="Users"
+            onClick={props.openAcc}
+          >
+            <img src={user_group} alt="" />
+          </div>
+          <div className="nav-button-2 " data-tooltip-id="AssignedStickies">
+            <img src={sticky} alt="" />
+          </div>
+          <div className="nav-button-2 " data-tooltip-id="Logs">
             <img src={book} alt="" />
-            <span href="#" className="self-center">
-              Logs
-            </span>
-          </a>
-          <a href="#" className="nav-button">
+          </div>
+          <div className="nav-button-2 " data-tooltip-id="Timeframe">
             <img src={calendar} alt="" />
-            <span href="#" className="self-center">
-              Timeline
-            </span>
-          </a>
-          <a href="#" className="nav-button">
+          </div>
+          <div className="nav-button-2 " data-tooltip-id="Analytics">
             <img src={chart} alt="" />
-            <span href="#" className="self-center">
-              Analytics
-            </span>
-          </a> */}
+          </div>
         </div>
       </section>
       {/* This section below needs to be configured to use custom components */}
-      <section className="USER_SECTION flex-grow flex flex-col">
-        <section className="CHAT_SECTION m-[10%] flex-grow  text-dark_mode_text_white">
-          Chat
-        </section>
-
-        <section className="USER_SECTION mb-[6%] text-dark_mode_text_white">
-          {/* <a href="#" className="nav-button">
+      <section className="USER_SECTION flex-grow flex flex-col justify-between items-center gap-3">
+        <div className="text-white">
+          <span>Chat</span>
+        </div>
+        <section className="flex flex-col gap-3 w-[100%] items-center">
+          <div
+            className="nav-button-2 mb-[6%] text-dark_mode_text_white"
+            data-tooltip-id="Account"
+          >
             <img alt="user" src={user_icon} className="h-10 w-auto" />
-            <span className="self-center">First Last</span>
-          </a> */}
-        </section>
-        <section
-          className="nav-button Sign-out mb-[6%] text-dark_mode_text_white hover:cursor-pointer"
-          onClick={handleLogout}
-        >
-          <img alt="signout_icon" src={signout_icon} className=" h-10 w-auto" />
-          <span className="self-center">Sign Out</span>
+          </div>
+          <div
+            className="nav-button-2 Sign-out mb-[25%]"
+            onClick={handleLogout}
+            data-tooltip-id="Logout"
+          >
+            <img
+              alt="signout_icon"
+              src={signout_icon}
+              className=" h-10 w-auto"
+            />
+          </div>
         </section>
       </section>
+      <Tooltip
+        id="Stickyboards"
+        place="right"
+        content="Sticky Boards"
+        style={{
+          zIndex: "100",
+        }}
+      />
+      <Tooltip
+        id="Users"
+        place="right"
+        content="Users"
+        style={{
+          zIndex: "100",
+        }}
+      />
+      <Tooltip
+        id="AssignedStickies"
+        place="right"
+        content="Assigned Stickes [Soon]"
+        style={{
+          zIndex: "100",
+        }}
+      />
+      <Tooltip
+        id="Logs"
+        place="right"
+        content="Logs/History [Soon]"
+        style={{
+          zIndex: "100",
+        }}
+      />
+      <Tooltip
+        id="Timeframe"
+        place="right"
+        content="Timeframe [Soon]"
+        style={{
+          zIndex: "100",
+        }}
+      />
+      <Tooltip
+        id="Analytics"
+        place="right"
+        content="Analytics [Soon]"
+        style={{
+          zIndex: "100",
+        }}
+      />
+      <Tooltip
+        id="Account"
+        place="right"
+        content="Account [Soon]"
+        style={{
+          zIndex: "100",
+        }}
+      />
+      <Tooltip
+        id="Logout"
+        place="right"
+        content="Logout"
+        style={{
+          zIndex: "100",
+        }}
+      />
     </nav>
   );
 };

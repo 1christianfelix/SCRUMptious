@@ -211,9 +211,6 @@ function StickyNoteUpdateForm(props) {
                   defaultValue={priority}
                   onChange={handlePriorityChange}
                 >
-                  <option value="Select Priority" disabled hidden>
-                    Select Priority
-                  </option>
                   <option type="number" value="3">
                     High
                   </option>
@@ -317,8 +314,6 @@ function StickyNoteUpdateForm(props) {
               </div>
             </div>
           </div>
-          {/* <div> */}
-
           <div className="MEMBER-LIST w-[20.5625rem] h-[39.375rem] bg-[#CCCCCC] bg-opacity-60 backdrop-blur-[9.3px] rounded-[19px] flex flex-col text-dark_mode_font ">
             <div className="flex items-center gap-[.5rem] m-5">
               <div className="SEARCH BAR w-[13.4375rem] h-[2.125rem] bg-white rounded-[19px] flex items-center justify-between px-3 ">
@@ -330,18 +325,6 @@ function StickyNoteUpdateForm(props) {
                 ></input>
                 <img src={Search_light} alt="" className="h-[1rem] w-[1rem]" />
               </div>
-              {/* <div className="FILTER flex gap-[.2rem] items-center expand-button">
-                <img
-                  src={filter_icon}
-                  alt=""
-                  className="h-[.6rem] w-[.56rem] expand-button"
-                />
-                <span className="text-[.8rem]">Filter</span>
-              </div>
-              <div className="SORT flex gap-[.2rem] items-center expand-button">
-                <img src={sort_icon} alt="" className="h-[.6rem] w-[.56rem]" />
-                <span className="text-[.8rem]">Sort</span>
-              </div> */}
             </div>
             <ul className="mx-10 h-[75%] flex flex-col text-lg overflow-auto scrollbar-members-list">
               {filteredAccounts.map((filteredAccount) => {

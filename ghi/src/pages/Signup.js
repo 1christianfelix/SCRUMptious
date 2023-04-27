@@ -40,9 +40,7 @@ function Signup(props) {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await fetch(
-      `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/accounts`
-    );
+    const response = await fetch("http://localhost:8000/accounts");
     const data = await response.json();
     const emails = data.map((user) => user.email);
 
@@ -72,7 +70,7 @@ function Signup(props) {
       password: password,
     };
 
-    const accountUrl = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/accounts`;
+    const accountUrl = "http://localhost:8000/accounts";
     const fetchConfig = {
       method: "post",
       headers: {
