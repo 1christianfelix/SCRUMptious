@@ -191,3 +191,27 @@
 # 4-24-23
 
 - Cleaned up the JS files to comply with lint.
+
+# 4-25-23
+
+- Helped group members with merging main into their branches and experimented with refactoring App.js to tackle a CORS error that triggers upon reload despite a 200 response
+- Continued develop new UI/UX theme
+- Started progress on Readme with a layout and endpoints
+
+# 4-26-23
+
+- Fixed the CORS bug with the help of Rosheen. We had misinput the CORS_HOST value in caprover.
+- Replaced all local host with SERVICE_HOST name and debugged minor console errors
+- Helped merge all major issues into main
+- Worked on implementing All current features into the new UIUX
+- Added tooltips to various buttons
+- Added dragging functionality to stickyboards
+- Added navigation features to sidebar buttons
+
+# 4-27-23
+
+- Encountered deployment console errors upon merging new UI
+- Fixed those errors by recommenting in the BASENAME and DEPLOY variables in index.js
+- Fixed UI issues with the Account modal not disappearing.
+- Confirmation our 404 error was common. Moved on from it.
+- Setup the Design Concept portion in Readme
