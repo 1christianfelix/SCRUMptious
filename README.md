@@ -1,4 +1,3 @@
-
 # Scrumptious
 
 This link will lead to the deployed website:
@@ -126,6 +125,7 @@ Upon completion of the previous commands you will see all four Docker containers
 
 <details>
 <summary markdown="span">GET All Accounts: </summary>
+
 ```
 [
   {
@@ -136,8 +136,12 @@ Upon completion of the previous commands you will see all four Docker containers
   }
 ]
 ```
+</details>
+
 <details>
+
 <summary markdown="span">POST Account: </summary>
+
 ```
 {
     "email": "test_account@test.com",
@@ -146,3 +150,4 @@ Upon completion of the previous commands you will see all four Docker containers
     "last_name": "Test_Last_Name"
 }
 ```
+</details>
