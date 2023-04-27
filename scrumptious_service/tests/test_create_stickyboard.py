@@ -69,4 +69,4 @@ def test_create_stickyboard():
 
 #  To pass the test please do the following within Docker:
 #  Copy and paste "python -m pytest tests/test_create_stickyboard.py"
-#   This particular test will ONLY pass in Docker in container fastapi-1
+#   This particular test will ONLY pass in Docker in container fastapi-1!
