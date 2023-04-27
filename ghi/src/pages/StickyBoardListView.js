@@ -227,7 +227,7 @@ const StickyBoardListView = () => {
                             <img
                               alt="garbage"
                               src={garbage}
-                              className="expand-button absolute bottom-10 left-5"
+                              className="expand-button absolute bottom-9 1440:bottom-10 left-5"
                               onClick={() => {
                                 handleDeletion(stickyboard.id);
                               }}

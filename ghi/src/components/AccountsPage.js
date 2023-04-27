@@ -11,7 +11,7 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
   const [selectedAccount, setSelectedAccount] = useState(null);
 
   const getAccountsData = async () => {
-    const accountUrl = "http://localhost:8000/accounts";
+    const accountUrl = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/accounts`;
     const accountResponse = await fetch(accountUrl);
     if (accountResponse.ok) {
       const data = await accountResponse.json();
@@ -31,7 +31,7 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
   );
 
   const handleDeleteAccount = async (id) => {
-    const deleteUrl = `http://localhost:8000/accounts/${id}`;
+    const deleteUrl = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/accounts/${id}`;
     const deleteResponse = await fetch(deleteUrl, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
@@ -72,7 +72,7 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
         <img
           src={close_out}
           alt="close"
-          className="absolute top-3 right-5 hover:cursor-pointer expand-button"
+          className="absolute top-3 right-5 hover:cursor-pointer expand-button h-[2rem] w-[2rem]"
           onClick={() => {
             closeAcc();
           }}
