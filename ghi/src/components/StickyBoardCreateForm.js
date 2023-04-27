@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import pen from "../images/icons/pen.svg";
 import Search_light from "../images/icons/Search_light.svg";
 import close_out from "../images/icons/close_out_icon.svg";
 import useToken from "@galvanize-inc/jwtdown-for-react";
+import AccountContext from "../context/AccountContext";
 
-// The prop being passed in will determine if it's a Create or Update
 const StickyBoardCreateForm = (props) => {
   const { token } = useToken();
-
+  const { accounts } = useContext(AccountContext);
   const [boardName, setBoardName] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("");
@@ -15,28 +15,23 @@ const StickyBoardCreateForm = (props) => {
   const [deadline, setDeadline] = useState("");
   const [members, setMembers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-
   let gradient = null;
   switch (priority) {
     case "1":
       gradient =
         "bg-gradient-to-tl from-[#B8FFC3] from-20% to-[#EFFFF2] to-80%";
-      // priority = "Low";
       break;
     case "2":
       gradient =
         "bg-gradient-to-tl from-[#94ECFF] from-20% to-[#F5FDFF] to-80%";
-      // priority = "Medium";
       break;
     case "3":
       gradient =
         "bg-gradient-to-tl from-[#FFCACA] from-20% to-[#FFECEC] to-80%";
-      // priority = "High";
       break;
     default:
       gradient = "bg-white";
   }
-
   const handleBoardNameChange = (event) => {
     const value = event.target.value;
     setBoardName(value);
@@ -61,28 +56,11 @@ const StickyBoardCreateForm = (props) => {
     const value = event.target.value;
     setSearchTerm(value);
   };
-
-  // const { accounts, setAccounts } = useContext(AccountContext);
-  const [accounts, setAccounts] = useState([]);
-  const getAccountsData = async () => {
-    const accountUrl = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/accounts`;
-    const accountResponse = await fetch(accountUrl);
-    if (accountResponse.ok) {
-      const data = await accountResponse.json();
-      setAccounts(data);
-      console.log(data);
-    }
-  };
-  useEffect(() => {
-    getAccountsData();
-  }, []);
-
   let filteredAccounts = accounts.filter(
     (account) =>
       account.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       account.first_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
   if (!props.open) {
     return null;
   }
@@ -114,7 +92,6 @@ const StickyBoardCreateForm = (props) => {
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       props.getStickyboardsData();
-
       setBoardName("");
       setDescription("");
       setPriority("");
@@ -123,7 +100,6 @@ const StickyBoardCreateForm = (props) => {
       setMembers([]);
     }
   };
-
   return (
     <div
       className="h-screen w-[100%] flex items-center justify-center absolute  z-10 backdrop-blur-md "
@@ -137,7 +113,6 @@ const StickyBoardCreateForm = (props) => {
         className="flex gap-5 backdrop-blur-[9.3px]"
         onSubmit={handleSubmit}
       >
-        {/* Input Section */}
         <div
           className={`INPUT-FORM w-[46.3125rem] h-[34.625rem] ${gradient} opacity-[.90] rounded-[19px] flex flex-col items-center`}
         >
@@ -153,7 +128,6 @@ const StickyBoardCreateForm = (props) => {
               className="hover:cursor-pointer expand-button"
             />
           </div>
-
           <div className="w-[90%] flex flex-col gap-4 mt-2 text-dark_mode_font text-[2rem]">
             <div className="flex justify-between">
               <div className="PRIORITY">
@@ -192,7 +166,6 @@ const StickyBoardCreateForm = (props) => {
                   required
                   className="leading-none bg-transparent placeholder:text-dark_mode_font focus:outline-none w-[100%]"
                   onChange={handleBoardNameChange}
-                  // value={boardName}
                 ></input>
                 <img alt="pen" src={pen} className="h-8 w-8" />
               </div>
@@ -206,7 +179,6 @@ const StickyBoardCreateForm = (props) => {
                     required
                     className="bg-transparent  focus:outline-none hover:cursor-text"
                     onChange={handleStartChange}
-                    // value={start}
                   />
                 </div>
               </div>
@@ -218,7 +190,6 @@ const StickyBoardCreateForm = (props) => {
                     required
                     className="bg-transparent focus:outline-none hover:cursor-text"
                     onChange={handleDeadlineChange}
-                    // value={deadline}
                   />
                 </div>
               </div>
@@ -229,15 +200,12 @@ const StickyBoardCreateForm = (props) => {
             required
             className="CONTENT-BOX w-[90%] mt-3 flex-grow overflow-auto scrollbar-card scrollbar-w-2 text-dark_mode_font focus:outline-none word-wrap bg-transparent border-solid border-[1px] border-black resize-none  text-[1.5rem] p-5 placeholder:text-black"
             onChange={handleDescriptionChange}
-            // value={description}
             placeholder="Description"
           />
-
           <button className="button-hover-white-filled bg-white my-6 mx-12 px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky">
             Create
           </button>
         </div>
-        {/* Member Selection */}
         <div className="MEMBER-LIST w-[20.5625rem] h-[34.625rem] bg-[#CCCCCC] bg-opacity-60 backdrop-blur-[9.3px] rounded-[19px] flex flex-col text-dark_mode_font">
           <div className="flex items-center gap-[.5rem] m-5">
             <div className="SEARCH BAR w-[13.4375rem] h-[2.125rem] bg-white rounded-[19px] flex items-center justify-between px-3 ">
@@ -255,7 +223,6 @@ const StickyBoardCreateForm = (props) => {
             </div>
           </div>
           <div className="mx-10 h-[75%] flex flex-col text-lg overflow-auto scrollbar-members-list">
-            {/* Use this as the template to create multiple checkbox fields using the maps function */}
             {filteredAccounts.map((filteredAccount) => {
               return (
                 <div
