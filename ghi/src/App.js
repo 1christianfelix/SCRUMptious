@@ -8,16 +8,19 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 import StickyBoard from "./pages/StickyBoard";
 import { AccountProvider } from "./context/AccountContext";
+import { useLocation } from "react-router-dom";
 
 function App() {
-  const { token } = useContext(AuthContext);
+  // const { token } = useContext(AuthContext);
+  const location = useLocation();
+  const currentPath = location.pathname;
 
-  console.log("token: ", token);
+  console.log("token: ", currentPath);
 
   return (
     <AccountProvider>
       <div>
-        {!token ? (
+        {currentPath === "/signin" || currentPath === "signup" ? (
           <Routes>
             <Route path="/" element={<Navigate to="/signin" />} />
             <Route path="/signup" element={<Signup />} />
