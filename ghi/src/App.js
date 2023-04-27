@@ -1,6 +1,6 @@
 import "./App.css";
 import Sidebar from "./components/Sidebar";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import StickyBoardListView from "./pages/StickyBoardListView";
@@ -29,7 +29,6 @@ function App() {
           </Routes>
         ) : (
           <div className="flex font-Sudo_Var">
-            {console.log("token success")}
             <Sidebar />
             <section className="bg-dark_mode_medium h-screen flex-grow relative">
               <Routes>

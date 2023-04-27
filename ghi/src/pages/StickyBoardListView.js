@@ -16,6 +16,12 @@ const StickyBoardListView = () => {
   const navigate = useNavigate();
   const [stickyboards, setStickyboards] = useState([]);
   const [stickyboard, setStickyboard] = useState({});
+
+  if (!token) {
+    console.log("yes");
+    navigate("/signin");
+  }
+
   const getStickyboardsData = async () => {
     const stickyboardsUrl = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/stickyboard`;
     const stickyboardsResponse = await fetch(stickyboardsUrl, {

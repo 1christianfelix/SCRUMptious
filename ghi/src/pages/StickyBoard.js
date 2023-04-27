@@ -5,12 +5,13 @@ import add_icon from "../images/icons/add_icon.svg";
 import _ from "lodash";
 import filter_icon_white from "../images/icons/filter_icon_white.svg";
 import expand_icon from "../images/icons/expand_icon.svg";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import StickyNoteCreateForm from "../components/StickyNoteCreateForm";
 import StickyNoteUpdateForm from "../components/StickyNoteUpdateForm";
 
 const StickyBoard = (props) => {
+  const navigate = useNavigate();
   const { token } = useToken();
   const { stickyboard_id } = useParams();
   const [category, setCategory] = useState("");
@@ -37,6 +38,12 @@ const StickyBoard = (props) => {
   const [modalStatus, setModalStatus] = useState(false);
   const [form, setForm] = useState("create");
   const [sticky, setSticky] = useState("");
+  console.log("testing", token);
+
+  if (!token) {
+    console.log("yes");
+    navigate("/signin");
+  }
 
   // Get Boards
   const fetchBoard = async () => {
