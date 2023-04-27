@@ -17,6 +17,11 @@
   .nav-button {
     @apply w-[100%] flex gap-2 pl-[10%] hover:text-white drop-shadow-xl transition-all duration-200 ease-in-out hover:bg-dark_mode_button_hover;
   }
+
+  .nav-button-2 {
+    @apply w-[100%] flex gap-2 items-center justify-center hover:text-white drop-shadow-xl transition-all duration-200 ease-in-out hover:bg-dark_mode_button_hover hover:cursor-pointer;
+  }
+
   .expand-button {
     @apply transition-all duration-200 ease-in-out hover:scale-[115%] hover:cursor-pointer;
   }

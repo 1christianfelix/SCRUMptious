@@ -2,7 +2,7 @@ import "./App.css";
 import Sidebar from "./components/Sidebar";
 // import Dashboard from "./pages/Dashboard";
 // import StickyNote from "./components/StickyNote";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import StickyBoardListView from "./pages/StickyBoardListView";
@@ -19,6 +19,14 @@ function App() {
 
   console.log("token: ", token);
 
+  const [accModalStatus, setAccModalStatus] = useState(false);
+  const handleOpenAccModal = () => {
+    setAccModalStatus(true);
+  };
+  const handleCloseAccModal = () => {
+    setAccModalStatus(false);
+  };
+
   return (
     <AccountProvider>
       <div>
@@ -34,8 +42,12 @@ function App() {
         ) : (
           <div className="flex font-Sudo_Var">
             {console.log("token success")}
-            <Sidebar />
-            <section className="bg-dark_mode_medium h-screen flex-grow relative">
+            <Sidebar openAcc={handleOpenAccModal} />
+            <section className="bg-slate-100 h-screen flex-grow relative">
+              <AccountsPage
+                accModalStatus={accModalStatus}
+                closeAcc={handleCloseAccModal}
+              />
               <Routes>
                 <Route path="/dashboard">
                   <Route path=":stickyboard_id" element={<StickyBoard />} />

@@ -9,6 +9,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import StickyNoteCreateForm from "../components/StickyNoteCreateForm";
 import StickyNoteUpdateForm from "../components/StickyNoteUpdateForm";
+import { Tooltip } from "react-tooltip";
 
 const StickyBoard = (props) => {
   const { token } = useToken();
@@ -205,7 +206,7 @@ const StickyBoard = (props) => {
   const navigate = useNavigate();
   const handleStickyboardChange = (event) => {
     const value = event.target.value;
-    stickyboard_id = value
+    stickyboard_id = value;
     navigate(`/dashboard/${stickyboard_id}`);
     refreshData();
   };
@@ -231,17 +232,17 @@ const StickyBoard = (props) => {
           stickyData={sticky}
         ></StickyNoteUpdateForm>
       )}
-      <div className="flex flex-col text-dark_mode_text_white">
-        <div className="w-[100%] h-[8.37500rem] bg-dark_mode_light flex items-center">
+      <div className="flex flex-col text-black">
+        <div className="w-[100%] h-[5.37500rem] bg-white drop-shadow-md bg-gradient-to-r from-white from-20% to-blue-100 via-blue-100 via-70%  flex items-center">
           <select
             onChange={handleStickyboardChange}
             defaultValue={stickyboard.id}
-            className="bg-transparent focus:outline-none transition-all duration-150 hover:cursor-pointer text-3xl ml-6"
+            className="bg-transparent focus:outline-none transition-all duration-150 hover:cursor-pointer text-3xl ml-6 self-end"
           >
             <option
               value={stickyboard.id}
               key={stickyboard.id}
-              className="text-xl bg-slate-500"
+              className="text-xl bg-white"
             >
               {stickyboard.board_name}
             </option>
@@ -253,7 +254,7 @@ const StickyBoard = (props) => {
                 <option
                   value={filteredStickyboard.id}
                   key={filteredStickyboard.id}
-                  className="text-xl bg-slate-500"
+                  className="text-xl bg-white"
                 >
                   {filteredStickyboard.board_name}
                 </option>
@@ -266,14 +267,11 @@ const StickyBoard = (props) => {
                 alt="filter"
                 className="w-[1rem] h-[1rem]"
               />
-              <label htmlFor="priority" className="text-dark_mode_text_white">
+              <label htmlFor="priority" className="text-black">
                 Filter Priority:
               </label>
             </div>
-            <div
-              id="priority"
-              className="text-dark_mode_text_white flex self-center gap-2"
-            >
+            <div id="priority" className="text-black flex self-center gap-2">
               <input
                 type="radio"
                 id="none"
@@ -331,6 +329,7 @@ const StickyBoard = (props) => {
                           handleOpenModal("create");
                           setCategory(key);
                         }}
+                        data-tooltip-id="append-top"
                       />
                     </div>
                     <Droppable droppableId={key}>
@@ -339,10 +338,10 @@ const StickyBoard = (props) => {
                           <div
                             ref={provided.innerRef}
                             {...provided.droppableProps}
-                            className="h-[100%] overflow-auto overflow-x-hidden scrollbar-card scrollbar-thumb-white scrollbar-w-1 max-h-[calc(100vh-12.75rem)] pr-5 place-self-start" // Add overflow-y-auto here
+                            className="h-[100%] overflow-auto overflow-x-hidden scrollbar-card scrollbar-thumb-slate-400 scrollbar-w-1 max-h-[calc(100vh-12.75rem)] pr-5 place-self-start" // Add overflow-y-auto here
                             style={{
                               backgroundColor: snapshot.isDraggingOver
-                                ? "#FFFFFF10"
+                                ? "#00000015"
                                 : "",
                             }}
                           >
@@ -385,6 +384,7 @@ const StickyBoard = (props) => {
                                               handleOpenModal("update", el);
                                               setCategory(key);
                                             }}
+                                            data-tooltip-id="update"
                                           />
                                           {index ===
                                             data.stickies.length - 1 && (
@@ -396,7 +396,10 @@ const StickyBoard = (props) => {
                                                 setAppend(true);
                                               }}
                                             >
-                                              <div className="flex absolute -bottom-6 1440:-bottom-7 items-center hover:cursor-pointer transition-colors duration-200 text-slate-500 hover:text-white">
+                                              <div
+                                                className="flex absolute -bottom-6 1440:-bottom-7 items-center hover:cursor-pointer transition-colors duration-200 text-slate-500 hover:text-black"
+                                                data-tooltip-id="append-bottom"
+                                              >
                                                 <div className="h-[1rem] 1440:h-[1.2rem] pr-2 text-current ">
                                                   <svg
                                                     className="h-full stroke-current"
@@ -440,6 +443,17 @@ const StickyBoard = (props) => {
           </DragDropContext>
         </div>
       </div>
+      <Tooltip id="update" place="bottom" content="Update Sticky Note" />
+      <Tooltip
+        id="append-top"
+        palce="right"
+        content="Add new Sticky to the top"
+      />
+      <Tooltip
+        id="append-bottom"
+        palce="top"
+        content="Add new Sticky to the bottom"
+      />
     </div>
   );
 };

@@ -11,7 +11,9 @@ const AccountDetails = ({ account, onClose }) => {
 
   useEffect(() => {
     async function fetchStickies() {
-      const response = await fetch("http://localhost:8000/sticky");
+      const response = await fetch(
+        `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/sticky`
+      );
       const data = await response.json();
       console.log(data);
       setStickies(data.filter((sticky) => sticky.account.includes(account.id)));
