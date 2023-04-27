@@ -22,7 +22,7 @@
 - Work on deployment.
 #### 4/19/23
 - Work on frontend for stickyboard update.
-- Work on unit test 
+- Work on unit test
 - Work on sending email via sendgrid
 #### 4/18/23
 - Work on frontend for stickyboard list view and stickyboard creation, update and deletion.
@@ -50,7 +50,7 @@
 - Work on stickyboard create form; make the search function for accounts
 - add/remove members of the stickyboard through check/uncheck checkbox.
 - Update the GET all account functions to sort accounts by the last name and then the first name.
-- Conversation regarding (1) having password confirmation on the signup page; (2) sorting account data at the back-end.
+- Conversation regarding (1) having password confirmation on the sign up page; (2) sorting account data at the back-end.
 #### 4/4/23
 - Work on stickyboard create form.
 - Conversation regarding the procedures for merge request.
