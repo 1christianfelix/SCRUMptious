@@ -5,7 +5,7 @@ import add_icon from "../images/icons/add_icon.svg";
 import _ from "lodash";
 import filter_icon_white from "../images/icons/filter_icon_white.svg";
 import expand_icon from "../images/icons/expand_icon.svg";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import StickyNoteCreateForm from "../components/StickyNoteCreateForm";
 import StickyNoteUpdateForm from "../components/StickyNoteUpdateForm";
@@ -64,12 +64,14 @@ const StickyBoard = (props) => {
   useEffect(() => {
     fetchBoard();
     fetchCategoryStickyData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const location = useLocation();
-  // useEffect(() => {
-  //   refreshData();
-  // }, [location]);
+  const location = useLocation();
+  useEffect(() => {
+    refreshData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
 
   const updateLists = () => {
     setState((prev) => {
@@ -84,6 +86,7 @@ const StickyBoard = (props) => {
   };
   useEffect(() => {
     updateLists();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoriesLists]);
   const handleOpenModal = (type, sticky) => {
     if (type === "create") {
@@ -197,6 +200,7 @@ const StickyBoard = (props) => {
   };
   useEffect(() => {
     getStickyboardsData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
   const navigate = useNavigate();
   const handleStickyboardChange = (event) => {

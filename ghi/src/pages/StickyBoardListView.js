@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import StickyBoardCard from "../components/StickyBoardCard";
 import Search_light from "../images/icons/Search_light.svg";
 import garbage from "../images/icons/garbage.svg";
-
 import filter_icon_white from "../images/icons/filter_icon_white.svg";
 import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 import StickyBoardCreateForm from "../components/StickyBoardCreateForm";
@@ -30,8 +29,8 @@ const StickyBoardListView = () => {
   };
   useEffect(() => {
     getStickyboardsData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
-
   const handleDeletion = (id) => {
     fetch(
       `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/stickyboard/${id}`,
@@ -48,7 +47,6 @@ const StickyBoardListView = () => {
       }
     });
   };
-
   const [modalStatus, setModalStatus] = useState(false);
   const [form, setForm] = useState("create");
   const handleOpenModal = (type, stickyboard = null) => {
@@ -59,25 +57,21 @@ const StickyBoardListView = () => {
     }
     setModalStatus(true);
   };
-
   const handleCloseModal = () => {
     setForm("create");
     setStickyboard({});
     setModalStatus(false);
   };
-
   const [searchTerm, setSearchTerm] = useState("");
   const handleSearchTermChange = (event) => {
     const value = event.target.value;
     setSearchTerm(value);
   };
-
   const [searchPriority, setPriority] = useState("");
   const handleSearchPriorityChange = (event) => {
     const value = event.target.value;
     setPriority(value);
   };
-
   const filteredStickyboards =
     searchPriority || searchTerm
       ? stickyboards.filter(
@@ -92,7 +86,6 @@ const StickyBoardListView = () => {
               stickyboard.priority === parseInt(searchPriority))
         )
       : stickyboards;
-
   return (
     <div className=" h-screen overflow-hidden">
       {form === "create" ? (
@@ -203,7 +196,6 @@ const StickyBoardListView = () => {
                       stickyboard={stickyboard}
                       getStickyboardsData={getStickyboardsData}
                     />
-
                     <div className="BUTTONS flex flex-col justify-between py-3">
                       <img
                         alt="garbage"
