@@ -5,16 +5,12 @@ import add_icon from "../images/icons/add_icon.svg";
 import _ from "lodash";
 import filter_icon_white from "../images/icons/filter_icon_white.svg";
 import expand_icon from "../images/icons/expand_icon.svg";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import StickyNoteCreateForm from "../components/StickyNoteCreateForm";
 import StickyNoteUpdateForm from "../components/StickyNoteUpdateForm";
 
 const StickyBoard = (props) => {
-  const location = useLocation();
-  useEffect(() => {
-    refreshData();
-  }, [location]);
   const { token } = useToken();
   let { stickyboard_id } = useParams();
   const [category, setCategory] = useState("");
@@ -69,6 +65,12 @@ const StickyBoard = (props) => {
     fetchBoard();
     fetchCategoryStickyData();
   }, []);
+
+  // const location = useLocation();
+  // useEffect(() => {
+  //   refreshData();
+  // }, [location]);
+
   const updateLists = () => {
     setState((prev) => {
       prev = { ...prev };
@@ -147,6 +149,7 @@ const StickyBoard = (props) => {
     });
     const updateStickyCategoryDND = async (id, category) => {
       let done = "doing";
+      console.log(category, done, stickyboard_id);
       let body = {
         category: category,
         stickyboard: `${stickyboard_id}`,
