@@ -16,8 +16,14 @@ const StickyBoard = (props) => {
   let { stickyboard_id } = useParams();
   const [category, setCategory] = useState("");
   const [append, setAppend] = useState(false);
+
+  // Used to determine where "+ Add Sticky" will be placed within the category column
   const [addStickyStyle, setAddStickyStyle] = useState("");
+
+  // Used to store the information of the current stickyboard
   const [stickyboard, setStickyboard] = useState({});
+
+  // Used to store the sticky details of each sticky note in category arrays after "fetchCategoryStickyData" is called
   const [categoriesLists, setCategoriesLists] = useState({
     backlog: [],
     todo: [],
@@ -25,6 +31,9 @@ const StickyBoard = (props) => {
     review: [],
     done: [],
   });
+
+  // Used to mimic the backened shape of the stickyboard's categories list, except this data stores the details of each sticky note rather than their ID
+  // This is used for rendering and updating the UI for drag and drop.
   const [state, setState] = useState({
     backlog: {
       title: "Backlog",
@@ -35,9 +44,15 @@ const StickyBoard = (props) => {
     review: { title: "Review", stickies: ["empty"] },
     done: { title: "Done", stickies: ["empty"] },
   });
+
+  //  modalStatus determines wheater we mount a form modal on the DOM. form will determine which one to mount (create or update)
   const [modalStatus, setModalStatus] = useState(false);
   const [form, setForm] = useState("create");
+
+  // Used to store information about individual sticky notes. This data is used to pass into the update form and also used during the filtering of priorites
   const [sticky, setSticky] = useState("");
+
+  // get details of the current stickyboard
   const fetchBoard = async () => {
     const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/stickyboard/${stickyboard_id}`;
     const response = await fetch(url, {
@@ -48,6 +63,8 @@ const StickyBoard = (props) => {
       setStickyboard(data);
     }
   };
+
+  // fetch each category list of the current stickyboard. Each list contains details of each individual stickynote
   const fetchCategoryStickyData = async () => {
     const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/${stickyboard_id}/stickies`;
     const response = await fetch(url, {
@@ -62,18 +79,22 @@ const StickyBoard = (props) => {
     fetchBoard();
     fetchCategoryStickyData();
   };
+
+  // trigger fetch functions upon initial render
   useEffect(() => {
     fetchBoard();
     fetchCategoryStickyData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // upon loading a new stickyboard  from the dropdown title menu, trigger a rerender to grab that board's data
   const location = useLocation();
   useEffect(() => {
     refreshData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
+  // Filling in the categories of the state variable, our "mock frontend database", with the actuall data from categories list
   const updateLists = () => {
     setState((prev) => {
       prev = { ...prev };
@@ -85,10 +106,14 @@ const StickyBoard = (props) => {
       return prev;
     });
   };
+
+  // When new data is fetched/stored in the backend, reload the" mock frontend database with the updated data"
   useEffect(() => {
     updateLists();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoriesLists]);
+
+  // modal opening logic
   const handleOpenModal = (type, sticky) => {
     if (type === "create") {
       setForm("create");
@@ -98,16 +123,23 @@ const StickyBoard = (props) => {
     }
     setModalStatus(true);
   };
+
+  //modal closing logic
   const handleCloseModal = () => {
     setForm("create");
     setCategory("");
     setAppend(false);
     setModalStatus(false);
   };
+
+  // Triggering the visibility of the "+ Add Sticky"
   const handleAddSticky = () => {
     setAddStickyStyle("hidden");
   };
+
+  // The function for handling all logic between the time a sticky is being dragged to being dropped
   const handleDrag = async ({ destination, source }) => {
+    // Handling case if sticky start and end location are the same
     if (!destination) {
       console.log("test09");
       return;
@@ -118,7 +150,10 @@ const StickyBoard = (props) => {
     ) {
       return;
     }
+
+    // Handling case if sticky is dropped into the new location
     console.log("drop:", destination, source);
+    // Making a copy of the current sticky note and updating its category field to reflect its new category
     const itemCopy = { ...state[source.droppableId].stickies[source.index] };
     switch (destination.droppableId) {
       case "backlog":
@@ -151,6 +186,8 @@ const StickyBoard = (props) => {
       setAddStickyStyle("");
       return prev;
     });
+
+    // PUT function to handle updating the category of the sticky note that was dropped into the new location
     const updateStickyCategoryDND = async (id, category) => {
       let done = "doing";
       console.log(category, done, stickyboard_id);
@@ -173,12 +210,7 @@ const StickyBoard = (props) => {
     };
     updateStickyCategoryDND(itemCopy.id, destination.droppableId);
   };
-  const onDragUpdate = (update) => {
-    if (update.destination) {
-      console.log("Destination:", update.destination.droppableId);
-    }
-    console.log("Source:", update.source.droppableId);
-  };
+
   const [searchPriority, setPriority] = useState("");
   const handleSearchPriorityChange = (event) => {
     const value = event.target.value;
@@ -310,7 +342,6 @@ const StickyBoard = (props) => {
         </div>
         <div className="lg:h-[1rem] w-[90%] ml-[7.5%]">
           <DragDropContext
-            onDragUpdate={onDragUpdate}
             onDragEnd={handleDrag}
             onBeforeDragStart={handleAddSticky}
             className=""
