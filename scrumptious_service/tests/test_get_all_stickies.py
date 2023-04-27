@@ -4,7 +4,6 @@ from authenticator import authenticator
 from main import app
 
 
-
 client = TestClient(app)
 
 
@@ -32,7 +31,4 @@ def test_get_all_stickies():
     assert response.status_code == 200
     assert response.json() == []
 
-
-
-
-## please run -> python -m pytest tests/test_get_all_stickies.py
+# please run -> python -m pytest tests/test_get_all_stickies.py
