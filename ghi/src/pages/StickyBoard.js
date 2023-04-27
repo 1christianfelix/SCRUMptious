@@ -11,6 +11,14 @@ import StickyNoteCreateForm from "../components/StickyNoteCreateForm";
 import StickyNoteUpdateForm from "../components/StickyNoteUpdateForm";
 import { Tooltip } from "react-tooltip";
 
+// Drag and Drop logic:
+// Get stickyboard
+// Get all categories from the stickyboard (should be 5 list all with sticky note details)
+// Use the fetched data to update our "mock frontend database" that also has 5 category lists stored inside a dictionary
+// Upon dragging a stickynote to a new category, clone stickynote details and update the clone's category field to the destination category name.
+// Use cloned sticky to send to frontend database and backend by method of PUT to the appropriate end point. This should not technically trigger a rerender on the position of the stickies
+// Next reload, the fetch to the stickyboard categories data will reflect the previous drag and drops.
+
 const StickyBoard = (props) => {
   const { token } = useToken();
   let { stickyboard_id } = useParams();
