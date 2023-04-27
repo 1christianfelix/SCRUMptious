@@ -8,11 +8,11 @@ import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import "react-tooltip/dist/react-tooltip.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-const domain = /https:\/\/[^/]+/;
-const basename = process.env.PUBLIC_URL.replace(domain, "");
+// const domain = /https:\/\/[^/]+/;
+// const basename = process.env.PUBLIC_URL.replace(domain, "");
 
 root.render(
-  <BrowserRouter basename={basename}>
+  <BrowserRouter basename={"/"}>
     <AuthProvider
       tokenUrl={`${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/token`}
     >
