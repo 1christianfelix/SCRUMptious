@@ -2,6 +2,7 @@ from fastapi.testclient import TestClient
 from main import app
 from queries.stickyboard import StickyBoardQueries
 from authenticator import authenticator
+
 from queries.stickyboard import StickyBoard
 
 client = TestClient(app)
@@ -23,6 +24,12 @@ class TestStickyBoardQueries(StickyBoardQueries):
             "review": stickyboard.review,
             "done": stickyboard.done,
         }
+
+    def delete_stickyboard(self, stickyboard_id: str):
+        if stickyboard_id == "test_id":
+            return {"detail": "StickyBoard deleted successfully"}
+        else:
+            return None
 
 
 def account_override():
@@ -61,9 +68,26 @@ def test_create_stickyboard():
     }
 
 
-#  This test creates a test stickyboard and checks whether the API endpoint
-#  for creating a stickyboard works correctly.
+def test_delete_stickyboard():
+    app.dependency_overrides[StickyBoardQueries] = TestStickyBoardQueries
+    app.dependency_overrides[
+        authenticator.get_current_account_data
+    ] = account_override
+
+    response = client.delete("/stickyboard/test_id")
+    assert response.status_code == 200
+    assert response.json() == {"detail": "StickyBoard deleted successfully"}
+
+    response = client.delete("/stickyboard/non_existent_id")
+    assert response.status_code == 200
+    assert response.json() is None  # Expecting None as the response body
+
+    app.dependency_overrides = {}
+
+
+#  This tests the deletion of a StickyBoard object, but in order to test the
+#  functionality, a StickyBoard object needs to be created first.
 
 #  To pass the test please do the following within Docker:
-#  Copy and paste "python -m pytest tests/test_create_stickyboard.py"
-#  This particular test will ONLY pass in Docker in container fastapi-1.
+#  Copy and paste "python -m pytest tests/test_delete_stickyboard.py"
+#  This particular test will ONLY pass in Docker in container fastapi-1
