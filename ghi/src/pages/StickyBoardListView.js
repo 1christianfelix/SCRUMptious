@@ -143,7 +143,6 @@ const StickyBoardListView = () => {
                 alt=""
                 className="w-[1rem] h-[1rem]"
               />
-
               <label htmlFor="priority" className="text-dark_mode_text_white">
                 Filter Priority:
               </label>

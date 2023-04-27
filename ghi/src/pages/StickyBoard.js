@@ -5,14 +5,18 @@ import add_icon from "../images/icons/add_icon.svg";
 import _ from "lodash";
 import filter_icon_white from "../images/icons/filter_icon_white.svg";
 import expand_icon from "../images/icons/expand_icon.svg";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import StickyNoteCreateForm from "../components/StickyNoteCreateForm";
 import StickyNoteUpdateForm from "../components/StickyNoteUpdateForm";
 
 const StickyBoard = (props) => {
+  const location = useLocation();
+  useEffect(() => {
+    refreshData();
+  }, [location]);
   const { token } = useToken();
-  const { stickyboard_id } = useParams();
+  let { stickyboard_id } = useParams();
   const [category, setCategory] = useState("");
   const [append, setAppend] = useState(false);
   const [addStickyStyle, setAddStickyStyle] = useState("");
@@ -37,7 +41,6 @@ const StickyBoard = (props) => {
   const [modalStatus, setModalStatus] = useState(false);
   const [form, setForm] = useState("create");
   const [sticky, setSticky] = useState("");
-
   const fetchBoard = async () => {
     const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/stickyboard/${stickyboard_id}`;
     const response = await fetch(url, {
@@ -48,7 +51,6 @@ const StickyBoard = (props) => {
       setStickyboard(data);
     }
   };
-
   const fetchCategoryStickyData = async () => {
     const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/${stickyboard_id}/stickies`;
     const response = await fetch(url, {
@@ -75,14 +77,12 @@ const StickyBoard = (props) => {
       prev["doing"].stickies = categoriesLists["doing"];
       prev["review"].stickies = categoriesLists["review"];
       prev["done"].stickies = categoriesLists["done"];
-
       return prev;
     });
   };
   useEffect(() => {
     updateLists();
   }, [categoriesLists]);
-
   const handleOpenModal = (type, sticky) => {
     if (type === "create") {
       setForm("create");
@@ -92,18 +92,15 @@ const StickyBoard = (props) => {
     }
     setModalStatus(true);
   };
-
   const handleCloseModal = () => {
     setForm("create");
     setCategory("");
     setAppend(false);
     setModalStatus(false);
   };
-
   const handleAddSticky = () => {
     setAddStickyStyle("hidden");
   };
-
   const handleDrag = async ({ destination, source }) => {
     if (!destination) {
       console.log("test09");
@@ -116,7 +113,6 @@ const StickyBoard = (props) => {
       return;
     }
     console.log("drop:", destination, source);
-
     const itemCopy = { ...state[source.droppableId].stickies[source.index] };
     switch (destination.droppableId) {
       case "backlog":
@@ -138,11 +134,9 @@ const StickyBoard = (props) => {
         break;
     }
     console.log("itemcopy:", itemCopy);
-
     setState((prev) => {
       prev = { ...prev };
       prev[source.droppableId].stickies.splice(source.index, 1);
-
       prev[destination.droppableId].stickies.splice(
         destination.index,
         0,
@@ -151,11 +145,8 @@ const StickyBoard = (props) => {
       setAddStickyStyle("");
       return prev;
     });
-
-
     const updateStickyCategoryDND = async (id, category) => {
       let done = "doing";
-      console.log(category, done, stickyboard_id);
       let body = {
         category: category,
         stickyboard: `${stickyboard_id}`,
@@ -173,33 +164,44 @@ const StickyBoard = (props) => {
         console.log("success update, now updating stickyBoard");
       }
     };
-
     updateStickyCategoryDND(itemCopy.id, destination.droppableId);
   };
-
   const onDragUpdate = (update) => {
     if (update.destination) {
       console.log("Destination:", update.destination.droppableId);
     }
-
     console.log("Source:", update.source.droppableId);
   };
-
-
   const [searchPriority, setPriority] = useState("");
   const handleSearchPriorityChange = (event) => {
     const value = event.target.value;
     setPriority(value);
   };
-  // const filteredStickies =
-  //   searchPriority
-  //     ? data.stickies.filter(
-  //         (stickyboard) =>
-  //           (!searchPriority ||
-  //             stickyboard.priority === parseInt(searchPriority))
-  //       )
-  //     : data.stickies;
-
+  const [stickyboards, setStickyboards] = useState([]);
+  const getStickyboardsData = async () => {
+    const stickyboardsUrl = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/stickyboard`;
+    const stickyboardsResponse = await fetch(stickyboardsUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (stickyboardsResponse.ok) {
+      const data = await stickyboardsResponse.json();
+      setStickyboards(data);
+    }
+  };
+  useEffect(() => {
+    getStickyboardsData();
+  }, [token]);
+  const navigate = useNavigate();
+  const handleStickyboardChange = (event) => {
+    const value = event.target.value;
+    stickyboard_id = value
+    navigate(`/dashboard/${stickyboard_id}`);
+    refreshData();
+  };
   return (
     <div className="flex flex-col h-screen overflow-hidden">
       {form === "create" ? (
@@ -224,22 +226,32 @@ const StickyBoard = (props) => {
       )}
       <div className="flex flex-col text-dark_mode_text_white">
         <div className="w-[100%] h-[8.37500rem] bg-dark_mode_light flex items-center">
-          <select className="bg-transparent focus:outline-none transition-all duration-150 hover:cursor-pointer text-3xl ml-6">
+          <select
+            onChange={handleStickyboardChange}
+            defaultValue={stickyboard.id}
+            className="bg-transparent focus:outline-none transition-all duration-150 hover:cursor-pointer text-3xl ml-6"
+          >
             <option
               value={stickyboard.id}
               key={stickyboard.id}
               className="text-xl bg-slate-500"
             >
-              {stickyboard.board_name}, {stickyboard.id}
+              {stickyboard.board_name}
             </option>
-            <option value="" className="text-xl bg-slate-500">
-              Member's other boards
-            </option>
-            <option value="" className="text-xl bg-slate-500">
-              link to other board
-            </option>
+            {stickyboards
+              .filter(
+                (filterStickyboard) => filterStickyboard.id !== stickyboard.id
+              )
+              .map((filteredStickyboard) => (
+                <option
+                  value={filteredStickyboard.id}
+                  key={filteredStickyboard.id}
+                  className="text-xl bg-slate-500"
+                >
+                  {filteredStickyboard.board_name}
+                </option>
+              ))}
           </select>
-
           <div className=" flex gap-5 self-end ml-auto mr-[3rem] 1440:mr-[calc(3rem*1.333)] 1440:text-xl">
             <div className="flex gap-2 items-center">
               <img
@@ -247,7 +259,6 @@ const StickyBoard = (props) => {
                 alt="filter"
                 className="w-[1rem] h-[1rem]"
               />
-
               <label htmlFor="priority" className="text-dark_mode_text_white">
                 Filter Priority:
               </label>
@@ -292,7 +303,6 @@ const StickyBoard = (props) => {
             </div>
           </div>
         </div>
-
         <div className="lg:h-[1rem] w-[90%] ml-[7.5%]">
           <DragDropContext
             onDragUpdate={onDragUpdate}
