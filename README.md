@@ -1,9 +1,27 @@
+
 # Scrumptious
 
+This link will lead to the deployed website:
 
-## Overview
+Website: https://team-scrappy.gitlab.io/scrum-ptious
 
-Scrumptious is a web application that allows users to manage projects using a Scrum-based approach with the help of Sticky Notes and Sticky Boards. Users can create, update, and delete Sticky Notes and Sticky Boards.
+#### Team:
+
+- Brandon Moore - Software Developer
+- Christian Felix - Software Developer
+- John Liu - Software Developer
+- Kurt Loban - Software Developer
+
+
+## Design
+
+Scrumptious is a web application that facilitates project management using a Scrum-based approach with the aid of Sticky Notes and Sticky Boards. The frontend of the application is developed using React and is organized into separate directories for Sticky Notes, Sticky Boards, and Accounts.
+
+The backend of the application is built using FastAPI and MongoDB to maintain the directory structure. Additionally, the application uses microservices architecture by leveraging Docker.
+
+Scrumptious has a router directory that defines the routes for the API endpoints, a queries directory that defines the queries for the MongoDB database, and a test directory that contains test files for the API.
+
+As the database used by Scrumptious is MongoDB, it does not require the use of a pre-built migrations folder. However, asynchronous functions are still utilized on the frontend of the application.
 
 
 ## Features
@@ -15,7 +33,54 @@ Scrumptious is a web application that allows users to manage projects using a Sc
 - Assign users to Sticky Notes
 - Email notifications when users are added to a Sticky Note or Sticky Board.
 
-## Design
+## Design Picture
+
+
+## Project Initialization
+Be sure to have Docker Destkop downloaded and running.
+
+
+
+### Clone the Repository
+
+
+&ensp;&ensp;&ensp;&ensp;1. Open your terminal, change to the directory folder where the project will be cloned.
+
+&ensp;&ensp;&ensp;&ensp;2. In your terminal, type: `git clone https://gitlab.com/team-scrappy/scrum-ptious.git`
+
+&ensp;&ensp;&ensp;&ensp;3. Navigate to the project directory.
+
+
+### SENDGRID API Key
+
+To provide environment variables for your setup that should not live in the docker-compose.yml file, use the .env file. To set this up:
+
+&ensp;&ensp;&ensp;&ensp;1. Copy the example.env file to the .env file:
+
+&ensp;&ensp;&ensp;&ensp; `cp example.env .env`
+
+&ensp;&ensp;&ensp;&ensp;2. Replace XXXXXXXXXXXX in the Sendgrid_api_key variable with your actual SendGrid API key within the .env file:
+
+&ensp;&ensp;&ensp;&ensp;`Sendgrid_api_key=Your_API_Key`
+
+
+### Start Docker
+
+After you have cloned your Repository and are in the correct directory initializate the following actions within your terminal:
+
+&ensp;&ensp;&ensp;&ensp;1. `docker volume create scrumptious-mongo-data`
+
+&ensp;&ensp;&ensp;&ensp;2. `docker-compose build`
+
+&ensp;&ensp;&ensp;&ensp;3. `docker-compose up`
+
+Upon completion of the previous commands you will see all four Docker containers up and running.
+
+
+
+
+
+
 
 ### Wireframe
 
@@ -24,26 +89,21 @@ Scrumptious is a web application that allows users to manage projects using a Sc
 ## Installation
 
 ## Models
-
 ### Account
-
-- username: str
 - email: str
 - password: str
-
-### Sticky Note
-
+- first_name: str
+- last_name: str
+### Sticky
 - subject: str
-- content: str
+- content: Optional[str]
 - priority: int
 - category: str
 - start_date: datetime
 - deadline: datetime
 - account: list[str]
 - stickyboard: str
-
-### Sticky Board
-
+### Stickyboard
 - board_name: str
 - description: str
 - priority: int
@@ -55,31 +115,34 @@ Scrumptious is a web application that allows users to manage projects using a Sc
 - doing: list[str]
 - review: list[str]
 - done: list[str]
-
 ## Endpoints
+### Account
 
-_**DELETE LATER (Endpoints needs RESTFUL API example documentation per endpoint)**_
+| Action                 | URL                                                          |
+|:-----------------------|:-------------------------------------------------------------|
+| `Get All Accounts`          | `http://localhost:3000/accounts`                             |
+| `Post Account`      | `http://localhost:3000/accounts`                    |
+| `Delete Account`       | `http://localhost:3000/accounts/{account_id}` |
 
-
-### Accounts
-
-- POST /register: Register a new user.
-- POST /login: Authenticate and log in an existing user.
-- GET /account: Get the current user's account data.
-
-### Sticky Notes
-
-- POST /{stickyboard_id}/sticky: Create a new Sticky Note.
-- GET /sticky: Get all Sticky Notes.
-- GET /{stickyboard_id}/stickies: Get Sticky Notes data for a Sticky Board.
-- PUT /sticky/{sticky_id}: Update a Sticky Note.
-- DELETE /sticky/{sticky_id}: Delete a Sticky Note.
-
-### Sticky Boards
-
-- POST /stickyboard: Create a new Sticky Board.
-- GET /stickyboard: Get all Sticky Boards.
-- GET /stickyboard/{stickyboard_id}: Get a specific Sticky Board by ID.
-- GET /stickyboard/{stickyboard_id}/sticky: Get Sticky Notes for a Sticky Board.
-- PUT /stickyboard/{stickyboard_id}: Update a Sticky Board.
-- DELETE /stickyboard/{stickyboard_id}: Delete a Sticky Board.
+<details>
+<summary markdown="span">GET All Accounts: </summary>
+```
+[
+  {
+    "email": "test_account@test.com",
+    "first_name": "Test_First_Name",
+    "last_name": "Test_Last_Name",
+    "id": "111111111111111111111111"
+  }
+]
+```
+<details>
+<summary markdown="span">POST Account: </summary>
+```
+{
+    "email": "test_account@test.com",
+    "password": "test_password",
+    "first_name": "Test_First_Name",
+    "last_name": "Test_Last_Name"
+}
+```
