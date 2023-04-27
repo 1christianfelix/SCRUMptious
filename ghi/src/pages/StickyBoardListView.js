@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import StickyBoardCard from "../components/StickyBoardCard";
 import Search_light from "../images/icons/Search_light.svg";
-// import StickyBoardInputForm from "../components/StickyBoardInputForm";
 import garbage from "../images/icons/garbage.svg";
-
 import filter_icon_white from "../images/icons/filter_icon_white.svg";
 import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 import StickyBoardCreateForm from "../components/StickyBoardCreateForm";
@@ -11,7 +9,6 @@ import StickyBoardUpdateForm from "../components/StickyBoardUpdateForm";
 import { useNavigate } from "react-router-dom";
 
 const StickyBoardListView = () => {
-  // const { token } = useToken();
   const { token } = useContext(AuthContext);
   const navigate = useNavigate();
   const [stickyboards, setStickyboards] = useState([]);
@@ -34,10 +31,9 @@ const StickyBoardListView = () => {
     getStickyboardsData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
-
   const handleDeletion = (id) => {
     fetch(
-      `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/stickyboard/${id}/`,
+      `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/stickyboard/${id}`,
       {
         method: "delete",
         headers: {
@@ -51,7 +47,6 @@ const StickyBoardListView = () => {
       }
     });
   };
-
   const [modalStatus, setModalStatus] = useState(false);
   const [form, setForm] = useState("create");
   const handleOpenModal = (type, stickyboard = null) => {
@@ -62,25 +57,21 @@ const StickyBoardListView = () => {
     }
     setModalStatus(true);
   };
-
   const handleCloseModal = () => {
     setForm("create");
     setStickyboard({});
     setModalStatus(false);
   };
-
   const [searchTerm, setSearchTerm] = useState("");
   const handleSearchTermChange = (event) => {
     const value = event.target.value;
     setSearchTerm(value);
   };
-
   const [searchPriority, setPriority] = useState("");
   const handleSearchPriorityChange = (event) => {
     const value = event.target.value;
     setPriority(value);
   };
-
   const filteredStickyboards =
     searchPriority || searchTerm
       ? stickyboards.filter(
@@ -95,7 +86,6 @@ const StickyBoardListView = () => {
               stickyboard.priority === parseInt(searchPriority))
         )
       : stickyboards;
-
   return (
     <div className=" h-screen overflow-hidden">
       {form === "create" ? (
@@ -209,12 +199,7 @@ const StickyBoardListView = () => {
                     <StickyBoardCard
                       stickyboard={stickyboard}
                       getStickyboardsData={getStickyboardsData}
-                      // priority={stickyboard.priority.toString()}
-                      // content={board.description}
-                      // members={board.accounts}
-                      // name={stickyboard.board_name}
                     />
-
                     <div className="BUTTONS flex flex-col justify-between py-3">
                       <img
                         alt="garbage"
