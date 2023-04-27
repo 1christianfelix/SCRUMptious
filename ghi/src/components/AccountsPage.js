@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import AccountDetails from "./AccountDetails";
 import Search_light from "../images/icons/Search_light.svg";
+import close_out from "../images/icons/close_out_icon.svg";
 
-const AccountsPage = ({ token }) => {
+const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
   const [accounts, setAccounts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [gridView, setGridView] = useState(false);
-//   const [isGridView, setIsGridView] = useState(false);
+  const [gridView, setGridView] = useState(true);
+  //   const [isGridView, setIsGridView] = useState(false);
   const [selectedAccount, setSelectedAccount] = useState(null);
 
   const getAccountsData = async () => {
-    const accountUrl = "http://localhost:8000/accounts";
+    const accountUrl = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/accounts`;
     const accountResponse = await fetch(accountUrl);
     if (accountResponse.ok) {
       const data = await accountResponse.json();
@@ -30,7 +31,7 @@ const AccountsPage = ({ token }) => {
   );
 
   const handleDeleteAccount = async (id) => {
-    const deleteUrl = `http://localhost:8000/accounts/${id}`;
+    const deleteUrl = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/accounts/${id}`;
     const deleteResponse = await fetch(deleteUrl, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
@@ -43,9 +44,9 @@ const AccountsPage = ({ token }) => {
     }
   };
 
-//   const toggleView = () => {
-//     setIsGridView(!isGridView);
-//   };
+  //   const toggleView = () => {
+  //     setIsGridView(!isGridView);
+  //   };
 
   const handleAccountDoubleClick = (account) => {
     setSelectedAccount(account);
@@ -55,33 +56,39 @@ const AccountsPage = ({ token }) => {
     setSelectedAccount(null);
   };
 
-  return (
-    <div className="flex justify-center items-center bg-gray-800 min-h-screen">
-      <div className="bg-gray-100 border border-gray-300 p-4 rounded-md mt-10 w-full max-w-screen-xl">
-        <h1 className="text-center text-2xl font-bold mb-4">Accounts List</h1>
-        <div className="mb-4">
-          <input
-            className="border border-gray-300 p-2 rounded-[19px] w-full"
-            type="text"
-            placeholder="Search Accounts"
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <img
-            src={Search_light}
-            alt=""
-            className="absolute"
-          />
-          {/* <div className="SEARCH BAR w-[13.4375rem] h-[2.125rem] bg-white rounded-[19px] flex items-center justify-between px-3 ">
-            <input
-              value={searchTerm}
-              placeholder="Search Member"
-              className="focus:outline-none w-[100%]"
+  if (!accModalStatus) return null;
 
-            ></input>
-            <img src={Search_light} alt="" className="h-[1rem] w-[1rem]" />
-          </div> */}
-        </div>
-        <div className="flex justify-end mb-4">
+  return (
+    <div
+      className="flex justify-center items-center absolute z-10 backdrop-blur-md w-[100%] h-[100%]"
+      onClick={() => {
+        closeAcc();
+      }}
+    >
+      <div
+        className="bg-gray-100 border border-gray-300 p-4 rounded-[19px] mt-10 w-[46.3125rem] relative pt-[3rem]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <img
+          src={close_out}
+          alt="close"
+          className="absolute top-3 right-5 hover:cursor-pointer expand-button h-[2rem] w-[2rem]"
+          onClick={() => {
+            closeAcc();
+          }}
+        />
+        <h1 className="text-center text-2xl font-bold mb-8">Accounts List</h1>
+        <div className="w-[100%] flex items-center gap-4  justify-center mb-6">
+          <div className=" flex  rounded-[19px] bg-white w-[50%] h-[2.5rem] px-6 text-xl drop-shadow-md">
+            <input
+              className="focus:outline-none w-[100%]"
+              type="text"
+              placeholder="Search Accounts"
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+
+            <img src={Search_light} alt="" />
+          </div>
           <button
             className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
             onClick={() => setGridView(!gridView)}
@@ -89,8 +96,9 @@ const AccountsPage = ({ token }) => {
             {gridView ? "List View" : "Grid View"}
           </button>
         </div>
+
         <div className="relative">
-          <div className="account-listing h-96 overflow-y-auto">
+          <div className="account-listing h-96 overflow-y-auto scrollbar scrollbar-w-2 scrollbar-track-slate-600 scrollbar-track-rounded-lg px-3">
             {gridView ? (
               <div
                 className="grid gap-4"
