@@ -42,7 +42,10 @@ function App() {
         ) : (
           <div className="flex font-Sudo_Var">
             {console.log("token success")}
-            <Sidebar openAcc={handleOpenAccModal} />
+            <Sidebar
+              openAcc={handleOpenAccModal}
+              closeAcc={handleCloseAccModal}
+            />
             <section className="bg-slate-100 h-screen flex-grow relative">
               <AccountsPage
                 accModalStatus={accModalStatus}

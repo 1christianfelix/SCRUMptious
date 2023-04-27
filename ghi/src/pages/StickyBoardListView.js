@@ -210,11 +210,10 @@ const StickyBoardListView = () => {
               {filteredStickyboards !== null &&
                 filteredStickyboards.map((stickyboard) => {
                   return (
-                    <Draggable>
+                    <Draggable key={stickyboard.id}>
                       <div className="transition-all duration-[50ms] ease-linear hover:scale-105">
                         <div
                           className="relative  hover:cursor-pointer active:cursor-grabbing"
-                          key={stickyboard.id}
                           onDoubleClick={() =>
                             navigate(`/dashboard/${stickyboard.id}`)
                           }
