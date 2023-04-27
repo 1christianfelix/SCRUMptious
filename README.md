@@ -11,7 +11,6 @@ Website: https://team-scrappy.gitlab.io/scrum-ptious
 - John Liu - Software Developer
 - Kurt Loban - Software Developer
 
-
 ## Design
 
 Scrumptious is a web application that facilitates project management using a Scrum-based approach with the aid of Sticky Notes and Sticky Boards. The frontend of the application is developed using React and is organized into separate directories for Sticky Notes, Sticky Boards, and Accounts.
@@ -22,7 +21,6 @@ Scrumptious has a router directory that defines the routes for the API endpoints
 
 As the database used by Scrumptious is MongoDB, it does not require the use of a pre-built migrations folder. However, asynchronous functions are still utilized on the frontend of the application.
 
-
 ## Features
 
 - Create and manage Sticky Notes and Sticky Boards.
@@ -32,23 +30,22 @@ As the database used by Scrumptious is MongoDB, it does not require the use of a
 - Assign users to Sticky Notes
 - Email notifications when users are added to a Sticky Note or Sticky Board.
 
-## Design Picture
+## Design Concept Diagrams
 
+![Wireframe](Wireframe%20concept.svg)
+![Figma Wireframe](Figma%20UIUX%20wireframe.jpg)
 
 ## Project Initialization
+
 Be sure to have Docker Destkop downloaded and running.
 
-
-
 ### Clone the Repository
-
 
 &ensp;&ensp;&ensp;&ensp;1. Open your terminal, change to the directory folder where the project will be cloned.
 
 &ensp;&ensp;&ensp;&ensp;2. In your terminal, type: `git clone https://gitlab.com/team-scrappy/scrum-ptious.git`
 
 &ensp;&ensp;&ensp;&ensp;3. Navigate to the project directory.
-
 
 ### SENDGRID API Key
 
@@ -62,7 +59,6 @@ To provide environment variables for your setup that should not live in the dock
 
 &ensp;&ensp;&ensp;&ensp;`Sendgrid_api_key=Your_API_Key`
 
-
 ### Start Docker
 
 After you have cloned your Repository and are in the correct directory initializate the following actions within your terminal:
@@ -75,12 +71,6 @@ After you have cloned your Repository and are in the correct directory initializ
 
 Upon completion of the previous commands you will see all four Docker containers up and running.
 
-
-
-
-
-
-
 ### Wireframe
 
 ### Concept UI/UX
@@ -88,12 +78,16 @@ Upon completion of the previous commands you will see all four Docker containers
 ## Installation
 
 ## Models
+
 ### Account
+
 - email: str
 - password: str
 - first_name: str
 - last_name: str
+
 ### Sticky
+
 - subject: str
 - content: Optional[str]
 - priority: int
@@ -102,7 +96,9 @@ Upon completion of the previous commands you will see all four Docker containers
 - deadline: datetime
 - account: list[str]
 - stickyboard: str
+
 ### Stickyboard
+
 - board_name: str
 - description: str
 - priority: int
@@ -114,14 +110,16 @@ Upon completion of the previous commands you will see all four Docker containers
 - doing: list[str]
 - review: list[str]
 - done: list[str]
+
 ## Endpoints
+
 ### Account
 
-| Action                 | URL                                                          |
-|:-----------------------|:-------------------------------------------------------------|
-| `Get All Accounts`          | `http://localhost:3000/accounts`                             |
-| `Post Account`      | `http://localhost:3000/accounts`                    |
-| `Delete Account`       | `http://localhost:3000/accounts/{account_id}` |
+| Action             | URL                                           |
+| :----------------- | :-------------------------------------------- |
+| `Get All Accounts` | `http://localhost:3000/accounts`              |
+| `Post Account`     | `http://localhost:3000/accounts`              |
+| `Delete Account`   | `http://localhost:3000/accounts/{account_id}` |
 
 <details>
 <summary markdown="span">GET All Accounts: </summary>
@@ -136,6 +134,7 @@ Upon completion of the previous commands you will see all four Docker containers
   }
 ]
 ```
+
 </details>
 
 <details>
@@ -150,4 +149,5 @@ Upon completion of the previous commands you will see all four Docker containers
     "last_name": "Test_Last_Name"
 }
 ```
+
 </details>
