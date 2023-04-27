@@ -1,4 +1,4 @@
-Date:
+# Date:
 3/27/23
 
 Yesterday:
@@ -8,7 +8,7 @@ Today:
 Blockers:
     Figuring out when we get the Rubric.
 
-Date:
+# Date:
 3/28/23
 
 Yesterday:
@@ -18,7 +18,7 @@ Today:
 Blockers:
     None
 
-Date:
+# Date:
 3/29/23
 
 Yesterday:
@@ -28,7 +28,7 @@ Today:
 Blockers:
     Just making sure I have everything installed that I need so I can work more efficiently
 
-Date:
+# Date:
 4/2/23
 
 Yesterday:
@@ -38,7 +38,7 @@ Today:
 Blockers:
     None
 
-Date:
+# Date:
 4/3/23
 
 Yesterday:
@@ -58,7 +58,7 @@ Today:
 Blockers:
     Was out sick--couldn't get much work done.
 
-Date:
+# Date:
 4/5/23
 
 Yesterday:
@@ -68,7 +68,7 @@ Today:
 Blockers:
     None
 
-Date:
+# Date:
 4/6/23
 
 Yesterday:
@@ -78,6 +78,51 @@ Today:
 Blockers:
     None
 
+4/7/223
+Yesterday:
+Front end auth, delete sticky back
+Today:
+Delete sticky back and Update Sticky front
+Blockers:
+None
+
+4/17/23
+Yesterday:
+Delete Sticky, Update sticky
+Today:
+Sync up, solve merge conflicts get to deplopyment
+Blockers:
+None
+
+4/18/23
+Yesterday:
+merge conflicts and refactoring
+today:
+finish merge and deployment
+Blockers None
+
+4/19/23
+Yesterday:
+Merge conflicts + refactoring
+Today:
+Merge to main/testing and review deployment
+
+4/20/23
+Yesterday:
+Merge issue resolution
+Today:
+Deployment part 1 2 3
+
+4/21/23
+Yesterday:
+Deployment 1, 2, 3
+Today:
+Deployment 3 and 4
+Blockers:
+None
+
+
+
 4/25/23
 Yesterday:
 Auth
@@ -85,3 +130,18 @@ Today:
 Sticky Update Delete
 Blockers:
 OS issues
+
+
+4/26/23
+Yesterday:
+Deployment 4
+Today:
+Finish Deployment, start unit tests
+Blockers:
+None
+
+4/27/23
+Yesterday:
+Get all stickies unit test
+Today:
+Update Sticky and Delete Sticky Unit test.
