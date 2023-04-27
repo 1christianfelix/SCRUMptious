@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import StickyDetails from "./StickyDetails";
+import React from "react";
+// import StickyDetails from "./StickyDetails";
 
 // import useToken from "@galvanize-inc/jwtdown-for-react";
 
 const AccountDetails = ({ account, onClose }) => {
   //   const { token } = useToken();
 
-  const [stickies, setStickies] = useState([]);
-  const [stickyId, setStickyId] = useState(null);
+  // const [stickies, setStickies] = useState([]);
+  // const [stickyId, setStickyId] = useState(null);
 
   // useEffect(() => {
   //   async function fetchStickies() {
@@ -21,9 +21,9 @@ const AccountDetails = ({ account, onClose }) => {
   //   fetchStickies();
   // }, [account.id]);
 
-  const handleStickyClick = (stickyId) => {
-    setStickyId(stickyId);
-  };
+  // const handleStickyClick = (stickyId) => {
+  //   setStickyId(stickyId);
+  // };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
@@ -39,13 +39,13 @@ const AccountDetails = ({ account, onClose }) => {
         </h2>
         <p>Email: {account.email}</p>
         <p>Account ID: {account.id}</p>
-        {stickies.map((sticky) => (
+        {/* {stickies.map((sticky) => (
           <div key={sticky.id} onClick={() => handleStickyClick(sticky.id)}>
             <p>{sticky.subject}</p>
             <p>{sticky.content}</p>
           </div>
-        ))}
-        {stickyId && <StickyDetails stickyId={stickyId} />}
+        ))} */}
+        {/* {stickyId && <StickyDetails stickyId={stickyId} />} */}
       </div>
     </div>
   );
