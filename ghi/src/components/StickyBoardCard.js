@@ -37,7 +37,7 @@ const StickyBoardCard = (props) => {
 
   return (
     <div
-      className={`h-[238px] w-[289px] 1440:h-[calc(238px*1.333)] 1440:w-[calc(289px*1.333)] rounded-[8px] drop-shadow-sticky flex flex-col ${gradient}`}
+      className={`h-[238px] w-[289px] 1440:h-[calc(238px*1.333)] 1440:w-[calc(289px*1.333)] rounded-[8px] drop-shadow-sticky flex flex-col ${gradient} `}
     >
       <div className=" HEADER h-[20%] flex justify-between p-5 pt-3 1440:py-4">
         <div className="PRIORITY_BOX bg-white h-[22px] w-[86px] flex items-center justify-center drop-shadow-sticky">
@@ -67,9 +67,9 @@ const StickyBoardCard = (props) => {
         </div>
         <div className="BUTTONS flex justify-between py-3 1440:py-4">
           <img alt="Button" src={garbage} className="self-end expand-button" />
-          <button className="button-hover-white-filled px-[.7rem] py-[.1rem] bg-white rounded-[19px]">
+          {/* <button className="button-hover-white-filled px-[.7rem] py-[.1rem] bg-white rounded-[19px]">
             <span>Edit Board</span>
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

@@ -7,6 +7,10 @@ import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 import StickyBoardCreateForm from "../components/StickyBoardCreateForm";
 import StickyBoardUpdateForm from "../components/StickyBoardUpdateForm";
 import { useNavigate } from "react-router-dom";
+import Draggable from "react-draggable";
+import expand_icon_dark from "../images/icons/expand_icon_dark.svg";
+import Back_light from "../images/icons/Back_light.svg";
+import { Tooltip } from "react-tooltip";
 
 const StickyBoardListView = () => {
   const { token } = useContext(AuthContext);
@@ -184,47 +188,66 @@ const StickyBoardListView = () => {
             + New Board
           </button>
         </div>
-        <div className="flex-grow overflow-auto scrollbar-card hover:scrollbar-thumb-slate-950 scrollbar-thumb-slate-400 scrollbar-w-2 h-[100%] pt-2 max-h-[calc(100vh-12.75rem)] 1440:max-h-[calc(100vh-18.75rem)]">
+        <div className="bound flex-grow overflow-auto scrollbar-card hover:scrollbar-thumb-slate-950 scrollbar-thumb-slate-400 scrollbar-w-2 h-[100%] pt-2 max-h-[calc(100vh-12.75rem)] 1440:max-h-[calc(100vh-18.75rem)]">
           <div className="place-items-center grid grid-cols-4 gap-y-10 last:mb-10">
             {filteredStickyboards !== null &&
               filteredStickyboards.map((stickyboard) => {
                 return (
-                  <div
-                    className="relative"
-                    key={stickyboard.id}
-                    onDoubleClick={() =>
-                      navigate(`/dashboard/${stickyboard.id}`)
-                    }
-                  >
-                    <StickyBoardCard
-                      stickyboard={stickyboard}
-                      getStickyboardsData={getStickyboardsData}
-                    />
-                    <div className="BUTTONS flex flex-col justify-between py-3">
-                      <img
-                        alt="garbage"
-                        src={garbage}
-                        className="expand-button absolute bottom-9 left-5"
-                        onClick={() => {
-                          handleDeletion(stickyboard.id);
-                        }}
-                      />
-                      <button
-                        className="button-hover-white-filled px-[.7rem] py-[.1rem] bg-white rounded-[19px] absolute 1440:bottom-10 bottom-9 right-5"
-                        onClick={() => {
-                          handleOpenModal("update", stickyboard);
-                          setStickyboard(stickyboard);
-                        }}
+                  <Draggable>
+                    <div className="transition-all duration-[50ms] ease-linear hover:scale-105">
+                      <div
+                        className="relative  hover:cursor-pointer active:cursor-grabbing"
+                        key={stickyboard.id}
+                        onDoubleClick={() =>
+                          navigate(`/dashboard/${stickyboard.id}`)
+                        }
                       >
-                        <span>Edit Board</span>
-                      </button>
+                        <StickyBoardCard
+                          stickyboard={stickyboard}
+                          getStickyboardsData={getStickyboardsData}
+                        />
+                        <div className="BUTTONS flex flex-col justify-between py-3">
+                          <img
+                            alt="garbage"
+                            src={garbage}
+                            className="expand-button absolute bottom-9 left-5"
+                            onClick={() => {
+                              handleDeletion(stickyboard.id);
+                            }}
+                          />
+                          <button
+                            className="expand-button px-[.7rem] py-[.1rem]  absolute 1440:bottom-10 bottom-[2.25rem] right-[3rem]"
+                            onClick={() =>
+                              navigate(`/dashboard/${stickyboard.id}`)
+                            }
+                          >
+                            <img
+                              src={Back_light}
+                              alt="back_light"
+                              className="h-[1.6rem] w-[1.4rem]"
+                            />
+                          </button>
+                          <button
+                            className="expand-button px-[.7rem] py-[.1rem]  absolute 1440:bottom-10 bottom-9 right-2"
+                            onClick={() => {
+                              handleOpenModal("update", stickyboard);
+                              setStickyboard(stickyboard);
+                            }}
+                            data-tooltip-id="my-tooltip"
+                            data-tooltip-content="Update Sticky Board"
+                          >
+                            <img alt="expand" src={expand_icon_dark} />
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </Draggable>
                 );
               })}
           </div>
         </div>
       </div>
+      <Tooltip id="my-tooltip" place="bottom" />
     </div>
   );
 };

@@ -13,7 +13,7 @@ const StickyNote = (props) => {
   let deadline = new Date(props.deadline).toLocaleDateString();
   let headerColor = null;
   let bodyColor = null;
-  console.log(props)
+  console.log(props);
   switch (priority) {
     case 1:
       priorityColor = "bg-gradient-to-l from-[#EFFFF2] to-[#a6e6b0] ";
@@ -85,7 +85,7 @@ const StickyNote = (props) => {
           <span className="inline-block m-[1rem] mx-5 text-lg 1440:text-2xl ">
             {subject}
           </span>
-          <div className="flex-grow flex flex-col text-sm overflow-auto mx-5 scrollbar-card scrollbar-w-[.4rem] 1440:scrollbar-w-[.6rem] 1440:text-lg pr-[.5rem]">
+          <div className="flex-grow flex flex-col text-sm overflow-auto mx-5 scrollbar-card scrollbar-w-[.4rem] 1440:scrollbar-w-[.6rem] 1440:text-lg pr-[.5rem] break-words">
             <p className="">{content}</p>
           </div>
           <img
