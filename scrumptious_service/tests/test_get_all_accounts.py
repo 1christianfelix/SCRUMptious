@@ -1,32 +1,36 @@
-import mongomock
-from queries.accounts import AccountQueries, AccountIn
+# import mongomock
+# from queries.accounts import AccountQueries, AccountIn
 
-client = mongomock.MongoClient()
-account_queries = AccountQueries()
+# client = mongomock.MongoClient()
+# account_queries = AccountQueries()
 
 
-def test_get_all_accounts():
-    account_in = AccountIn(
-        email="test1772D501gp@test.com",
-        password="testpassword",
-        first_name="John",
-        last_name="Doe",
+# def test_get_all_accounts():
+#     account_in = AccountIn(
+#         email="test1772D501gpp@test.com",
+#         password="testpassword",
+#         first_name="John",
+#         last_name="Doe",
+#     )
+#     hashed_password = "hashed_testpassword"
+
+#     db_name = "test_db"
+#     collection_name = "accounts"
+#     collection = client[db_name][collection_name]
+
+#     collection.delete_many({})
+
+#     created_account = account_queries.create(account_in, hashed_password)
+
+#     accounts = account_queries.get_all_accounts()
+#     assert any(
+#         account["email"] == created_account.email for account in accounts
     )
-    hashed_password = "hashed_testpassword"
 
-    db_name = "test_db"
-    collection_name = "accounts"
-    collection = client[db_name][collection_name]
 
-    collection.delete_many({})
-
-    created_account = account_queries.create(account_in, hashed_password)
-
-    accounts = account_queries.get_all_accounts()
-    assert any(
-        account["email"] == created_account.email for account in accounts
-    )
-
+#  Per discussion with James during our presentation, he said it would
+#  be best for this test not to run. Kurt has two other tests using
+#  from fastapi.testclient import TestClient.
 
 #  This test creates a test account, inserts it into a test collection,
 #  and checks that the get_all_accounts method returns a list containing

@@ -1,34 +1,38 @@
-import pytest
-from queries.accounts import AccountQueries, AccountIn, DuplicateAccountError
-import mongomock
+# import pytest
+# from queries.accounts import AccountQueries, AccountIn, DuplicateAccountError
+# import mongomock
 
-client = mongomock.MongoClient()
-account_queries = AccountQueries()
+# client = mongomock.MongoClient()
+# account_queries = AccountQueries()
 
 
-def test_create_account():
-    account_queries.collection = client["Accounts"]["accounts"]
-    account_queries.collection.create_index("email", unique=True)
+# def test_create_account():
+#     account_queries.collection = client["Accounts"]["accounts"]
+#     account_queries.collection.create_index("email", unique=True)
 
-    account_data = {
-        "email": "test1a0FYYX@example.com",
-        "password": "test_password",
-        "first_name": "Test",
-        "last_name": "User",
-    }
+#     account_data = {
+#         "email": "test1a0FYYXXVYp@example.com",
+#         "password": "test_password",
+#         "first_name": "Test",
+#         "last_name": "User",
+#     }
 
-    account_in = AccountIn(**account_data)
-    hashed_password = "hashed_test_password"
-    created_account = account_queries.create(account_in, hashed_password)
+#     account_in = AccountIn(**account_data)
+#     hashed_password = "hashed_test_password"
+#     created_account = account_queries.create(account_in, hashed_password)
 
-    assert created_account.email == account_data["email"]
-    assert created_account.first_name == account_data["first_name"]
-    assert created_account.last_name == account_data["last_name"]
-    assert created_account.hashed_password == hashed_password
+#     assert created_account.email == account_data["email"]
+#     assert created_account.first_name == account_data["first_name"]
+#     assert created_account.last_name == account_data["last_name"]
+#     assert created_account.hashed_password == hashed_password
 
-    with pytest.raises(DuplicateAccountError):
-        account_queries.create(account_in, hashed_password)
+#     with pytest.raises(DuplicateAccountError):
+#         account_queries.create(account_in, hashed_password)
 
+
+#  Per discussion with James during our presentation, he said it would
+#  be best for this test not to run. Kurt has two other tests using
+#  from fastapi.testclient import TestClient.
 
 #  The test checks if the create account method throws an error for duplicate
 #  email.
