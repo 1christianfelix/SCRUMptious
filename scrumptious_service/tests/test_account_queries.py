@@ -11,7 +11,7 @@ def test_create_account():
     account_queries.collection.create_index("email", unique=True)
 
     account_data = {
-        "email": "test1a0FYY@example.com",
+        "email": "test1a0FYYX@example.com",
         "password": "test_password",
         "first_name": "Test",
         "last_name": "User",
