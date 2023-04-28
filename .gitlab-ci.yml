@@ -54,11 +54,6 @@ build-scrumptious-service:
   stage: build
   services:
     - docker:19.03.1-dind
-    - name: mongo:latest
-      alias: mongo
-  variables:
-    MONGO_HOST: mongo
-    MONGO_PORT: 27017
   before_script:
     - export DOCKER_REGISTRY_USER=$CI_REGISTRY_USER # built-in GitLab Registry User
     - export DOCKER_REGISTRY_PASSWORD=$CI_REGISTRY_PASSWORD # built-in GitLab Registry Password
@@ -84,6 +79,14 @@ build-scrumptious-service:
 api-unit-test-job:
   image: python:3-bullseye
   stage: test
+  services:
+    - name: mongo:6
+      alias: localhost
+  variables:
+    MONGO_URL: mongodb://test_user:test_password@localhost
+    MONGO_INITDB_ROOT_USERNAME: test_user
+    MONGO_INITDB_ROOT_PASSWORD: test_password
+    DATABASE_NAME: test_db
   needs:
     - lint-test-job
   script:
