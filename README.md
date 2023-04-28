@@ -78,27 +78,12 @@ Upon completion of the previous commands you will see all four Docker containers
 ## Installation
 
 ## Models
-
 ### Account
-
 - email: str
 - password: str
 - first_name: str
 - last_name: str
-
-### Sticky
-
-- subject: str
-- content: Optional[str]
-- priority: int
-- category: str
-- start_date: datetime
-- deadline: datetime
-- account: list[str]
-- stickyboard: str
-
 ### Stickyboard
-
 - board_name: str
 - description: str
 - priority: int
@@ -110,44 +95,240 @@ Upon completion of the previous commands you will see all four Docker containers
 - doing: list[str]
 - review: list[str]
 - done: list[str]
-
+### Sticky
+- subject: str
+- content: Optional[str]
+- priority: int
+- category: str
+- start_date: datetime
+- deadline: datetime
+- account: list[str]
+- stickyboard: str
 ## Endpoints
-
 ### Account
 
-| Action             | URL                                           |
-| :----------------- | :-------------------------------------------- |
-| `Get All Accounts` | `http://localhost:3000/accounts`              |
-| `Post Account`     | `http://localhost:3000/accounts`              |
-| `Delete Account`   | `http://localhost:3000/accounts/{account_id}` |
+| Action                   | URL                                                          |
+|:-------------------------|:-------------------------------------------------------------|
+| `POST an account`        | `http://localhost:3000/accounts`                    |
+| `GET all accounts`            | `http://localhost:3000/accounts`                             |
+| `DELETE an account` | `http://localhost:3000/accounts/{account_id}` |
 
 <details>
-<summary markdown="span">GET All Accounts: </summary>
+<summary markdown="span">POST an account: </summary>
+```
+{
+  "email": "test_account@test.com",
+  "password": "test_password",
+  "first_name": "Test_First_Name",
+  "last_name": "Test_Last_Name"
+}
+```
+</details>
 
+<details>
+<summary markdown="span">GET all accounts: </summary>
 ```
 [
   {
     "email": "test_account@test.com",
     "first_name": "Test_First_Name",
     "last_name": "Test_Last_Name",
-    "id": "111111111111111111111111"
+    "id": "644b0597b0b66163a004216a"
   }
 ]
 ```
+</details>
 
+### Stickyboard
+
+| Action                                                      | URL                                                         |
+|:------------------------------------------------------------|:------------------------------------------------------------|
+| `POST a stickyboard`                                        | `http://localhost:3000/stickyboard`                         |
+| `GET all stickyboards`                                           | `http://localhost:3000/stickyboard`                         |
+| `GET all stickies under categories of a stickyboard`            | `http://localhost:3000/{stickyboard_id}/stickies`           |
+| `GET stickies under a stickyboards`                             | `http://localhost:3000/stickyboard/{stickyboard_id}/sticky` |
+| `PUT a stickyboard`                                           | `http://localhost:3000/stickyboard/{stickyboard_id}`                  |
+| `DELETE a stickyboard`                                      | `http://localhost:3000/stickyboard/{stickyboard_id}`        |
+
+<details>
+<summary markdown="span">POST a stickyboard: </summary>
+```
+{
+  "board_name": "Test_Stickyboard_Board_Name",
+  "description": "Test_Stickyboard_Description",
+  "priority": 1,
+  "start_date": "2023-04-27T23:01:04.911Z",
+  "deadline": "2023-04-27T23:01:04.911Z",
+  "account": [
+    "644b0597b0b66163a004216a"
+  ],
+  "backlog": [],
+  "todo": [],
+  "doing": [],
+  "review": [],
+  "done": []
+}
+```
 </details>
 
 <details>
+<summary markdown="span">GET all stickyboards: </summary>
+```
+[
+  {
+    "board_name": "Test_Stickyboard_Board_Name",
+    "description": "Test_Stickyboard_Description",
+    "priority": 1,
+    "start_date": "2023-04-27T23:01:04.911000",
+    "deadline": "2023-04-27T23:01:04.911000",
+    "account": [
+      "644b0597b0b66163a004216a"
+    ],
+    "backlog": [],
+    "todo": [],
+    "doing": [],
+    "review": [],
+    "done": [],
+    "id": "644b05d6b0b66163a004216b"
+  }
+]
+```
+</details>
 
-<summary markdown="span">POST Account: </summary>
-
+<details>
+<summary markdown="span">GET all stickies under categories of a stickyboard: </summary>
 ```
 {
-    "email": "test_account@test.com",
-    "password": "test_password",
-    "first_name": "Test_First_Name",
-    "last_name": "Test_Last_Name"
+  "backlog": [],
+  "todo": [],
+  "review": [],
+  "doing": [
+    {
+      "subject": "Test_Sticky_Subject",
+      "content": "Test_Sticky_Content",
+      "priority": 1,
+      "category": "doing",
+      "start_date": "2023-04-27T22:25:24.238000",
+      "deadline": "2023-04-27T22:25:24.238000",
+      "account": [
+        "644b0597b0b66163a004216a"
+      ],
+      "append": false,
+      "stickyboard": "644b05d6b0b66163a004216b",
+      "id": "644b06dab0b66163a004216c"
+    }
+  ],
+  "done": []
 }
 ```
+</details>
 
+<details>
+<summary markdown="span">GET stickies under a stickyboard: </summary>
+```
+[
+  {
+    "subject": "Test_Sticky_Subject",
+    "content": "Test_Sticky_Content",
+    "priority": 1,
+    "category": "doing",
+    "start_date": "2023-04-27T22:25:24.238000",
+    "deadline": "2023-04-27T22:25:24.238000",
+    "account": [
+      "644b0597b0b66163a004216a"
+    ],
+    "append": false,
+    "stickyboard": "644b05d6b0b66163a004216b",
+    "id": "644b06dab0b66163a004216c"
+  }
+]
+```
+</details>
+
+<details>
+<summary markdown="span">PUT a stickyboard: </summary>
+```
+{
+  "board_name": "Test_Stickyboard_Board_Name_Update",
+  "description": "Test_Stickyboard_Description_Update",
+  "priority": 1,
+  "start_date": "2023-04-27T23:01:04.911Z",
+  "deadline": "2023-04-27T23:01:04.911Z",
+  "account": [
+    "644b0597b0b66163a004216a"
+  ],
+  "backlog": [],
+  "todo": [],
+  "doing": [],
+  "review": [],
+  "done": []
+}
+```
+</details>
+
+### Sticky
+
+| Action                              | URL                                                      |
+|:------------------------------------|:---------------------------------------------------------|
+| `POST a sticky under a stickyboard` | `http://localhost:3000/{stickyboard_id}/sticky`          |
+| `GET all stickies`                       | `http://localhost:3000/sticky`                           |
+| `PUT a sticky`                         | `http://localhost:3000/sticky/{sticky_id}` |
+| `DELETE a sticky`                   | `http://localhost:3000/sticky/{sticky_id}`                  |
+
+<details>
+<summary markdown="span">POST a sticky under a stickyboard: </summary>
+```
+{
+  "subject": "Test_Sticky_Subject",
+  "content": "Test_Sticky_Content",
+  "priority": 1,
+  "category": "doing",
+  "start_date": "2023-04-27T22:25:24.238Z",
+  "deadline": "2023-04-27T22:25:24.238Z",
+  "account": [
+    "644b0597b0b66163a004216a"
+  ],
+  "append": false
+}
+```
+</details>
+
+<details>
+<summary markdown="span">GET all stickies: </summary>
+```
+[
+  {
+    "subject": "Test_Sticky_Subject",
+    "content": "Test_Sticky_Content",
+    "priority": 1,
+    "category": "doing",
+    "start_date": "2023-04-27T22:25:24.238000",
+    "deadline": "2023-04-27T22:25:24.238000",
+    "account": [
+      "644b0597b0b66163a004216a"
+    ],
+    "append": false,
+    "stickyboard": "644b05d6b0b66163a004216b",
+    "id": "644b06dab0b66163a004216c"
+  }
+]
+```
+</details>
+
+<details>
+<summary markdown="span">PUT a sticky: </summary>
+```
+{
+  "subject": "Test_Sticky_Subject_Update",
+  "content": "Test_Sticky_Content_Update",
+  "priority": 1,
+  "category": "doing",
+  "start_date": "2023-04-27T22:25:24.238Z",
+  "deadline": "2023-04-27T22:25:24.238Z",
+  "account": [
+    "644b0597b0b66163a004216a"
+  ],
+  "stickyboard": "644b05d6b0b66163a004216b"
+}
+```
 </details>
