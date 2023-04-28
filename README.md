@@ -115,6 +115,7 @@ Upon completion of the previous commands you will see all four Docker containers
 
 <details>
 <summary markdown="span">POST an account: </summary>
+
 ```
 {
   "email": "test_account@test.com",
@@ -123,10 +124,12 @@ Upon completion of the previous commands you will see all four Docker containers
   "last_name": "Test_Last_Name"
 }
 ```
+
 </details>
 
 <details>
 <summary markdown="span">GET all accounts: </summary>
+
 ```
 [
   {
@@ -137,6 +140,7 @@ Upon completion of the previous commands you will see all four Docker containers
   }
 ]
 ```
+
 </details>
 
 ### Stickyboard
@@ -152,6 +156,7 @@ Upon completion of the previous commands you will see all four Docker containers
 
 <details>
 <summary markdown="span">POST a stickyboard: </summary>
+
 ```
 {
   "board_name": "Test_Stickyboard_Board_Name",
@@ -169,10 +174,12 @@ Upon completion of the previous commands you will see all four Docker containers
   "done": []
 }
 ```
+
 </details>
 
 <details>
 <summary markdown="span">GET all stickyboards: </summary>
+
 ```
 [
   {
@@ -193,10 +200,12 @@ Upon completion of the previous commands you will see all four Docker containers
   }
 ]
 ```
+
 </details>
 
 <details>
 <summary markdown="span">GET all stickies under categories of a stickyboard: </summary>
+
 ```
 {
   "backlog": [],
@@ -221,10 +230,12 @@ Upon completion of the previous commands you will see all four Docker containers
   "done": []
 }
 ```
+
 </details>
 
 <details>
 <summary markdown="span">GET stickies under a stickyboard: </summary>
+
 ```
 [
   {
@@ -243,10 +254,12 @@ Upon completion of the previous commands you will see all four Docker containers
   }
 ]
 ```
+
 </details>
 
 <details>
 <summary markdown="span">PUT a stickyboard: </summary>
+
 ```
 {
   "board_name": "Test_Stickyboard_Board_Name_Update",
@@ -264,6 +277,7 @@ Upon completion of the previous commands you will see all four Docker containers
   "done": []
 }
 ```
+
 </details>
 
 ### Sticky
@@ -277,6 +291,7 @@ Upon completion of the previous commands you will see all four Docker containers
 
 <details>
 <summary markdown="span">POST a sticky under a stickyboard: </summary>
+
 ```
 {
   "subject": "Test_Sticky_Subject",
@@ -291,10 +306,12 @@ Upon completion of the previous commands you will see all four Docker containers
   "append": false
 }
 ```
+
 </details>
 
 <details>
 <summary markdown="span">GET all stickies: </summary>
+
 ```
 [
   {
@@ -313,10 +330,12 @@ Upon completion of the previous commands you will see all four Docker containers
   }
 ]
 ```
+
 </details>
 
 <details>
 <summary markdown="span">PUT a sticky: </summary>
+
 ```
 {
   "subject": "Test_Sticky_Subject_Update",
@@ -331,4 +350,5 @@ Upon completion of the previous commands you will see all four Docker containers
   "stickyboard": "644b05d6b0b66163a004216b"
 }
 ```
+
 </details>
