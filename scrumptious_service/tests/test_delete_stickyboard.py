@@ -80,7 +80,7 @@ def test_delete_stickyboard():
 
     response = client.delete("/stickyboard/non_existent_id")
     assert response.status_code == 200
-    assert response.json() is None
+    assert response.json() is None  # Expecting None as the response body
 
     app.dependency_overrides = {}
 
