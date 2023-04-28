@@ -54,12 +54,12 @@ class StickyBoardQueries:
             for account_id in stickyboard_dict["account"]:
                 account = client["Accounts"]["accounts"].find_one(
                     {"_id": ObjectId(account_id)}
-                    )
+                )
                 send_email(
                     to_emails=account["email"],
                     subject="You were added as a member of a stickyboard!",
-                    content="Please login to check."
-                    )
+                    content="Please login to check.",
+                )
             return self.get_stickyboard_by_id(result.inserted_id)
 
     def get_stickyboards(self):
@@ -81,7 +81,7 @@ class StickyBoardQueries:
     def update_stickyboard(self, stickyboard_id, stickyboard):
         update_result = collection.update_one(
             {"_id": ObjectId(stickyboard_id)},
-            {"$set": stickyboard.dict(exclude_unset=True)}
+            {"$set": stickyboard.dict(exclude_unset=True)},
         )
         if update_result.modified_count > 0:
             return self.get_stickyboard_by_id(stickyboard_id)
@@ -95,30 +95,31 @@ class StickyBoardQueries:
 
     def create_sticky(self, stickyboard_id, sticky) -> Sticky:
         props = sticky.dict()
-        props['stickyboard'] = stickyboard_id
+        props["stickyboard"] = stickyboard_id
         db["Sticky"].insert_one(props)
         stickyboard = collection.find_one(
             {"_id": ObjectId(props["stickyboard"])}
-            )
+        )
         category_list = stickyboard[props["category"]]
-        if not props['append']:
+        if not props["append"]:
             category_list.insert(0, str(props["_id"]))
         else:
             category_list.append(str(props["_id"]))
-        del props['append']
+        del props["append"]
         collection.update_one(
             {"_id": ObjectId(props["stickyboard"])},
-            {"$set": {props["category"]: category_list}}
+            {"$set": {props["category"]: category_list}},
         )
         for account_id in props["account"]:
             account = client["Accounts"]["accounts"].find_one(
-                {"_id": ObjectId(account_id)})
+                {"_id": ObjectId(account_id)}
+            )
             send_email(
                 to_emails=account["email"],
                 subject="You were added as a member of a sticky!",
-                content="Please login to check."
-                )
-        return (Sticky(**props))
+                content="Please login to check.",
+            )
+        return Sticky(**props)
 
     def get_sticky_by_id(self, sticky_id):
         result = db["Sticky"].find_one({"_id": ObjectId(sticky_id)})
@@ -130,9 +131,9 @@ class StickyBoardQueries:
     def get_stickies_data(self, stickyboard_id):
         stickyboard = self.get_stickyboard_by_id(stickyboard_id)
         stickyboard_category_data = {}
-        category_names = ["backlog", 'todo', 'review', 'doing', 'done']
+        category_names = ["backlog", "todo", "review", "doing", "done"]
         for category in category_names:
             stickyboard_category_data[f"{category}"] = list(
                 map(self.get_sticky_by_id, stickyboard[f"{category}"])
-                )
+            )
         return stickyboard_category_data

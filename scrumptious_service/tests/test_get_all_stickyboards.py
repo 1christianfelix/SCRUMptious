@@ -16,7 +16,7 @@ def account_override():
         "id": "1",
         "email": "test@test.com",
         "first_name": "test",
-        "last_name": "test"
+        "last_name": "test",
     }
 
 
