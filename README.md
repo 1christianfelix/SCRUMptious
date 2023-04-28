@@ -1,147 +1,354 @@
-# Module3 Project Gamma
+# Scrumptious
 
-## Getting started
+This link will lead to the deployed website:
 
-You have a project repository, now what? The next section
-lists all of the deliverables that are due at the end of the
-week. Below is some guidance for getting started on the
-tasks for this week.
+Website: https://team-scrappy.gitlab.io/scrum-ptious
 
-## Install Extensions
+#### Team:
 
-* Prettier: <https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode>
-* Black Formatter: <https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter>
+- Brandon Moore - Software Developer
+- Christian Felix - Software Developer
+- John Liu - Software Developer
+- Kurt Loban - Software Developer
 
-## Deliverables
+## Design
 
-* [ ] Wire-frame diagrams
-* [ ] API documentation
-* [ ] Project is deployed to Render.com/GitLab-pages
-* [ ] GitLab issue board is setup and in use
-* [ ] Journals
+Scrumptious is a web application that facilitates project management using a Scrum-based approach with the aid of Sticky Notes and Sticky Boards. The frontend of the application is developed using React and is organized into separate directories for Sticky Notes, Sticky Boards, and Accounts.
 
-## Project layout
+The backend of the application is built using FastAPI and MongoDB to maintain the directory structure. Additionally, the application uses microservices architecture by leveraging Docker.
 
-The layout of the project is just like all of the projects
-you did with `docker-compose` in module #2. You will create
-a directory in the root of the repository for each service
-that you add to your project just like those previous
-projects were setup.
+Scrumptious has a router directory that defines the routes for the API endpoints, a queries directory that defines the queries for the MongoDB database, and a test directory that contains test files for the API.
 
-### Directories
+As the database used by Scrumptious is MongoDB, it does not require the use of a pre-built migrations folder. However, asynchronous functions are still utilized on the frontend of the application.
 
-Several directories have been added to your project. The
-directories `docs` and `journals` are places for you and
-your team-mates to, respectively, put any documentation
-about your project that you create and to put your
-project-journal entries. See the _README.md_ file in each
-directory for more info.
+## Features
 
-The other directories, `ghi` and `sample_service`, are
-sample services, that you can start building off of or use
-as a reference point.
+- Create and manage Sticky Notes and Sticky Boards.
+- Assign Sticky Notes to various categories (backlog, todo, doing, review, and done).
+- Set priorities and deadlines for Sticky Notes and Sticky Boards.
+- Invite other users to collaborate on a Sticky Board.
+- Assign users to Sticky Notes
+- Email notifications when users are added to a Sticky Note or Sticky Board.
 
-Inside of `ghi` is a minimal React app that has an "under
-construction" page. It is setup similarly to all of the
-other React projects that you have worked on.
+## Design Concept Diagrams
 
-Inside of `sample_service` is a minimal FastAPI application.
-"Where are all the files?" you might ask? Well, the
-`main.py` file is the whole thing, and go take look inside
-of it... There's not even much in there..., hmm? That is
-FastAPI, we'll learn more about it in the coming days. Can
-you figure out what this little web-application does even
-though you haven't learned about FastAPI yet?
+![Wireframe](Wireframe%20concept.svg)
+![Figma Wireframe](Figma%20UIUX%20wireframe.jpg)
 
-Also in `sample_service` is a directory for your migrations.
-If you choose to use PostgreSQL, then you'll want to use
-migrations to control your database. Unlike Django, where
-migrations were automatically created for you, you'll write
-yours by hand using DDL. Don't worry about not knowing what
-DDL means; we have you covered. There's a sample migration
-in there that creates two tables so you can see what they
-look like.
+## Project Initialization
 
-The sample Dockerfile and Dockerfile.dev run your migrations
-for you automatically.
+Be sure to have Docker Destkop downloaded and running.
 
-### Other files
+### Clone the Repository
 
-The following project files have been created as a minimal
-starting point. Please follow the guidance for each one for
-a most successful project.
+&ensp;&ensp;&ensp;&ensp;1. Open your terminal, change to the directory folder where the project will be cloned.
 
-* `docker-compose.yaml`: there isn't much in here, just a
-  **really** simple UI and FastAPI service. Add services
-  (like a database) to this file as you did with previous
-  projects in module #2.
-* `.gitlab-ci.yml`: This is your "ci/cd" file where you will
-  configure automated unit tests, code quality checks, and
-  the building and deployment of your production system.
-  Currently, all it does is deploy an "under construction"
-  page to your production UI on GitLab and a sample backend
-  to Render.com. We will learn much more about this file.
-* `.gitignore`: This is a file that prevents unwanted files
-  from getting added to your repository, files like
-  `pyc` files, `__pycache__`, etc. We've set it up so that
-  it has a good default configuration for Python projects.
+&ensp;&ensp;&ensp;&ensp;2. In your terminal, type: `git clone https://gitlab.com/team-scrappy/scrum-ptious.git`
 
-## How to complete the initial deploy
+&ensp;&ensp;&ensp;&ensp;3. Navigate to the project directory.
 
-There will be further guidance on completing the initial
-deployment, but it just consists of these steps:
+### SENDGRID API Key
 
-### Setup GitLab repo/project
+To provide environment variables for your setup that should not live in the docker-compose.yml file, use the .env file. To set this up:
 
-* make sure this project is in a group. If it isn't, stop
-  now and move it to a GitLab group
-* remove the fork relationship: In GitLab go to:
-  
-  Settings -> General -> Advanced -> Remove fork relationship
+&ensp;&ensp;&ensp;&ensp;1. Copy the example.env file to the .env file:
 
-* add these GitLab CI/CD variables:
-  * PUBLIC_URL : this is your gitlab pages URL
-  * SAMPLE_SERVICE_API_HOST: enter "blank" for now
+&ensp;&ensp;&ensp;&ensp; `cp example.env .env`
 
-#### Your GitLab pages URL
+&ensp;&ensp;&ensp;&ensp;2. Replace XXXXXXXXXXXX in the Sendgrid_api_key variable with your actual SendGrid API key within the .env file:
 
-You can't find this in GitLab until after you've done a deploy
-but you can figure it out yourself from your GitLab project URL.
+&ensp;&ensp;&ensp;&ensp;`Sendgrid_api_key=Your_API_Key`
 
-If this is your project URL
+### Start Docker
 
-https://gitlab.com/GROUP_NAME/PROJECT_NAME
+After you have cloned your Repository and are in the correct directory initializate the following actions within your terminal:
 
-then your GitLab pages URL will be
+&ensp;&ensp;&ensp;&ensp;1. `docker volume create scrumptious-mongo-data`
 
-https://GROUP_NAME.gitlab.io/PROJECT_NAME
+&ensp;&ensp;&ensp;&ensp;2. `docker-compose build`
 
-### Create render.com account and application
+&ensp;&ensp;&ensp;&ensp;3. `docker-compose up`
 
-* create account on render.com
-* one person create a group and invite all other members
-* create a new "Web Service"
-  * authenticate with GitLab and choose your project
-  * Enter fields:
-    * Name: name of your service
-    * Root Directory: the directory of your service in your git repo.
-      For this example use "sample_service".
-    * Environment: Docker
-    * Plan Type: Free
-  * click the "Create Web Service" button to create it
-  * the build will succeed and it will look like the server is running,
-    most likely, in 6-10 minutes, it will fail.
-  * click "Manual Deploy" -> "Deploy latest commit" and the service
-    should deploy successfully.
+Upon completion of the previous commands you will see all four Docker containers up and running.
 
-### Update GitLab CI/CD variables
+### Wireframe
 
-Copy the service URL for your new render.com service and then paste
-that into the value for the SAMPLE_SERVICE_API_HOST CI/CD variable
-in GitLab.
+### Concept UI/UX
 
-### Deploy it
+## Installation
 
-Merge a change into main to kick off the initial deploy. Once the build pipeline
-finishes you should be able to see an "under construction" page on your GitLab
-pages site.
+## Models
+### Account
+- email: str
+- password: str
+- first_name: str
+- last_name: str
+### Stickyboard
+- board_name: str
+- description: str
+- priority: int
+- start_date: datetime
+- deadline: datetime
+- account: list[str]
+- backlog: list[str]
+- todo: list[str]
+- doing: list[str]
+- review: list[str]
+- done: list[str]
+### Sticky
+- subject: str
+- content: Optional[str]
+- priority: int
+- category: str
+- start_date: datetime
+- deadline: datetime
+- account: list[str]
+- stickyboard: str
+## Endpoints
+### Account
+
+| Action                   | URL                                                          |
+|:-------------------------|:-------------------------------------------------------------|
+| `POST an account`        | `http://localhost:3000/accounts`                    |
+| `GET all accounts`            | `http://localhost:3000/accounts`                             |
+| `DELETE an account` | `http://localhost:3000/accounts/{account_id}` |
+
+<details>
+<summary markdown="span">POST an account: </summary>
+
+```
+{
+  "email": "test_account@test.com",
+  "password": "test_password",
+  "first_name": "Test_First_Name",
+  "last_name": "Test_Last_Name"
+}
+```
+
+</details>
+
+<details>
+<summary markdown="span">GET all accounts: </summary>
+
+```
+[
+  {
+    "email": "test_account@test.com",
+    "first_name": "Test_First_Name",
+    "last_name": "Test_Last_Name",
+    "id": "644b0597b0b66163a004216a"
+  }
+]
+```
+
+</details>
+
+### Stickyboard
+
+| Action                                                      | URL                                                         |
+|:------------------------------------------------------------|:------------------------------------------------------------|
+| `POST a stickyboard`                                        | `http://localhost:3000/stickyboard`                         |
+| `GET all stickyboards`                                           | `http://localhost:3000/stickyboard`                         |
+| `GET all stickies under categories of a stickyboard`            | `http://localhost:3000/{stickyboard_id}/stickies`           |
+| `GET stickies under a stickyboards`                             | `http://localhost:3000/stickyboard/{stickyboard_id}/sticky` |
+| `PUT a stickyboard`                                           | `http://localhost:3000/stickyboard/{stickyboard_id}`                  |
+| `DELETE a stickyboard`                                      | `http://localhost:3000/stickyboard/{stickyboard_id}`        |
+
+<details>
+<summary markdown="span">POST a stickyboard: </summary>
+
+```
+{
+  "board_name": "Test_Stickyboard_Board_Name",
+  "description": "Test_Stickyboard_Description",
+  "priority": 1,
+  "start_date": "2023-04-27T23:01:04.911Z",
+  "deadline": "2023-04-27T23:01:04.911Z",
+  "account": [
+    "644b0597b0b66163a004216a"
+  ],
+  "backlog": [],
+  "todo": [],
+  "doing": [],
+  "review": [],
+  "done": []
+}
+```
+
+</details>
+
+<details>
+<summary markdown="span">GET all stickyboards: </summary>
+
+```
+[
+  {
+    "board_name": "Test_Stickyboard_Board_Name",
+    "description": "Test_Stickyboard_Description",
+    "priority": 1,
+    "start_date": "2023-04-27T23:01:04.911000",
+    "deadline": "2023-04-27T23:01:04.911000",
+    "account": [
+      "644b0597b0b66163a004216a"
+    ],
+    "backlog": [],
+    "todo": [],
+    "doing": [],
+    "review": [],
+    "done": [],
+    "id": "644b05d6b0b66163a004216b"
+  }
+]
+```
+
+</details>
+
+<details>
+<summary markdown="span">GET all stickies under categories of a stickyboard: </summary>
+
+```
+{
+  "backlog": [],
+  "todo": [],
+  "review": [],
+  "doing": [
+    {
+      "subject": "Test_Sticky_Subject",
+      "content": "Test_Sticky_Content",
+      "priority": 1,
+      "category": "doing",
+      "start_date": "2023-04-27T22:25:24.238000",
+      "deadline": "2023-04-27T22:25:24.238000",
+      "account": [
+        "644b0597b0b66163a004216a"
+      ],
+      "append": false,
+      "stickyboard": "644b05d6b0b66163a004216b",
+      "id": "644b06dab0b66163a004216c"
+    }
+  ],
+  "done": []
+}
+```
+
+</details>
+
+<details>
+<summary markdown="span">GET stickies under a stickyboard: </summary>
+
+```
+[
+  {
+    "subject": "Test_Sticky_Subject",
+    "content": "Test_Sticky_Content",
+    "priority": 1,
+    "category": "doing",
+    "start_date": "2023-04-27T22:25:24.238000",
+    "deadline": "2023-04-27T22:25:24.238000",
+    "account": [
+      "644b0597b0b66163a004216a"
+    ],
+    "append": false,
+    "stickyboard": "644b05d6b0b66163a004216b",
+    "id": "644b06dab0b66163a004216c"
+  }
+]
+```
+
+</details>
+
+<details>
+<summary markdown="span">PUT a stickyboard: </summary>
+
+```
+{
+  "board_name": "Test_Stickyboard_Board_Name_Update",
+  "description": "Test_Stickyboard_Description_Update",
+  "priority": 1,
+  "start_date": "2023-04-27T23:01:04.911Z",
+  "deadline": "2023-04-27T23:01:04.911Z",
+  "account": [
+    "644b0597b0b66163a004216a"
+  ],
+  "backlog": [],
+  "todo": [],
+  "doing": [],
+  "review": [],
+  "done": []
+}
+```
+
+</details>
+
+### Sticky
+
+| Action                              | URL                                                      |
+|:------------------------------------|:---------------------------------------------------------|
+| `POST a sticky under a stickyboard` | `http://localhost:3000/{stickyboard_id}/sticky`          |
+| `GET all stickies`                       | `http://localhost:3000/sticky`                           |
+| `PUT a sticky`                         | `http://localhost:3000/sticky/{sticky_id}` |
+| `DELETE a sticky`                   | `http://localhost:3000/sticky/{sticky_id}`                  |
+
+<details>
+<summary markdown="span">POST a sticky under a stickyboard: </summary>
+
+```
+{
+  "subject": "Test_Sticky_Subject",
+  "content": "Test_Sticky_Content",
+  "priority": 1,
+  "category": "doing",
+  "start_date": "2023-04-27T22:25:24.238Z",
+  "deadline": "2023-04-27T22:25:24.238Z",
+  "account": [
+    "644b0597b0b66163a004216a"
+  ],
+  "append": false
+}
+```
+
+</details>
+
+<details>
+<summary markdown="span">GET all stickies: </summary>
+
+```
+[
+  {
+    "subject": "Test_Sticky_Subject",
+    "content": "Test_Sticky_Content",
+    "priority": 1,
+    "category": "doing",
+    "start_date": "2023-04-27T22:25:24.238000",
+    "deadline": "2023-04-27T22:25:24.238000",
+    "account": [
+      "644b0597b0b66163a004216a"
+    ],
+    "append": false,
+    "stickyboard": "644b05d6b0b66163a004216b",
+    "id": "644b06dab0b66163a004216c"
+  }
+]
+```
+
+</details>
+
+<details>
+<summary markdown="span">PUT a sticky: </summary>
+
+```
+{
+  "subject": "Test_Sticky_Subject_Update",
+  "content": "Test_Sticky_Content_Update",
+  "priority": 1,
+  "category": "doing",
+  "start_date": "2023-04-27T22:25:24.238Z",
+  "deadline": "2023-04-27T22:25:24.238Z",
+  "account": [
+    "644b0597b0b66163a004216a"
+  ],
+  "stickyboard": "644b05d6b0b66163a004216b"
+}
+```
+
+</details>
