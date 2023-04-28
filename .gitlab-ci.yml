@@ -54,6 +54,11 @@ build-scrumptious-service:
   stage: build
   services:
     - docker:19.03.1-dind
+    - name: mongo:latest
+      alias: mongo
+  variables:
+    MONGO_HOST: mongo
+    MONGO_PORT: 27017
   before_script:
     - export DOCKER_REGISTRY_USER=$CI_REGISTRY_USER # built-in GitLab Registry User
     - export DOCKER_REGISTRY_PASSWORD=$CI_REGISTRY_PASSWORD # built-in GitLab Registry Password
