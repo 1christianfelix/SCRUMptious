@@ -17,8 +17,9 @@ api-unit-test-job:
   stage: test
   needs:
     - lint-test-job
-  variables:
-    - MONGO_URL: mongodb://admin_user:admin_password@mongo
+  before_script:
+    - export MONGO_URL=os.environ["MONGO_URL"]
+    - export SIGNING_KEY=SIGNING_KEY
   script:
     - cd scrumptious_service
     - pip install -r requirements.txt
