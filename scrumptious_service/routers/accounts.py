@@ -18,15 +18,19 @@ from queries.accounts import (
     DuplicateAccountError,
 )
 
+
 class AccountForm(BaseModel):
     username: str
     password: str
 
+
 class AccountToken(Token):
     account: AccountOut
 
+
 class HttpError(BaseModel):
     detail: str
+
 
 router = APIRouter()
 
@@ -34,7 +38,7 @@ router = APIRouter()
 @router.get("/token", tags=["Account"], response_model=AccountToken | None)
 async def get_token(
     request: Request,
-    account: AccountOut = Depends(authenticator.try_get_current_account_data)
+    account: AccountOut = Depends(authenticator.try_get_current_account_data),
 ) -> AccountToken | None:
     if account and authenticator.cookie_name in request.cookies:
         return {
@@ -44,7 +48,9 @@ async def get_token(
         }
 
 
-@router.post("/accounts", tags=["Account"], response_model=AccountToken | HttpError)
+@router.post(
+    "/accounts", tags=["Account"], response_model=AccountToken | HttpError
+)
 async def create_account(
     info: AccountIn,
     request: Request,
@@ -65,11 +71,17 @@ async def create_account(
 
 
 @router.get("/accounts", tags=["Account"])
-def get_all_accounts(queries: AccountQueries = Depends(), account: AccountOut = Depends(authenticator.try_get_current_account_data)):
+def get_all_accounts(
+    queries: AccountQueries = Depends(),
+    account: AccountOut = Depends(authenticator.try_get_current_account_data),
+):
     return queries.get_all_accounts()
 
 
-# Fix later: Make sure account owner can only delete account
 @router.delete("/accounts/{account_id}", tags=["Account"])
-def delete_account(account_id: str, queries: AccountQueries = Depends(), account: AccountOut = Depends(authenticator.try_get_current_account_data)):
+def delete_account(
+    account_id: str,
+    queries: AccountQueries = Depends(),
+    account: AccountOut = Depends(authenticator.try_get_current_account_data),
+):
     return queries.delete_account(account_id)

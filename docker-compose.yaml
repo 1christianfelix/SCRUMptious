@@ -19,6 +19,16 @@ services:
       WAIT_TIMEOUT: 60
       SIGNING_KEY: 87fe4a3fcfb60092dbaeb854a196bc3d9b190aed7930c734749e85245de698420c25f8e6899c421b4494e99459e01058de5daa9d49584cd62ec975da9aea33da
       SENDGRID_API_KEY: ${SENDGRID_API_KEY}
+    # payment_service:
+    #   build:
+    #     context: payment_service
+    #     dockerfile: Dockerfile
+    #   ports:
+    #     - 4000:4000
+    #   volumes:
+    #     - ./payment_service:/app
+    #   environment:
+    #     STRIPE_SECRET_TEST: ${STRIPE_SECRET_TEST}
 
   ghi:
     image: node:lts-bullseye

@@ -5,13 +5,15 @@ const StickyBoardCard = (props) => {
   // this priority variable should take on the priority property of the sticky board. This can be done through fetching the api.
   // for demonstration purposes, we're mimicking an API resonsee by using "props". The prop is being sent through the Dashboard.js
   // once api endpoints are configured, we will refactor the priority variable to grab the priority property from the API response instead
-  let content = props.content;
-  let priority = props.priority;
+
+  let boardName = props.stickyboard.board_name;
+  let description = props.stickyboard.description;
+  let priorityInt = props.stickyboard.priority;
+  let priority = priorityInt.toString();
   let gradient = null;
-  let boardName = props.name;
-  let start = null;
-  let deadline = null;
-  let members = props.members;
+  let start = new Date(props.stickyboard.start_date).toLocaleDateString();
+  let deadline = new Date(props.stickyboard.deadline).toLocaleDateString();
+  let members = props.stickyboard.account.length;
   // color switches based on priority
   switch (priority) {
     case "1":
@@ -32,13 +34,10 @@ const StickyBoardCard = (props) => {
     default:
       gradient = "bg-white";
   }
+
   return (
     <div
-      // style={{
-      //   backgroundColor: "#e7e7e7",
-      //   backgroundImage: "linear-gradient(132deg, #e7e7e7 20%, #C2FFCC 100%)",
-      // }}
-      className={`h-[238px] w-[289px] 1440:h-[calc(238px*1.333)] 1440:w-[calc(289px*1.333)] rounded-[8px] drop-shadow-sticky flex flex-col ${gradient}`}
+      className={`h-[238px] w-[289px] 1440:h-[calc(238px*1.333)] 1440:w-[calc(289px*1.333)] rounded-[8px] drop-shadow-sticky flex flex-col ${gradient} `}
     >
       <div className=" HEADER h-[20%] flex justify-between p-5 pt-3 1440:py-4">
         <div className="PRIORITY_BOX bg-white h-[22px] w-[86px] flex items-center justify-center drop-shadow-sticky">
@@ -56,21 +55,21 @@ const StickyBoardCard = (props) => {
         <div className="DATE_ROW flex justify-between text-sm 1440:text-base my-1 1440:my-2">
           <div>
             <span className="mr-2">Start:</span>
-            <span>DATE</span>
+            <span>{start}</span>
           </div>
           <div>
             <span className="mr-2">Deadline:</span>
-            <span>DATE</span>
+            <span>{deadline}</span>
           </div>
         </div>
         <div className="flex-grow flex flex-col text-sm 1440:text-base overflow-auto px-2 scrollbar-card">
-          <p className="">{content}</p>
+          <p className="">{description}</p>
         </div>
         <div className="BUTTONS flex justify-between py-3 1440:py-4">
-          <img src={garbage} className="self-end expand-button" />
-          <button className="button-hover-white-filled px-[.7rem] py-[.1rem] bg-white rounded-[19px]">
+          <img alt="Button" src={garbage} className="self-end expand-button" />
+          {/* <button className="button-hover-white-filled px-[.7rem] py-[.1rem] bg-white rounded-[19px]">
             <span>Edit Board</span>
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

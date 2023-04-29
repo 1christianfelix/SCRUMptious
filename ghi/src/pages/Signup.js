@@ -1,8 +1,7 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import signup_signin_bg from "../images/signup-signin-bg.png";
 import { useNavigate, Link } from "react-router-dom";
-
 
 function Signup(props) {
   const navigate = useNavigate();
@@ -38,58 +37,60 @@ function Signup(props) {
     setConfirmPassword(value);
   };
 
-const handleFormSubmit = async (event) => {
-  event.preventDefault();
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
 
-  const response = await fetch("http://localhost:8000/accounts");
-  const data = await response.json();
-  const emails = data.map((user) => user.email);
+    const response = await fetch(
+      `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/accounts`
+    );
+    const data = await response.json();
+    const emails = data.map((user) => user.email);
 
-  if (
-    firstName === "" ||
-    lastName === "" ||
-    email === "" ||
-    password === "" ||
-    confirmPassword === ""
-  ) {
-    alert("Please fill out all required fields!");
-    return;
-  }
-  if (password !== confirmPassword) {
-    alert("Your passwords must match!");
-    return;
-  }
-  if (emails.includes(email)) {
-    alert("This email already exists. Please use a different email address.");
-    return;
-  }
+    if (
+      firstName === "" ||
+      lastName === "" ||
+      email === "" ||
+      password === "" ||
+      confirmPassword === ""
+    ) {
+      alert("Please fill out all required fields!");
+      return;
+    }
+    if (password !== confirmPassword) {
+      alert("Your passwords must match!");
+      return;
+    }
+    if (emails.includes(email)) {
+      alert("This email already exists. Please use a different email address.");
+      return;
+    }
 
-  const formData = {
-    email: email,
-    first_name: firstName,
-    last_name: lastName,
-    password: password,
+    const formData = {
+      email: email,
+      first_name: firstName,
+      last_name: lastName,
+      password: password,
+    };
+
+    const accountUrl = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/accounts`;
+    const fetchConfig = {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    };
+
+    const postResponse = await fetch(accountUrl, fetchConfig);
+    if (postResponse.ok) {
+      navigate("/pricing");
+    }
   };
-
-  const accountUrl = "http://localhost:8000/accounts";
-  const fetchConfig = {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  };
-
-  const postResponse = await fetch(accountUrl, fetchConfig);
-  if (postResponse.ok) {
-    navigate("/signin");
-  }
-};
-
 
   return (
     <div className="relative h-screen w-screen flex items-center justify-center font-Sudo_Var text-black">
       <img
+        alt="background"
         src={signup_signin_bg}
         className="absolute -z-10 w-screen h-screen "
       />

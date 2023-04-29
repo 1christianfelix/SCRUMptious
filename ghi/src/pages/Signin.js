@@ -1,16 +1,15 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import signup_signin_bg from "../images/signup-signin-bg.png";
 // import signup_signin_bg_scaled from "../images/signup-signin-bg-scaled.png";
 // import bg_scaled from "../images/bg-scaled.png";
 
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-  const { token, login } = useToken();
+  const { login } = useToken();
   // console.log(login);
   // console.log(token);
   // console.log("test", token);
@@ -23,6 +22,7 @@ const Signin = () => {
   return (
     <div className="relative h-screen w-screen flex items-center justify-center font-Sudo_Var text-black">
       <img
+        alt="background"
         src={signup_signin_bg}
         className="absolute -z-10 w-screen h-screen"
       />
@@ -51,15 +51,12 @@ const Signin = () => {
               required
             />
           </div>
-
-          {/* <Link to="/dashboard"> */}
           <button
             onClick={handleSignin}
             className="self-center justify-center mt-[.5rem] text-[2.5rem] w-[20rem] bg-[#008193] rounded-[19px] transition-colors text-dark_mode_text_white hover:bg-[#039CB0]"
           >
             Sign In
           </button>
-          {/* </Link> */}
           <div className="text-2xl inline">
             <div className="flex items-center justify-center gap-2 text-dark_mode_text_dark">
               <span> Don't have an account? </span>
@@ -70,12 +67,20 @@ const Signin = () => {
                 Sign up here!
               </Link>
             </div>
+            <div className="flex justify-center">
+              <Link
+                to="/resetpassword"
+                className="text-white self-center inline-block underline hover:text-slate-700"
+                style={{ fontSize: "0.8em" }}
+              >
+                Reset Password
+              </Link>
+            </div>
           </div>
         </form>
       </div>
     </div>
   );
 };
-
 
 export default Signin;

@@ -5,7 +5,7 @@ const AccountContext = createContext();
 export const AccountProvider = ({ children }) => {
   const [accounts, setAccounts] = useState([]);
   const getAccountsData = async () => {
-    const accountUrl = "http://localhost:8000/accounts";
+    const accountUrl = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/accounts`;
     const accountResponse = await fetch(accountUrl);
     if (accountResponse.ok) {
       const data = await accountResponse.json();

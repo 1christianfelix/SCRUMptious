@@ -37,3 +37,5 @@ app.post("/payment", cors(), async (req, res) => {
 app.listen(process.env.PORT || 4000, () => {
   console.log("Server is listening on port 4000");
 });
+
+// In GHI type "node index.js" in your terminal. This will boot up port 4000 and allow hte stripe payment to work.

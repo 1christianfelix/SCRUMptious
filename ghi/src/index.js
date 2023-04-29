@@ -5,21 +5,16 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
+import "react-tooltip/dist/react-tooltip.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const domain = /https:\/\/[^/]+/;
+const basename = process.env.PUBLIC_URL.replace(domain, "");
+
 root.render(
-  <BrowserRouter basename="/">
+  <BrowserRouter basename={basename}>
     <AuthProvider
-      tokenUrl={`${process.env.REACT_APP_USER_SERVICE_API_HOST}/token`}
-    >
-      <App />
-    </AuthProvider>
-  </BrowserRouter>
-);
-root.render(
-  <BrowserRouter basename="/">
-    <AuthProvider
-      tokenUrl={`${process.env.REACT_APP_USER_SERVICE_API_HOST}/token`}
+      tokenUrl={`${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/token`}
     >
       <App />
     </AuthProvider>
