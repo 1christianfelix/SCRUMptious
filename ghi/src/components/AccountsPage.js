@@ -2,13 +2,17 @@ import React, { useState, useEffect } from "react";
 import AccountDetails from "./AccountDetails";
 import Search_light from "../images/icons/Search_light.svg";
 import close_out from "../images/icons/close_out_icon.svg";
+import DeleteConfirmationModal from "./AccountPageDeleteModal";
 
 const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
   const [accounts, setAccounts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [gridView, setGridView] = useState(true);
+  const [gridView, setGridView] = useState(false);
   //   const [isGridView, setIsGridView] = useState(false);
   const [selectedAccount, setSelectedAccount] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [accountToDelete, setAccountToDelete] = useState(null);
+
 
   const getAccountsData = async () => {
     const accountUrl = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/accounts`;
@@ -30,6 +34,14 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
       .includes(searchTerm.toLowerCase())
   );
 
+  const handleConfirmDelete = async () => {
+    if (accountToDelete) {
+      await handleDeleteAccount(accountToDelete);
+      setAccountToDelete(null);
+      setShowConfirmModal(false);
+    }
+  };
+
   const handleDeleteAccount = async (id) => {
     const deleteUrl = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/accounts/${id}`;
     const deleteResponse = await fetch(deleteUrl, {
@@ -44,6 +56,10 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
     }
   };
 
+  const handleDeleteClick = (id) => {
+    setAccountToDelete(id);
+    setShowConfirmModal(true);
+  };
   //   const toggleView = () => {
   //     setIsGridView(!isGridView);
   //   };
@@ -66,7 +82,7 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
       }}
     >
       <div
-        className="bg-gray-100 border border-gray-300 p-4 rounded-[19px] mt-10 w-[46.3125rem] relative pt-[3rem]"
+        className="bg-gray-100 border border-gray-300 p-4 rounded-[19px] mt-10 w-[56.3125rem] relative pt-[3rem]"
         onClick={(e) => e.stopPropagation()}
       >
         <img
@@ -90,7 +106,7 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
             <img src={Search_light} alt="" />
           </div>
           <button
-            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+            className="no-hover bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
             onClick={() => setGridView(!gridView)}
           >
             {gridView ? "List View" : "Grid View"}
@@ -98,7 +114,10 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
         </div>
 
         <div className="relative">
-          <div className="account-listing h-96 overflow-y-auto scrollbar scrollbar-w-2 scrollbar-track-slate-600 scrollbar-track-rounded-lg px-3">
+          <div
+            className="account-listing h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200"
+            style={{ scrollbarColor: "red #ffdddd", scrollbarWidth: "thin" }}
+          >
             {gridView ? (
               <div
                 className="grid gap-4"
@@ -108,16 +127,22 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
                   filteredAccounts.map((account) => (
                     <div
                       key={account.id}
-                      className="border border-gray-300 p-4 rounded-md flex flex-col h-36 w-48 overflow-hidden"
+                      className="border border-gray-300 p-4 rounded-md flex flex-col h-36 w-48 overflow-hidden transform hover:scale-105 transition duration-300 my-2"
                       onDoubleClick={() => handleAccountDoubleClick(account)}
                     >
                       <div className="flex-grow">
-                        <p className="text-lg font-bold mb-2 truncate break-words">
+                        <p className="text-lg font-bold mb-2 truncate break-all">
                           {account.first_name} {account.last_name}
                         </p>
-                        <p className="text-gray-500 break-words">
-                          {" "}
-                          {account.email}
+                        <p
+                          className="text-gray-500"
+                          style={{ wordWrap: "break-word" }}
+                        >
+                          {account.email.slice(0, 19)}
+                          {account.email.length > 19 &&
+                          account.email[19] !== "."
+                            ? "..."
+                            : ""}
                         </p>
                       </div>
                       <button
@@ -126,6 +151,11 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
                       >
                         Delete
                       </button>
+                      <DeleteConfirmationModal
+                        show={showConfirmModal}
+                        onConfirm={handleConfirmDelete}
+                        onCancel={() => setShowConfirmModal(false)}
+                      />
                     </div>
                   ))
                 ) : (
@@ -134,31 +164,32 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
               </div>
             ) : (
               <>
-                {filteredAccounts.length > 0 ? (
-                  filteredAccounts.map((account) => (
-                    <div
-                      key={account.id}
-                      className="border-b border-gray-300 py-2 flex items-center justify-between"
-                      onDoubleClick={() => handleAccountDoubleClick(account)}
-                    >
-                      <div>
-                        <p className="text-lg font-medium">
-                          {account.first_name} {account.last_name}
-                        </p>
-                        <p className="text-gray-500">{account.email}</p>
-                        {/* <p className="text-gray-500">Account ID: {account.id}</p> */}
-                      </div>
-                      <button
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                        onClick={() => handleDeleteAccount(account.id)}
+                <div className="list-container flex flex-col items-center">
+                  {filteredAccounts.length > 0 ? (
+                    filteredAccounts.map((account) => (
+                      <div
+                        key={account.id}
+                        className="account-card bg-gray-100 border border-gray-300 p-4 w-full md:max-w-xl my-4 rounded shadow-md flex flex-wrap items-center justify-between transform hover:scale-105 hover:shadow-lg transition-all duration-300"
+                        onDoubleClick={() => handleAccountDoubleClick(account)}
                       >
-                        Delete
-                      </button>
-                    </div>
-                  ))
-                ) : (
-                  <p>No accounts found.</p>
-                )}
+                        <div className="flex flex-wrap items-center">
+                          <p className="text-lg font-medium mr-4">
+                            {account.first_name} {account.last_name}
+                          </p>
+                          <p className="text-gray-500 mr-4">{account.email}</p>
+                        </div>
+                        <button
+                          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                          onClick={() => handleDeleteAccount(account.id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    ))
+                  ) : (
+                    <p>No accounts found.</p>
+                  )}
+                </div>
               </>
             )}
           </div>

@@ -1,7 +1,8 @@
 import React from "react";
 import PricingPlan from "./PricingPlan";
+import "../App.css"
 
-const Pricing = () => {
+const Pricing = ({ theme, toggleTheme }) => {
   const plans = [
     {
       title: "Free",
@@ -27,27 +28,34 @@ const Pricing = () => {
       title: "Business",
       description: "For all teams across an organization",
       price: "$24.80",
-      keyFeatures: [
-        "Customized platform for any team size",
-        "5-200 users",
-      ],
+      keyFeatures: ["Customized platform for any team size", "5-200 users"],
       buttonText: "Choose Plan",
       buttonColor: "bg-green-500",
       isMostPopular: true,
     },
   ];
 
-// Inside your Pricing component
-return (
-  <div className="container mx-auto px-4 py-16">
-    <h2 className="text-4xl font-bold text-center mb-8">Pricing Plans</h2>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-      {plans.map((plan, index) => (
-        <PricingPlan key={index} {...plan} />
-      ))}
+  return (
+    <div
+      className={`container mx-auto px-4 py-16 ${
+        theme === "light" ? "light-theme" : "dark-theme"
+      }`}
+    >
+      <h2 className="text-4xl font-bold text-center mb-8">Pricing Plans</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {plans.map((plan, index) => (
+          <PricingPlan key={index} {...plan} />
+        ))}
+      </div>
+      <div className="text-center mt-8">
+        <button
+          onClick={toggleTheme}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Toggle theme
+        </button>
+      </div>
     </div>
-  </div>
-
   );
 };
 
