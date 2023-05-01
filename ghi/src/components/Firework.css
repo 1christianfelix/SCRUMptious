@@ -1,0 +1,21 @@
+.Fireworks {
+  transform-style: preserve-3d;
+  animation: fireworks 2s linear infinite;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  background: #f1c40f;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes fireworks {
+  from {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateZ(0);
+  }
+  to {
+    transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg) translateZ(-100px);
+  }
+}

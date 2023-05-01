@@ -1,6 +1,7 @@
 import React from "react";
 import PricingPlan from "./PricingPlan";
 import "../App.css"
+import ThemeSwitch from "./ThemeSwitch";
 
 const Pricing = ({ theme, toggleTheme }) => {
   const plans = [
@@ -48,12 +49,7 @@ const Pricing = ({ theme, toggleTheme }) => {
         ))}
       </div>
       <div className="text-center mt-8">
-        <button
-          onClick={toggleTheme}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Toggle theme
-        </button>
+        <ThemeSwitch theme={theme} toggleTheme={toggleTheme} />
       </div>
     </div>
   );

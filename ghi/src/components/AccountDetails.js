@@ -71,10 +71,15 @@ const AccountDetails = ({ account, onClose }) => {
         >
           &times;
         </button>
-        <h2 className="text-center text-2xl font-bold mb-4">
+        <h2 className="text-lg font-bold mb-2 truncate break-all">
+          <i className="fa fa-user mr-2" aria-hidden="true"></i>
           {account.first_name} {account.last_name}
         </h2>
-        <p>Email: {account.email}</p>
+
+        <p>
+          <i className="fa fa-envelope mr-2" aria-hidden="true"></i>{" "}
+          {account.email}
+        </p>
         <p>Account ID: {account.id}</p>
       </div>
     </div>

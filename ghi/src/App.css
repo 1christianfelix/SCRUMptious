@@ -16,13 +16,11 @@
 
 
 .light-theme {
-  /* Light theme styles */
   background-color: white;
   color: black;
 }
 
 .dark-theme {
-  /* Dark theme styles */
-  background-color: black;
-  color: white;
+  background-color: #212529;
+  color: #f8f9fa;
 }

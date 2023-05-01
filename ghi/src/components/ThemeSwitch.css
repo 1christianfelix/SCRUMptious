@@ -1,0 +1,73 @@
+.theme-switch-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 32px;
+  height: 16px;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 50%;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.slider-dark {
+  background-color: #555;
+}
+
+.sun,
+.moon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sun {
+  left: 0;
+  background-color: #ffc107;
+}
+
+.sun-dark {
+  right: 0;
+  background-color: #fff;
+}
+
+.moon {
+  right: 0;
+  background-color: #343a40;
+}
+
+.moon-dark {
+  left: 0;
+  background-color: #fff;
+}
+
+.slider-dark .sun {
+  background-color: #fff;
+}
+
+.slider-dark .moon {
+  background-color: #555;
+}
+
+.slider-dark .sun-dark {
+  left: 0;
+}
+
+.slider-dark .moon-dark {
+  right: 0;
+}
+

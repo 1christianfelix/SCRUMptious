@@ -1,3 +1,8 @@
 /* .sidebar:hover {
   background-color: transparent;
 } */
+.account-card {
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  /* other styles */
+}

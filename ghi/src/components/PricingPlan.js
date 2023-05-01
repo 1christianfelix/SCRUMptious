@@ -13,12 +13,12 @@ const PricingPlan = ({
 }) => {
   const navigate = useNavigate();
 
-const handleClick = (price) => {
-  navigate("/payment", { state: { selectedPrice: price } });
-};
+  const handleClick = (price) => {
+    navigate("/payment", { state: { selectedPrice: price } });
+  };
 
   return (
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+    <div className="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition duration-300">
       <div className="p-4">
         <h3 className="text-2xl font-bold text-gray-800 mb-2">{title}</h3>
         <p className="text-gray-600 mb-4">{description}</p>
