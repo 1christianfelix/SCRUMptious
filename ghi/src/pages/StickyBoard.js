@@ -156,6 +156,7 @@ const StickyBoard = (props) => {
       destination.index === source.index &&
       destination.droppableId === source.droppableId
     ) {
+      setAddStickyStyle("");
       return;
     }
 
