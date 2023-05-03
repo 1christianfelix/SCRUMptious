@@ -1,12 +1,19 @@
 import React, { useState, useRef, useEffect } from "react";
 
-const TermsModal = ({ isOpen, closeModal, onAccept }) => {
+const TermsModal = ({ isOpen, closeModal, onAccept, onDecline }) => {
   const [isScrolledToBottom, setIsScrolledToBottom] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const contentRef = useRef();
 
   const handleAccept = () => {
     closeModal();
     onAccept();
+  };
+
+  const handleDecline = () => {
+    closeModal();
+    setTermsAccepted(false);
+    onDecline();
   };
 
   useEffect(() => {
@@ -63,16 +70,32 @@ const TermsModal = ({ isOpen, closeModal, onAccept }) => {
               sunt in culpa qui officia deserunt mollit anim id est laborum.
             </p>
             <br></br>
+            <p>I solemnly swear that I am to no good.</p>
+            <p>I solemnly swear that I am to no good.</p>
+            <p>I solemnly swear that I am to no good.</p>
+            <br></br>
           </div>
-          <button
-            className={`${
-              isScrolledToBottom ? "bg-blue-700" : "bg-blue-300"
-            } transition-colors duration-300 px-4 py-2 rounded-md text-white`}
-            onClick={handleAccept}
-            disabled={!isScrolledToBottom}
-          >
-            Accept
-          </button>
+          <div className="flex justify-center mt-4">
+            <button
+              className={`${
+                isScrolledToBottom
+                  ? "bg-blue-700 hover:bg-blue-800"
+                  : "bg-blue-300 hover:bg-blue-400"
+              } transition-colors duration-300 px-4 py-2 rounded-md text-white mr-2`}
+              onClick={handleAccept}
+              disabled={!isScrolledToBottom}
+              style={{ fontWeight: "bold" }}
+            >
+              Accept
+            </button>
+            <button
+              className="bg-red-500 hover:bg-red-600 transition-colors duration-300 px-4 py-2 rounded-md text-white ml-2"
+              onClick={handleDecline}
+              style={{ fontWeight: "bold" }}
+            >
+              Decline
+            </button>
+          </div>
         </div>
       </div>
     </div>

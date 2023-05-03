@@ -64,6 +64,20 @@ const Signin = () => {
               <Link
                 to="/signup"
                 className="text-white self-center inline-block underline hover:text-slate-700"
+                style={{
+                  textDecoration: "none",
+                  transition: "text-decoration 0.2s",
+                  fontWeight: "bold",
+                  fontSize: "1.1em",
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.textDecoration = "underline";
+                  e.target.style.fontSize = "1.25em";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.textDecoration = "none";
+                  e.target.style.fontSize = "1.1em";
+                }}
               >
                 Sign up here!
               </Link>
@@ -72,7 +86,18 @@ const Signin = () => {
               <Link
                 to="/resetpassword"
                 className="text-white self-center inline-block underline hover:text-slate-700"
-                style={{ fontSize: "0.8em" }}
+                style={{
+                  fontSize: "0.8em",
+                  textDecoration: "none",
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.textDecoration = "underline";
+                  e.target.style.fontSize = "1.00em";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.textDecoration = "none";
+                  e.target.style.fontSize = ".85em";
+                }}
               >
                 Reset Password
               </Link>

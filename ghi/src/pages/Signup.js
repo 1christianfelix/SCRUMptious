@@ -13,6 +13,16 @@ function Signup(props) {
   const handleAccept = () => setIsTermsChecked(true);
 
 
+  const handleDecline = () => {
+    setIsTermsChecked(false);
+    // closeModal();
+    if (isTermsChecked) {
+      setIsTermsChecked(false);
+    }
+  };
+
+
+
   const handleTermsChange = () => {
     setIsTermsChecked(!isTermsChecked);
   };
@@ -183,8 +193,19 @@ function Signup(props) {
           <label className="cursor-pointer">
             I agree to the{" "}
             <span
-              className="underline text-blue-500 cursor-pointer"
+              className="text-blue-500 cursor-pointer"
               onClick={openTermsModal}
+              style={{
+                textDecoration: "none",
+                transition: "text-decoration 0.2s",
+                fontWeight: "bold",
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.textDecoration = "underline";
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.textDecoration = "none";
+              }}
             >
               Terms and Conditions
             </span>
@@ -196,6 +217,20 @@ function Signup(props) {
             <Link
               to="/signin"
               className="text-white self-center inline-block underline hover:text-slate-700"
+              style={{
+                textDecoration: "none",
+                transition: "text-decoration 0.2s",
+                fontWeight: "bold",
+                fontSize: "1.1em",
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.textDecoration = "underline";
+                e.target.style.fontSize = "1.25em";
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.textDecoration = "none";
+                e.target.style.fontSize = "1.1em";
+              }}
             >
               Sign in here!
             </Link>
@@ -207,6 +242,7 @@ function Signup(props) {
         isOpen={isTermsModalOpen}
         closeModal={closeTermsModal}
         onAccept={handleAccept}
+        onDecline={handleDecline}
       />
     </div>
   );
