@@ -11,6 +11,10 @@ module.exports = {
         // Complex site-specific column configuration
         footer: "200px minmax(900px, 1fr) 100px",
       },
+      boxShadow: {
+        "inner-top-bottom":
+          "inset 0 6px 6px -2px rgba(0, 0, 0, 0.25), inset 0 -6px 6px -3px rgba(0, 0, 0, 0.35)",
+      },
       screens: {
         1440: "2560px",
         1080: "1920px",
