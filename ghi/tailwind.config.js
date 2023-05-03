@@ -43,6 +43,8 @@ module.exports = {
         button: ".1rem",
       },
       dropShadow: {
+        image_left: "-30px 35px 20px rgba(0, 0, 0, .5)",
+        image_right: "30px 35px 20px rgba(0, 0, 0, .5)",
         sticky: "0 3px 3px rgba(0,0,0, 1)",
         sticky: "0 2px 3px rgba(0,0,0, .5)",
       },

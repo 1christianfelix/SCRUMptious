@@ -9,6 +9,8 @@ import StickyBoardListView from "./pages/StickyBoardListView";
 import ResetPassword from "./pages/ResetPassword";
 import AccountsPage from "./components/AccountsPage";
 
+import LandingPage from "./landing_page/LandingPage";
+
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 import StickyBoard from "./pages/StickyBoard";
@@ -32,7 +34,7 @@ function App() {
       <div>
         {!token ? (
           <Routes>
-            <Route path="/" element={<Navigate to="/signin" />} />
+            <Route path="/" element={<LandingPage />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/resetpassword" element={<ResetPassword />} />
