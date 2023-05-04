@@ -29,33 +29,40 @@ const BigCalendar = () => {
   };
 
   return (
-    <div className="mx-auto max-w-7xl">
-      <Calendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        selectable={true}
-        onSelectEvent={(event) => {
-          if (window.confirm("Do you want to delete this event?")) {
-            handleDelete(event);
-          }
-        }}
-        onSelectSlot={handleSelect}
-        style={{ height: "70vh", margin: "2rem", borderRadius: "1rem" }}
-        className="bg-gray-100 p-4 rounded-md shadow-md"
-        eventPropGetter={() => ({
-          style: {
-            backgroundColor: "#3182ce",
-            color: "#fff",
-            borderRadius: "0.5rem",
-            border: "none",
-          },
-        })}
-        components={{
-          toolbar: CustomToolbar,
-        }}
-      />
+    <div className="h-screen overflow-hidden">
+      <div className="w-[100%] h-[5.37500rem] bg-white drop-shadow-md bg-gradient-to-r from-white from-20% to-blue-100 via-blue-100 via-70%  flex items-center z-[-1000]">
+        <div className="text-3xl ml-6 self-end">
+          <span>Calendar</span>
+        </div>
+      </div>
+      <div className="mx-auto max-w-7xl">
+        <Calendar
+          localizer={localizer}
+          events={events}
+          startAccessor="start"
+          endAccessor="end"
+          selectable={true}
+          onSelectEvent={(event) => {
+            if (window.confirm("Do you want to delete this event?")) {
+              handleDelete(event);
+            }
+          }}
+          onSelectSlot={handleSelect}
+          style={{ height: "70vh", margin: "2rem", borderRadius: "1rem" }}
+          className="bg-gray-100 p-4 rounded-md shadow-md"
+          eventPropGetter={() => ({
+            style: {
+              backgroundColor: "#3182ce",
+              color: "#fff",
+              borderRadius: "0.5rem",
+              border: "none",
+            },
+          })}
+          components={{
+            toolbar: CustomToolbar,
+          }}
+        />
+      </div>
     </div>
   );
 };
