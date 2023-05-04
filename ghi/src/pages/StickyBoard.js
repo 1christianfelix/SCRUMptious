@@ -21,6 +21,10 @@ import { Tooltip } from "react-tooltip";
 
 const StickyBoard = (props) => {
   const { token } = useToken();
+  const navigate = useNavigate();
+  if (!token) {
+    navigate("/signin");
+  }
   let { stickyboard_id } = useParams();
   const [category, setCategory] = useState("");
   const [append, setAppend] = useState(false);
@@ -149,7 +153,6 @@ const StickyBoard = (props) => {
   const handleDrag = async ({ destination, source }) => {
     // Handling case if sticky start and end location are the same
     if (!destination) {
-      console.log("test09");
       return;
     }
     if (
@@ -161,7 +164,7 @@ const StickyBoard = (props) => {
     }
 
     // Handling case if sticky is dropped into the new location
-    console.log("drop:", destination, source);
+    // console.log("drop:", destination, source);
     // Making a copy of the current sticky note and updating its category field to reflect its new category
     const itemCopy = { ...state[source.droppableId].stickies[source.index] };
     switch (destination.droppableId) {
@@ -183,7 +186,7 @@ const StickyBoard = (props) => {
       default:
         break;
     }
-    console.log("itemcopy:", itemCopy);
+    // console.log("itemcopy:", itemCopy);
     setState((prev) => {
       prev = { ...prev };
       prev[source.droppableId].stickies.splice(source.index, 1);
@@ -198,8 +201,6 @@ const StickyBoard = (props) => {
 
     // PUT function to handle updating the category of the sticky note that was dropped into the new location
     const updateStickyCategoryDND = async (id, category) => {
-      let done = "doing";
-      console.log(category, done, stickyboard_id);
       let body = {
         category: category,
         stickyboard: `${stickyboard_id}`,
@@ -244,7 +245,6 @@ const StickyBoard = (props) => {
     getStickyboardsData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
-  const navigate = useNavigate();
   const handleStickyboardChange = (event) => {
     const value = event.target.value;
     stickyboard_id = value;

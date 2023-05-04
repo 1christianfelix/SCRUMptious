@@ -24,7 +24,7 @@ const StickyBoardDeleteForm = (props) => {
       }
     });
   };
-  console.log(props.stickyboard.id);
+  // console.log(props.stickyboard.id);
 
   return (
     <div

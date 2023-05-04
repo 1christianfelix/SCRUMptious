@@ -18,7 +18,7 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
     if (accountResponse.ok) {
       const data = await accountResponse.json();
       setAccounts(data);
-      console.log("data", data);
+      // console.log("data", data);
     }
   };
 
