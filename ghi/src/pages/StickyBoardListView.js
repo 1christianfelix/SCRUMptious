@@ -6,6 +6,7 @@ import filter_icon_white from "../images/icons/filter_icon_white.svg";
 import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 import StickyBoardCreateForm from "../components/StickyBoardCreateForm";
 import StickyBoardUpdateForm from "../components/StickyBoardUpdateForm";
+import StickyBoardDeleteForm from "../components/StickyBoardDeleteForm";
 import { useNavigate } from "react-router-dom";
 import Draggable from "react-draggable";
 import expand_icon_dark from "../images/icons/expand_icon_dark.svg";
@@ -35,30 +36,15 @@ const StickyBoardListView = () => {
     getStickyboardsData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
-  const handleDeletion = (id) => {
-    fetch(
-      `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/stickyboard/${id}`,
-      {
-        method: "delete",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    ).then((response) => {
-      if (response.ok) {
-        getStickyboardsData();
-      }
-    });
-  };
+
   const [modalStatus, setModalStatus] = useState(false);
   const [form, setForm] = useState("create");
   const handleOpenModal = (type, stickyboard = null) => {
     if (type === "create") {
       setForm("create");
-    } else {
+    } else if (type === "update") {
       setForm("update");
-    }
+    } else setForm("delete");
     setModalStatus(true);
   };
   const handleCloseModal = () => {
@@ -108,6 +94,14 @@ const StickyBoardListView = () => {
           close={handleCloseModal}
           getStickyboardsData={getStickyboardsData}
           type="Create"
+        />
+      ) : form === "delete" ? (
+        <StickyBoardDeleteForm
+          open={modalStatus}
+          close={handleCloseModal}
+          getStickyboardsData={getStickyboardsData}
+          stickyboard={stickyboard}
+          type="Delete"
         />
       ) : (
         <StickyBoardUpdateForm
@@ -228,7 +222,9 @@ const StickyBoardListView = () => {
                               src={garbage}
                               className="expand-button absolute bottom-9 1440:bottom-10 left-5"
                               onClick={() => {
-                                handleDeletion(stickyboard.id);
+                                // handleDeletion(stickyboard.id);
+                                handleOpenModal("delete", stickyboard);
+                                setStickyboard(stickyboard);
                               }}
                               data-tooltip-id="delete"
                             />

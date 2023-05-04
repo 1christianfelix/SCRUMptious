@@ -59,15 +59,23 @@ const Sidebar = (props) => {
           >
             <img src={user_group} alt="" />
           </div>
+          <div
+            className="nav-button-2 "
+            data-tooltip-id="Timeframe"
+            onClick={() => {
+              navigate("/calendar");
+              props.closeAcc();
+            }}
+          >
+            <img src={calendar} alt="" />
+          </div>
           <div className="nav-button-2 " data-tooltip-id="AssignedStickies">
             <img src={sticky} alt="" />
           </div>
           <div className="nav-button-2 " data-tooltip-id="Logs">
             <img src={book} alt="" />
           </div>
-          <div className="nav-button-2 " data-tooltip-id="Timeframe">
-            <img src={calendar} alt="" />
-          </div>
+
           <div className="nav-button-2 " data-tooltip-id="Analytics">
             <img src={chart} alt="" />
           </div>
@@ -133,7 +141,7 @@ const Sidebar = (props) => {
       <Tooltip
         id="Timeframe"
         place="right"
-        content="Timeframe [Soon]"
+        content="Timeframe"
         style={{
           zIndex: "100",
         }}

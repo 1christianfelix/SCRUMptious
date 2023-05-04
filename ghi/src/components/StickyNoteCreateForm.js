@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import Search_light from "../images/icons/Search_light.svg";
-import sort_icon from "../images/icons/sort_icon.svg";
-import filter_icon from "../images/icons/filter_icon.svg";
 import trash from "../images/icons/trash.svg";
 import pen from "../images/icons/pen.svg";
 import close_out from "../images/icons/close_out_icon.svg";
@@ -309,7 +307,11 @@ function StickyNoteCreateForm(props) {
                 className="CONTENT-BOX flex-grow overflow-auto scrollbar-card scrollbar-w-3 text-dark_mode_font focus:outline-none word-wrap bg-transparent border-solid border-[1px] border-text-dark_mode_text_white resize-none mx-[3.2rem] text-[1.5rem] p-5"
               ></textarea>
               <div className="BUTTONS flex justify-between m-5 pt-10">
-                <img alt="trash" src={trash} className="expand-button" />
+                <img
+                  alt="trash"
+                  src={trash}
+                  className="expand-button invisible"
+                />
                 <button className="button-hover-white-filled bg-white px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky">
                   Create
                 </button>
@@ -319,7 +321,7 @@ function StickyNoteCreateForm(props) {
           {/* <div> */}
 
           <div className="MEMBER-LIST w-[20.5625rem] h-[39.375rem] bg-[#CCCCCC] bg-opacity-60 backdrop-blur-[9.3px] rounded-[19px] flex flex-col text-dark_mode_font ">
-            <div className="flex items-center gap-[.5rem] m-5">
+            <div className="flex items-center justify-center gap-[.5rem] m-5">
               <div className="SEARCH BAR w-[13.4375rem] h-[2.125rem] bg-white rounded-[19px] flex items-center justify-between px-3 ">
                 <input
                   onChange={handleSearchTermChange}
@@ -328,18 +330,6 @@ function StickyNoteCreateForm(props) {
                   className="focus:outline-none w-[100%]"
                 ></input>
                 <img src={Search_light} alt="" className="h-[1rem] w-[1rem]" />
-              </div>
-              <div className="FILTER flex gap-[.2rem] items-center expand-button">
-                <img
-                  src={filter_icon}
-                  alt=""
-                  className="h-[.6rem] w-[.56rem] expand-button"
-                />
-                <span className="text-[.8rem]">Filter</span>
-              </div>
-              <div className="SORT flex gap-[.2rem] items-center expand-button">
-                <img src={sort_icon} alt="" className="h-[.6rem] w-[.56rem]" />
-                <span className="text-[.8rem]">Sort</span>
               </div>
             </div>
             <ul className="mx-10 h-[75%] flex flex-col text-lg overflow-auto scrollbar-members-list">
