@@ -207,8 +207,8 @@ const StickyBoardCreateForm = (props) => {
           </button>
         </div>
         <div className="MEMBER-LIST w-[20.5625rem] h-[34.625rem] bg-[#CCCCCC] bg-opacity-60 backdrop-blur-[9.3px] rounded-[19px] flex flex-col text-dark_mode_font">
-          <div className="flex items-center gap-[.5rem] m-5">
-            <div className="SEARCH BAR w-[13.4375rem] h-[2.125rem] bg-white rounded-[19px] flex items-center justify-between px-3 ">
+          <div className="flex items-center justify-center gap-[.5rem] m-5">
+            <div className="SEARCH BAR w-[13.4375rem] h-[2.125rem] bg-white rounded-[19px] flex items-center justify-center px-3 ">
               <input
                 placeholder="Search Member"
                 className="focus:outline-none w-[100%]"
