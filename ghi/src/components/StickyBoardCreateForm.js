@@ -79,7 +79,7 @@ const StickyBoardCreateForm = (props) => {
     data.doing = [];
     data.review = [];
     data.done = [];
-    console.log(data);
+    // console.log(data);
     const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/stickyboard`;
     const fetchConfig = {
       method: "post",

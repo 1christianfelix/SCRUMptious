@@ -16,6 +16,9 @@ import { Tooltip } from "react-tooltip";
 const StickyBoardListView = () => {
   const { token } = useContext(AuthContext);
   const navigate = useNavigate();
+  if (!token) {
+    navigate("/signin");
+  }
   const [stickyboards, setStickyboards] = useState([]);
   const [stickyboard, setStickyboard] = useState({});
   const getStickyboardsData = async () => {

@@ -13,7 +13,7 @@ const StickyNote = (props) => {
   let deadline = new Date(props.deadline).toLocaleDateString();
   let headerColor = null;
   let bodyColor = null;
-  console.log(props);
+  // console.log(props);
   switch (priority) {
     case 1:
       priorityColor = "bg-gradient-to-l from-[#EFFFF2] to-[#a6e6b0] ";

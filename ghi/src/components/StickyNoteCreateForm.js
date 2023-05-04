@@ -24,42 +24,42 @@ function StickyNoteCreateForm(props) {
   const [members, setMembers] = useState([]);
 
   const handleColorChange = (event) => {
-    console.log("colorchanging");
+    // console.log("colorchanging");
     setCategory(event.target.value);
   };
   useEffect(() => {
     switch (category) {
       case "backlog":
-        console.log("Backlog");
+        // console.log("Backlog");
         setHeaderColor("bg-sticky_blue_header");
         setBodyColor("bg-sticky_blue");
         break;
       case "todo":
-        console.log("Todo");
+        // console.log("Todo");
 
         setHeaderColor("bg-sticky_red_header");
         setBodyColor("bg-sticky_red");
         break;
       case "doing":
-        console.log("Doing");
+        // console.log("Doing");
 
         setHeaderColor("bg-sticky_yellow_header");
         setBodyColor("bg-sticky_yellow");
         break;
       case "review":
-        console.log("Review");
+        // console.log("Review");
 
         setHeaderColor("bg-sticky_teal_header");
         setBodyColor("bg-sticky_teal");
         break;
       case "done":
-        console.log("Done");
+        // console.log("Done");
 
         setHeaderColor("bg-sticky_green_header");
         setBodyColor("bg-sticky_green");
         break;
       default:
-        console.log("Default");
+        // console.log("Default");
         setHeaderColor("bg-white");
         setBodyColor("bg-slate-100");
     }
@@ -83,19 +83,19 @@ function StickyNoteCreateForm(props) {
   useEffect(() => {
     switch (priority) {
       case "1":
-        console.log("1");
+        // console.log("1");
         setPriorityColor("bg-gradient-to-l from-[#EFFFF2] to-[#B8FFC3] ");
         break;
       case "2":
-        console.log("2");
+        // console.log("2");
         setPriorityColor("bg-gradient-to-l from-[#F5FDFF] to-[#94ECFF]");
         break;
       case "3":
-        console.log("3");
+        // console.log("3");
         setPriorityColor("bg-gradient-to-l from-[#FFECEC] to-[#FFCACA]");
         break;
       default:
-        console.log("0");
+        // console.log("0");
         setPriorityColor("bg-white");
         break;
     }
@@ -136,8 +136,7 @@ function StickyNoteCreateForm(props) {
     data.append = props.append;
 
     data.account = members;
-    console.log("Category value:", category);
-    console.log(data);
+
     const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/${props.stickyboard_id}/sticky`;
     const fetchConfig = {
       method: "post",
@@ -150,8 +149,6 @@ function StickyNoteCreateForm(props) {
 
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      console.log("ok");
-
       setSubject("");
       setCategory("");
       setContent("");

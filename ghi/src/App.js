@@ -12,15 +12,32 @@ import BigCalendarPage from "./components/Calendar";
 
 import LandingPage from "./landing_page/LandingPage";
 
-import { Routes, Route, Navigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 import StickyBoard from "./pages/StickyBoard";
 import { AccountProvider } from "./context/AccountContext";
 
 function App() {
   const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  console.log("token: ", token);
+  if (
+    !token &&
+    location.pathname !== "/" &&
+    location.pathname !== "/signup" &&
+    location.pathname !== "/signin" &&
+    location.pathname !== "/resetpassword"
+  ) {
+    navigate("/signin");
+  }
+  console.log("token: ", token, "location:", location);
 
   const [accModalStatus, setAccModalStatus] = useState(false);
   const handleOpenAccModal = () => {
