@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import AccountDetails from "./AccountDetails";
 import Search_light from "../images/icons/Search_light.svg";
 import close_out from "../images/icons/close_out_icon.svg";
+import AccountPageDeleteModal from "./AccountPageDeleteModal";
 
 const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
   const [accounts, setAccounts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [gridView, setGridView] = useState(true);
+  const [gridView, setGridView] = useState(false);
   //   const [isGridView, setIsGridView] = useState(false);
   const [selectedAccount, setSelectedAccount] = useState(null);
+  const [deleteModalForAccount, setDeleteModalForAccount] = useState(null);
 
   const getAccountsData = async () => {
     const accountUrl = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/accounts`;
@@ -44,9 +46,9 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
     }
   };
 
-  //   const toggleView = () => {
-  //     setIsGridView(!isGridView);
-  //   };
+  const handleDeleteClick = (id) => {
+    setDeleteModalForAccount(id);
+  };
 
   const handleAccountDoubleClick = (account) => {
     setSelectedAccount(account);
@@ -66,7 +68,7 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
       }}
     >
       <div
-        className="bg-gray-100 border border-gray-300 p-4 rounded-[19px] mt-10 w-[46.3125rem] relative pt-[3rem]"
+        className="bg-gray-100 border border-gray-300 p-4 rounded-[19px] mt-10 w-[56.3125rem] relative pt-[3rem]"
         onClick={(e) => e.stopPropagation()}
       >
         <img
@@ -90,15 +92,17 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
             <img src={Search_light} alt="" />
           </div>
           <button
-            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+            className="no-hover bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
             onClick={() => setGridView(!gridView)}
           >
             {gridView ? "List View" : "Grid View"}
           </button>
         </div>
-
         <div className="relative">
-          <div className="account-listing h-96 overflow-y-auto scrollbar scrollbar-w-2 scrollbar-track-slate-600 scrollbar-track-rounded-lg px-3">
+          <div
+            className="account-listing h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 px-2"
+            style={{ overflowX: "hidden" }}
+          >
             {gridView ? (
               <div
                 className="grid gap-4"
@@ -108,20 +112,51 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
                   filteredAccounts.map((account) => (
                     <div
                       key={account.id}
-                      className="border border-gray-300 p-4 rounded-md"
+                      className="border border-gray-300 p-4 rounded-md flex flex-col h-36 w-48 overflow-hidden transform hover:scale-105 transition duration-300 my-2 shadow-md"
                       onDoubleClick={() => handleAccountDoubleClick(account)}
                     >
-                      <p className="text-lg font-bold mb-2">
-                        {account.first_name} {account.last_name}
-                      </p>
-                      <p className="text-gray-500 mb-2"> {account.email}</p>
-                      {/* <p className="text-gray-500 mb-2">Account ID: {account.id}</p> */}
-                      <button
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-auto"
-                        onClick={() => handleDeleteAccount(account.id)}
-                      >
-                        Delete
-                      </button>
+                      {deleteModalForAccount === account.id ? (
+                        <AccountPageDeleteModal
+                          className="z-10 flex-grow text-sm"
+                          show={deleteModalForAccount === account.id}
+                          onConfirm={() => handleDeleteAccount(account.id)}
+                          onCancel={() => setDeleteModalForAccount(null)}
+                          cancelButtonClassName="text-xs py-1 px-2"
+                          confirmButtonClassName="text-xs py-1 px-2"
+                        />
+                      ) : (
+                        <>
+                          <div className="flex-grow">
+                            <p className="text-lg font-bold mb-2 truncate break-all">
+                              <i
+                                className="fa fa-user mr-2"
+                                aria-hidden="true"
+                              ></i>
+                              {account.first_name} {account.last_name}
+                            </p>
+                            <p
+                              className="text-gray-500"
+                              style={{ wordWrap: "break-word" }}
+                            >
+                              <i
+                                className="fa fa-envelope mr-2"
+                                aria-hidden="true"
+                              ></i>
+                              {account.email.slice(0, 15)}
+                              {account.email.length > 15 &&
+                              account.email[15] !== "."
+                                ? "..."
+                                : ""}
+                            </p>
+                          </div>
+                          <button
+                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-auto mt-2"
+                            onClick={() => handleDeleteClick(account.id)}
+                          >
+                            Delete
+                          </button>
+                        </>
+                      )}
                     </div>
                   ))
                 ) : (
@@ -130,31 +165,55 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
               </div>
             ) : (
               <>
-                {filteredAccounts.length > 0 ? (
-                  filteredAccounts.map((account) => (
-                    <div
-                      key={account.id}
-                      className="border-b border-gray-300 py-2 flex items-center justify-between"
-                      onDoubleClick={() => handleAccountDoubleClick(account)}
-                    >
-                      <div>
-                        <p className="text-lg font-medium">
-                          {account.first_name} {account.last_name}
-                        </p>
-                        <p className="text-gray-500">{account.email}</p>
-                        {/* <p className="text-gray-500">Account ID: {account.id}</p> */}
-                      </div>
-                      <button
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                        onClick={() => handleDeleteAccount(account.id)}
+                <div className="list-container flex flex-col items-center">
+                  {filteredAccounts.length > 0 ? (
+                    filteredAccounts.map((account) => (
+                      <div
+                        key={account.id}
+                        className="account-card bg-gray-100 border border-gray-300 p-4 w-full md:max-w-xl my-4 rounded shadow-md flex flex-wrap items-center justify-between transform hover:scale-105 hover:shadow-lg transition-all duration-300"
+                        onDoubleClick={() => handleAccountDoubleClick(account)}
                       >
-                        Delete
-                      </button>
-                    </div>
-                  ))
-                ) : (
-                  <p>No accounts found.</p>
-                )}
+                        <div className="flex flex-wrap items-center">
+                          <div className="mr-4">
+                            <p className="text-lg font-bold mb-2 break-all">
+                              <i
+                                className="fa fa-user mr-2"
+                                aria-hidden="true"
+                              ></i>
+                              {account.first_name} {account.last_name}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="text-gray-500">
+                              <i
+                                className="fa fa-envelope mr-2"
+                                aria-hidden="true"
+                              ></i>
+                              {account.email}
+                            </p>
+                          </div>
+                        </div>
+                        {deleteModalForAccount !== account.id && (
+                          <button
+                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-auto mt-2"
+                            onClick={() => handleDeleteClick(account.id)}
+                          >
+                            Delete
+                          </button>
+                        )}
+                        {deleteModalForAccount === account.id && (
+                          <AccountPageDeleteModal
+                            show={deleteModalForAccount === account.id}
+                            onConfirm={() => handleDeleteAccount(account.id)}
+                            onCancel={() => setDeleteModalForAccount(null)}
+                          />
+                        )}
+                      </div>
+                    ))
+                  ) : (
+                    <p>No accounts found.</p>
+                  )}
+                </div>
               </>
             )}
           </div>

@@ -1,30 +1,6 @@
 import React from "react";
-// import StickyDetails from "./StickyDetails";
-
-// import useToken from "@galvanize-inc/jwtdown-for-react";
 
 const AccountDetails = ({ account, onClose }) => {
-  //   const { token } = useToken();
-
-  // const [stickies, setStickies] = useState([]);
-  // const [stickyId, setStickyId] = useState(null);
-
-  // useEffect(() => {
-  //   async function fetchStickies() {
-  //     const response = await fetch(
-  //       `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/sticky`
-  //     );
-  //     const data = await response.json();
-  //     console.log(data);
-  //     setStickies(data.filter((sticky) => sticky.account.includes(account.id)));
-  //   }
-  //   fetchStickies();
-  // }, [account.id]);
-
-  // const handleStickyClick = (stickyId) => {
-  //   setStickyId(stickyId);
-  // };
-
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
       <div className="bg-white p-4 rounded-md w-full max-w-screen-md relative">
@@ -34,18 +10,16 @@ const AccountDetails = ({ account, onClose }) => {
         >
           &times;
         </button>
-        <h2 className="text-center text-2xl font-bold mb-4">
+        <h2 className="text-lg font-bold mb-2 truncate break-all">
+          <i className="fa fa-user mr-2" aria-hidden="true"></i>
           {account.first_name} {account.last_name}
         </h2>
-        <p>Email: {account.email}</p>
+
+        <p>
+          <i className="fa fa-envelope mr-2" aria-hidden="true"></i>{" "}
+          {account.email}
+        </p>
         <p>Account ID: {account.id}</p>
-        {/* {stickies.map((sticky) => (
-          <div key={sticky.id} onClick={() => handleStickyClick(sticky.id)}>
-            <p>{sticky.subject}</p>
-            <p>{sticky.content}</p>
-          </div>
-        ))} */}
-        {/* {stickyId && <StickyDetails stickyId={stickyId} />} */}
       </div>
     </div>
   );
