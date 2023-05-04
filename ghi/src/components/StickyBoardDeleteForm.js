@@ -37,18 +37,18 @@ const StickyBoardDeleteForm = (props) => {
         <div className="text-center">
           <span className="text-2xl">Are you sure you want to delete </span>
           <span className="font-bold text-4xl">
-            {props.stickyboard.board_name} ?
+            {props.stickyboard.board_name}?
           </span>
         </div>
         <div className="flex">
           <button
-            className="button-hover-white-filled-delete bg-white my-6 mx-12 px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky"
+            className="button-hover-white-filled-delete bg-white my-6 mx-6 px-[2rem] py-[.5rem]  rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky"
             onClick={() => handleDeletion(props.stickyboard.id)}
           >
             Delete
           </button>
           <button
-            className="button-hover-white-filled bg-white my-6 mx-12 px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky"
+            className="button-hover-white-filled bg-white my-6 mx-6 px-[2rem] py-[.5rem]  rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky"
             onClick={() => props.close()}
           >
             Cancel

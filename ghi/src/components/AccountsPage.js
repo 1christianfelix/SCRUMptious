@@ -62,7 +62,7 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
 
   return (
     <div
-      className="flex justify-center items-center absolute z-10 backdrop-blur-md w-[100%] h-[100%]"
+      className="flex justify-center items-center absolute backdrop-blur-md w-[100%] h-[100%] z-[1000]"
       onClick={() => {
         closeAcc();
       }}

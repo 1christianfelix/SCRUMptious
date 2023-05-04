@@ -271,7 +271,7 @@ function StickyNoteCreateForm(props) {
                       maxLength="17"
                       name="text"
                       id="subject"
-                      className="p-0 m-0 leading-none bg-transparent w-[16rem] placeholder:text-slate-700 focus:outline-none"
+                      className="p-0 m-0 leading-none bg-transparent w-[16rem] placeholder:text-slate-800 text-white focus:outline-none"
                     />
                     <img alt="pen" src={pen} className="ml-[.5rem]" />
                   </div>
@@ -304,7 +304,7 @@ function StickyNoteCreateForm(props) {
                 type="text"
                 name="text"
                 id="content"
-                className="CONTENT-BOX flex-grow overflow-auto scrollbar-card scrollbar-w-3 text-dark_mode_font focus:outline-none word-wrap bg-transparent border-solid border-[1px] border-text-dark_mode_text_white resize-none mx-[3.2rem] text-[1.5rem] p-5"
+                className="CONTENT-BOX flex-grow overflow-auto scrollbar-card scrollbar-w-3 placeholder:text-slate-800 text-white focus:outline-none word-wrap bg-transparent border-solid border-[1px] border-text-dark_mode_text_white resize-none mx-[3.2rem] text-[1.5rem] p-5"
               ></textarea>
               <div className="BUTTONS flex justify-between m-5 pt-10">
                 <img
