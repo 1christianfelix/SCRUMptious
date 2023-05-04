@@ -23,18 +23,9 @@ const BigCalendar = () => {
   };
 
   const handleDelete = (eventToDelete) => {
-    setEvents((prevState) => prevState.filter((event) => event !== eventToDelete));
-  };
-
-  const handleDateSelect = (e) => {
-    const [year, month, day] = e.target.value.split("-");
-    const selectedDate = new Date(year, month - 1, day);
-    const calendar = document.querySelector(".rbc-calendar");
-    if (calendar) {
-      calendar.dispatchEvent(
-        new CustomEvent("navigate", { detail: { date: selectedDate, view: "day" } })
-      );
-    }
+    setEvents((prevState) =>
+      prevState.filter((event) => event !== eventToDelete)
+    );
   };
 
   return (
@@ -110,6 +101,5 @@ const CustomToolbar = (toolbar) => {
     </div>
   );
 };
-
 
 export default BigCalendar;

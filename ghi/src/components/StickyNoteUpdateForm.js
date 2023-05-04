@@ -5,10 +5,12 @@ import pen from "../images/icons/pen.svg";
 import close_out from "../images/icons/close_out_icon.svg";
 import "../App.css";
 import AccountContext from "../context/AccountContext";
+import StickyNoteDeleteForm from "./StickyNoteDeleteForm";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function StickyNoteUpdateForm(props) {
   const { token } = useToken();
+  const [deleteForm, setDeleteForm] = useState(false);
   const { accounts } = useContext(AccountContext);
   const [category, setCategory] = useState(props.stickyData.category);
   const [subject, setSubject] = useState(props.stickyData.subject);
@@ -160,21 +162,21 @@ function StickyNoteUpdateForm(props) {
   };
 
   const handleDeletion = (id) => {
-    fetch(
-      `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/sticky/${props.stickyData.id}`,
-      {
-        method: "delete",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    ).then((response) => {
-      if (response.ok) {
-        props.close();
-        props.refreshData();
-      }
-    });
+    // fetch(
+    //   `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/sticky/${props.stickyData.id}`,
+    //   {
+    //     method: "delete",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   }
+    // ).then((response) => {
+    //   if (response.ok) {
+    //     props.close();
+    //     props.refreshData();
+    //   }
+    // });
   };
 
   return (
@@ -182,6 +184,12 @@ function StickyNoteUpdateForm(props) {
       className="h-screen w-[100%] flex items-center justify-center absolute z-10 backdrop-blur-md"
       onClick={handleClose}
     >
+      {deleteForm && (
+        <StickyNoteDeleteForm
+          stickyID={props.stickyData.id}
+          refreshData={props.refreshData}
+        ></StickyNoteDeleteForm>
+      )}
       <form
         onClick={(e) => e.stopPropagation()}
         onSubmit={handleSubmit}
@@ -304,6 +312,7 @@ function StickyNoteUpdateForm(props) {
                   src={trash}
                   className="expand-button"
                   onClick={() => {
+                    setDeleteForm(true);
                     handleDeletion(props.stickyData.id);
                   }}
                 />

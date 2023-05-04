@@ -14,6 +14,9 @@
   .button-hover-white-filled {
     @apply border-dark_mode_text_white transition-all duration-200 ease-in-out hover:bg-dark_mode_button_hover hover:text-dark_mode_text_white;
   }
+  .button-hover-white-filled-delete {
+    @apply border-dark_mode_text_white transition-all duration-200 ease-in-out hover:bg-red-600 hover:text-dark_mode_text_white;
+  }
   .nav-button {
     @apply w-[100%] flex gap-2 pl-[10%] hover:text-white drop-shadow-xl transition-all duration-200 ease-in-out hover:bg-dark_mode_button_hover;
   }

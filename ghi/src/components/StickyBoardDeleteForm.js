@@ -1,0 +1,62 @@
+import React, { useContext } from "react";
+import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
+
+const StickyBoardDeleteForm = (props) => {
+  const { token } = useContext(AuthContext);
+
+  if (!props.open) {
+    return null;
+  }
+
+  const handleDeletion = (id) => {
+    fetch(
+      `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/stickyboard/${id}`,
+      {
+        method: "delete",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    ).then((response) => {
+      if (response.ok) {
+        props.getStickyboardsData();
+      }
+    });
+  };
+  console.log(props.stickyboard.id);
+
+  return (
+    <div
+      className="h-screen w-[100%] flex items-center justify-center absolute  z-10 backdrop-blur-md "
+      onClick={() => {
+        props.close();
+      }}
+    >
+      <div className=" flex flex-col items-center justify-center font-semibold text-lg">
+        <div className="text-center">
+          <span className="text-2xl">Are you sure you want to delete </span>
+          <span className="font-bold text-4xl">
+            {props.stickyboard.board_name} ?
+          </span>
+        </div>
+        <div className="flex">
+          <button
+            className="button-hover-white-filled-delete bg-white my-6 mx-12 px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky"
+            onClick={() => handleDeletion(props.stickyboard.id)}
+          >
+            Delete
+          </button>
+          <button
+            className="button-hover-white-filled bg-white my-6 mx-12 px-[1rem] py-[.1rem] rounded-[19px] text-dark_mode_font self-end drop-shadow-sticky"
+            onClick={() => props.close()}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default StickyBoardDeleteForm;
