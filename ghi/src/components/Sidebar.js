@@ -65,7 +65,14 @@ const Sidebar = (props) => {
           <div className="nav-button-2 " data-tooltip-id="Logs">
             <img src={book} alt="" />
           </div>
-          <div className="nav-button-2 " data-tooltip-id="Timeframe">
+          <div
+            className="nav-button-2 "
+            data-tooltip-id="Timeframe"
+            onClick={() => {
+              navigate("/calendar");
+              props.closeAcc();
+            }}
+          >
             <img src={calendar} alt="" />
           </div>
           <div className="nav-button-2 " data-tooltip-id="Analytics">

@@ -8,6 +8,7 @@ import Signup from "./pages/Signup";
 import StickyBoardListView from "./pages/StickyBoardListView";
 import ResetPassword from "./pages/ResetPassword";
 import AccountsPage from "./components/AccountsPage";
+import BigCalendarPage from "./components/Calendar";
 
 import LandingPage from "./landing_page/LandingPage";
 
@@ -60,6 +61,7 @@ function App() {
                 </Route>
                 <Route path="*" element={<Navigate to="/dashboard" />} />
                 <Route path="/accountspage" element={<AccountsPage />} />
+                <Route path="/calendar" element={<BigCalendarPage />} />
               </Routes>
             </section>
           </div>
