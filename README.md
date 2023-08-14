@@ -1,8 +1,15 @@
 # Scrumptious
 
-This link will lead to the deployed website:
+## Demo Account and Website
 
-Website: https://team-scrappy.gitlab.io/scrum-ptious
+Experience the features of SCRUMptious with our demo account! Simply log in using the following credentials:
+
+- **Username:** aaa
+- **Password:** aaa
+
+Visit our website to explore the functionalities and user interface:
+
+[https://team-scrappy.gitlab.io/scrum-ptious](https://team-scrappy.gitlab.io/scrum-ptious)
 
 #### Team:
 
