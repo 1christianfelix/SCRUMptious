@@ -2,10 +2,10 @@
 
 #### Team:
 
-- Brandon Moore - Software Developer
-- Christian Felix - Software Developer
-- John Liu - Software Developer
-- Kurt Loban - Software Developer
+- [Brandon Moore](https://www.linkedin.com/in/brandon-moore-a055b71b1/) - Software Developer
+- [Christian Felix](https://www.linkedin.com/in/christianfelix97/) - Software Developer
+- [John Liu](https://www.linkedin.com/in/john-chaohui-liu/) - Software Developer
+- [Kurt Loban](https://www.linkedin.com/in/kurtloban/) - Software Developer
 
 ## Demo Account and Website
 
