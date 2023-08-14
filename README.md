@@ -9,7 +9,7 @@
 
 ## Demo Account and Website
 
-Experience the features of SCRUMptious with our demo account! Simply log in using the following credentials:
+Experience the features of SCRUMptious with our demo account! __Simply log in using the following credentials__:
 
 - **Username:** aaa
 - **Password:** aaa
