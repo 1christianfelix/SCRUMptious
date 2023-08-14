@@ -1,5 +1,12 @@
 # Scrumptious
 
+#### Team:
+
+- Brandon Moore - Software Developer
+- Christian Felix - Software Developer
+- John Liu - Software Developer
+- Kurt Loban - Software Developer
+
 ## Demo Account and Website
 
 Experience the features of SCRUMptious with our demo account! Simply log in using the following credentials:
@@ -10,13 +17,6 @@ Experience the features of SCRUMptious with our demo account! Simply log in usin
 Visit our website to explore the functionalities and user interface:
 
 [https://team-scrappy.gitlab.io/scrum-ptious](https://team-scrappy.gitlab.io/scrum-ptious)
-
-#### Team:
-
-- Brandon Moore - Software Developer
-- Christian Felix - Software Developer
-- John Liu - Software Developer
-- Kurt Loban - Software Developer
 
 ## Design
 
