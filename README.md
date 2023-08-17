@@ -7,6 +7,8 @@
 - [John Liu](https://www.linkedin.com/in/john-chaohui-liu/) - Software Developer
 - [Kurt Loban](https://www.linkedin.com/in/kurtloban/) - Software Developer
 
+
+
 ## Demo Account and Website
 
 Experience the features of SCRUMptious with our demo account! __Simply log in using the following credentials__:
@@ -17,6 +19,10 @@ Experience the features of SCRUMptious with our demo account! __Simply log in us
 Visit our website to explore the functionalities and user interface:
 
 [https://team-scrappy.gitlab.io/scrum-ptious](https://team-scrappy.gitlab.io/scrum-ptious)
+
+## Demo
+
+
 
 ## Design
 
@@ -39,7 +45,10 @@ As the database used by Scrumptious is MongoDB, it does not require the use of a
 
 ## Design Concept Diagrams
 
+### Wireframe
 ![Wireframe](Wireframe%20concept.svg)
+
+### Concept UI/UX
 ![Figma Wireframe](Figma%20UIUX%20wireframe.jpg)
 
 ## Project Initialization
@@ -78,9 +87,6 @@ After you have cloned your Repository and are in the correct directory initializ
 
 Upon completion of the previous commands you will see all four Docker containers up and running.
 
-### Wireframe
-
-### Concept UI/UX
 
 ## Installation
 
