@@ -22,7 +22,9 @@ Visit our website to explore the functionalities and user interface:
 
 ## Demo
 
-![Demo](demo.gif)
+![Sticky Board Creation](demo2.gif)
+![Sticky Note Demo](demo3.gif)
+
 
 ## Design
 
