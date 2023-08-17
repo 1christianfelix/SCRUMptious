@@ -22,7 +22,7 @@ Visit our website to explore the functionalities and user interface:
 
 ## Demo
 
-
+![Demo](demo.gif)
 
 ## Design
 
