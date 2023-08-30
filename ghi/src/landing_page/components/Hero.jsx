@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import bg from "../images/Untitled-2.png";
 import * as jquery from "jquery";
-import Spline from "@splinetool/react-spline";
+// import Spline from "@splinetool/react-spline";
 
 const $ = typeof window !== "undefined" ? jquery.default : jquery;
 
@@ -106,7 +106,7 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 10 }}
             >
-              <Spline scene="https://prod.spline.design/VEfgM0qUrBGa9a42/scene.splinecode" />
+{/*               <Spline scene="https://prod.spline.design/VEfgM0qUrBGa9a42/scene.splinecode" /> */}
             </motion.div>
           </div>
         )}
