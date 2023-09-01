@@ -205,7 +205,33 @@ const StickyBoard = (props) => {
         category: category,
         stickyboard: `${stickyboard_id}`,
       };
+      console.log(body);
       const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/sticky/${id}`;
+      const response = await fetch(url, {
+        method: "put",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      if (response.ok) {
+        console.log("success update, now updating sticky");
+      }
+    };
+
+    // PUT function to update the the stickyboard backend's categories' shape
+    const updateStickyBoardCategoryDND = async (toCategory, fromCategory) => {
+      let newCategoryList = categoriesLists[toCategory];
+      let newCategoryIDList = newCategoryList.map((x) => x.id);
+      let oldCategoryList = categoriesLists[fromCategory];
+      let oldCategoryIDList = oldCategoryList.map((x) => x.id);
+      let body = {
+        [fromCategory]: oldCategoryIDList,
+        [toCategory]: newCategoryIDList,
+      };
+      console.log("body", body);
+      const url = `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/stickyboard/${stickyboard_id}`;
       const response = await fetch(url, {
         method: "put",
         headers: {
@@ -218,7 +244,9 @@ const StickyBoard = (props) => {
         console.log("success update, now updating stickyBoard");
       }
     };
+
     updateStickyCategoryDND(itemCopy.id, destination.droppableId);
+    updateStickyBoardCategoryDND(destination.droppableId, source.droppableId);
   };
 
   const [searchPriority, setPriority] = useState("");
