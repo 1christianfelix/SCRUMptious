@@ -24,7 +24,9 @@ Visit our website to explore the functionalities and user interface:
 
 ## Demo
 
-[Demo Video](https://youtu.be/P0jsC40Bkt0)
+[Demo Video on YouTube](https://youtu.be/P0jsC40Bkt0)
+
+### Gifs
 ![Sticky Board Creation](demo2.gif)
 ![Sticky Note Demo](demo3.gif)
 
