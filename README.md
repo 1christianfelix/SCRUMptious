@@ -7,21 +7,6 @@
 - [John Liu](https://www.linkedin.com/in/john-chaohui-liu/) - Software Developer
 - [Kurt Loban](https://www.linkedin.com/in/kurtloban/) - Software Developer
 
-
-
-## Demo Account and Website
-
-**Note:** The demo webservice is currently out of commission. However, you can still explore the landing page and interface of SCRUMptious.
-
-Experience the features of SCRUMptious with our demo account! __Simply log in using the following credentials__:
-
-- **Username:** aaa
-- **Password:** aaa
-
-Visit our website to explore the functionalities and user interface:
-
-[Explore SCRUMptious Landing Page](https://team-scrappy.gitlab.io/scrum-ptious)
-
 ## Demo
 
 [Demo Video on YouTube](https://youtu.be/P0jsC40Bkt0)
