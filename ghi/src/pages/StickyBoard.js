@@ -193,7 +193,7 @@ const StickyBoard = (props) => {
       prev[destination.droppableId].stickies.splice(
         destination.index,
         0,
-        itemCopy
+        itemCopy,
       );
       setAddStickyStyle("");
       return prev;
@@ -280,7 +280,7 @@ const StickyBoard = (props) => {
     refreshData();
   };
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
+    <div className="flex h-screen flex-col overflow-hidden">
       {form === "create" ? (
         category.length > 0 && (
           <StickyNoteCreateForm
@@ -302,45 +302,45 @@ const StickyBoard = (props) => {
         ></StickyNoteUpdateForm>
       )}
       <div className="flex flex-col text-black">
-        <div className="w-[100%] h-[5.37500rem] bg-white drop-shadow-md bg-gradient-to-r from-white from-20% to-blue-100 via-blue-100 via-70%  flex items-center">
+        <div className="flex h-[5.37500rem] w-[100%] items-center bg-white bg-gradient-to-r from-white from-20% via-blue-100 via-70%  to-blue-100 drop-shadow-md">
           <select
             onChange={handleStickyboardChange}
             defaultValue={stickyboard.id}
-            className="bg-transparent focus:outline-none transition-all duration-150 hover:cursor-pointer text-3xl ml-6 self-end"
+            className="ml-6 self-end bg-transparent text-3xl transition-all duration-150 focus:outline-none hover:cursor-pointer"
           >
             <option
               value={stickyboard.id}
               key={stickyboard.id}
-              className="text-xl bg-white"
+              className="bg-white text-xl"
             >
               {stickyboard.board_name}
             </option>
             {stickyboards
               .filter(
-                (filterStickyboard) => filterStickyboard.id !== stickyboard.id
+                (filterStickyboard) => filterStickyboard.id !== stickyboard.id,
               )
               .map((filteredStickyboard) => (
                 <option
                   value={filteredStickyboard.id}
                   key={filteredStickyboard.id}
-                  className="text-xl bg-white"
+                  className="bg-white text-xl"
                 >
                   {filteredStickyboard.board_name}
                 </option>
               ))}
           </select>
-          <div className=" flex gap-5 self-end ml-auto mr-[3rem] 1440:mr-[calc(3rem*1.333)] 1440:text-xl">
-            <div className="flex gap-2 items-center">
+          <div className=" ml-auto mr-[3rem] flex gap-5 self-end 1440:mr-[calc(3rem*1.333)] 1440:text-xl">
+            <div className="flex items-center gap-2">
               <img
                 src={filter_icon_white}
                 alt="filter"
-                className="w-[1rem] h-[1rem]"
+                className="h-[1rem] w-[1rem]"
               />
               <label htmlFor="priority" className="text-black">
                 Filter Priority:
               </label>
             </div>
-            <div id="priority" className="text-black flex self-center gap-2">
+            <div id="priority" className="flex gap-2 self-center text-black">
               <input
                 type="radio"
                 id="none"
@@ -377,7 +377,7 @@ const StickyBoard = (props) => {
             </div>
           </div>
         </div>
-        <div className="lg:h-[1rem] w-[90%] ml-[7.5%]">
+        <div className="ml-[7.5%] w-[90%] lg:h-[1rem]">
           <DragDropContext
             onDragEnd={handleDrag}
             onBeforeDragStart={handleAddSticky}
@@ -387,12 +387,12 @@ const StickyBoard = (props) => {
               {_.map(state, (data, key) => {
                 return (
                   <div key={key} className="flex flex-col">
-                    <div className="w-[16.0rem] 1440:w-[calc(16rem*1.333)] flex items-center justify-between my-3">
+                    <div className="my-3 flex w-[16.0rem] items-center justify-between 1440:w-[calc(16rem*1.333)]">
                       <span className=" text-[2rem]">{data.title}</span>
                       <img
                         alt="add"
                         src={add_icon}
-                        className="h-[42px] w-auto hover:cursor-pointer transition-all expand-button ml-auto"
+                        className="expand-button ml-auto h-[42px] w-auto transition-all hover:cursor-pointer"
                         onClick={() => {
                           handleOpenModal("create");
                           setCategory(key);
@@ -406,7 +406,7 @@ const StickyBoard = (props) => {
                           <div
                             ref={provided.innerRef}
                             {...provided.droppableProps}
-                            className="h-[100%] overflow-auto overflow-x-hidden scrollbar-card scrollbar-thumb-slate-400 scrollbar-w-1 max-h-[calc(100vh-12.75rem)] pr-5 place-self-start" // Add overflow-y-auto here
+                            className="scrollbar-card h-[100%] max-h-[calc(100vh-12.75rem)] place-self-start overflow-auto overflow-x-hidden pr-5 scrollbar-thumb-slate-400 scrollbar-w-1" // Add overflow-y-auto here
                             style={{
                               backgroundColor: snapshot.isDraggingOver
                                 ? "#00000015"
@@ -417,7 +417,7 @@ const StickyBoard = (props) => {
                               .filter(
                                 (sticky) =>
                                   searchPriority === "" ||
-                                  sticky.priority === parseInt(searchPriority)
+                                  sticky.priority === parseInt(searchPriority),
                               )
                               .map((el, index) => {
                                 return (
@@ -434,7 +434,7 @@ const StickyBoard = (props) => {
                                           ref={provided.innerRef}
                                           {...provided.draggableProps}
                                           {...provided.dragHandleProps}
-                                          className="mb-5 relative"
+                                          className="relative mb-5"
                                         >
                                           <StickyNote
                                             category={el.category}
@@ -447,7 +447,7 @@ const StickyBoard = (props) => {
                                           <img
                                             alt="expand"
                                             src={expand_icon}
-                                            className="absolute bottom-3 right-3 self-end expand-button"
+                                            className="expand-button absolute bottom-3 right-3 self-end"
                                             onClick={() => {
                                               handleOpenModal("update", el);
                                               setCategory(key);
@@ -457,7 +457,7 @@ const StickyBoard = (props) => {
                                           {index ===
                                             data.stickies.length - 1 && (
                                             <div
-                                              className={`flex items-center pl-4 mb-10 ${addStickyStyle}`}
+                                              className={`mb-10 flex items-center pl-4 ${addStickyStyle}`}
                                               onClick={() => {
                                                 handleOpenModal("create");
                                                 setCategory(key);
@@ -465,10 +465,10 @@ const StickyBoard = (props) => {
                                               }}
                                             >
                                               <div
-                                                className="flex absolute -bottom-6 1440:-bottom-7 items-center hover:cursor-pointer transition-colors duration-200 text-slate-500 hover:text-black"
+                                                className="absolute -bottom-6 flex items-center text-slate-500 transition-colors duration-200 hover:cursor-pointer hover:text-black 1440:-bottom-7"
                                                 data-tooltip-id="append-bottom"
                                               >
-                                                <div className="h-[1rem] 1440:h-[1.2rem] pr-2 text-current ">
+                                                <div className="h-[1rem] pr-2 text-current 1440:h-[1.2rem] ">
                                                   <svg
                                                     className="h-full stroke-current"
                                                     viewBox="0 0 42 42"

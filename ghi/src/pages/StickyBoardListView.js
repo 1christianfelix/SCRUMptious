@@ -76,7 +76,7 @@ const StickyBoardListView = () => {
                 .toLowerCase()
                 .includes(searchTerm.toLowerCase())) &&
             (!searchPriority ||
-              stickyboard.priority === parseInt(searchPriority))
+              stickyboard.priority === parseInt(searchPriority)),
         )
       : stickyboards;
 
@@ -116,24 +116,24 @@ const StickyBoardListView = () => {
           type="Update"
         />
       )}
-      <div className="w-[100%] h-[5.37500rem] bg-white drop-shadow-md bg-gradient-to-r from-white from-20% to-blue-100 via-blue-100 via-70%  flex items-center">
-        <div className="text-3xl ml-6 self-end">
+      <div className="flex h-[5.37500rem] w-[100%] items-center bg-white bg-gradient-to-r from-white from-20% via-blue-100 via-70%  to-blue-100 drop-shadow-md">
+        <div className="ml-6 self-end text-3xl">
           <span>Sticky Boards</span>
         </div>
 
-        <div className=" flex gap-5 self-end ml-auto mr-[3rem] 1440:mr-[calc(3rem*1.333)] 1440:text-xl">
-          <div className="flex gap-2 items-center">
+        <div className=" ml-auto mr-[3rem] flex gap-5 self-end 1440:mr-[calc(3rem*1.333)] 1440:text-xl">
+          <div className="flex items-center gap-2">
             <img
               src={filter_icon_white}
               alt="filter"
-              className="w-[1rem] h-[1rem]"
+              className="h-[1rem] w-[1rem]"
             />
 
             <label htmlFor="priority" className="text-black">
               Filter Priority:
             </label>
           </div>
-          <div id="priority" className="text-black flex self-center gap-2">
+          <div id="priority" className="flex gap-2 self-center text-black">
             <input
               type="radio"
               id="none"
@@ -170,13 +170,13 @@ const StickyBoardListView = () => {
           </div>
         </div>
       </div>
-      <div className="px-20 1080:pt-[2rem] flex flex-col 1080:gap-[2rem] 1440:pt-20 1440:gap-20 overflow-hidden h-[100%] ">
-        <div className="flex gap-10 items-center justify-center ">
-          <div className="flex items-center bg-white rounded-[100px] w-[70%] h-[4.75rem] px-10 text-2xl drop-shadow-md">
+      <div className="flex h-[100%] flex-col overflow-hidden px-20 1080:gap-[2rem] 1080:pt-[2rem] 1440:gap-20 1440:pt-20 ">
+        <div className="flex items-center justify-center gap-10 ">
+          <div className="flex h-[4.75rem] w-[70%] items-center rounded-[100px] bg-white px-10 text-2xl drop-shadow-md">
             <input
               type="text"
               placeholder="Search Sticky Boards By Name or Description"
-              className="focus:outline-none w-[100%]"
+              className="w-[100%] focus:outline-none"
               onChange={handleSearchTermChange}
               value={searchTerm}
             />
@@ -187,7 +187,7 @@ const StickyBoardListView = () => {
             />
           </div>
           <button
-            className="text-black border-solid border-slate-400 hover:border-slate-950 border-[1px] transition-all duration-200 ease-in-out rounded-[19px] w-[8rem] h-[2rem] text-lg"
+            className="h-[2rem] w-[8rem] rounded-[19px] border-[1px] border-solid border-slate-400 text-lg text-black transition-all duration-200 ease-in-out hover:border-slate-950"
             onClick={() => {
               handleOpenModal("create");
             }}
@@ -195,15 +195,15 @@ const StickyBoardListView = () => {
             + New Board
           </button>
           <button
-            className="text-black border-solid border-slate-400 hover:border-slate-950 border-[1px] transition-all duration-200 ease-in-out rounded-[19px] w-[11rem] h-[2rem] text-lg"
+            className="h-[2rem] w-[11rem] rounded-[19px] border-[1px] border-solid border-slate-400 text-lg text-black transition-all duration-200 ease-in-out hover:border-slate-950"
             onClick={handleResetPosition}
           >
             Reset Positions
           </button>
         </div>
         {resetPosition && (
-          <div className="bound flex-grow overflow-auto scrollbar-card hover:scrollbar-thumb-slate-950 scrollbar-thumb-slate-400 scrollbar-w-2 h-[100%] pt-2 max-h-[calc(100vh-12.75rem)] 1440:max-h-[calc(100vh-18.75rem)]">
-            <div className="place-items-center grid grid-cols-4 gap-y-10 last:mb-10">
+          <div className="bound scrollbar-card h-[100%] max-h-[calc(100vh-12.75rem)] flex-grow overflow-auto pt-2 scrollbar-thumb-slate-400 scrollbar-w-2 hover:scrollbar-thumb-slate-950 1440:max-h-[calc(100vh-18.75rem)]">
+            <div className="grid grid-cols-4 place-items-center gap-y-10 last:mb-10">
               {filteredStickyboards !== null &&
                 filteredStickyboards.map((stickyboard) => {
                   return (
@@ -223,7 +223,7 @@ const StickyBoardListView = () => {
                             <img
                               alt="garbage"
                               src={garbage}
-                              className="expand-button absolute bottom-9 1440:bottom-10 left-5"
+                              className="expand-button absolute bottom-9 left-5 1440:bottom-10"
                               onClick={() => {
                                 // handleDeletion(stickyboard.id);
                                 handleOpenModal("delete", stickyboard);
@@ -232,7 +232,7 @@ const StickyBoardListView = () => {
                               data-tooltip-id="delete"
                             />
                             <button
-                              className="expand-button px-[.7rem] py-[.1rem]  absolute 1440:bottom-10 bottom-[2.25rem] right-[3rem]"
+                              className="expand-button absolute bottom-[2.25rem]  right-[3rem] px-[.7rem] py-[.1rem] 1440:bottom-10"
                               onClick={() =>
                                 navigate(`/dashboard/${stickyboard.id}`)
                               }
@@ -245,7 +245,7 @@ const StickyBoardListView = () => {
                               />
                             </button>
                             <button
-                              className="expand-button px-[.7rem] py-[.1rem]  absolute 1440:bottom-10 bottom-9 right-2"
+                              className="expand-button absolute bottom-9  right-2 px-[.7rem] py-[.1rem] 1440:bottom-10"
                               onClick={() => {
                                 handleOpenModal("update", stickyboard);
                                 setStickyboard(stickyboard);
