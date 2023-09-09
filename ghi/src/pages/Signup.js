@@ -95,7 +95,7 @@ function Signup(props) {
         className="absolute -z-10 w-screen h-screen "
       />
       {/* Form Box */}
-      <div className="SIGNUP z-10 h-[866px] w-[652px] backdrop-blur-[9.3px] bg-[#c1c1c1]/50 flex flex-col items-center gap-8 rounded-[19px] 1080:scale-75 1440:scale-105">
+      <div className="SIGNUP z-10 h-[866px] w-[652px]  bg-[#c1c1c1] flex flex-col items-center gap-8 rounded-[19px] 1080:scale-75 1440:scale-105">
         <p className="p-[.5rem] pl-[1rem] mb-[1rem] text-[4rem] leading-none self-start text-dark_mode_dark">
           Sign Up
         </p>
