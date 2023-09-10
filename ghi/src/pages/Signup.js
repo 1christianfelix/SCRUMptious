@@ -2,9 +2,11 @@ import React from "react";
 import { useState } from "react";
 import signup_signin_bg from "../images/signup-signin-bg.png";
 import { useNavigate, Link } from "react-router-dom";
+import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function Signup(props) {
   const navigate = useNavigate();
+  const { login } = useToken();
 
   const [email, setEmail] = useState("");
   const handleEmailChange = (event) => {
@@ -85,7 +87,7 @@ function Signup(props) {
 
       const postResponse = await fetch(accountUrl, fetchConfig);
       if (postResponse.ok) {
-        navigate("/signin");
+        login(email, password);
       }
     }
   };
