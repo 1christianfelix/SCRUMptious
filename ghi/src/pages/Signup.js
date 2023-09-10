@@ -98,68 +98,97 @@ function Signup(props) {
         className="absolute -z-10 h-screen w-screen "
       />
       {/* Form Box */}
-      <div className="SIGNUP z-10 flex w-[652px] flex-col items-center gap-8 rounded-[19px] bg-slate-300 p-10 focus:outline-none 1080:scale-75 1440:scale-105">
+      <div className="SIGNUP z-10 flex w-[652px] flex-col items-center gap-4 rounded-[19px] bg-slate-200 p-10 1080:scale-75 1440:scale-105">
         <p className="text-[4rem] leading-none text-dark_mode_dark">Sign Up</p>
         {validationDisplay && (
           <div className=" bg-red-500/75 px-6 py-4 text-2xl text-white shadow-2xl">
             {validationDisplay}
           </div>
         )}
-        <div className="EMAIL-FIELD flex h-[67px] w-[468px] rounded-[19px] border-[1px] border-solid border-dark_mode_medium bg-[#c0c0c0] bg-opacity-[.3] focus:outline-none">
+        <div className="EMAIL-FIELD flex flex-col">
+          <label
+            className="ml-2 text-2xl text-dark_mode_font text-opacity-50"
+            htmlFor="email"
+          >
+            Email
+          </label>
           <input
             type="email"
-            placeholder="Email"
+            placeholder=" "
             value={email}
             onChange={handleEmailChange}
-            className="w-[100%] rounded-[19px] bg-transparent pl-5 text-2xl transition-colors placeholder:text-2xl placeholder:text-dark_mode_font focus:outline-none hover:bg-[#fff] hover:bg-opacity-[.15]"
+            className="h-[54px] w-[468px] rounded-[19px] border-[1px] border-solid border-dark_mode_medium bg-transparent pl-5 text-2xl text-dark_mode_font transition-colors focus:border-[4px] focus:border-blue-500 focus:outline-none"
             required
           />
         </div>
-        {/* <div className="UserName-FIELD w-[468px] h-[67px] bg-[#c0c0c0] bg-opacity-[.3] border-solid border-dark_mode_medium border-[1px] rounded-[19px] flex">
+        <div className="FirstName-FIELD flex flex-col">
+          <label
+            className="ml-2 text-2xl text-dark_mode_font text-opacity-50"
+            htmlFor="firstName"
+          >
+            First Name
+          </label>
           <input
             type="text"
-            placeholder="Username"
-            value={userName}
-            onChange={handleUserNameChange}
-            className="w-[100%] pl-5 text-2xl bg-transparent transition-colors focus:outline-[#c1c1c1]  placeholder:text-dark_mode_font placeholder:text-2xl hover:bg-[#fff] hover:bg-opacity-[.15] rounded-[19px]"
-          />
-        </div> */}
-        <div className="FirstName-FIELD flex h-[67px] w-[468px] rounded-[19px] border-[1px] border-solid border-dark_mode_medium bg-[#c0c0c0] bg-opacity-[.3]">
-          <input
-            type="text"
-            placeholder="First Name"
+            placeholder=" "
             value={firstName}
             onChange={handleFirstNameChange}
-            className="w-[100%] rounded-[19px] bg-transparent pl-5 text-2xl transition-colors placeholder:text-2xl placeholder:text-dark_mode_font focus:outline-none hover:bg-[#fff] hover:bg-opacity-[.15]"
+            className="h-[54px] w-[468px] rounded-[19px] border-[1px] border-solid border-dark_mode_medium bg-transparent pl-5 text-2xl text-dark_mode_font transition-colors focus:border-[4px] focus:border-blue-500 focus:outline-none"
+            required
           />
         </div>
-        <div className="LastName-FIELD flex h-[67px] w-[468px] rounded-[19px] border-[1px] border-solid border-dark_mode_medium bg-[#c0c0c0] bg-opacity-[.3]">
+
+        <div className="LastName-FIELD flex flex-col">
+          <label
+            className="ml-2 text-2xl text-dark_mode_font text-opacity-50"
+            htmlFor="lastName"
+          >
+            Last Name
+          </label>
           <input
             type="text"
-            placeholder="Last Name"
+            placeholder=" "
             value={lastName}
             onChange={handleLastNameChange}
-            className="w-[100%] rounded-[19px] bg-transparent pl-5 text-2xl transition-colors placeholder:text-2xl placeholder:text-dark_mode_font focus:outline-none hover:bg-[#fff] hover:bg-opacity-[.15]"
+            className="h-[54px] w-[468px] rounded-[19px] border-[1px] border-solid border-dark_mode_medium bg-transparent pl-5 text-2xl text-dark_mode_font transition-colors focus:border-[4px] focus:border-blue-500 focus:outline-none"
+            required
           />
         </div>
-        <div className="Password-FIELD flex h-[67px] w-[468px] rounded-[19px] border-[1px] border-solid border-dark_mode_medium bg-[#c0c0c0] bg-opacity-[.3]">
+
+        <div className="Password-FIELD flex flex-col">
+          <label
+            className="ml-2 text-2xl text-dark_mode_font text-opacity-50"
+            htmlFor="password"
+          >
+            Password
+          </label>
           <input
             type="password"
-            placeholder="Password"
+            placeholder=" "
             value={password}
             onChange={handlePassword}
-            className="w-[100%] rounded-[19px] bg-transparent pl-5 text-2xl transition-colors placeholder:text-2xl placeholder:text-dark_mode_font  focus:outline-none hover:bg-[#fff] hover:bg-opacity-[.15]"
+            className="h-[54px] w-[468px] rounded-[19px] border-[1px] border-solid border-dark_mode_medium bg-transparent pl-5 text-2xl text-dark_mode_font transition-colors focus:border-[4px] focus:border-blue-500 focus:outline-none"
+            required
           />
         </div>
-        <div className="ConfirmPassword-FIELD flex h-[67px] w-[468px] rounded-[19px] border-[1px] border-solid border-dark_mode_medium bg-[#c0c0c0] bg-opacity-[.3]">
+
+        <div className="ConfirmPassword-FIELD flex flex-col">
+          <label
+            className="ml-2 text-2xl text-dark_mode_font text-opacity-50"
+            htmlFor="confirmPassword"
+          >
+            Confirm Password
+          </label>
           <input
             type="password"
-            placeholder="Confirm Password"
+            placeholder=" "
             value={confirmPassword}
             onChange={handleConfirmPassword}
-            className="w-[100%] rounded-[19px] bg-transparent pl-5 text-2xl transition-colors placeholder:text-2xl placeholder:text-dark_mode_font  focus:outline-none hover:bg-[#fff] hover:bg-opacity-[.15]"
+            className="h-[54px] w-[468px] rounded-[19px] border-[1px] border-solid border-dark_mode_medium bg-transparent pl-5 text-2xl text-dark_mode_font transition-colors focus:border-[4px] focus:border-blue-500 focus:outline-none"
+            required
           />
         </div>
+
         <button
           className={`mt-[1rem] w-[20rem] rounded-[19px] text-[2.5rem]
            ${
