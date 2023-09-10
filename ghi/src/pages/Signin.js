@@ -9,18 +9,21 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useToken();
+  const { login, token } = useToken();
+  const [invalidUserDisplay, setInvalidUserDisplay] = useState(false);
 
-  const emptyInputCheck = () => {
-    if (!email || !password) {
-      console.log("Please");
+  const validUserCheck = () => {
+    if (token == null) {
+      setInvalidUserDisplay(true);
+    } else {
+      setInvalidUserDisplay(false);
     }
   };
 
-  const handleSignin = (e) => {
+  const handleSignin = async (e) => {
     e.preventDefault();
-
     login(email, password);
+    validUserCheck();
   };
 
   return (
@@ -30,10 +33,14 @@ const Signin = () => {
         src={signup_signin_bg}
         className="absolute -z-10 h-screen w-screen"
       />
-      <div className="SIGNIN z-10 flex h-[553px] w-[652px] flex-col items-center gap-10 rounded-[19px] bg-[#c1c1c1] 1080:scale-75 1440:scale-105">
-        <p className="mb-[1rem] self-start p-[.5rem] pl-[1rem] text-[4rem] leading-none text-dark_mode_dark">
-          Sign In
-        </p>
+      <div className="SIGNIN z-10 flex w-[652px] flex-col items-center gap-10 rounded-[19px] bg-slate-300 p-10 1080:scale-75 1440:scale-105">
+        <p className="text-[4rem] leading-none text-dark_mode_dark">Sign In</p>
+        {invalidUserDisplay && (
+          <div className=" bg-red-500/75 px-6 py-4 text-2xl text-white shadow-2xl">
+            Invalid Credentials!
+          </div>
+        )}
+
         <form onSubmit={handleSignin} className="flex flex-col gap-8">
           <div className="EMAIL-FIELD flex h-[67px] w-[468px] rounded-[19px] border-[1px] border-solid border-dark_mode_medium bg-[#c0c0c0] bg-opacity-[.3] ">
             <input
@@ -59,9 +66,9 @@ const Signin = () => {
             onClick={handleSignin}
             className={`mt-[.5rem] w-[20rem] justify-center self-center rounded-[19px] ${
               !email || !password
-                ? "bg-gray-600"
-                : "bg-[#008193] hover:bg-[#039CB0]"
-            } text-[2.5rem] text-dark_mode_text_white transition-colors `}
+                ? "bg-gray-400 text-gray-300"
+                : "bg-blue-500 text-dark_mode_text_white hover:bg-blue-400"
+            } text-[2.5rem]  transition-colors `}
             disabled={!email || !password}
           >
             Sign In
@@ -76,7 +83,7 @@ const Signin = () => {
                 Sign up here!
               </Link>
             </div>
-            <div className="flex justify-center">
+            {/* <div className="flex justify-center">
               <Link
                 to="/resetpassword"
                 className="inline-block self-center text-white underline hover:text-slate-700"
@@ -84,7 +91,7 @@ const Signin = () => {
               >
                 Reset Password
               </Link>
-            </div>
+            </div> */}
           </div>
         </form>
       </div>
