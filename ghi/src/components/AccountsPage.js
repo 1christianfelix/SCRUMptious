@@ -29,7 +29,7 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
   const filteredAccounts = accounts.filter((account) =>
     `${account.first_name} ${account.last_name} ${account.email} ${account.id}`
       .toLowerCase()
-      .includes(searchTerm.toLowerCase())
+      .includes(searchTerm.toLowerCase()),
   );
 
   const handleDeleteAccount = async (id) => {
@@ -62,28 +62,28 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
 
   return (
     <div
-      className="flex justify-center items-center absolute backdrop-blur-md w-[100%] h-[100%] z-[1000]"
+      className="absolute z-[10] flex h-[100%] w-[100%] items-center justify-center backdrop-blur-md"
       onClick={() => {
         closeAcc();
       }}
     >
       <div
-        className="bg-gray-100 border border-gray-300 p-4 rounded-[19px] mt-10 w-[56.3125rem] relative pt-[3rem]"
+        className="relative mt-10 w-[56.3125rem] rounded-[19px] border border-gray-300 bg-gray-100 p-4 pt-[3rem]"
         onClick={(e) => e.stopPropagation()}
       >
         <img
           src={close_out}
           alt="close"
-          className="absolute top-3 right-5 hover:cursor-pointer expand-button h-[2rem] w-[2rem]"
+          className="expand-button absolute right-5 top-3 h-[2rem] w-[2rem] hover:cursor-pointer"
           onClick={() => {
             closeAcc();
           }}
         />
-        <h1 className="text-center text-2xl font-bold mb-8">Accounts List</h1>
-        <div className="w-[100%] flex items-center gap-4  justify-center mb-6">
-          <div className=" flex  rounded-[19px] bg-white w-[50%] h-[2.5rem] px-6 text-xl drop-shadow-md">
+        <h1 className="mb-8 text-center text-2xl font-bold">Accounts List</h1>
+        <div className="mb-6 flex w-[100%] items-center  justify-center gap-4">
+          <div className=" flex  h-[2.5rem] w-[50%] rounded-[19px] bg-white px-6 text-xl drop-shadow-md">
             <input
-              className="focus:outline-none w-[100%]"
+              className="w-[100%] focus:outline-none"
               type="text"
               placeholder="Search Accounts"
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -92,7 +92,7 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
             <img src={Search_light} alt="" />
           </div>
           <button
-            className="no-hover bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+            className="no-hover rounded bg-gray-300 px-4 py-2 font-bold text-gray-800 hover:bg-gray-400"
             onClick={() => setGridView(!gridView)}
           >
             {gridView ? "List View" : "Grid View"}
@@ -100,7 +100,7 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
         </div>
         <div className="relative">
           <div
-            className="account-listing h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 px-2"
+            className="account-listing h-96 overflow-y-auto px-2 scrollbar-thin scrollbar-track-gray-200 scrollbar-thumb-gray-400"
             style={{ overflowX: "hidden" }}
           >
             {gridView ? (
@@ -112,7 +112,7 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
                   filteredAccounts.map((account) => (
                     <div
                       key={account.id}
-                      className="border border-gray-300 p-4 rounded-md flex flex-col h-36 w-48 overflow-hidden transform hover:scale-105 transition duration-300 my-2 shadow-md"
+                      className="my-2 flex h-36 w-48 transform flex-col overflow-hidden rounded-md border border-gray-300 p-4 shadow-md transition duration-300 hover:scale-105"
                       onDoubleClick={() => handleAccountDoubleClick(account)}
                     >
                       {deleteModalForAccount === account.id ? (
@@ -127,7 +127,7 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
                       ) : (
                         <>
                           <div className="flex-grow">
-                            <p className="text-lg font-bold mb-2 truncate break-all">
+                            <p className="mb-2 truncate break-all text-lg font-bold">
                               <i
                                 className="fa fa-user mr-2"
                                 aria-hidden="true"
@@ -150,7 +150,7 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
                             </p>
                           </div>
                           <button
-                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-auto mt-2"
+                            className="mx-auto mt-2 rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
                             onClick={() => handleDeleteClick(account.id)}
                           >
                             Delete
@@ -170,12 +170,12 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
                     filteredAccounts.map((account) => (
                       <div
                         key={account.id}
-                        className="account-card bg-gray-100 border border-gray-300 p-4 w-full md:max-w-xl my-4 rounded shadow-md flex flex-wrap items-center justify-between transform hover:scale-105 hover:shadow-lg transition-all duration-300"
+                        className="account-card my-4 flex w-full transform flex-wrap items-center justify-between rounded border border-gray-300 bg-gray-100 p-4 shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg md:max-w-xl"
                         onDoubleClick={() => handleAccountDoubleClick(account)}
                       >
                         <div className="flex flex-wrap items-center">
                           <div className="mr-4">
-                            <p className="text-lg font-bold mb-2 break-all">
+                            <p className="mb-2 break-all text-lg font-bold">
                               <i
                                 className="fa fa-user mr-2"
                                 aria-hidden="true"
@@ -195,7 +195,7 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
                         </div>
                         {deleteModalForAccount !== account.id && (
                           <button
-                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-auto mt-2"
+                            className="ml-auto mt-2 rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
                             onClick={() => handleDeleteClick(account.id)}
                           >
                             Delete
@@ -221,7 +221,7 @@ const AccountsPage = ({ token, accModalStatus, closeAcc }) => {
             <AccountDetails
               account={selectedAccount}
               onClose={closeAccountDetails}
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform"
             />
           )}
         </div>

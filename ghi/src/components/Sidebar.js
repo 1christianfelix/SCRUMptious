@@ -27,18 +27,18 @@ const Sidebar = (props) => {
 
   return (
     <nav
-      className="flex flex-col w-[6.5rem] h-screen bg-[#3a3a3a]"
+      className="flex h-screen w-[6.5rem] flex-col bg-[#3a3a3a]"
       onClick={handleCloseModals}
     >
-      <section className="LOGO-SECTION bg-white bg-gradient-to-l from-white to-[#FAFFBB] flex h-[5.37500rem] drop-shadow-md">
-        <span className="Scrumptious m-[2.5%] text-black font-Sudo_Var">
+      <section className="LOGO-SECTION flex h-[5.37500rem] bg-white bg-gradient-to-l from-white to-[#FAFFBB] drop-shadow-md">
+        <span className="Scrumptious m-[2.5%] font-Sudo_Var text-black">
           SCRUMPTIOUS
         </span>
       </section>
 
       {/* Need to replace anchor tags with link tags when we have react router ready */}
-      <section className="BTN_SECTION flex h-[48%] border-b-solid border-b-[1px] border-b-dark_mode_dark text-dark_mode_text_white">
-        <div className="w-[100%] flex flex-col gap-3 items-center first:mt-[25%]">
+      <section className="BTN_SECTION border-b-solid flex h-[48%] border-b-[1px] border-b-dark_mode_dark text-dark_mode_text_white">
+        <div className="flex w-[100%] flex-col items-center gap-3 first:mt-[25%]">
           <div
             className="nav-button-2 "
             data-tooltip-id="Stickyboards"
@@ -82,11 +82,11 @@ const Sidebar = (props) => {
         </div>
       </section>
       {/* This section below needs to be configured to use custom components */}
-      <section className="USER_SECTION flex-grow flex flex-col justify-between items-center gap-3">
+      <section className="USER_SECTION flex flex-grow flex-col items-center justify-between gap-3">
         <div className="text-white">
           <span>Chat</span>
         </div>
-        <section className="flex flex-col gap-3 w-[100%] items-center">
+        <section className="flex w-[100%] flex-col items-center gap-3">
           <div
             className="nav-button-2 mb-[6%] text-dark_mode_text_white"
             data-tooltip-id="Account"

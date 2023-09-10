@@ -190,7 +190,7 @@ function Signup(props) {
         </div>
 
         <button
-          className={`mt-[1rem] w-[20rem] rounded-[19px] text-[2.5rem]
+          className={`my-[1.5rem] w-[20rem] rounded-[19px] text-[2.5rem]
            ${
              !firstName || !lastName || !email || !password || !confirmPassword
                ? "bg-gray-400 text-gray-300"
