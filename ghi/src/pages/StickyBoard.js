@@ -57,6 +57,10 @@ const StickyBoard = (props) => {
     done: { title: "Done", stickies: ["empty"] },
   });
 
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
+
   //  modalStatus determines wheater we mount a form modal on the DOM. form will determine which one to mount (create or update)
   const [modalStatus, setModalStatus] = useState(false);
   const [form, setForm] = useState("create");
@@ -217,6 +221,7 @@ const StickyBoard = (props) => {
       });
       if (response.ok) {
         console.log("success update, now updating sticky");
+        return true;
       }
     };
 
@@ -245,8 +250,23 @@ const StickyBoard = (props) => {
       }
     };
 
-    updateStickyCategoryDND(itemCopy.id, destination.droppableId);
-    updateStickyBoardCategoryDND(destination.droppableId, source.droppableId);
+    // Handle database updates in order
+    async function updateStickyAndBoard(itemCopy, destination, source) {
+      try {
+        if (
+          await updateStickyCategoryDND(itemCopy.id, destination.droppableId)
+        ) {
+          await updateStickyBoardCategoryDND(
+            destination.droppableId,
+            source.droppableId,
+          );
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    updateStickyAndBoard(itemCopy, destination, source);
   };
 
   const [searchPriority, setPriority] = useState("");
@@ -384,6 +404,11 @@ const StickyBoard = (props) => {
             className=""
           >
             <div className="grid grid-cols-5">
+              {/*
+                state = frontend db
+                data = key values in state (backlog, todo, doing...)
+                key = key value represented as categories
+               */}
               {_.map(state, (data, key) => {
                 return (
                   <div key={key} className="flex flex-col">
@@ -406,7 +431,7 @@ const StickyBoard = (props) => {
                           <div
                             ref={provided.innerRef}
                             {...provided.droppableProps}
-                            className="scrollbar-card h-[100%] max-h-[calc(100vh-12.75rem)] place-self-start overflow-auto overflow-x-hidden pr-5 scrollbar-thumb-slate-400 scrollbar-w-1" // Add overflow-y-auto here
+                            className="scrollbar-card h-[100%] max-h-[calc(100vh-9.75rem)] place-self-start overflow-auto overflow-x-hidden pr-5 scrollbar-thumb-slate-400 scrollbar-w-1 " // Add overflow-y-auto here
                             style={{
                               backgroundColor: snapshot.isDraggingOver
                                 ? "#00000015"

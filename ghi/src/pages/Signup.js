@@ -2,9 +2,11 @@ import React from "react";
 import { useState } from "react";
 import signup_signin_bg from "../images/signup-signin-bg.png";
 import { useNavigate, Link } from "react-router-dom";
+import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function Signup(props) {
   const navigate = useNavigate();
+  const { login } = useToken();
 
   const [email, setEmail] = useState("");
   const handleEmailChange = (event) => {
@@ -46,7 +48,7 @@ function Signup(props) {
       `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/accounts`,
     );
     const data = await response.json();
-    const emails = data.map((user) => user.email);
+    const emails = data != null ? data.map((user) => user.email) : [];
 
     if (
       firstName === "" ||
@@ -85,7 +87,7 @@ function Signup(props) {
 
       const postResponse = await fetch(accountUrl, fetchConfig);
       if (postResponse.ok) {
-        navigate("/signin");
+        login(email, password);
       }
     }
   };
@@ -190,7 +192,7 @@ function Signup(props) {
         </div>
 
         <button
-          className={`mt-[1rem] w-[20rem] rounded-[19px] text-[2.5rem]
+          className={`my-[1.5rem] w-[20rem] rounded-[19px] text-[2.5rem]
            ${
              !firstName || !lastName || !email || !password || !confirmPassword
                ? "bg-gray-400 text-gray-300"

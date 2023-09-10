@@ -35,7 +35,7 @@ const Signin = () => {
         src={signup_signin_bg}
         className="absolute -z-10 h-screen w-screen"
       />
-      <div className="SIGNIN z-10 flex w-[652px] flex-col items-center gap-10 rounded-[19px] bg-slate-300 p-10 1080:scale-75 1440:scale-105">
+      <div className="SIGNIN z-10 flex w-[652px] flex-col items-center gap-10 rounded-[19px] bg-slate-200 p-10 1080:scale-75 1440:scale-105">
         <p className="text-[4rem] leading-none text-dark_mode_dark">Sign In</p>
         {invalidUserDisplay && (
           <div className=" bg-red-500/75 px-6 py-4 text-2xl text-white shadow-2xl">
@@ -44,26 +44,40 @@ const Signin = () => {
         )}
 
         <form onSubmit={handleSignin} className="flex flex-col gap-8">
-          <div className="EMAIL-FIELD flex h-[67px] w-[468px] rounded-[19px] border-[1px] border-solid border-dark_mode_medium bg-[#c0c0c0] bg-opacity-[.3] ">
+          <div className="EMAIL-FIELD2 flex flex-col">
+            <label
+              className="ml-2 text-2xl text-dark_mode_font text-opacity-50"
+              htmlFor="email"
+            >
+              Email
+            </label>
             <input
               type="text"
-              placeholder="Email"
+              placeholder=" "
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-[100%] rounded-[19px] bg-transparent pl-5 text-2xl transition-colors placeholder:text-2xl placeholder:text-dark_mode_font focus:outline-none hover:bg-[#fff] hover:bg-opacity-[.15]"
+              className="h-[67px] w-[468px] rounded-[19px] border-[1px] border-solid border-dark_mode_medium bg-transparent pl-5 text-2xl text-dark_mode_font transition-colors focus:border-[4px] focus:border-blue-500 focus:outline-none"
               required
             />
           </div>
-          <div className="flex h-[67px] w-[468px] rounded-[19px] border-[1px] border-solid border-dark_mode_medium bg-[#c0c0c0] bg-opacity-[.3]">
+
+          <div className="PASSWORD-FIELD2 flex flex-col">
+            <label
+              className="ml-2 text-2xl text-dark_mode_font text-opacity-50"
+              htmlFor="password"
+            >
+              Password
+            </label>
             <input
               type="password"
-              placeholder="Password"
+              placeholder=" "
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-[100%] rounded-[19px] bg-transparent pl-5 text-2xl transition-colors placeholder:text-2xl placeholder:text-dark_mode_font focus:outline-none hover:bg-[#fff] hover:bg-opacity-[.15]"
+              className="h-[67px] w-[468px] rounded-[19px] border-[1px] border-solid border-dark_mode_medium bg-transparent pl-5 text-2xl text-dark_mode_font transition-colors focus:border-[4px] focus:border-blue-500 focus:outline-none"
               required
             />
           </div>
+
           <button
             onClick={handleSignin}
             className={`mt-[.5rem] w-[20rem] justify-center self-center rounded-[19px] ${

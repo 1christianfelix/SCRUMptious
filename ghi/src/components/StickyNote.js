@@ -9,6 +9,7 @@ const StickyNote = (props) => {
   let priorityColor = "bg-white";
   let subject = props.subject;
   let content = props.content;
+  console.log(content);
   let start = new Date(props.start).toLocaleDateString();
   let deadline = new Date(props.deadline).toLocaleDateString();
   let headerColor = null;
@@ -59,16 +60,16 @@ const StickyNote = (props) => {
 
   return (
     <div className=" relative">
-      <div className="STICKY w-[15.7275rem] h-[16.53625rem] 1440:w-[calc(15.7275rem*1.333)] 1440:h-[calc(16.53625rem*1.333)] drop-shadow-sticky">
+      <div className="STICKY h-[16.53625rem] w-[15.7275rem] drop-shadow-sticky 1440:h-[calc(16.53625rem*1.333)] 1440:w-[calc(15.7275rem*1.333)]">
         <div
-          className={`STICKY_HEADER h-[22%] flex justify-between items-center px-5 ${headerColor} rounded-t-[19px]`}
+          className={`STICKY_HEADER flex h-[22%] items-center justify-between px-5 ${headerColor} rounded-t-[19px]`}
         >
           <div
-            className={`${priorityColor} h-[1.37500rem] w-[5.37500rem] 1440:w-[calc(5.37500rem*1.333)] 1440:h-[calc(1.37500rem*1.333)] flex items-center justify-center drop-shadow-sticky text-dark_mode_font`}
+            className={`${priorityColor} flex h-[1.37500rem] w-[5.37500rem] items-center justify-center text-dark_mode_font drop-shadow-sticky 1440:h-[calc(1.37500rem*1.333)] 1440:w-[calc(5.37500rem*1.333)]`}
           >
             <span>{priority}</span>
           </div>
-          <div className="flex flex-col  text-sm 1440:text-lg">
+          <div className="flex flex-col text-sm text-gray-700 1440:text-lg">
             <div className="flex justify-between">
               <span className="mr-1  1440:mr-2">Start:</span>
               <span>{start}</span>
@@ -80,18 +81,18 @@ const StickyNote = (props) => {
           </div>
         </div>
         <div
-          className={`STICKY_BODY h-[78%] flex flex-col text-dark_mode_text_white ${bodyColor} rounded-b-[19px]`}
+          className={`STICKY_BODY flex h-[78%] flex-col text-dark_mode_text_white ${bodyColor} rounded-b-[19px]`}
         >
-          <span className="inline-block m-[1rem] mx-5 text-lg 1440:text-2xl ">
+          <span className="m-[1rem] mx-5 inline-block text-lg 1440:text-2xl ">
             {subject}
           </span>
-          <div className="flex-grow flex flex-col text-sm overflow-auto mx-5 scrollbar-card scrollbar-w-[.4rem] 1440:scrollbar-w-[.6rem] 1440:text-lg pr-[.5rem] break-words">
+          <div className="scrollbar-card mx-5 flex flex-grow flex-col overflow-auto break-words pr-[.5rem] text-sm scrollbar-w-[.4rem] 1440:text-lg 1440:scrollbar-w-[.6rem]">
             <p className="">{content}</p>
           </div>
           <img
             alt="expand"
             src={expand_icon}
-            className="m-[.7rem] self-end expand-button invisible"
+            className="expand-button invisible m-[.7rem] self-end"
             // onClick={}
           />
         </div>
