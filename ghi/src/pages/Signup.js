@@ -46,7 +46,7 @@ function Signup(props) {
       `${process.env.REACT_APP_SCRUMPTIOUS_SERVICE_API_HOST}/accounts`,
     );
     const data = await response.json();
-    const emails = data.map((user) => user.email);
+    const emails = data != null ? data.map((user) => user.email) : [];
 
     if (
       firstName === "" ||
