@@ -431,7 +431,7 @@ const StickyBoard = (props) => {
                           <div
                             ref={provided.innerRef}
                             {...provided.droppableProps}
-                            className="scrollbar-card h-[100%] max-h-[calc(100vh-12.75rem)] place-self-start overflow-auto overflow-x-hidden pr-5 scrollbar-thumb-slate-400 scrollbar-w-1" // Add overflow-y-auto here
+                            className="scrollbar-card h-[100%] max-h-[calc(100vh-9.75rem)] place-self-start overflow-auto overflow-x-hidden pr-5 scrollbar-thumb-slate-400 scrollbar-w-1 " // Add overflow-y-auto here
                             style={{
                               backgroundColor: snapshot.isDraggingOver
                                 ? "#00000015"

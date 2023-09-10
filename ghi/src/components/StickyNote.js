@@ -69,7 +69,7 @@ const StickyNote = (props) => {
           >
             <span>{priority}</span>
           </div>
-          <div className="flex flex-col  text-sm 1440:text-lg">
+          <div className="flex flex-col text-sm text-gray-700 1440:text-lg">
             <div className="flex justify-between">
               <span className="mr-1  1440:mr-2">Start:</span>
               <span>{start}</span>
