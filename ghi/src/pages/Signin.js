@@ -13,11 +13,13 @@ const Signin = () => {
   const [invalidUserDisplay, setInvalidUserDisplay] = useState(false);
 
   const validUserCheck = () => {
-    if (token == null) {
-      setInvalidUserDisplay(true);
-    } else {
-      setInvalidUserDisplay(false);
-    }
+    setTimeout(() => {
+      if (token == null) {
+        setInvalidUserDisplay(true);
+      } else {
+        setInvalidUserDisplay(false);
+      }
+    }, 500);
   };
 
   const handleSignin = async (e) => {
@@ -58,7 +60,7 @@ const Signin = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-[100%] rounded-[19px] bg-transparent pl-5 text-2xl transition-colors placeholder:text-2xl placeholder:text-dark_mode_font focus:rounded-[19px] focus:outline-none hover:bg-[#fff] hover:bg-opacity-[.15]"
+              className="w-[100%] rounded-[19px] bg-transparent pl-5 text-2xl transition-colors placeholder:text-2xl placeholder:text-dark_mode_font focus:outline-none hover:bg-[#fff] hover:bg-opacity-[.15]"
               required
             />
           </div>
@@ -78,7 +80,7 @@ const Signin = () => {
               <span> Don't have an account? </span>
               <Link
                 to="/signup"
-                className="inline-block self-center text-white underline hover:text-slate-700"
+                className="inline-block self-center text-blue-700 underline hover:text-slate-700"
               >
                 Sign up here!
               </Link>
